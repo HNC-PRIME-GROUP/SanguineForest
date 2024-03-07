@@ -10,5 +10,13 @@ namespace Sanguine_Forest
     internal class Scene
     {
 
+        public Scene()
+        {
+
+        }
+
+
+
+
     }
 }

@@ -9,5 +9,12 @@ namespace Sanguine_Forest
     /// </summary>
     internal class Module : GameObject
     {
+        
+        // Module follow after this object
+        private GameObject _parent;
+
+
+
+
     }
 }

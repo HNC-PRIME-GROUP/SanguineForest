@@ -10,6 +10,20 @@ namespace Sanguine_Forest
     internal class AnimationModule : Module
     {
         private SpriteModule _spriteModule;
+        private Rectangle frameRectangle;
+
+        public AnimationModule(GameObject parent, Vector2 shift) : base (parent, shift) 
+        {
+        
+        }
+
+
+        public override void UpdateMe()
+        {
+
+        }
+
+
 
     }
 }

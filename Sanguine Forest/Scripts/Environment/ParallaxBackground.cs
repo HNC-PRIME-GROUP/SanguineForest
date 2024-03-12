@@ -9,5 +9,13 @@ namespace Sanguine_Forest
     /// </summary>
     internal class ParallaxBackground : GameObject
     {
+
+        public ParallaxBackground(Vector2 position, float rotation) : base (position, rotation) 
+        {
+            
+        }
+
+        private SpriteModule _spriteModule;
+
     }
 }

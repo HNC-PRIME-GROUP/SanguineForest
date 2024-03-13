@@ -11,10 +11,12 @@ namespace Sanguine_Forest
     {
         private SpriteModule _spriteModule;
         private Rectangle frameRectangle;
-
-        public AnimationModule(GameObject parent, Vector2 shift) : base (parent, shift) 
-        {
         
+
+        public AnimationModule(GameObject parent, Vector2 shift, Rectangle framRec, SpriteModule spriteModule) : base (parent, shift) 
+        {
+            _spriteModule = spriteModule;
+            frameRectangle = framRec;
         }
 
 
@@ -22,6 +24,12 @@ namespace Sanguine_Forest
         {
 
         }
+
+        public Rectangle GetFrameRectabgle()
+        {
+            return frameRectangle;
+        }
+
 
 
 

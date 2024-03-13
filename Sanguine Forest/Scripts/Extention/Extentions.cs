@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Extention
 {
     static class Extentions
@@ -44,6 +45,18 @@ namespace Extention
             return value;
         }
 
+
+        public enum SpriteLayer
+        {
+            background3,
+            background2,
+            background1,            
+            environment2,
+            environment1,
+            character2,
+            character1,
+            foreground
+        }
 
 
 

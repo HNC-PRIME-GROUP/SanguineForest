@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using Extention;
 
 namespace Sanguine_Forest
 {
@@ -16,6 +17,7 @@ namespace Sanguine_Forest
 
         private float animationSpeed;
         private float animationTimer;
+        private Rectangle _currentFrame;
 
         
 
@@ -23,7 +25,10 @@ namespace Sanguine_Forest
         {
             _spriteModule = spriteModule;
             animationSpeed = 1f;
-            
+            _currentFrame = spriteSheetData.frameRec;
+
+
+
         }
 
 
@@ -35,10 +40,24 @@ namespace Sanguine_Forest
         public void Play(string sequence)
         {
             
+
         }
 
+        public void PlayOnce(string sequence)
+        {
 
+        }
 
+        /// <summary>
+        /// Return frame rectangle for sprite module
+        /// </summary>
+        /// <returns></returns>
+        public Rectangle GetFrameRectangle()
+        {
+            return _currentFrame;
+        }
+
+        
 
 
     }
@@ -58,5 +77,7 @@ namespace Sanguine_Forest
         }
 
     }
+
+  
 
 }

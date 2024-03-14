@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Extention;
 
 namespace Sanguine_Forest
 {
@@ -32,6 +33,10 @@ namespace Sanguine_Forest
 
         protected override void Update(GameTime gameTime)
         {
+            //Global time
+            Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 

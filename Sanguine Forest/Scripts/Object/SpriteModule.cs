@@ -11,10 +11,6 @@ namespace Sanguine_Forest
     /// </summary>
     internal class SpriteModule : Module
     {
-
-
-
-
         private Texture2D texture;
         private Color color = Color.White;
         // default rectangle in case if this sprite is not under the animation control
@@ -55,7 +51,7 @@ namespace Sanguine_Forest
         /// <param name="animation">Animation module</param>
         public void DrawMe(SpriteBatch sp, AnimationModule animation)
         {
-            sp.Draw(texture, GetPosition(), animation.GetFrameRectabgle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, (int)layer);
+            sp.Draw(texture, GetPosition(), animation.GetFrameRectangle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, (int)layer);
         }
 
 

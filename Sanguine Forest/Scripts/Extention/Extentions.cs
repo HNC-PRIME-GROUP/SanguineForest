@@ -12,7 +12,7 @@ namespace Extention
 {
     static class Extentions
     {
-
+        static public float globalTime;
         static public float ModulasClamp(float value, float min, float max)
         {
             float ret;
@@ -57,6 +57,8 @@ namespace Extention
             character1,
             foreground
         }
+
+
 
 
 

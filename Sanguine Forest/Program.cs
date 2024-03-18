@@ -1,3 +1,3 @@
 ﻿
-using var game = new Sanguine_Forest.Game1();
+using var game = new Sanguine_Forest.TestGame();
 game.Run();

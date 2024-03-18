@@ -10,5 +10,6 @@ namespace Sanguine_Forest
     /// </summary>
     internal class Platform : GameObject
     {
+        public Platform(Vector2 position, float rotation): base(position, rotation) { }
     }
 }

@@ -9,5 +9,6 @@ namespace Sanguine_Forest
     /// </summary>
     internal class Particle : GameObject
     {
+        public Particle(Vector2 position, float rotation) : base(position, rotation) { }
     }
 }

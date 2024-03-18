@@ -9,5 +9,7 @@ namespace Sanguine_Forest
     /// </summary>
     internal class Decor : GameObject
     {
+
+        public Decor(Vector2 position, float rotation) : base(position, rotation) { }
     }
 }

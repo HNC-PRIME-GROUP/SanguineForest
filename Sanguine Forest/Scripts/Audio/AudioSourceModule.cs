@@ -9,5 +9,6 @@ namespace Sanguine_Forest
     /// </summary>
     internal class AudioSourceModule : Module
     {
+        public AudioSourceModule(GameObject parent, Vector2 shift) : base(parent, shift) { }
     }
 }

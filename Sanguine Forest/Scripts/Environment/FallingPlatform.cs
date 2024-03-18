@@ -10,5 +10,6 @@ namespace Sanguine_Forest
     /// </summary>
     internal class FallingPlatform : Platform
     {
+        public FallingPlatform(Vector2 position, float rotation): base (position, rotation) { }
     }
 }

@@ -9,5 +9,6 @@ namespace Sanguine_Forest
     /// </summary>
     internal class ListenerModule : Module
     {
+        public ListenerModule(GameObject parent, Vector2 shift): base (parent, shift) { }
     }
 }

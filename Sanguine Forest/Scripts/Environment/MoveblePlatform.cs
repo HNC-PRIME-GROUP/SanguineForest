@@ -9,5 +9,6 @@ namespace Sanguine_Forest
     /// </summary>
     internal class MoveblePlatform : Platform
     {
+        public MoveblePlatform(Vector2 position, float rotation): base(position, rotation) { }
     }
 }

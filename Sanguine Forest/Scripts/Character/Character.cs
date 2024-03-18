@@ -31,6 +31,19 @@ namespace Sanguine_Forest
             
         }
 
+        public override void Collided(GameObject collision)
+        {
+            if(collision is Platform)
+            {
+                Platform platform = (Platform)collision;
+                // logic of staying on a platform
+                // if we need a physic rectangle of platform here:
+                // platform.GetPlatformRectangle();
+
+            }
+        }
+        
+
 
 
 

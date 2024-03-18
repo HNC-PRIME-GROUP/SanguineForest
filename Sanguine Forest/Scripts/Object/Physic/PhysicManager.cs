@@ -49,13 +49,48 @@ namespace Sanguine_Forest
                         {
                             if (physicModules[i].isPhysicActive && physicModules[j].isPhysicActive)
                             {
-                                physicModules[i].Collided(physicModules[j]);
+                                physicModules[i].Collided(new Collision(physicModules[i], physicModules[j])); 
                             }
                         }
                     }
                 }
 
             }
+        }
+
+    }
+
+    /// <summary>
+    /// Collision is a thing that is creating in a moment of collision of two Physic modules. 
+    /// Contain data about both of them. So we can distingush difference between two modules
+    /// if there are many phycisModules in our GameObject. For example: one for colliding with 
+    /// other object and one for platforms in a Character class. 
+    /// </summary>
+    public class Collision
+    {
+        PhysicModule thisPhysicModule;
+        PhysicModule collidedPhysicModule;
+
+        /// <summary>
+        /// The thing that created in a moment of collision and contain data about two collided modules. 
+        /// </summary>
+        /// <param name="thisPhysicModule">Physic module of an object that </param>
+        /// <param name="collidedPhysicModule"></param>
+        internal Collision(PhysicModule thisPhysicModule, PhysicModule collidedPhysicModule)
+        {
+            this.thisPhysicModule = thisPhysicModule;
+            this.collidedPhysicModule = collidedPhysicModule;
+        }
+
+
+        internal PhysicModule GetThisPhysicModule()
+        {
+            return thisPhysicModule;
+        }
+
+        internal PhysicModule GetCollidedPhysicModule()
+        {
+            return collidedPhysicModule;
         }
 
     }

@@ -84,7 +84,7 @@ namespace Sanguine_Forest
         /// Use the code word 'override' to override this method in children. 
         /// </summary>
         /// <param name="collision">Game object that collided with the element</param>
-        public virtual void Collided(GameObject collision) { }
+        public virtual void Collided(Collision collision) { }
 
 
         /// <summary>

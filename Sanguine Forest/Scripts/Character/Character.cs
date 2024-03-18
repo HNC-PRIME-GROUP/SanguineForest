@@ -13,6 +13,7 @@ namespace Sanguine_Forest
         private AnimationModule _animationModule;
 
 
+
         public Character(Vector2 position, float rotation) : base(position, rotation)
         {
 
@@ -31,11 +32,11 @@ namespace Sanguine_Forest
             
         }
 
-        public override void Collided(GameObject collision)
+        public new void Collided(Collision collision)
         {
-            if(collision is Platform)
+            if(collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
-                Platform platform = (Platform)collision;
+                Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
                 // logic of staying on a platform
                 // if we need a physic rectangle of platform here:
                 // platform.GetPlatformRectangle();

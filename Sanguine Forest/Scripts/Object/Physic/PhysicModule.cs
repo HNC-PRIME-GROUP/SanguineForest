@@ -37,9 +37,9 @@ namespace Sanguine_Forest
         /// Method send the data abput parent of collided module
         /// </summary>
         /// <param name="obj"></param>
-        public new void Collided(GameObject obj)
+        public new void Collided(Collision collision)
         {
-            _parent.Collided(obj.GetParent());
+            
         }
 
         /// <summary>

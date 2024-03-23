@@ -12,7 +12,31 @@ namespace Sanguine_Forest
         private SpriteModule _spriteModule;
         private AnimationModule _animationModule;
 
+        enum AniState
+        {
+            walkRight,
+            walkLeft,
 
+            standRight,
+            standLeft,
+
+            jumpRight,
+            jumpLeft,
+
+            hugWallRight,
+            hugWallLeft,
+
+            drinkRight,
+            drinkLeft
+        }
+
+        private AniState _currAni;
+
+        private Rectangle _feet;
+        private const int Foot = 3;
+
+        private Rectangle _walldetL;
+        private Rectangle _walldetR;
 
         public Character(Vector2 position, float rotation) : base(position, rotation)
         {

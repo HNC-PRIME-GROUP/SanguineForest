@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Extention;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct3D9;
 
 namespace Sanguine_Forest
 {
@@ -14,39 +16,92 @@ namespace Sanguine_Forest
 
         enum AniState
         {
-            walkRight,
-            walkLeft,
-
-            standRight,
-            standLeft,
-
-            jumpRight,
-            jumpLeft,
-
-            hugWallRight,
-            hugWallLeft,
-
-            drinkRight,
-            drinkLeft
+            walk,
+            stand,
+            jump,
+            hugWall,
+            drink
+        }
+        enum looking
+        {
+            Right,
+            Left
         }
 
         private AniState _currAni;
+        private looking _looking;
 
-        private Rectangle _feet;
-        private const int Foot = 3;
+        private Rectangle feet;
+        private const int foot = 3;
 
         private Rectangle _walldetL;
         private Rectangle _walldetR;
 
+        private Vector2 pos;
+        private Rectangle collision;
+
+        private float speed;
+        private Vector2 vel;
+
+        private Texture2D txr;
+
         public Character(Vector2 position, float rotation) : base(position, rotation)
         {
+            _spriteModule = new SpriteModule(this, Vector2.Zero, txr, 
+                Extentions.SpriteLayer.character1);
 
+            pos = position;
+            collision = new Rectangle((int)pos.X, (int)pos.Y, txr.Width, txr.Height);
+
+            feet = new Rectangle(collision.X + foot, collision.Y + collision.Height - 2,
+                collision.Width - (foot * 2), 2);
+
+            _walldetL = new Rectangle(collision.X - 1, collision.Y, 
+                2, collision.Height);
+
+            _walldetR = new Rectangle(collision.X + collision.Width, collision.Y,
+                2, collision.Height);
+
+            speed = 1f;
+            vel = Vector2.Zero;
+
+            _looking = looking.Right;
+            _currAni = AniState.stand;
         }
 
         public override void UpdateMe()
         {
             _spriteModule.UpdateMe();
             _animationModule.UpdateMe();
+
+            vel.X = 0;
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                vel.X = speed;
+                _looking = looking.Right;
+                if (vel.Y != 0)
+                    _currAni = AniState.jump;
+                else
+                    _currAni = AniState.walk;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                vel.X = -speed;
+                _looking = looking.Left;
+                if (vel.Y != 0)
+                    _currAni = AniState.jump;
+                else
+                    _currAni = AniState.walk;
+            }
+            else if (_currAni == AniState.jump || _currAni == AniState.walk ||
+                _currAni == AniState.hugWall || _currAni == AniState.drink)
+            {
+                _currAni = AniState.stand;
+            }
+
+            pos += vel;
+            collision.X = (int)pos.X;
+            collision.Y = (int)pos.Y;
         }
 
         public void DrawMe(SpriteBatch sp)

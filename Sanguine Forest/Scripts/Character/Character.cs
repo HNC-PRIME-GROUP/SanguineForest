@@ -14,6 +14,8 @@ namespace Sanguine_Forest
 
 
 
+
+
         public Character(Vector2 position, float rotation) : base(position, rotation)
         {
 
@@ -23,6 +25,7 @@ namespace Sanguine_Forest
         {
             _spriteModule.UpdateMe();
             _animationModule.UpdateMe();
+
         }
 
         public void DrawMe(SpriteBatch sp)

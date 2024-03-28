@@ -28,7 +28,13 @@ namespace Sanguine_Forest
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            
+            //Debug initialising
+            DebugManager.SpriteBatch = _spriteBatch;
+            DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
+            DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
+            DebugManager.isWorking = true;
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -49,6 +55,14 @@ namespace Sanguine_Forest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            _spriteBatch.Begin(SpriteSortMode.Deferred);
+
+
+
+            //Debug test
+            DebugManager.DebugRectangle(new Rectangle(50,50,50,50));
+
+            _spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

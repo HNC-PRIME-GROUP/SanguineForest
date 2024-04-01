@@ -54,6 +54,13 @@ namespace Sanguine_Forest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            _spriteBatch.Begin(SpriteSortMode.Deferred);
+
+            //Debug test
+            DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+
+            _spriteBatch.End();
+
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

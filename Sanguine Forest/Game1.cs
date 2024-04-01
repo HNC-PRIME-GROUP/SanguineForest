@@ -29,6 +29,11 @@ namespace Sanguine_Forest
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            DebugManager.SpriteBatch = _spriteBatch;
+            DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
+            DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
+            DebugManager.isWorking = true;
         }
 
         protected override void Update(GameTime gameTime)

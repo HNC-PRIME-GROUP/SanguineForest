@@ -32,3 +32,21 @@
 /processorParam:TextureFormat=Compressed
 /build:Extentions/debugFont.spritefont
 
+#begin Sounds/Sound_Char_Climb.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Sound_Char_Climb.wav
+
+#begin Sounds/Sound_Char_Jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Sound_Char_Jump.wav
+
+#begin Sounds/Sound_Char_Run.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Sound_Char_Run.wav
+

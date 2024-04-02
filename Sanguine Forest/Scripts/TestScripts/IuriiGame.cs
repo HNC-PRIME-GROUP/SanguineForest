@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Extention;
+using Sanguine_Forest.Scripts.TestScripts;
 
 namespace Sanguine_Forest
 {
@@ -9,6 +10,14 @@ namespace Sanguine_Forest
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        private IuriiTestGameObject _gameObject;
+
+
+        //Control
+        private KeyboardState currKeyState;
+        private KeyboardState prevKeyState;
+
 
         public IuriiGame()
         {
@@ -26,8 +35,14 @@ namespace Sanguine_Forest
 
         protected override void LoadContent()
         {
+
+            //AudioSetting
+            AudioManager.GeneralVolume = 1.0f;
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+            _gameObject = new IuriiTestGameObject(Vector2.Zero,0f,Content);
 
             //Debug initialising
             DebugManager.SpriteBatch = _spriteBatch;
@@ -39,14 +54,17 @@ namespace Sanguine_Forest
 
         protected override void Update(GameTime gameTime)
         {
+            currKeyState = Keyboard.GetState();
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            _gameObject.UpdateMe(currKeyState,prevKeyState);
 
-            // TODO: Add your update logic here
+
+            prevKeyState = currKeyState;
 
             base.Update(gameTime);
         }

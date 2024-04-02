@@ -31,8 +31,8 @@ namespace Sanguine_Forest
             // TODO: use this.Content to load your game content here
 
             DebugManager.SpriteBatch = _spriteBatch;
-            DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
-            DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
+            DebugManager.DebugTexture = Content.Load<Texture2D>("Extensions/DebugBounds");
+            DebugManager.DebugFont = Content.Load<SpriteFont>("Extensions/debugFont");
             DebugManager.isWorking = true;
         }
 

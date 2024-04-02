@@ -45,6 +45,9 @@ namespace Sanguine_Forest
 
         private Texture2D txr;
 
+        private float gravity;
+        private int ground;
+
         public Character(Vector2 position, float rotation) : base(position, rotation)
         {
             _spriteModule = new SpriteModule(this, Vector2.Zero, txr, 
@@ -64,6 +67,9 @@ namespace Sanguine_Forest
 
             speed = 1f;
             vel = Vector2.Zero;
+
+            gravity = 0.3f;
+            ground = 223;
 
             _looking = looking.Right;
             _currAni = AniState.stand;
@@ -102,11 +108,36 @@ namespace Sanguine_Forest
             pos += vel;
             collision.X = (int)pos.X;
             collision.Y = (int)pos.Y;
+
+            if (collision.Bottom < ground)
+            {
+                if(vel.Y < gravity * 15)
+                {
+                    vel.Y += gravity;
+                }
+                //platform collision
+                //for ()
+            }
+            else
+            {
+                vel.Y = 0;
+                pos.Y = ground - collision.Height;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                if (vel.Y == 0)
+                {
+                    vel.Y = -5;
+                }
+            }
+
+            feet.X = collision.X + foot;
+            feet.Y = collision.Y + collision.Height - 2;
         }
 
         public void DrawMe(SpriteBatch sp)
         {
-
             _spriteModule.DrawMe(sp);
             
         }

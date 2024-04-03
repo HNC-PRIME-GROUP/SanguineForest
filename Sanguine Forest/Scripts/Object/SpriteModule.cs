@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using Extention;
+using System.Diagnostics;
 
 namespace Sanguine_Forest
 {
@@ -22,6 +23,7 @@ namespace Sanguine_Forest
         //Layer
         private Extentions.SpriteLayer layer;
 
+        private static float testXPosition = 0; // Test variable for horizontal movement
 
         public SpriteModule(GameObject parent, Vector2 shift, Texture2D texture, Extentions.SpriteLayer layer) : base(parent, shift) 
         {
@@ -41,7 +43,22 @@ namespace Sanguine_Forest
         /// <param name="sp"></param>
         public void DrawMe(SpriteBatch sp)
         {
-            sp.Draw(texture, GetPosition(), defaultFrameRectangle, color, GetRotation(), Vector2.Zero, scale, spriteEffect, (int)layer); 
+            Console.WriteLine($"Calling  SpriteModule.Draw");
+
+            Vector2 currentPosition = this.GetParent().GetPosition();
+            sp.Draw(texture, GetPosition(), defaultFrameRectangle, color,
+                GetRotation(), Vector2.Zero, scale, spriteEffect, (float)layer);
+
+            //// Update the position for testing
+            //testXPosition -= 0f;
+            //// Use the updated test position for drawing
+            //Vector2 testPosition = new Vector2(testXPosition, 0);
+            //// Draw the texture at the new test position
+            //sp.Draw(texture, testPosition, null, color, GetRotation(), Vector2.Zero, scale, spriteEffect, (float)layer);
+
+
+            Debug.WriteLine($"Drawing aaaat Position: {GetPosition()}");
+
         }
 
         /// <summary>
@@ -51,8 +68,12 @@ namespace Sanguine_Forest
         /// <param name="animation">Animation module</param>
         public void DrawMe(SpriteBatch sp, AnimationModule animation)
         {
+
+            Vector2 currentPosition = this.GetParent().GetPosition();
             sp.Draw(texture, GetPosition(), animation.GetFrameRectangle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, (int)layer);
+        
         }
+
 
 
         #region Get / Set of all parameters for Draw method

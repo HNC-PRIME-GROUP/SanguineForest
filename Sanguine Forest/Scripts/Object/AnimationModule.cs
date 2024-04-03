@@ -40,6 +40,8 @@ namespace Sanguine_Forest
             _spriteModule = spriteModule;
             animationSpeed = 1f;
             _currentFrame = spriteSheetData.frameRec;
+            _spriteSheetData = spriteSheetData;
+            
 
         }
 
@@ -58,6 +60,8 @@ namespace Sanguine_Forest
             {
                 isTimeToNextFrame = false;
             }
+
+            
         }
         
         /// <summary>
@@ -146,6 +150,12 @@ namespace Sanguine_Forest
     /// </summary>
     public class AnimationSequence
     {
+        public AnimationSequence(Vector2 startPos, int framCount)
+        {
+            startFramPos = startPos;
+            this.framCount = framCount;
+        }
+
         //start location of frame rectangle on a sprite sheet
         public Vector2 startFramPos;
         public int framCount;        

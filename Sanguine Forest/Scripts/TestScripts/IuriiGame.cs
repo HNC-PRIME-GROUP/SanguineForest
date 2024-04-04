@@ -11,7 +11,13 @@ namespace Sanguine_Forest
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+
+        //Camera
+        private Camera camera;
+
+        //Test objects
         private IuriiTestGameObject _gameObject;
+        private IuriiTestGameObject _gameObject1;
 
 
         //Control
@@ -22,6 +28,7 @@ namespace Sanguine_Forest
         public IuriiGame()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -41,8 +48,16 @@ namespace Sanguine_Forest
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            camera = new Camera(Vector2.Zero, new Vector2(-5000, -5000 ), new Vector2(5000, 5000), new Vector2(720, 720));
 
+            //test object
             _gameObject = new IuriiTestGameObject(Vector2.Zero,0f,Content);
+            _gameObject1 = new IuriiTestGameObject(new Vector2(100,100), 0f, Content);
+
+            _gameObject._SpriteModule.SetScale(0.3f);
+            _gameObject1._SpriteModule.SetScale(0.3f);
+
+            camera.SetCameraTarget(_gameObject);
 
             //Debug initialising
             DebugManager.SpriteBatch = _spriteBatch;
@@ -58,10 +73,13 @@ namespace Sanguine_Forest
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            camera.UpdateMe();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _gameObject.UpdateMe(currKeyState,prevKeyState);
+            _gameObject1.UpdateMe();
+            camera.UpdateMe();
 
 
             prevKeyState = currKeyState;
@@ -73,9 +91,10 @@ namespace Sanguine_Forest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront,null,null,null,null,null, camera.GetCam());
 
-
+            _gameObject.DrawMe(_spriteBatch);
+            _gameObject1.DrawMe(_spriteBatch);
 
             //Debug test
             DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));

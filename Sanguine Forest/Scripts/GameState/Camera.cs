@@ -15,6 +15,9 @@ namespace Sanguine_Forest
         public Vector2 position;
         public float zoom;
 
+        //Camera target object
+        private GameObject cameraTarget;
+
         //Size of game
         public Vector2 screenSize;
 
@@ -60,7 +63,7 @@ namespace Sanguine_Forest
             return temp;
         }
 
-        public void UpdateMe(GameObject cameraTarget)
+        public void UpdateMe()
         {
             //following for the target in allowed borders
             if(cameraTarget.GetPosition().X+ screenSize.X/(2*zoom)<rightBottomBorder.X &&
@@ -73,7 +76,7 @@ namespace Sanguine_Forest
             if(cameraTarget.GetPosition().Y+screenSize.Y/(2*zoom)<rightBottomBorder.Y &&
                 cameraTarget.GetPosition().Y+screenSize.Y/(2*zoom)>leftUpperBorder.Y)
             {
-                position.Y = (-cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom));
+                position.Y = (-cameraTarget.GetPosition().Y + screenSize.Y/  (2 * zoom) - 150);
             }
 
 
@@ -118,15 +121,45 @@ namespace Sanguine_Forest
         }
 
 
+
+        /// <summary>
+        /// Change zoom
+        /// </summary>
+        /// <param name="zoom"></param>
         public void SetZoom(float zoom)
         {
             this.zoom = zoom;
         }
 
+        /// <summary>
+        /// Get zoom
+        /// </summary>
+        /// <returns></returns>
         public float GetZoom()
         {
             return zoom;
         }
+
+
+        /// <summary>
+        /// Get current camera terget
+        /// </summary>
+        /// <returns></returns>
+        public GameObject GetCameraTarget()
+        {
+            return cameraTarget;
+        }
+
+        /// <summary>
+        /// Set current camera target
+        /// </summary>
+        /// <param name="cameraTarget"></param>
+        public void SetCameraTarget(GameObject cameraTarget)
+        {
+            this.cameraTarget = cameraTarget;
+        }
+
+
 
 
 

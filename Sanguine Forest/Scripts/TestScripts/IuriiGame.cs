@@ -48,14 +48,16 @@ namespace Sanguine_Forest
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            camera = new Camera(Vector2.Zero, new Vector2(-2560, -2880 + 720), new Vector2(2560, -370), new Vector2(1280, 720));
+            camera = new Camera(Vector2.Zero, new Vector2(-5000, -5000 ), new Vector2(5000, 5000), new Vector2(720, 720));
 
             //test object
             _gameObject = new IuriiTestGameObject(Vector2.Zero,0f,Content);
-            _gameObject1 = new IuriiTestGameObject(Vector2.Zero, 0f, Content);
+            _gameObject1 = new IuriiTestGameObject(new Vector2(100,100), 0f, Content);
 
             _gameObject._SpriteModule.SetScale(0.3f);
             _gameObject1._SpriteModule.SetScale(0.3f);
+
+            camera.SetCameraTarget(_gameObject);
 
             //Debug initialising
             DebugManager.SpriteBatch = _spriteBatch;
@@ -71,13 +73,13 @@ namespace Sanguine_Forest
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            camera.UpdateMe(_gameObject);
+            camera.UpdateMe();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _gameObject.UpdateMe(currKeyState,prevKeyState);
             _gameObject1.UpdateMe();
-            camera.UpdateMe(_gameObject);
+            camera.UpdateMe();
 
 
             prevKeyState = currKeyState;

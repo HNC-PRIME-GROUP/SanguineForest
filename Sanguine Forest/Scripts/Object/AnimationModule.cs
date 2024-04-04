@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Extention;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
 namespace Sanguine_Forest
 {
@@ -38,9 +39,11 @@ namespace Sanguine_Forest
         public AnimationModule(GameObject parent, Vector2 shift, SpriteSheetData spriteSheetData, SpriteModule spriteModule) : base (parent, shift) 
         {
             _spriteModule = spriteModule;
-            animationSpeed = 1f;
+            animationSpeed = 0f;
             _currentFrame = spriteSheetData.frameRec;
             _spriteSheetData = spriteSheetData;
+            List<string> temp = spriteSheetData.animationSequences.Keys.ToList<string>();
+            _animationSequence = spriteSheetData.animationSequences[temp[0]] ;
             
 
         }
@@ -55,13 +58,33 @@ namespace Sanguine_Forest
             {
                 animationTimer = 0f;
                 isTimeToNextFrame = true;
+
+                if (_currentFrameIndex < _animationSequence.framCount)
+                {
+                    _currentFrame.Location += new Vector2(_currentFrame.Width, 0).ToPoint();
+                    _currentFrameIndex++;
+                }
+                else
+                {
+                    switch (_animationSequence.animationState)
+                    {
+                        case AnimationSequence.AnimationState.playing:
+                            _currentFrameIndex = 0;
+                            _currentFrame.Location = _animationSequence.startFramPos.ToPoint();
+                            break;
+                        case AnimationSequence.AnimationState.playingOnce:
+                            break;
+                    }
+                }
+
             }
             else
             {
                 isTimeToNextFrame = false;
             }
 
-            
+
+
         }
         
         /// <summary>
@@ -72,19 +95,24 @@ namespace Sanguine_Forest
         {
             if(sequence!=_currentFramStringInd)
             {
-                _currentFramStringInd = sequence;
+                _animationSequence.animationState = AnimationSequence.AnimationState.stopped;
+                _currentFramStringInd = sequence;                
                 _animationSequence = _spriteSheetData.animationSequences[sequence];
+                _animationSequence.animationState=AnimationSequence.AnimationState.playing;
+
                 _currentFrame.Location = _animationSequence.startFramPos.ToPoint();
                 animationTimer = 0f;
                 _currentFrameIndex = 0;
             }
-            if(isTimeToNextFrame)
-            {
-                if (_currentFrameIndex < _animationSequence.framCount)
-                    _currentFrame.Location = new Vector2(_currentFrame.Width,0).ToPoint();
-                else
-                    _currentFrame.Location = _animationSequence.startFramPos.ToPoint();
-            }
+
+            //if (isTimeToNextFrame)
+            //{
+            //    if (_currentFrameIndex < _animationSequence.framCount)
+            //        _currentFrame.Location = new Vector2(_currentFrame.Width, 0).ToPoint();
+            //    else
+            //        _currentFrame.Location = _animationSequence.startFramPos.ToPoint();
+            //}
+
 
         }
 
@@ -96,17 +124,19 @@ namespace Sanguine_Forest
         {
             if (sequence != _currentFramStringInd)
             {
+                _animationSequence.animationState = AnimationSequence.AnimationState.stopped;
                 _currentFramStringInd = sequence;
                 _animationSequence = _spriteSheetData.animationSequences[sequence];
+                _animationSequence.animationState = AnimationSequence.AnimationState.playingOnce;
                 _currentFrame.Location = _animationSequence.startFramPos.ToPoint();
                 animationTimer = 0f;
                 _currentFrameIndex = 0;
             }
-            if (isTimeToNextFrame)
-            {
-                if (_currentFrameIndex < _animationSequence.framCount)
-                    _currentFrame.Location = new Vector2(_currentFrame.Width, 0).ToPoint();
-            }
+            //if (isTimeToNextFrame)
+            //{
+            //    if (_currentFrameIndex < _animationSequence.framCount)
+            //        _currentFrame.Location = new Vector2(_currentFrame.Width, 0).ToPoint();
+            //}
         }
 
         /// <summary>
@@ -118,6 +148,23 @@ namespace Sanguine_Forest
             return _currentFrame;
         }
 
+        /// <summary>
+        /// Get animation speed
+        /// </summary>
+        /// <returns></returns>
+        public float GetAnimationSpeed()
+        {
+            return animationSpeed;
+        }
+
+        /// <summary>
+        /// Change animation speed
+        /// </summary>
+        /// <param name="speed"></param>
+        public void SetAnimationSpeed(float speed)
+        {
+            animationSpeed = speed;
+        }
         
 
 
@@ -150,10 +197,21 @@ namespace Sanguine_Forest
     /// </summary>
     public class AnimationSequence
     {
+        public enum AnimationState
+        {
+            playing,
+            playingOnce,
+            stopped
+        }
+
+        public AnimationState animationState;
+
+
         public AnimationSequence(Vector2 startPos, int framCount)
         {
             startFramPos = startPos;
             this.framCount = framCount;
+            animationState = AnimationState.stopped;
         }
 
         //start location of frame rectangle on a sprite sheet

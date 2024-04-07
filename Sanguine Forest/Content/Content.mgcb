@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Extensions/DebugBounds.png
+#begin Extentions/DebugBounds.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,16 +23,34 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Extensions/DebugBounds.png
+/build:Extentions/DebugBounds.png
 
-#begin Extensions/debugFont.spritefont
+#begin Extentions/debugFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Extensions/debugFont.spritefont
+/build:Extentions/debugFont.spritefont
 
-#begin Extensions/Sprites_Character_v1.png
+#begin Sounds/Sound_Char_Climb.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Sound_Char_Climb.wav
+
+#begin Sounds/Sound_Char_Jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Sound_Char_Jump.wav
+
+#begin Sounds/Sound_Char_Run.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Sound_Char_Run.wav
+
+#begin Sprites/Sprites_Character_v1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -42,5 +60,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Extensions/Sprites_Character_v1.png
+/build:Sprites/Sprites_Character_v1.png
 

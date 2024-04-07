@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
+using System.Collections.Generic;
 
 namespace Sanguine_Forest
 {
@@ -13,6 +14,9 @@ namespace Sanguine_Forest
     {
         private SpriteModule _spriteModule;
         private AnimationModule _animationModule;
+
+        private Dictionary<string, AnimationSequence> animations;
+        private SpriteSheetData spriteSheetData;
 
         enum AniState
         {
@@ -48,10 +52,21 @@ namespace Sanguine_Forest
         private float gravity;
         private int ground;
 
-        public Character(Vector2 position, float rotation) : base(position, rotation)
+        public Character(Vector2 position, float rotation, Texture2D _txr) : base(position, rotation)
         {
             _spriteModule = new SpriteModule(this, Vector2.Zero, txr, 
                 Extentions.SpriteLayer.character1);
+
+            txr = _txr;
+
+            animations = new Dictionary<string, AnimationSequence>();
+            animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));
+            animations.Add("Run", new AnimationSequence(new Vector2(0, 700), 3));
+            animations.Add("Jump", new AnimationSequence(new Vector2(0, 1400), 5));
+
+            spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), animations);
+
+            _animationModule = new AnimationModule(this, Vector2.Zero, spriteSheetData, _spriteModule);
 
             pos = position;
             collision = new Rectangle((int)pos.X, (int)pos.Y, txr.Width, txr.Height);
@@ -134,6 +149,31 @@ namespace Sanguine_Forest
 
             feet.X = collision.X + foot;
             feet.Y = collision.Y + collision.Height - 2;
+
+            if (_looking == looking.Right)
+            {
+                _spriteModule.SetSpriteEffects(SpriteEffects.None);
+            }
+            else if( _looking == looking.Left)
+            {
+                _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
+            }
+
+            if (_currAni == AniState.stand)
+            {
+                _animationModule.SetAnimationSpeed(0.6f);
+                _animationModule.Play("Idle");
+            }
+            else if (_currAni == AniState.walk)
+            {
+                _animationModule.SetAnimationSpeed(0.2f);
+                _animationModule.Play("Run");
+            }
+            else if (_currAni == AniState.jump)
+            {
+                _animationModule.SetAnimationSpeed(0.1f);
+                _animationModule.Play("Jump");
+            }
         }
 
         public void DrawMe(SpriteBatch sp)

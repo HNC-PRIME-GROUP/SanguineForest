@@ -29,7 +29,8 @@ namespace Sanguine_Forest.Scripts.TestScripts
         {
 
             //Setting graphic and animation
-            _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_Character_v1"), Extention.Extentions.SpriteLayer.character1);
+            _SpriteModule = new SpriteModule(this, Vector2.Zero, 
+                content.Load<Texture2D>("Sprites/Sprites_Character_v1"), Extention.Extentions.SpriteLayer.character1);
 
             animations = new Dictionary<string, AnimationSequence>();
             animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));

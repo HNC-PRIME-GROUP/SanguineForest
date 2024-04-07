@@ -10,6 +10,8 @@ namespace Sanguine_Forest
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        Character player;
+
         public RyanTest()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -31,9 +33,13 @@ namespace Sanguine_Forest
             // TODO: use this.Content to load your game content here
 
             DebugManager.SpriteBatch = _spriteBatch;
-            DebugManager.DebugTexture = Content.Load<Texture2D>("Extensions/DebugBounds");
-            DebugManager.DebugFont = Content.Load<SpriteFont>("Extensions/debugFont");
+            DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
+            DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
+
+            player = new Character(new Vector2(10, 10), 0,
+                Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
+
         }
 
         protected override void Update(GameTime gameTime)

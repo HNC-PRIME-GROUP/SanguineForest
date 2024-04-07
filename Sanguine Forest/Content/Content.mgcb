@@ -32,3 +32,15 @@
 /processorParam:TextureFormat=Compressed
 /build:Extensions/debugFont.spritefont
 
+#begin Extensions/Sprites_Character_v1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Extensions/Sprites_Character_v1.png
+

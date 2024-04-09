@@ -54,8 +54,10 @@ namespace Sanguine_Forest
 
         public Character(Vector2 position, float rotation, Texture2D _txr) : base(position, rotation)
         {
-            _spriteModule = new SpriteModule(this, Vector2.Zero, txr, 
+            _spriteModule = new SpriteModule(this, Vector2.Zero, _txr, 
                 Extentions.SpriteLayer.character1);
+
+            _spriteModule.SetScale(0.3f);
 
             txr = _txr;
 
@@ -95,7 +97,6 @@ namespace Sanguine_Forest
             _spriteModule.UpdateMe();
             _animationModule.UpdateMe();
 
-            vel.X = 0;
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 vel.X = speed;
@@ -117,6 +118,7 @@ namespace Sanguine_Forest
             else if (_currAni == AniState.jump || _currAni == AniState.walk ||
                 _currAni == AniState.hugWall || _currAni == AniState.drink)
             {
+                vel.X = 0;
                 _currAni = AniState.stand;
             }
 
@@ -174,11 +176,14 @@ namespace Sanguine_Forest
                 _animationModule.SetAnimationSpeed(0.1f);
                 _animationModule.Play("Jump");
             }
+
+            _animationModule.UpdateMe();
+            _spriteModule.UpdateMe();
         }
 
         public void DrawMe(SpriteBatch sp)
         {
-            _spriteModule.DrawMe(sp);
+            _spriteModule.DrawMe(sp, _animationModule);
             
         }
 

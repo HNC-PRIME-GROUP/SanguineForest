@@ -17,6 +17,8 @@ namespace Sanguine_Forest
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
         }
 
         protected override void Initialize()
@@ -37,7 +39,7 @@ namespace Sanguine_Forest
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
 
-            player = new Character(new Vector2(10, 10), 0,
+            player = new Character(new Vector2(50, 50), 0,
                 Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
 
         }
@@ -51,6 +53,8 @@ namespace Sanguine_Forest
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
+            player.UpdateMe();
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -64,6 +68,10 @@ namespace Sanguine_Forest
 
             //Debug test
             DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+
+            player.DrawMe(_spriteBatch);
+
+            DebugManager.DebugString("pos: " + player.GetPosition(), new Vector2(0, 0));
 
             _spriteBatch.End();
 

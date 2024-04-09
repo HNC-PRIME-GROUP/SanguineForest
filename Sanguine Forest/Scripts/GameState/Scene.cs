@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Sanguine_Forest
 {
@@ -10,8 +12,29 @@ namespace Sanguine_Forest
     internal class Scene
     {
 
+        //Character position
+        public Vector2 characterPosition;
+
+        //Game state (alcohol etc.)
+
+
+        //Environments and platforms
+        public List<Platform> simplePlatforms;
+        public List<MoveblePlatform> moveblPlatforms;
+        public List<FallingPlatform> fallingPlatforms;
+
+        public List<Decor> decors; // in case if we add some
+
+
+        //Background parallaxing
+        public List<ParallaxBackground> bachgrounds;
+
+
+
+
         public Scene()
         {
+
 
         }
 

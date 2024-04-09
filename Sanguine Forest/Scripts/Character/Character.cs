@@ -41,13 +41,13 @@ namespace Sanguine_Forest
         private Rectangle _walldetL;
         private Rectangle _walldetR;
 
-        private Vector2 pos;
-        private Rectangle collision;
+        public Vector2 pos;
+        public Rectangle collision;
 
         private float speed;
         private Vector2 vel;
 
-        private Texture2D txr;
+        public Texture2D txr;
 
         private float gravity;
         private int ground;

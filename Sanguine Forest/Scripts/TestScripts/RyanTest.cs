@@ -67,11 +67,12 @@ namespace Sanguine_Forest
             _spriteBatch.Begin(SpriteSortMode.Deferred);
 
             //Debug test
-            DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+            DebugManager.DebugRectangle(new Rectangle((int)player.pos.X, (int)player.pos.Y, player.txr.Height, player.txr.Width));
 
             player.DrawMe(_spriteBatch);
 
             DebugManager.DebugString("pos: " + player.GetPosition(), new Vector2(0, 0));
+            DebugManager.DebugString("pos: " + player.pos, new Vector2(0, 10));
 
             _spriteBatch.End();
 

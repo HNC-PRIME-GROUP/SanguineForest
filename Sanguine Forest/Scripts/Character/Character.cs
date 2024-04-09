@@ -59,12 +59,12 @@ namespace Sanguine_Forest
 
             _spriteModule.SetScale(0.3f);
 
-            txr = _txr;
-
             animations = new Dictionary<string, AnimationSequence>();
             animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));
             animations.Add("Run", new AnimationSequence(new Vector2(0, 700), 3));
             animations.Add("Jump", new AnimationSequence(new Vector2(0, 1400), 5));
+
+            txr = _txr;
 
             spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), animations);
 

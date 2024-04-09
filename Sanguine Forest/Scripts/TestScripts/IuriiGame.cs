@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Extention;
 using Sanguine_Forest.Scripts.TestScripts;
+using System.Collections.Generic;
 
 namespace Sanguine_Forest
 {
@@ -18,6 +19,9 @@ namespace Sanguine_Forest
         //Test objects
         private IuriiTestGameObject _gameObject;
         private IuriiTestGameObject _gameObject1;
+
+        //Test scene
+        private Scene scene;
 
 
         //Control
@@ -59,6 +63,12 @@ namespace Sanguine_Forest
 
             camera.SetCameraTarget(_gameObject);
 
+
+            //test scene creation
+            scene = FileLoader.LoadFromJson<Scene>("D:/Documents/EdinburghCollegeVScode/SanguineForest/Sanguine Forest/Content/Scenes/SceneTest");
+
+
+
             //Debug initialising
             DebugManager.SpriteBatch = _spriteBatch;
             DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
@@ -81,6 +91,17 @@ namespace Sanguine_Forest
             _gameObject1.UpdateMe();
             camera.UpdateMe();
 
+            //test scene creation
+            //if(!currKeyState.IsKeyDown(Keys.Space)|| prevKeyState.IsKeyDown(Keys.Space))
+            //{
+            //    FileLoader.SaveToJson<Scene>(scene, "D:/Documents/EdinburghCollegeVScode/SanguineForest/Sanguine Forest/Content/Scenes/SceneTest");
+            //}
+
+            //scene test
+            if(!currKeyState.IsKeyDown(Keys.Space)||prevKeyState.IsKeyDown(Keys.Space)) 
+            {
+               
+            }
 
             prevKeyState = currKeyState;
 
@@ -98,6 +119,8 @@ namespace Sanguine_Forest
 
             //Debug test
             DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+
+            
 
             _spriteBatch.End();
             // TODO: Add your drawing code here

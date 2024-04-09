@@ -68,10 +68,14 @@ namespace Sanguine_Forest
         /// <param name="animation">Animation module</param>
         public void DrawMe(SpriteBatch sp, AnimationModule animation)
         {
+<<<<<<< HEAD
 
             Vector2 currentPosition = this.GetParent().GetPosition();
-            sp.Draw(texture, GetPosition(), animation.GetFrameRectangle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, (int)layer);
+            sp.Draw(texture, GetPosition(), animation.GetFrameRectangle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, 0);
         
+=======
+            sp.Draw(texture, GetPosition(), animation.GetFrameRectangle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, 0);
+>>>>>>> main
         }
 
 

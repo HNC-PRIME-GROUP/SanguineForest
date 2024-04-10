@@ -58,7 +58,7 @@ namespace Sanguine_Forest
             _gameObject = new IuriiTestGameObject(Vector2.Zero,0f,Content);
             _gameObject1 = new IuriiTestGameObject(new Vector2(100,100), 0f, Content);
 
-            _gameObject._SpriteModule.SetScale(0.3f);
+            //_gameObject._SpriteModule.SetScale(0.3f);
             _gameObject1._SpriteModule.SetScale(0.3f);
 
             camera.SetCameraTarget(_gameObject);

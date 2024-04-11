@@ -13,9 +13,6 @@ namespace Sanguine_Forest
     /// </summary>
     abstract class GameObject
     {
-
-
-
         #region Object transform variables
         /// <summary>
         /// Game object position
@@ -40,11 +37,13 @@ namespace Sanguine_Forest
         #region Object transform Get/Set methods
         public Vector2 GetPosition()
         {
+            Console.WriteLine($"Getting Position");
             return position;
         }
 
         public void SetPosition(Vector2 position) 
         {
+            Console.WriteLine($"Setting Position");
             this.position = position;
         }
 

@@ -64,11 +64,11 @@ namespace Sanguine_Forest
             animations.Add("Run", new AnimationSequence(new Vector2(0, 700), 3));
             animations.Add("Jump", new AnimationSequence(new Vector2(0, 1400), 5));
 
-            txr = _txr;
-
             spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), animations);
 
             _animationModule = new AnimationModule(this, Vector2.Zero, spriteSheetData, _spriteModule);
+
+            txr = _txr;
 
             pos = position;
             collision = new Rectangle((int)pos.X, (int)pos.Y, txr.Width, txr.Height);
@@ -176,6 +176,8 @@ namespace Sanguine_Forest
                 _animationModule.SetAnimationSpeed(0.1f);
                 _animationModule.Play("Jump");
             }
+
+            _spriteModule.pos = pos;
 
             _animationModule.UpdateMe();
             _spriteModule.UpdateMe();

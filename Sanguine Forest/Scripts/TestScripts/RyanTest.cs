@@ -39,7 +39,7 @@ namespace Sanguine_Forest
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
 
-            player = new Character(new Vector2(50, 50), 0,
+            player = new Character(new Vector2(0, 0), 0,
                 Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
 
         }

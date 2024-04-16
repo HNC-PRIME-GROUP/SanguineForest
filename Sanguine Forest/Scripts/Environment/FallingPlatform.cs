@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Sanguine_Forest
 {
@@ -10,6 +12,19 @@ namespace Sanguine_Forest
     /// </summary>
     internal class FallingPlatform : Platform
     {
-        public FallingPlatform(Vector2 position, float rotation): base (position, rotation) { }
+        private float timeToFall;
+        private AnimationModule animationModule;
+
+        public FallingPlatform(Vector2 position, 
+                                float rotation, 
+                                Vector2 platformSize, 
+                                ContentManager content, 
+                                string texturePath,
+                                float timeToFall): 
+            base (position, rotation, platformSize, content, texturePath) 
+        {
+            
+        
+        }
     }
 }

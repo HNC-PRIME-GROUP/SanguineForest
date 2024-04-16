@@ -45,6 +45,11 @@ namespace Sanguine_Forest
             SetPosition(_parent.GetPosition() + shiftPosition);
         }
 
+        public new GameObject GetParent()
+        {
+            return _parent;
+        }
+
 
 
 

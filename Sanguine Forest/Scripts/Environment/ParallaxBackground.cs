@@ -28,9 +28,11 @@ namespace Sanguine_Forest
 
         public void UpdatePosition(Vector2 deltaMovement)
         {
+
+            spriteModule.UpdateMe();
             Debug.WriteLine($"Update ParBackground");
             Debug.WriteLine($"Before Update - Position: {GetPosition()}");
-
+            
             // Adjust the background's position based on its parallax speed
             Vector2 adjustedMovement = deltaMovement * ParallaxSpeed;
             Vector2 newPosition = GetPosition() + adjustedMovement;

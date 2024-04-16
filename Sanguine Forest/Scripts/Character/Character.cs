@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sanguine_Forest.Scripts.Environment.Obstacle;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,12 @@ namespace Sanguine_Forest
         private Rectangle _walldetR;
 
         public Vector2 pos;
+
+
         public Rectangle collision;
+        private PhysicModule _collision;
+        private PhysicModule _feet;
+
 
         private float speed;
         private Vector2 vel;
@@ -72,6 +78,11 @@ namespace Sanguine_Forest
             txr = _txr;
 
             pos = position;
+
+            //Collisions
+            _collision = new PhysicModule(this, new Vector2(0, 0), new Vector2(50, 50));
+            _feet = new PhysicModule(this, new Vector2(0, 10), new Vector2(50, 10));
+
             collision = new Rectangle((int)pos.X, (int)pos.Y, txr.Width, txr.Height);
 
             feet = new Rectangle(collision.X + foot, collision.Y + collision.Height - 2,
@@ -97,6 +108,7 @@ namespace Sanguine_Forest
         {
             _spriteModule.UpdateMe();
             _animationModule.UpdateMe();
+            _collision.UpdateMe();
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
@@ -123,7 +135,7 @@ namespace Sanguine_Forest
                 _currAni = AniState.stand;
             }
 
-            pos += vel;
+            //pos += vel;
             collision.X = (int)pos.X;
             collision.Y = (int)pos.Y;
 
@@ -186,16 +198,20 @@ namespace Sanguine_Forest
         {
             _spriteModule.DrawMe(sp, _animationModule);
             
+            
         }
 
         public new void Collided(Collision collision)
         {
-            if(collision.GetCollidedPhysicModule().GetParent() is Platform)
+            if(collision.GetThisPhysicModule() == _feet && collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
                 // logic of staying on a platform
                 // if we need a physic rectangle of platform here:
                 // platform.GetPlatformRectangle();
+            }
+            if(collision.GetThisPhysicModule() == _collision && collision.GetCollidedPhysicModule().GetParent() is Obstacle)
+            {
 
             }
         }

@@ -72,7 +72,7 @@ namespace Sanguine_Forest
             txr = _txr;
 
             pos = position;
-            collision = new Rectangle((int)pos.X, (int)pos.Y, txr.Width, txr.Height);
+            collision = new Rectangle((int)pos.X, (int)pos.Y, 1, 1);
 
             feet = new Rectangle(collision.X + foot, collision.Y + collision.Height - 2,
                 collision.Width - (foot * 2), 2);
@@ -83,7 +83,7 @@ namespace Sanguine_Forest
             _walldetR = new Rectangle(collision.X + collision.Width, collision.Y,
                 2, collision.Height);
 
-            speed = 1f;
+            speed = 3f;
             vel = Vector2.Zero;
 
             gravity = 0.3f;

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sanguine_Forest
 {
@@ -176,8 +177,6 @@ namespace Sanguine_Forest
                 _animationModule.SetAnimationSpeed(0.1f);
                 _animationModule.Play("Jump");
             }
-
-            _spriteModule.pos = pos;
 
             _animationModule.UpdateMe();
             _spriteModule.UpdateMe();

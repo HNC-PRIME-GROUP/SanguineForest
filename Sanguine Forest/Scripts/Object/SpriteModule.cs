@@ -21,9 +21,6 @@ namespace Sanguine_Forest
         private SpriteEffects spriteEffect;
         //Layer
         private Extentions.SpriteLayer layer;
-        //position
-        public Vector2 pos;
-
 
         public SpriteModule(GameObject parent, Vector2 shift, Texture2D texture, Extentions.SpriteLayer layer) : base(parent, shift) 
         {
@@ -34,8 +31,6 @@ namespace Sanguine_Forest
             defaultFrameRectangle = new Rectangle( (int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y), texture.Width, texture.Height);
             scale = 1f;
             spriteEffect = SpriteEffects.None;
-
-            pos = GetPosition();
 
         }
 

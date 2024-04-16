@@ -7,7 +7,9 @@ namespace Sanguine_Forest
     /// <summary>
     /// Data about player progress (current level, alcohol using etc.)
     /// </summary>
-    internal class PlayerState
+    public class PlayerState
     {
+        public int AlcoholLevel { get; set; } = 0;
+        public bool IsAlive { get; set; } = true;
     }
 }

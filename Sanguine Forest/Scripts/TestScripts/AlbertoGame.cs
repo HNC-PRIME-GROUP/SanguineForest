@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sanguine_Forest.Scripts.Environment.Obstacle;
 using System;
 using System.Diagnostics;
 
@@ -16,7 +17,9 @@ namespace Sanguine_Forest
         //Texture2D[] forestLayers;
 
         private ParallaxManager parallaxManager;
-
+        private ObstacleManager obstacleManager;
+        private PlayerState playerState;
+        private Character playerCharacter;
         public AlbertoGame()
         {
             _graphics = new GraphicsDeviceManager(this)
@@ -67,6 +70,10 @@ namespace Sanguine_Forest
                 new Vector2(totalWidth, 0), 0f, lastSegmentTexture, Extentions.SpriteLayer.background_Lake_4, 1f));
             totalWidth += segmentWidth; 
 
+            //Load obstacles
+            Texture2D obstacle_Texture = Content.Load<Texture2D>("PathToTexture");
+            Obstacle myObstacle = new Obstacle(new Vector2(100, 100), 0, obstacle_Texture, 2, playerCharacter); // Create new Obstacle, 2 is level of alcohol needed to draw
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -106,15 +113,11 @@ namespace Sanguine_Forest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack, 
-                BlendState.AlphaBlend, 
-                SamplerState.PointClamp, 
-                DepthStencilState.Default, 
-                RasterizerState.CullNone, 
-                effect: null);
+            _spriteBatch.Begin();
             // Draw the parallax backgrounds
+            int currentAlcoholLevel = playerState.AlcoholLevel;
             parallaxManager.Draw(_spriteBatch);
-
+            obstacleManager.Draw(_spriteBatch, currentAlcoholLevel);
             _spriteBatch.End();
 
             base.Draw(gameTime);

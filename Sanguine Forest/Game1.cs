@@ -40,6 +40,10 @@ namespace Sanguine_Forest
 
         protected override void Update(GameTime gameTime)
         {
+
+            //Physic update
+            PhysicManager.UpdateMe();
+
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 

@@ -72,7 +72,7 @@ namespace Sanguine_Forest
 
             //Load obstacles
             Texture2D obstacle_Texture = Content.Load<Texture2D>("PathToTexture");
-            Obstacle myObstacle = new Obstacle(new Vector2(100, 100), 0, obstacle_Texture, 2, playerCharacter); // Create new Obstacle, 2 is level of alcohol needed to draw
+            Obstacle myObstacle = new Obstacle(new Vector2(100, 100), 0, obstacle_Texture, 2); // Create new Obstacle, 2 is level of alcohol needed to draw
             
         }
 

@@ -11,5 +11,11 @@ namespace Sanguine_Forest
     {
 
         public Decor(Vector2 position, float rotation) : base(position, rotation) { }
+
+
+        public void DrawMe(SpriteBatch spriteBatch)
+        {
+
+        }
     }
 }

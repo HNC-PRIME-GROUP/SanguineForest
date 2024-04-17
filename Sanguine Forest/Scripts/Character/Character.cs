@@ -46,7 +46,7 @@ namespace Sanguine_Forest
         public Vector2 pos;
 
 
-        public Rectangle collision;
+        //public Rectangle collision;
         private PhysicModule _collision;
         private PhysicModule _feet;
 
@@ -75,30 +75,17 @@ namespace Sanguine_Forest
 
             _animationModule = new AnimationModule(this, Vector2.Zero, spriteSheetData, _spriteModule);
 
-            txr = _txr;
-
             pos = position;
 
             //Collisions
-            _collision = new PhysicModule(this, new Vector2(0, 0), new Vector2(50, 50));
-            _feet = new PhysicModule(this, new Vector2(0, 10), new Vector2(50, 10));
-
-            collision = new Rectangle((int)pos.X, (int)pos.Y, txr.Width, txr.Height);
-
-            feet = new Rectangle(collision.X + foot, collision.Y + collision.Height - 2,
-                collision.Width - (foot * 2), 2);
-
-            _walldetL = new Rectangle(collision.X - 1, collision.Y, 
-                2, collision.Height);
-
-            _walldetR = new Rectangle(collision.X + collision.Width, collision.Y,
-                2, collision.Height);
+            _collision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
+            _feet = new PhysicModule(this, new Vector2(100, 190), new Vector2(140, 20));
 
             speed = 1f;
             vel = Vector2.Zero;
 
             gravity = 0.3f;
-            ground = 223;
+            ground = 400;
 
             _looking = looking.Right;
             _currAni = AniState.stand;
@@ -109,6 +96,7 @@ namespace Sanguine_Forest
             _spriteModule.UpdateMe();
             _animationModule.UpdateMe();
             _collision.UpdateMe();
+            _feet.UpdateMe();
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
@@ -137,22 +125,20 @@ namespace Sanguine_Forest
 
             
             position+= vel;
-            collision.X = (int)pos.X;
-            collision.Y = (int)pos.Y;
+            //collision.X = (int)pos.X;
+            //collision.Y = (int)pos.Y;
 
-            if (collision.Bottom < ground)
+            if (_feet.GetPhysicRectangle().Bottom  < ground)
             {
                 if(vel.Y < gravity * 15)
                 {
                     vel.Y += gravity;
                 }
-                //platform collision
-                //for ()
             }
             else
             {
                 vel.Y = 0;
-                position.Y = ground - collision.Height;
+                position.Y = ground - _collision.GetPhysicRectangle().Height - _feet.GetPhysicRectangle().Height;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
@@ -163,8 +149,8 @@ namespace Sanguine_Forest
                 }
             }
 
-            feet.X = collision.X + foot;
-            feet.Y = collision.Y + collision.Height - 2;
+            //feet.X = collision.X + foot;
+            //feet.Y = collision.Y + collision.Height - 2;
 
             if (_looking == looking.Right)
             {
@@ -198,7 +184,8 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch sp)
         {
             _spriteModule.DrawMe(sp, _animationModule);
-            
+            DebugManager.DebugRectangle(_feet.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_collision.GetPhysicRectangle());            
             
         }
 

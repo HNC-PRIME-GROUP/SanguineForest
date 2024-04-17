@@ -67,7 +67,6 @@ namespace Sanguine_Forest
             _spriteBatch.Begin(SpriteSortMode.Deferred);
 
             //Debug test
-            DebugManager.DebugRectangle(  new Rectangle((int)player.pos.X, (int)player.pos.Y, player.txr.Height, player.txr.Width));
 
             player.DrawMe(_spriteBatch);
 

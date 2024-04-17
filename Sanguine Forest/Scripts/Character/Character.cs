@@ -125,8 +125,8 @@ namespace Sanguine_Forest
                     vel.Y = -5;
                 }
             }
-
             position += vel;
+
             //collision.X = (int)pos.X;
             //collision.Y = (int)pos.Y;
 
@@ -137,11 +137,13 @@ namespace Sanguine_Forest
                     vel.Y += gravity;
                 }
             }
-            else
+            else if(vel.Y>0)
             {
                 vel.Y = 0;
                 position.Y = ground - _collision.GetPhysicRectangle().Height - _feet.GetPhysicRectangle().Height*2;
             }
+
+            
 
             //feet.X = collision.X + foot;
             //feet.Y = collision.Y + collision.Height - 2;

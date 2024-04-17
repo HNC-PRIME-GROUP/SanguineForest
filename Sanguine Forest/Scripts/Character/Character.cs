@@ -45,7 +45,6 @@ namespace Sanguine_Forest
 
         public Vector2 pos;
 
-
         //public Rectangle collision;
         private PhysicModule _collision;
         private PhysicModule _feet;
@@ -91,7 +90,7 @@ namespace Sanguine_Forest
             _currAni = AniState.stand;
         }
 
-        public override void UpdateMe()
+        public void UpdateMe(KeyboardState curr, KeyboardState prev)
         {
             _spriteModule.UpdateMe();
             _animationModule.UpdateMe();
@@ -123,12 +122,19 @@ namespace Sanguine_Forest
                 _currAni = AniState.stand;
             }
 
-            
-            position+= vel;
+            if (prev.IsKeyDown(Keys.W)&&curr.IsKeyUp(Keys.W))
+            {
+                if (vel.Y == 0)
+                {
+                    vel.Y = -5;
+                }
+            }
+
+            position += vel;
             //collision.X = (int)pos.X;
             //collision.Y = (int)pos.Y;
 
-            if (_feet.GetPhysicRectangle().Bottom  < ground)
+            if (_feet.GetPhysicRectangle().Bottom  <= ground)
             {
                 if(vel.Y < gravity * 15)
                 {
@@ -138,15 +144,7 @@ namespace Sanguine_Forest
             else
             {
                 vel.Y = 0;
-                position.Y = ground - _collision.GetPhysicRectangle().Height - _feet.GetPhysicRectangle().Height;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                if (vel.Y == 0)
-                {
-                    vel.Y = -5;
-                }
+                position.Y = ground - _collision.GetPhysicRectangle().Height - _feet.GetPhysicRectangle().Height*2;
             }
 
             //feet.X = collision.X + foot;
@@ -185,7 +183,8 @@ namespace Sanguine_Forest
         {
             _spriteModule.DrawMe(sp, _animationModule);
             DebugManager.DebugRectangle(_feet.GetPhysicRectangle());
-            DebugManager.DebugRectangle(_collision.GetPhysicRectangle());            
+            DebugManager.DebugRectangle(_collision.GetPhysicRectangle());
+            DebugManager.DebugRectangle(new Rectangle(0, ground, 6000, 100));
             
         }
 

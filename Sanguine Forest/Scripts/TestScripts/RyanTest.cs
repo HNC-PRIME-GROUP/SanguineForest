@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Extention;
+using System.Data.OleDb;
 
 namespace Sanguine_Forest
 {
@@ -11,6 +12,9 @@ namespace Sanguine_Forest
         private SpriteBatch _spriteBatch;
 
         Character player;
+
+        KeyboardState curr;
+        KeyboardState prev;
 
         public RyanTest()
         {
@@ -49,13 +53,17 @@ namespace Sanguine_Forest
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            curr = Keyboard.GetState();
+
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
 
-            player.UpdateMe();
+            player.UpdateMe(curr, prev);
             // TODO: Add your update logic here
+
+            prev = curr;
 
             base.Update(gameTime);
         }

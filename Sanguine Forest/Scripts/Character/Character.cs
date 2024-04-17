@@ -92,10 +92,6 @@ namespace Sanguine_Forest
 
         public void UpdateMe(KeyboardState curr, KeyboardState prev)
         {
-            _spriteModule.UpdateMe();
-            _animationModule.UpdateMe();
-            _collision.UpdateMe();
-            _feet.UpdateMe();
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
@@ -122,7 +118,7 @@ namespace Sanguine_Forest
                 _currAni = AniState.stand;
             }
 
-            if (prev.IsKeyDown(Keys.W)&&curr.IsKeyUp(Keys.W))
+            if (prev.IsKeyUp(Keys.W)&&curr.IsKeyDown(Keys.W))
             {
                 if (vel.Y == 0)
                 {
@@ -134,7 +130,7 @@ namespace Sanguine_Forest
             //collision.X = (int)pos.X;
             //collision.Y = (int)pos.Y;
 
-            if (_feet.GetPhysicRectangle().Bottom  <= ground)
+            if (_feet.GetPhysicRectangle().Bottom  < ground)
             {
                 if(vel.Y < gravity * 15)
                 {
@@ -177,6 +173,9 @@ namespace Sanguine_Forest
 
             _animationModule.UpdateMe();
             _spriteModule.UpdateMe();
+
+            _collision.UpdateMe();
+            _feet.UpdateMe();
         }
 
         public void DrawMe(SpriteBatch sp)

@@ -19,9 +19,8 @@ namespace Sanguine_Forest
                                 float rotation, 
                                 Vector2 platformSize, 
                                 ContentManager content, 
-                                string texturePath,
                                 float timeToFall): 
-            base (position, rotation, platformSize, content, texturePath) 
+            base (position, rotation, platformSize, content) 
         {
             
         

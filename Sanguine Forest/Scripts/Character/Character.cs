@@ -135,7 +135,8 @@ namespace Sanguine_Forest
                 _currAni = AniState.stand;
             }
 
-            //pos += vel;
+            
+            position+= vel;
             collision.X = (int)pos.X;
             collision.Y = (int)pos.Y;
 
@@ -151,7 +152,7 @@ namespace Sanguine_Forest
             else
             {
                 vel.Y = 0;
-                pos.Y = ground - collision.Height;
+                position.Y = ground - collision.Height;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))

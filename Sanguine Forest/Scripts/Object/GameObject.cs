@@ -17,7 +17,7 @@ namespace Sanguine_Forest
         /// <summary>
         /// Game object position
         /// </summary>
-        private Vector2 position;
+        protected Vector2 position;
 
         /// <summary>
         /// Rotation with clamp between -PI and PI

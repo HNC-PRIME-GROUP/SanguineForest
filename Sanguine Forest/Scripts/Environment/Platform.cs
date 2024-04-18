@@ -15,17 +15,17 @@ namespace Sanguine_Forest
 
 
         //Sprite
-        private SpriteModule _spriteModule;
+        public SpriteModule _spriteModule;
 
         //Collision
-        private PhysicModule platformPhysic;
+        public PhysicModule platformPhysic;
 
 
-        public Platform(Vector2 position, float rotation, Vector2 platformSize, ContentManager content, string texturePath): base(position, rotation) 
+        public Platform(Vector2 position, float rotation, Vector2 platformSize, ContentManager content ): base(position, rotation) 
         {
 
             //Sptire and graphic
-            _spriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>(texturePath), Extention.Extentions.SpriteLayer.environment1);
+            _spriteModule = new SpriteModule(this, Vector2.Zero, DebugManager.DebugTexture, Extention.Extentions.SpriteLayer.environment1);
 
             //Collision
             platformPhysic = new PhysicModule(this, Vector2.Zero, platformSize);
@@ -33,13 +33,14 @@ namespace Sanguine_Forest
 
         public new void UpdateMe()
         {
-            _spriteModule.UpdateMe();
+            
             _spriteModule.UpdateMe();
         }
 
         public void DrawMe(SpriteBatch spriteBatch) 
         {
             _spriteModule.DrawMe(spriteBatch);
+           // DebugManager.DebugRectangle(platformPhysic.GetPhysicRectangle());
         }
 
 

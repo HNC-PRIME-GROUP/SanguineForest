@@ -18,11 +18,10 @@ namespace Sanguine_Forest
         public MoveblePlatform(Vector2 position, 
                                 float rotation,
                                 Vector2 platformSize,
-                                ContentManager content,
-                                string texturePath,
+                                ContentManager content,                                
                                 Vector2 targetPoint,
                                 float speed): 
-                                base(position, rotation, platformSize, content, texturePath) 
+                                base(position, rotation, platformSize, content) 
         {
             startPoint = position;
             this.targetPoint = targetPoint;

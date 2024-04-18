@@ -20,6 +20,8 @@ namespace Sanguine_Forest
         private IuriiTestGameObject _gameObject;
         private IuriiTestGameObject _gameObject1;
 
+        private Platform platform; 
+
         //Test scene
         private Scene scene;
 
@@ -54,18 +56,11 @@ namespace Sanguine_Forest
 
             camera = new Camera(Vector2.Zero, new Vector2(-5000, -5000 ), new Vector2(5000, 5000), new Vector2(720, 720));
 
-            //test object
-            _gameObject = new IuriiTestGameObject(Vector2.Zero,0f,Content);
-            _gameObject1 = new IuriiTestGameObject(new Vector2(100,100), 0f, Content);
 
-            _gameObject._SpriteModule.SetScale(0.3f);
-            _gameObject1._SpriteModule.SetScale(0.3f);
-
-            camera.SetCameraTarget(_gameObject);
 
 
             //test scene creation
-            scene = FileLoader.LoadFromJson<Scene>("D:/Documents/EdinburghCollegeVScode/SanguineForest/Sanguine Forest/Content/Scenes/SceneTest");
+           // scene = FileLoader.LoadFromJson<Scene>("D:/Documents/EdinburghCollegeVScode/SanguineForest/Sanguine Forest/Content/Scenes/SceneTest");
 
 
 
@@ -74,6 +69,19 @@ namespace Sanguine_Forest
             DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
+
+
+            //test object
+            _gameObject = new IuriiTestGameObject(Vector2.Zero, 0f, Content);
+            _gameObject1 = new IuriiTestGameObject(new Vector2(100, 100), 0f, Content);
+
+            _gameObject._SpriteModule.SetScale(0.3f);
+            _gameObject1._SpriteModule.SetScale(0.3f);
+
+            platform = new Platform(new Vector2(0, 0), 0f, new Vector2(100, 100), Content);
+            platform._spriteModule.SetScale(1f);
+            camera.SetCameraTarget(_gameObject);
+
 
         }
 
@@ -85,6 +93,7 @@ namespace Sanguine_Forest
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            platform.UpdateMe();
             camera.UpdateMe();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -119,8 +128,10 @@ namespace Sanguine_Forest
             _gameObject.DrawMe(_spriteBatch);
             _gameObject1.DrawMe(_spriteBatch);
 
+            platform.DrawMe(_spriteBatch);
+
             //Debug test
-            DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+           // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
 
             
 

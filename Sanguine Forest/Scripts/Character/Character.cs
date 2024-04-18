@@ -94,7 +94,7 @@ namespace Sanguine_Forest
             _currAni = AniState.stand;
         }
 
-        public void UpdateMe(KeyboardState curr, KeyboardState prev, List<Platform> plats)
+        public void UpdateMe(KeyboardState curr, KeyboardState prev)
         {
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
@@ -142,19 +142,6 @@ namespace Sanguine_Forest
                 if(vel.Y < gravity * 35)
                 {
                     vel.Y += gravity;
-                }
-
-                for (int i = 0; i < plats.Count; i++)
-                {
-                    if (plats[i].GetPlatformRectangle().Intersects(_feet.GetPhysicRectangle()))
-                    {
-                        if (vel.Y > 0)
-                        {
-                            vel.Y = 0;
-                            pos.Y = plats[i].GetPlatformRectangle().Top - _collision.GetPhysicRectangle().Height + 1;
-                        }
-                    }
-
                 }
             }
             else if(vel.Y>0)
@@ -218,13 +205,19 @@ namespace Sanguine_Forest
             
         }
 
-        public new void Collided(Collision collision)
+        public override void Collided(Collision collision)
         {
             base.Collided(collision);
             if(collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
                 platform.GetPlatformRectangle();
+
+                if (vel.Y > 0)
+                {
+                    vel.Y = 0;
+                    pos.Y = platform.GetPlatformRectangle().Top - _collision.GetPhysicRectangle().Height + 1;
+                }
 
                 // logic of staying on a platform
                 // if we need a physic rectangle of platform here:

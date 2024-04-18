@@ -70,7 +70,7 @@ namespace Sanguine_Forest
                 Exit();
 
 
-            player.UpdateMe(curr, prev, environmentManager.platforms);
+            player.UpdateMe(curr, prev);
             environmentManager.UpdateMe();
 
             prev = curr;

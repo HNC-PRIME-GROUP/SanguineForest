@@ -29,6 +29,7 @@ namespace Sanguine_Forest
 
             //Collision
             platformPhysic = new PhysicModule(this, Vector2.Zero, platformSize);
+            platformPhysic.isPhysicActive = true;
         }
 
         public new void UpdateMe()

@@ -80,7 +80,7 @@ namespace Sanguine_Forest
             _collision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
             _feet = new PhysicModule(this, new Vector2(100, 190), new Vector2(140, 20));
 
-            speed = 1f;
+            speed = 2f;
             vel = Vector2.Zero;
 
             gravity = 0.3f;
@@ -122,7 +122,7 @@ namespace Sanguine_Forest
             {
                 if (vel.Y == 0)
                 {
-                    vel.Y = -5;
+                    vel.Y = -6;
                 }
             }
             position += vel;

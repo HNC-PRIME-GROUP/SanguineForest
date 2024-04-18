@@ -12,7 +12,7 @@ namespace Sanguine_Forest
     internal class PhysicModule : Module
     {
 
-        private Rectangle physicRec;
+        public Rectangle physicRec;
         private Vector2 rectangleHalfSize;
         public bool isPhysicActive = false;
 

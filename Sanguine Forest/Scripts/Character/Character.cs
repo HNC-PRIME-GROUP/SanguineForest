@@ -37,18 +37,14 @@ namespace Sanguine_Forest
         private AniState _currAni;
         private looking _looking;
 
-        private Rectangle feet;
-        private const int foot = 3;
-
-        private Rectangle _walldetL;
-        private Rectangle _walldetR;
-
         public Vector2 pos;
 
         //public Rectangle collision;
         private PhysicModule _collision;
         private PhysicModule _feet;
 
+        private PhysicModule _walldetL;
+        private PhysicModule _walldetR;
 
         private float speed;
         private Vector2 vel;
@@ -69,6 +65,7 @@ namespace Sanguine_Forest
             animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));
             animations.Add("Run", new AnimationSequence(new Vector2(0, 700), 3));
             animations.Add("Jump", new AnimationSequence(new Vector2(0, 1400), 5));
+            animations.Add("hugWall", new AnimationSequence(new Vector2(4200, 1400), 0));
 
             spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), animations);
 
@@ -80,6 +77,13 @@ namespace Sanguine_Forest
             _collision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
             _feet = new PhysicModule(this, new Vector2(100, 190), new Vector2(140, 20));
 
+            _walldetL = new PhysicModule(this, new Vector2(20, 100), new Vector2(10, 160));
+            _walldetR = new PhysicModule(this, new Vector2(180, 100), new Vector2(10, 160));
+
+
+            _collision.isPhysicActive = true;
+            _feet.isPhysicActive =true;
+
             speed = 2f;
             vel = Vector2.Zero;
 
@@ -90,7 +94,7 @@ namespace Sanguine_Forest
             _currAni = AniState.stand;
         }
 
-        public void UpdateMe(KeyboardState curr, KeyboardState prev)
+        public void UpdateMe(KeyboardState curr, KeyboardState prev, List<Platform> plats)
         {
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
@@ -98,7 +102,9 @@ namespace Sanguine_Forest
                 vel.X = speed;
                 _looking = looking.Right;
                 if (vel.Y != 0)
+                {
                     _currAni = AniState.jump;
+                }
                 else
                     _currAni = AniState.walk;
             }
@@ -136,6 +142,19 @@ namespace Sanguine_Forest
                 {
                     vel.Y += gravity;
                 }
+
+                for (int i = 0; i < plats.Count; i++)
+                {
+                    if (plats[i].GetPlatformRectangle().Intersects(_feet.GetPhysicRectangle()))
+                    {
+                        if (vel.Y > 0)
+                        {
+                            vel.Y = 0;
+                            pos.Y = plats[i].GetPlatformRectangle().Top - _collision.GetPhysicRectangle().Height + 1;
+                        }
+                    }
+
+                }
             }
             else if(vel.Y>0)
             {
@@ -172,12 +191,19 @@ namespace Sanguine_Forest
                 _animationModule.SetAnimationSpeed(0.1f);
                 _animationModule.Play("Jump");
             }
+            else if (_currAni == AniState.hugWall)
+            {
+                _animationModule.SetAnimationSpeed(0.1f);
+                _animationModule.Play("hugWall");
+            }
 
             _animationModule.UpdateMe();
             _spriteModule.UpdateMe();
 
             _collision.UpdateMe();
             _feet.UpdateMe();
+            _walldetL.UpdateMe();
+            _walldetR.UpdateMe();
         }
 
         public void DrawMe(SpriteBatch sp)
@@ -185,15 +211,20 @@ namespace Sanguine_Forest
             _spriteModule.DrawMe(sp, _animationModule);
             DebugManager.DebugRectangle(_feet.GetPhysicRectangle());
             DebugManager.DebugRectangle(_collision.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_walldetL.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_walldetR.GetPhysicRectangle());
             DebugManager.DebugRectangle(new Rectangle(0, ground, 6000, 100));
             
         }
 
         public new void Collided(Collision collision)
         {
-            if(collision.GetThisPhysicModule() == _feet && collision.GetCollidedPhysicModule().GetParent() is Platform)
+            base.Collided(collision);
+            if(collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
+                platform.GetPlatformRectangle();
+
                 // logic of staying on a platform
                 // if we need a physic rectangle of platform here:
                 // platform.GetPlatformRectangle();

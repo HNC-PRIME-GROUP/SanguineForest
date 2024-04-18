@@ -84,7 +84,7 @@ namespace Sanguine_Forest
             _collision.isPhysicActive = true;
             _feet.isPhysicActive =true;
 
-            speed = 2f;
+            speed = 5f;
             vel = Vector2.Zero;
 
             gravity = 0.3f;
@@ -129,7 +129,7 @@ namespace Sanguine_Forest
             {
                 if (vel.Y == 0)
                 {
-                    vel.Y = -6;
+                    vel.Y = -8;
                 }
             }
             position += vel;
@@ -139,7 +139,7 @@ namespace Sanguine_Forest
 
             if (_feet.GetPhysicRectangle().Bottom  < ground)
             {
-                if(vel.Y < gravity * 15)
+                if(vel.Y < gravity * 35)
                 {
                     vel.Y += gravity;
                 }

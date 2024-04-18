@@ -101,6 +101,7 @@ namespace Sanguine_Forest
             {
                 vel.X = speed;
                 _looking = looking.Right;
+                
                 if (vel.Y != 0)
                 {
                     _currAni = AniState.jump;

@@ -217,7 +217,7 @@ namespace Sanguine_Forest
             
         }
 
-        public new void Collided(Collision collision)
+        public override void Collided(Collision collision)
         {
             base.Collided(collision);
             if(collision.GetCollidedPhysicModule().GetParent() is Platform)

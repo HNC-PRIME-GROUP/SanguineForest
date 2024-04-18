@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using Extention;
+using System.Diagnostics;
 
 namespace Sanguine_Forest
 {
@@ -22,13 +23,15 @@ namespace Sanguine_Forest
         //Layer
         private Extentions.SpriteLayer layer;
 
+        private static float testXPosition = 0; // Test variable for horizontal movement
+
         public SpriteModule(GameObject parent, Vector2 shift, Texture2D texture, Extentions.SpriteLayer layer) : base(parent, shift) 
         {
             this.texture= texture;
             this.layer = layer;
 
             //default
-            defaultFrameRectangle = new Rectangle( (int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y), texture.Width, texture.Height);
+            defaultFrameRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
             scale = 1f;
             spriteEffect = SpriteEffects.None;
 
@@ -39,8 +42,20 @@ namespace Sanguine_Forest
         /// </summary>
         /// <param name="sp"></param>
         public void DrawMe(SpriteBatch sp)
-        {
-            sp.Draw(texture, GetPosition(), defaultFrameRectangle, color, GetRotation(), Vector2.Zero, scale, spriteEffect, (int)layer); 
+        {            
+
+            Vector2 currentPosition = this.GetParent().GetPosition();
+            var tmp = (float)layer / (float)Extentions.SpriteLayer.Length;
+            sp.Draw(texture, GetPosition(), null, color,
+                GetRotation(), Vector2.Zero, scale, spriteEffect, tmp);
+
+            //// Update the position for testing
+            //testXPosition -= 0f;
+            //// Use the updated test position for drawing
+            //Vector2 testPosition = new Vector2(testXPosition, 0);
+            //// Draw the texture at the new test position
+            //sp.Draw(texture, testPosition, null, color, GetRotation(), Vector2.Zero, scale, spriteEffect, (float)layer);            
+
         }
 
         /// <summary>
@@ -50,8 +65,11 @@ namespace Sanguine_Forest
         /// <param name="animation">Animation module</param>
         public void DrawMe(SpriteBatch sp, AnimationModule animation)
         {
-            sp.Draw(texture, GetPosition(), animation.GetFrameRectangle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, 0);
+
+            sp.Draw(texture, GetPosition(), animation.GetFrameRectangle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, (float)layer / (float)Extentions.SpriteLayer.Length);
+        
         }
+
 
 
         #region Get / Set of all parameters for Draw method

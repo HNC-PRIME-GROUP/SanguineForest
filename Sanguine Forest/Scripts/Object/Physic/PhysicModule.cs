@@ -12,7 +12,7 @@ namespace Sanguine_Forest
     internal class PhysicModule : Module
     {
 
-        private Rectangle physicRec;
+        public Rectangle physicRec;
         private Vector2 rectangleHalfSize;
         public bool isPhysicActive = false;
 
@@ -23,6 +23,7 @@ namespace Sanguine_Forest
                 (int)Math.Round(rectangleSize.X), (int)Math.Round(rectangleSize.Y));
             // to center this 
             rectangleHalfSize  = new Vector2(physicRec.Width/2, physicRec.Height/2);
+            PhysicManager.AddObject(this);
         }
 
         public new void UpdateMe()
@@ -39,7 +40,7 @@ namespace Sanguine_Forest
         /// <param name="obj"></param>
         public new void Collided(Collision collision)
         {
-            
+            _parent.Collided(collision);
         }
 
         /// <summary>

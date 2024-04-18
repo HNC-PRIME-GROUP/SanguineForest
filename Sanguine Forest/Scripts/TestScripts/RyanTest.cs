@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Extention;
+using System;
+using System.Collections.Generic;
 
 namespace Sanguine_Forest
 {
@@ -11,6 +13,11 @@ namespace Sanguine_Forest
         private SpriteBatch _spriteBatch;
 
         Character player;
+
+        EnvironmentManager environmentManager;
+
+        KeyboardState curr;
+        KeyboardState prev;
 
         public RyanTest()
         {
@@ -23,7 +30,7 @@ namespace Sanguine_Forest
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+          
 
             base.Initialize();
         }
@@ -41,6 +48,10 @@ namespace Sanguine_Forest
 
             player = new Character(new Vector2(0, 0), 0,
                 Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
+            environmentManager = new EnvironmentManager();
+            environmentManager.platforms = new List<Platform>();
+            environmentManager.platforms.Add(new Platform(new Vector2(300, 350), 0, new Vector2(100, 100), Content));
+            
 
         }
 
@@ -49,13 +60,20 @@ namespace Sanguine_Forest
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            //Physic update
+            PhysicManager.UpdateMe();
+
+            curr = Keyboard.GetState();
+
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
 
-            player.UpdateMe();
-            // TODO: Add your update logic here
+            player.UpdateMe(curr, prev, environmentManager.platforms);
+            environmentManager.UpdateMe();
+
+            prev = curr;
 
             base.Update(gameTime);
         }
@@ -67,9 +85,9 @@ namespace Sanguine_Forest
             _spriteBatch.Begin(SpriteSortMode.Deferred);
 
             //Debug test
-            DebugManager.DebugRectangle(new Rectangle((int)player.pos.X, (int)player.pos.Y, player.txr.Height, player.txr.Width));
 
             player.DrawMe(_spriteBatch);
+            environmentManager.DrawMe(_spriteBatch);
 
             DebugManager.DebugString("pos: " + player.GetPosition(), new Vector2(0, 0));
             DebugManager.DebugString("pos: " + player.pos, new Vector2(0, 10));

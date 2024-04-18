@@ -25,6 +25,9 @@ namespace Sanguine_Forest.Scripts.TestScripts
         public AudioSourceModule AudioSourceModule;
         public Dictionary<string, SoundEffectInstance> sounds;
 
+        //Collision
+        public PhysicModule _PhysicsModule;
+
         public IuriiTestGameObject(Vector2 position, float rotation, ContentManager content) : base(position, rotation) 
         {
 
@@ -48,6 +51,10 @@ namespace Sanguine_Forest.Scripts.TestScripts
             sounds.Add("Jump", content.Load<SoundEffect>("Sounds/Sound_Char_Jump").CreateInstance());
             sounds.Add("Climb", content.Load<SoundEffect>("Sounds/Sound_Char_Climb").CreateInstance());
             AudioSourceModule = new AudioSourceModule(this, Vector2.Zero, sounds);
+
+            //Physic
+            _PhysicsModule = new PhysicModule(this, new Vector2(50, 50), new Vector2(20, 20));
+            _PhysicsModule.isPhysicActive = true;
         }
 
 
@@ -98,6 +105,7 @@ namespace Sanguine_Forest.Scripts.TestScripts
             _SpriteModule.UpdateMe();
             AudioSourceModule.UpdateMe();
             _AnimationModule.UpdateMe();
+            _PhysicsModule.UpdateMe();
 
         }
 
@@ -109,7 +117,18 @@ namespace Sanguine_Forest.Scripts.TestScripts
             _SpriteModule.UpdateMe();
             AudioSourceModule.UpdateMe();
             _AnimationModule.UpdateMe();
+            _PhysicsModule.UpdateMe();
 
+        }
+
+        public override void Collided(Collision collision)
+        {
+            base.Collided(collision);
+            if(collision.GetCollidedPhysicModule().GetParent() is IuriiTestGameObject)
+            {
+                IuriiTestGameObject obj = (IuriiTestGameObject)collision.GetCollidedPhysicModule().GetParent();
+                obj._SpriteModule.SetColor(Color.Red);                
+            }
         }
 
         public void DrawMe(SpriteBatch sp)
@@ -117,6 +136,7 @@ namespace Sanguine_Forest.Scripts.TestScripts
             _SpriteModule.DrawMe(sp,_AnimationModule);
             DebugManager.DebugRectangle(new Rectangle((int)Math.Round(GetPosition().X),(int)Math.Round(GetPosition().Y), 10,10));
             DebugManager.DebugRectangle(new Rectangle((int)Math.Round(_SpriteModule.GetPosition().X), (int)Math.Round(_SpriteModule.GetPosition().Y), 50, 50));
+            DebugManager.DebugRectangle(_PhysicsModule.GetPhysicRectangle());
         }
     }
 }

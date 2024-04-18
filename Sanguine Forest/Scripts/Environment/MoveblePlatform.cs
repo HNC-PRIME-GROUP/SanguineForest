@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Security.Policy;
 
 namespace Sanguine_Forest
 {
@@ -9,6 +11,27 @@ namespace Sanguine_Forest
     /// </summary>
     internal class MoveblePlatform : Platform
     {
-        public MoveblePlatform(Vector2 position, float rotation): base(position, rotation) { }
+        private Vector2 startPoint;
+        private Vector2 targetPoint;
+        private float speed; 
+
+        public MoveblePlatform(Vector2 position, 
+                                float rotation,
+                                Vector2 platformSize,
+                                ContentManager content,                                
+                                Vector2 targetPoint,
+                                float speed): 
+                                base(position, rotation, platformSize, content) 
+        {
+            startPoint = position;
+            this.targetPoint = targetPoint;
+            this.speed = speed;
+        }
+
+        public new void UpdateMe()
+        {
+
+        }
+        
     }
 }

@@ -5,12 +5,18 @@ using Extention;
 
 namespace Sanguine_Forest
 {
-    public class Game1 : Game
+    public class BigTest01 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Game1()
+
+        //test data
+        private Camera _camera;
+        private Character _character;
+        
+
+        public BigTest01()
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
@@ -29,7 +35,7 @@ namespace Sanguine_Forest
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            
+
             //Debug initialising
             DebugManager.SpriteBatch = _spriteBatch;
             DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
@@ -65,7 +71,7 @@ namespace Sanguine_Forest
 
 
             //Debug test
-            DebugManager.DebugRectangle(new Rectangle(50,50,50,50));
+            DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
 
             _spriteBatch.End();
             // TODO: Add your drawing code here

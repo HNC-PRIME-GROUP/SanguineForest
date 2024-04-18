@@ -83,6 +83,8 @@ namespace Sanguine_Forest
 
             _collision.isPhysicActive = true;
             _feet.isPhysicActive =true;
+            _walldetL.isPhysicActive = true;
+            _walldetR.isPhysicActive = true;
 
             speed = 5f;
             vel = Vector2.Zero;
@@ -213,15 +215,36 @@ namespace Sanguine_Forest
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
                 platform.GetPlatformRectangle();
 
-                if (vel.Y > 0)
+                if (collision.GetThisPhysicModule() == _feet)
                 {
-                    vel.Y = 0;
-                    pos.Y = platform.GetPlatformRectangle().Top - _collision.GetPhysicRectangle().Height + 1;
+                    if (vel.Y > 0)
+                    {
+                        vel.Y = 0;
+                        pos.Y = platform.GetPlatformRectangle().Top - _collision.GetPhysicRectangle().Height + 1;
+                    }
+                }
+                
+                if (collision.GetThisPhysicModule() == _walldetR)
+                {
+                    if (vel.X > 0)
+                    {
+                        vel.X = 0;
+                        pos.X = platform.GetPlatformRectangle().Left - _collision.GetPhysicRectangle().Width - 1;
+                        _currAni = AniState.hugWall;
+                    }
+                }
+                
+                if (collision.GetThisPhysicModule() == _walldetL)
+                {
+                    if (vel.X < 0)
+                    {
+                        vel.X = 0;
+                        pos.X = platform.GetPlatformRectangle().Right;
+                        _currAni = AniState.hugWall;
+                    }
                 }
 
-                // logic of staying on a platform
                 // if we need a physic rectangle of platform here:
-                // platform.GetPlatformRectangle();
             }
             if(collision.GetThisPhysicModule() == _collision && collision.GetCollidedPhysicModule().GetParent() is Obstacle)
             {

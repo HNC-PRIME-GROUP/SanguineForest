@@ -39,8 +39,9 @@ namespace Sanguine_Forest
 
         public void DrawMe(SpriteBatch spriteBatch) 
         {
-            _spriteModule.DrawMe(spriteBatch);
-           // DebugManager.DebugRectangle(platformPhysic.GetPhysicRectangle());
+            //_spriteModule.DrawMe(spriteBatch);
+          
+          DebugManager.DebugRectangle(platformPhysic.GetPhysicRectangle());
         }
 
 

@@ -18,7 +18,7 @@ namespace Sanguine_Forest
         public FallingPlatform(Vector2 position, 
                                 float rotation, 
                                 Vector2 platformSize, 
-                                ContentManager content, 
+                                ContentManager content,                                 
                                 float timeToFall): 
             base (position, rotation, platformSize, content) 
         {

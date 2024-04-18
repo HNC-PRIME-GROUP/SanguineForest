@@ -31,7 +31,7 @@ namespace Sanguine_Forest
             this.layer = layer;
 
             //default
-            defaultFrameRectangle = new Rectangle( (int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y), texture.Width, texture.Height);
+            defaultFrameRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
             scale = 1f;
             spriteEffect = SpriteEffects.None;
 
@@ -42,22 +42,19 @@ namespace Sanguine_Forest
         /// </summary>
         /// <param name="sp"></param>
         public void DrawMe(SpriteBatch sp)
-        {
-            Console.WriteLine($"Calling  SpriteModule.Draw");
+        {            
 
             Vector2 currentPosition = this.GetParent().GetPosition();
-            sp.Draw(texture, GetPosition(), defaultFrameRectangle, color,
-                GetRotation(), Vector2.Zero, scale, spriteEffect, (float)layer);
+            var tmp = (float)layer / (float)Extentions.SpriteLayer.Length;
+            sp.Draw(texture, GetPosition(), null, color,
+                GetRotation(), Vector2.Zero, scale, spriteEffect, tmp);
 
             //// Update the position for testing
             //testXPosition -= 0f;
             //// Use the updated test position for drawing
             //Vector2 testPosition = new Vector2(testXPosition, 0);
             //// Draw the texture at the new test position
-            //sp.Draw(texture, testPosition, null, color, GetRotation(), Vector2.Zero, scale, spriteEffect, (float)layer);
-
-
-            Debug.WriteLine($"Drawing aaaat Position: {GetPosition()}");
+            //sp.Draw(texture, testPosition, null, color, GetRotation(), Vector2.Zero, scale, spriteEffect, (float)layer);            
 
         }
 
@@ -69,7 +66,7 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch sp, AnimationModule animation)
         {
 
-            sp.Draw(texture, GetPosition(), animation.GetFrameRectangle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, 0);
+            sp.Draw(texture, GetPosition(), animation.GetFrameRectangle(), color, GetRotation(), Vector2.Zero, scale, spriteEffect, (float)layer / (float)Extentions.SpriteLayer.Length);
         
         }
 

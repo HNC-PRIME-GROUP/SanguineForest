@@ -29,11 +29,12 @@ namespace Sanguine_Forest
 
             //Collision
             platformPhysic = new PhysicModule(this, Vector2.Zero, platformSize);
+            platformPhysic.isPhysicActive = true;
+            _spriteModule.SetDrawRectangle(platformPhysic.GetPhysicRectangle());
         }
 
         public new void UpdateMe()
-        {
-            
+        {   
             _spriteModule.UpdateMe();
         }
 
@@ -42,10 +43,6 @@ namespace Sanguine_Forest
             _spriteModule.DrawMe(spriteBatch);
            // DebugManager.DebugRectangle(platformPhysic.GetPhysicRectangle());
         }
-
-
-
-
 
         /// <summary>
         /// Return exactly rectangle

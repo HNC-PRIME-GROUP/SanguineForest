@@ -24,6 +24,9 @@ namespace Sanguine_Forest
 
         private static float testXPosition = 0; // Test variable for horizontal movement
 
+        //Animation module to control the spritesheet
+        private AnimationModule? animationModule;
+
 
 
         // default rectangle in case if this sprite is not under the animation control
@@ -44,34 +47,54 @@ namespace Sanguine_Forest
         }
 
         /// <summary>
-        /// Draw if there is no animation module
+        /// Initialise the animation module
+        /// </summary>
+        /// <param name="animationModule"></param>
+        public void AnimtaionInitialise (AnimationModule animationModule)
+        {
+            this.animationModule = animationModule;
+            drawRectangle = new Rectangle(drawRectangle.Location,
+                new Point((int)Math.Round((float)this.animationModule.GetFrameRectangle().Width * scale),
+                (int)Math.Round((float)this.animationModule.GetFrameRectangle().Height * scale)));
+        }
+
+        /// <summary>
+        /// Draw the sprite
         /// </summary>
         /// <param name="sp"></param>
         public void DrawMe(SpriteBatch sp)
-        {    
-                        sp.Draw(texture, drawRectangle, null, color,
-                        GetRotation(), Vector2.Zero, spriteEffect,
-                        (float)layer / (float)Extentions.SpriteLayer.Length); // transformlayers to numbers between 0 and 1.
+        {
+            if (animationModule is null)
+            {
+                sp.Draw(texture, drawRectangle, null, color,
+                GetRotation(), Vector2.Zero, spriteEffect,
+                (float)layer / (float)Extentions.SpriteLayer.Length); // transformlayers to numbers between 0 and 1.
+            }
+            else
+            {
+                sp.Draw(texture, drawRectangle, animationModule.GetFrameRectangle(),
+                color, GetRotation(), Vector2.Zero, spriteEffect,
+                (float)layer / (float)Extentions.SpriteLayer.Length);
+            }
                
         }
-
-
 
         /// <summary>
         /// Draw if there is an animation module
         /// </summary>
         /// <param name="sp"></param>
         /// <param name="animation">Animation module</param>
-        public void DrawMe(SpriteBatch sp, AnimationModule animation)
-        {
-            //terrible work around
-            Rectangle temp= new Rectangle(drawRectangle.Location, 
-                new Point((int)Math.Round((float)animation.GetFrameRectangle().Width*scale), 
-                (int)Math.Round((float)animation.GetFrameRectangle().Height*scale)));
-            sp.Draw(texture, temp, animation.GetFrameRectangle(), 
-                color, GetRotation(), Vector2.Zero, spriteEffect, 
-                (float)layer / (float)Extentions.SpriteLayer.Length);
-        }
+        //public void DrawMe(SpriteBatch sp, AnimationModule animation)
+        //{
+        //    //terrible work around
+        //    Rectangle temp= new Rectangle(drawRectangle.Location, 
+        //        new Point((int)Math.Round((float)animation.GetFrameRectangle().Width*scale), 
+        //        (int)Math.Round((float)animation.GetFrameRectangle().Height*scale)));
+
+        //    sp.Draw(texture, drawRectangle, animationModule.GetFrameRectangle(), 
+        //        color, GetRotation(), Vector2.Zero, spriteEffect, 
+        //        (float)layer / (float)Extentions.SpriteLayer.Length);
+        //}
 
         public new void UpdateMe()
         {

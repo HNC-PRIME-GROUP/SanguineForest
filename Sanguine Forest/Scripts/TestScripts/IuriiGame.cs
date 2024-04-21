@@ -78,7 +78,7 @@ namespace Sanguine_Forest
             _gameObject._SpriteModule.SetScale(0.3f);
             _gameObject1._SpriteModule.SetScale(0.3f);
 
-            platform = new Platform(new Vector2(0, 0), 0f, new Vector2(100, 100), Content);
+            platform = new Platform(new Vector2(300, 0), 0f, new Vector2(100, 100), Content);
             platform._spriteModule.SetScale(1f);
             camera.SetCameraTarget(_gameObject);
 

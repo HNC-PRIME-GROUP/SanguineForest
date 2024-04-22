@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Extention;
+using System.IO;
+using System;
 
 namespace Sanguine_Forest
 {
@@ -11,9 +13,28 @@ namespace Sanguine_Forest
         private SpriteBatch _spriteBatch;
 
 
-        //test data
+        //Camers
         private Camera _camera;
+
+        //Character
         private Character _character;
+
+        //PlayerState
+        private PlayerState _playerState;
+
+        //Environment
+        private EnvironmentManager _environmentManager;
+        
+        //Parallaxing
+        private ParallaxManager _parallaxManager;
+
+        //Scene
+        private Scene _currentScene;
+
+        //Control
+        private KeyboardState currState;
+        private KeyboardState prevState;
+
         
 
         public BigTest01()
@@ -26,15 +47,23 @@ namespace Sanguine_Forest
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
+
+            FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
+
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+
+            //graphic installing
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _graphics.PreferredBackBufferHeight = 1280;
+            _graphics.PreferredBackBufferWidth = 1920;
 
             //Debug initialising
             DebugManager.SpriteBatch = _spriteBatch;
@@ -42,22 +71,65 @@ namespace Sanguine_Forest
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
 
+            //Audio
+            //AudioSetting
+            //AudioManager.GeneralVolume = 1.0f;
+
+
+
+            //Load plaer state and scene
+            _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter+".json");
+
+            //Set character and camera
+            _character = new Character(_currentScene.characterPosition, 0, Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(720, 720));
+            _camera.SetCameraTarget(_character);
+
+            //Set the level's objects
+            _environmentManager = new EnvironmentManager(Content);
+            _environmentManager.Initialise(_currentScene);
+
+
+            //Set decor and parallaxing
+            _parallaxManager = new ParallaxManager();
+
+
+
+
+
         }
 
         protected override void Update(GameTime gameTime)
         {
+            //save curr state of keyboard
+            currState = Keyboard.GetState();
 
             //Physic update
             PhysicManager.UpdateMe();
 
+            //Audio manager
+            //AudioSetting
+            //AudioManager.UpdateMe();
+
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            //Environment update
+            _environmentManager.UpdateMe();
+
+            //camera
+            _camera.UpdateMe();
+
+            //Character
+            _character.UpdateMe(currState, prevState, _environmentManager.platforms);
 
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            //save prev state
+            prevState = currState;
 
             base.Update(gameTime);
         }
@@ -66,7 +138,9 @@ namespace Sanguine_Forest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+            _environmentManager.DrawMe(_spriteBatch);
+            _character.DrawMe(_spriteBatch);
 
 
 

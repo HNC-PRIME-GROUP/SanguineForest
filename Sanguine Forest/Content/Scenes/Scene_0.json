@@ -1,0 +1,25 @@
+  {
+    "characterPosition": "0, 0",
+    "simplePlatforms": [
+      {
+        "position": "100,200",
+        "rotation": "0",
+        "platformSize": "200,50"
+      },
+      {
+        "position": "400,100",
+        "rotation": "0",
+        "platformSize": "400,50"
+      },
+      {
+        "position": "-500,300",
+        "rotation": "0",
+        "platformSize": "200,50"
+      }
+    ],
+    "moveblPlatforms": [],
+    "fallingPlatforms": [],
+    "decors": [],
+    "bachgrounds": []
+  }
+

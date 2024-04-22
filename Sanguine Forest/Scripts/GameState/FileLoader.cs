@@ -12,7 +12,7 @@ namespace Sanguine_Forest
     static class FileLoader
     {
 
-
+        public static string RootFolder;
 
         public static void SaveToJson<T>(T obj, string filePath)
         {

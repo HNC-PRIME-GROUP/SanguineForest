@@ -131,6 +131,10 @@ namespace Sanguine_Forest.Scripts.TestScripts
                 IuriiTestGameObject obj = (IuriiTestGameObject)collision.GetCollidedPhysicModule().GetParent();
                 obj._SpriteModule.SetColor(Color.Red);                
             }
+            if(collision.GetCollidedPhysicModule().GetParent() is Platform)
+            {
+                this._SpriteModule.SetColor(Color.Green);
+            }
         }
 
         public void DrawMe(SpriteBatch sp)

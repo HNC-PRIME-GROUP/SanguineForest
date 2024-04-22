@@ -49,6 +49,9 @@ namespace Sanguine_Forest
         private float speed;
         private Vector2 vel;
 
+        private bool moveL;
+        private bool moveR;
+
         public Texture2D txr;
 
         private float gravity;
@@ -94,6 +97,9 @@ namespace Sanguine_Forest
 
             _looking = looking.Right;
             _currAni = AniState.stand;
+
+            moveL = true;
+            moveR = true;
         }
 
         public void UpdateMe(KeyboardState curr, KeyboardState prev)
@@ -101,8 +107,11 @@ namespace Sanguine_Forest
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                vel.X = speed;
-                _looking = looking.Right;
+                if (moveR == true)
+                {
+                    vel.X = speed;
+                    _looking = looking.Right;
+                }
                 
                 if (vel.Y != 0)
                 {
@@ -113,8 +122,12 @@ namespace Sanguine_Forest
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                vel.X = -speed;
-                _looking = looking.Left;
+                if (moveL == true)
+                {
+                    vel.X = -speed;
+                    _looking = looking.Left;
+                }
+
                 if (vel.Y != 0)
                     _currAni = AniState.jump;
                 else
@@ -226,22 +239,26 @@ namespace Sanguine_Forest
                 
                 if (collision.GetThisPhysicModule() == _walldetR)
                 {
-                    if (vel.X > 0)
-                    {
                         vel.X = 0;
                         pos.X = platform.GetPlatformRectangle().Left - _collision.GetPhysicRectangle().Width - 1;
+                        moveR = false;
                         _currAni = AniState.hugWall;
-                    }
+                }
+                else if(collision.GetThisPhysicModule() != _walldetR)
+                {
+                    moveR = true;
                 }
                 
                 if (collision.GetThisPhysicModule() == _walldetL)
                 {
-                    if (vel.X < 0)
-                    {
                         vel.X = 0;
                         pos.X = platform.GetPlatformRectangle().Right;
+                        moveL = false;
                         _currAni = AniState.hugWall;
-                    }
+                }
+                else if (collision.GetThisPhysicModule() != _walldetL)
+                {
+                    moveL = true;
                 }
 
                 // if we need a physic rectangle of platform here:

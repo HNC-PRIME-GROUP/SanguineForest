@@ -13,6 +13,6 @@ namespace Sanguine_Forest
         public bool IsAlive { get; set; } = true;
 
         //current level
-
+        public int lvlCounter;
     }
 }

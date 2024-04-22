@@ -54,4 +54,11 @@ namespace Sanguine_Forest
         }
 
     }
+
+    internal struct PlatformData
+    {
+        public Vector2 position;
+        public float rotation;
+        public Vector2 platformSize;
+    }
 }

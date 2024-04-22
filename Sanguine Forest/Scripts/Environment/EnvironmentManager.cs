@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.MediaFoundation;
@@ -12,14 +13,33 @@ namespace Sanguine_Forest
     internal class EnvironmentManager
     {
 
+        //Content manaher
+        private ContentManager content;
+
         public List<Platform> platforms;
         //private List<MoveblePlatform> movebles;
         //private List<FallingPlatform> falling;
         //private List<Decor> decors;
 
+
+        //link to content manager
+        public EnvironmentManager(ContentManager content) 
+        { 
+        this.content = content;
+        }
+
+
+        //Creating of all platforms and other environment from the scene
         public void Initialise(Scene scene)
         {
-            platforms = scene.simplePlatforms;
+            platforms = new List<Platform>();
+            for(int i =0; i<scene.simplePlatforms.Count; i++) 
+            {
+                platforms.Add(new Platform(scene.simplePlatforms[i].position, scene.simplePlatforms[i].rotation, scene.simplePlatforms[i].platformSize, content));
+
+            }
+            
+
             //movebles = scene.moveblPlatforms;
             //falling = scene.fallingPlatforms;   
             //decors = scene.decors;

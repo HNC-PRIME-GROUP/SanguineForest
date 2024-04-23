@@ -80,8 +80,8 @@ namespace Sanguine_Forest
             _collision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
             _feet = new PhysicModule(this, new Vector2(100, 190), new Vector2(140, 20));
 
-            _walldetL = new PhysicModule(this, new Vector2(20, 100), new Vector2(10, 160));
-            _walldetR = new PhysicModule(this, new Vector2(180, 100), new Vector2(10, 160));
+            _walldetL = new PhysicModule(this, new Vector2(20, 100), new Vector2(10, 130));
+            _walldetR = new PhysicModule(this, new Vector2(180, 100), new Vector2(10, 130));
 
 
             _collision.isPhysicActive = true;
@@ -111,6 +111,7 @@ namespace Sanguine_Forest
                 {
                     vel.X = speed;
                     _looking = looking.Right;
+                    moveL = true;
                 }
                 
                 if (vel.Y != 0)
@@ -126,6 +127,7 @@ namespace Sanguine_Forest
                 {
                     vel.X = -speed;
                     _looking = looking.Left;
+                    moveR = true;
                 }
 
                 if (vel.Y != 0)
@@ -244,7 +246,7 @@ namespace Sanguine_Forest
                         moveR = false;
                         _currAni = AniState.hugWall;
                 }
-                else if(collision.GetThisPhysicModule() != _walldetR)
+                else
                 {
                     moveR = true;
                 }
@@ -256,7 +258,7 @@ namespace Sanguine_Forest
                         moveL = false;
                         _currAni = AniState.hugWall;
                 }
-                else if (collision.GetThisPhysicModule() != _walldetL)
+                else
                 {
                     moveL = true;
                 }

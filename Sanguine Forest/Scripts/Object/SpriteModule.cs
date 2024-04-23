@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using Extention;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Sanguine_Forest
 {
@@ -34,6 +35,13 @@ namespace Sanguine_Forest
         // rectangle that actually used 
         private Rectangle drawRectangle;
 
+
+        //Tilled stuff
+        private bool isTilling=false;
+        private Rectangle oneTileRectangle;
+        private Dictionary<string,Rectangle> tilesDictionary;
+        private string[,] TileMap;
+
         public SpriteModule(GameObject parent, Vector2 shift, Texture2D texture, Extentions.SpriteLayer layer) : base(parent, shift) 
         {
             this.texture= texture;
@@ -58,23 +66,46 @@ namespace Sanguine_Forest
                 (int)Math.Round((float)this.animationModule.GetFrameRectangle().Height * scale)));
         }
 
+        public void TillingMe( Dictionary<string, Rectangle> tileDictionary, string[,] tileMap, Rectangle drawRectangle, Rectangle tileRectangle)
+        {
+            isTilling = true;            
+            this.TileMap = tileMap;
+            this.tilesDictionary = tileDictionary;
+            this.drawRectangle = drawRectangle;
+            oneTileRectangle = tileRectangle;
+
+        }
+
         /// <summary>
         /// Draw the sprite
         /// </summary>
         /// <param name="sp"></param>
         public void DrawMe(SpriteBatch sp)
         {
-            if (animationModule is null)
+            if (isTilling!)
             {
-                sp.Draw(texture, drawRectangle, null, color,
-                GetRotation(), Vector2.Zero, spriteEffect,
-                (float)layer / (float)Extentions.SpriteLayer.Length); // transformlayers to numbers between 0 and 1.
+                if (animationModule is null)
+                {
+                    sp.Draw(texture, drawRectangle, null, color,
+                    GetRotation(), Vector2.Zero, spriteEffect,
+                    (float)layer / (float)Extentions.SpriteLayer.Length); // transformlayers to numbers between 0 and 1.
+                }
+                else
+                {
+                    sp.Draw(texture, drawRectangle, animationModule.GetFrameRectangle(),
+                    color, GetRotation(), Vector2.Zero, spriteEffect,
+                    (float)layer / (float)Extentions.SpriteLayer.Length);
+                }
             }
             else
             {
-                sp.Draw(texture, drawRectangle, animationModule.GetFrameRectangle(),
-                color, GetRotation(), Vector2.Zero, spriteEffect,
-                (float)layer / (float)Extentions.SpriteLayer.Length);
+                for(int i=0; i<TileMap.GetLength(0); i++)
+                {
+                    for(int j=0; j<TileMap.GetLength(1); j++)
+                    {
+                        
+                    }
+                }
             }
                
         }
@@ -164,7 +195,6 @@ namespace Sanguine_Forest
 
 
         #endregion
-
-
     }
+
 }

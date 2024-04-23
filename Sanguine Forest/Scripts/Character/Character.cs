@@ -269,6 +269,12 @@ namespace Sanguine_Forest
 
             }
         }
+
+
+        public Vector2 GetVelocity()
+        {
+            return vel;
+        }
         
 
 

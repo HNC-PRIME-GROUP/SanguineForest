@@ -82,7 +82,7 @@ namespace Sanguine_Forest
 
 
 
-            //Load plaer state and scene
+            //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter+".json");
 

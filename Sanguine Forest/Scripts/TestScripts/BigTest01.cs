@@ -95,7 +95,7 @@ namespace Sanguine_Forest
 
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, GraphicsDevice);
+            //_parallaxManager = new ParallaxManager(Content, GraphicsDevice);
 
 
         }
@@ -125,7 +125,7 @@ namespace Sanguine_Forest
             _character.UpdateMe(currState, prevState);
 
             //Background
-            _parallaxManager.UpdateMe(_character.GetVelocity());
+            //_parallaxManager.UpdateMe(_character.GetVelocity());
 
 
 
@@ -148,7 +148,7 @@ namespace Sanguine_Forest
             _character.DrawMe(_spriteBatch);
 
             //Background
-            _parallaxManager.Draw(_spriteBatch);
+            // _parallaxManager.Draw(_spriteBatch);
 
 
             //Debug test

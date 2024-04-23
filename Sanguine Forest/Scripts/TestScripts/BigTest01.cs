@@ -77,7 +77,7 @@ namespace Sanguine_Forest
 
 
 
-            //Load plaer state and scene
+            //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter+".json");
 
@@ -122,7 +122,7 @@ namespace Sanguine_Forest
             _camera.UpdateMe();
 
             //Character
-            _character.UpdateMe(currState, prevState, _environmentManager.platforms);
+            _character.UpdateMe(currState, prevState);
 
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))

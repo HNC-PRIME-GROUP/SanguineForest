@@ -27,6 +27,10 @@ namespace Sanguine_Forest
         
         //Parallaxing
         private ParallaxManager _parallaxManager;
+        private ParallaxBackground back01;
+        private ParallaxBackground back02;
+        private ParallaxBackground back03;
+        private ParallaxBackground back04;
 
         //Scene
         private Scene _currentScene;
@@ -86,6 +90,7 @@ namespace Sanguine_Forest
             _character = new Character(_currentScene.characterPosition, 0, Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
             _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
+            _camera.SetZoom(1f);
 
             //Set the level's objects
             _environmentManager = new EnvironmentManager(Content);
@@ -94,6 +99,12 @@ namespace Sanguine_Forest
 
             //Set decor and parallaxing
             _parallaxManager = new ParallaxManager();
+            Vector2 startParallaxPos = new Vector2(-1920 / 2, -1080 / 2);
+            back01 = new ParallaxBackground(startParallaxPos, 0, Content.Load<Texture2D>("Sprites/Background_day_01"), Extentions.SpriteLayer.background_Forest_1, 0.5f);
+            back02 = new ParallaxBackground(startParallaxPos, 0, Content.Load<Texture2D>("Sprites/Background_day_02"), Extentions.SpriteLayer.background_Forest_1, 0.5f);
+            back03 = new ParallaxBackground(startParallaxPos, 0, Content.Load<Texture2D>("Sprites/Background_day_03"), Extentions.SpriteLayer.background_Forest_1, 0.5f);
+            //back04 = new ParallaxBackground(startParallaxPos, 0, Content.Load<Texture2D>("Sprites/Background_day_01"), Extentions.SpriteLayer.background_Forest_4, 0.1f);
+
 
 
 
@@ -125,6 +136,12 @@ namespace Sanguine_Forest
             //Character
             _character.UpdateMe(currState, prevState);
 
+            //Background
+            back01.UpdatePosition(_character.GetVelocity());
+            back02.UpdatePosition(_character.GetVelocity());
+            back03.UpdatePosition(_character.GetVelocity());
+
+
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -143,7 +160,10 @@ namespace Sanguine_Forest
             _environmentManager.DrawMe(_spriteBatch);
             _character.DrawMe(_spriteBatch);
 
-
+            //Background
+            back01.Draw(_spriteBatch);
+            back02.Draw(_spriteBatch);
+            back03.Draw(_spriteBatch);
 
             //Debug test
             DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));

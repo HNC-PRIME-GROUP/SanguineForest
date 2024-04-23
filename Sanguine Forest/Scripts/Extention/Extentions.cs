@@ -54,11 +54,10 @@ namespace Extention
             character2,
             environment1,
             environment2,
+            background_Back=3,
+            background_Mid=2,
+            background_Fore=1,
             obstacles,
-            background_Forest_1,
-            background_Forest_2,
-            background_Forest_3,
-            background_Lake_4,
             Length
         }
 

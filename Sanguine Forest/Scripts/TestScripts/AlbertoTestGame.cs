@@ -1,13 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Extention;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Extention;
 using System.IO;
 using System;
 
 namespace Sanguine_Forest
 {
-    public class BigTest01 : Game
+    public class AlbertoTestGame : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -24,7 +24,7 @@ namespace Sanguine_Forest
 
         //Environment
         private EnvironmentManager _environmentManager;
-        
+
         //Parallaxing
         private ParallaxManager _parallaxManager;
 
@@ -36,9 +36,9 @@ namespace Sanguine_Forest
         private KeyboardState currState;
         private KeyboardState prevState;
 
-        
 
-        public BigTest01()
+
+        public AlbertoTestGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
@@ -81,7 +81,7 @@ namespace Sanguine_Forest
 
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
-            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter+".json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
 
             //Set character and camera
             _character = new Character(_currentScene.characterPosition, 0, Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));

@@ -131,9 +131,9 @@ namespace Sanguine_Forest
 
         public new void UpdateMe()
         {
-            base.UpdateMe();
             drawRectangle.Location = GetPosition().ToPoint();
 
+            base.UpdateMe();
 
         }
 

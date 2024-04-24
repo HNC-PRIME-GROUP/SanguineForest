@@ -52,6 +52,8 @@ namespace Sanguine_Forest
             drawRectangle = defaultFrameRectangle;
             scale = 1f;
             spriteEffect = SpriteEffects.None;
+
+            isTilling = false;
         }
 
         /// <summary>
@@ -105,6 +107,7 @@ namespace Sanguine_Forest
                     for(int j=0; j<TileMap.GetLength(1); j++)
                     {
                         
+
                         sp.Draw(texture, drawRectangle, tilesDictionary[TileMap[i,j]], color, 
                             GetRotation(),Vector2.Zero, spriteEffect, (float)layer/ (float)Extentions.SpriteLayer.Length);
                         drawRectangle.Location = new Point(drawRectangle.Location.X+oneTileRectangle.Width, drawRectangle.Location.Y);
@@ -112,6 +115,7 @@ namespace Sanguine_Forest
                     drawRectangle.Location = new Point(GetPosition().ToPoint().X,drawRectangle.Location.Y+oneTileRectangle.Height);
                 }
             }
+
                
         }
 
@@ -134,9 +138,9 @@ namespace Sanguine_Forest
 
         public new void UpdateMe()
         {
-            base.UpdateMe();
             drawRectangle.Location = GetPosition().ToPoint();
 
+            base.UpdateMe();
 
         }
 

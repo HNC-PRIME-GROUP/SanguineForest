@@ -4,18 +4,19 @@
       {
         "position": "100,200",
         "rotation": "0",
-        "platformSize": "200,50"
+        "platformSize": "576,192"
       },
       {
-        "position": "400,100",
+        "position": "-1000,200",
         "rotation": "0",
-        "platformSize": "400,50"
+        "platformSize": "800,400"
       },
       {
-        "position": "-500,300",
+        "position": "300,-1000",
         "rotation": "0",
-        "platformSize": "200,50"
+        "platformSize": "200,1000"
       }
+
     ],
     "moveblPlatforms": [],
     "fallingPlatforms": [],

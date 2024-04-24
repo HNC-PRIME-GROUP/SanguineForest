@@ -27,12 +27,10 @@ namespace Sanguine_Forest
         {
 
             //Sptire and graphic
-            _spriteModule = new SpriteModule(this, Vector2.Zero, DebugManager.DebugTexture, Extention.Extentions.SpriteLayer.environment1);
+            _spriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/TileSet_Mossy"), Extention.Extentions.SpriteLayer.environment1);
 
-            //Collision
-            platformPhysic = new PhysicModule(this, Vector2.Zero, platformSize);
-            platformPhysic.isPhysicActive = true;
-            _spriteModule.SetDrawRectangle(platformPhysic.GetPhysicRectangle());
+            
+            //_spriteModule.SetDrawRectangle(platformPhysic.GetPhysicRectangle());
 
 
             //tiles
@@ -49,7 +47,7 @@ namespace Sanguine_Forest
                 {"BottomRight", new Rectangle(1024,1024,512,512) }
             };
 
-            string[,] tileMap = new string[(int)Math.Round(platformSize.X/64), (int)Math.Round(platformSize.Y/64)];
+            string[,] tileMap = new string[(int)Math.Round(platformSize.Y / 128), (int)Math.Round(platformSize.X / 128)];
             for(int i=0;i<tileMap.GetLength(0); i++)
             {
                 for(int j=0; j<tileMap.GetLength(1); j++) 
@@ -57,34 +55,57 @@ namespace Sanguine_Forest
                     if(i==0&&j==0)
                     {
                         tileMap[i, j] = "UpLeft";
-                        break;
+                        continue;
                     }
                     if(i==0&&j==tileMap.GetLength(1)-1)
                     {
                         tileMap[i, j] = "UpRight";
-                        break;
+                        continue;
                     }
                     if(i==0&&j>0)
                     {
                         tileMap[i, j] = "Up";
-                        break;
+                        continue;
                     }
-                    if(i==0&&j==0)
+                    if(i==tileMap.GetLength(0)-1&&j==0)
+                    {
+                        tileMap[i, j] = "BottomLeft";
+                        continue;
+                    }                    
+                    if(i==tileMap.GetLength(0)-1&&j==tileMap.GetLength(1)-1)
+                    {
+                        tileMap[i, j] = "BottomRight";
+                        continue;
+                    }
+                    if(i==tileMap.GetLength(0)-1&& j>0 )
+                    {
+                        tileMap[i, j] = "Bottom";
+                        continue;
+                    }
+                    if(i>0&&j==0)
                     {
                         tileMap[i, j] = "MidLeft";
-                        break;
+                        continue;
                     }
-                    if(i>0&&j<tileMap.GetLength(1)-1)
+                    if(i>0&&j==tileMap.GetLength(1)-1)
+                    {
+                        tileMap[i, j] = "MidRight";
+                        continue;
+                    }
+                    if(i>0&&j>0)
                     {
                         tileMap[i, j] = "Mid";
-                        break;
+                        continue;
                     }
-
-
-
                 }
             }
-            _spriteModule.TillingMe()
+            _spriteModule.TillingMe(tileDictionary,tileMap,new Rectangle((int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y), 
+                (int)Math.Round(platformSize.X / 128)*128, (int)Math.Round(platformSize.Y / 128)*128), new Rectangle(0,0,128,128));
+
+            //Collision
+            platformPhysic = new PhysicModule(this, Vector2.Zero, new Vector2((int)Math.Round(platformSize.X / 128)*128, (int)Math.Round(platformSize.Y / 128) * 128));
+            platformPhysic.isPhysicActive = true;
+
 
         }
 
@@ -96,7 +117,7 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch spriteBatch) 
         {
             _spriteModule.DrawMe(spriteBatch);
-           // DebugManager.DebugRectangle(platformPhysic.GetPhysicRectangle());
+            DebugManager.DebugRectangle(platformPhysic.GetPhysicRectangle());
         }
 
         /// <summary>

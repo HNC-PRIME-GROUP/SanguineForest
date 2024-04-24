@@ -71,7 +71,8 @@ namespace Sanguine_Forest
             isTilling = true;            
             this.TileMap = tileMap;
             this.tilesDictionary = tileDictionary;
-            this.drawRectangle = drawRectangle;
+            this.drawRectangle = tileRectangle;
+            this.drawRectangle.Location = GetPosition().ToPoint();
             oneTileRectangle = tileRectangle;
 
         }
@@ -82,7 +83,7 @@ namespace Sanguine_Forest
         /// <param name="sp"></param>
         public void DrawMe(SpriteBatch sp)
         {
-            if (isTilling!)
+            if (!isTilling)
             {
                 if (animationModule is null)
                 {
@@ -103,11 +104,12 @@ namespace Sanguine_Forest
                 {
                     for(int j=0; j<TileMap.GetLength(1); j++)
                     {
-
+                        
                         sp.Draw(texture, drawRectangle, tilesDictionary[TileMap[i,j]], color, 
                             GetRotation(),Vector2.Zero, spriteEffect, (float)layer/ (float)Extentions.SpriteLayer.Length);
-                        drawRectangle.Location = new Point(oneTileRectangle.Width*j,oneTileRectangle.Height*i);
+                        drawRectangle.Location = new Point(drawRectangle.Location.X+oneTileRectangle.Width, drawRectangle.Location.Y);
                     }
+                    drawRectangle.Location = new Point(GetPosition().ToPoint().X,drawRectangle.Location.Y+oneTileRectangle.Height);
                 }
             }
                

@@ -52,6 +52,8 @@ namespace Sanguine_Forest
             drawRectangle = defaultFrameRectangle;
             scale = 1f;
             spriteEffect = SpriteEffects.None;
+
+            isTilling = false;
         }
 
         /// <summary>
@@ -82,7 +84,7 @@ namespace Sanguine_Forest
         /// <param name="sp"></param>
         public void DrawMe(SpriteBatch sp)
         {
-            if (isTilling!)
+            if (!isTilling)
             {
                 if (animationModule is null)
                 {
@@ -97,16 +99,16 @@ namespace Sanguine_Forest
                     (float)layer / (float)Extentions.SpriteLayer.Length);
                 }
             }
-            else
-            {
-                for(int i=0; i<TileMap.GetLength(0); i++)
-                {
-                    for(int j=0; j<TileMap.GetLength(1); j++)
-                    {
+            //else
+            //{
+            //    for(int i=0; i<TileMap.GetLength(0); i++)
+            //    {
+            //        for(int j=0; j<TileMap.GetLength(1); j++)
+            //        {
                         
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
                
         }
 

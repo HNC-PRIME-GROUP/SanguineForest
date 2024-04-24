@@ -48,7 +48,7 @@ namespace Sanguine_Forest
         // Method to draw the background
         public void Draw(SpriteBatch spriteBatch)
         {
-            Debug.WriteLine($"Draw ParBackground");
+            //Debug.WriteLine($"Draw ParBackground");
             // Delegate drawing to the spriteModule
             spriteModule.DrawMe(spriteBatch);
         }

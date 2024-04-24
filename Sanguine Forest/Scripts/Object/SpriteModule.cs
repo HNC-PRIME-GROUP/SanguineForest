@@ -97,16 +97,16 @@ namespace Sanguine_Forest
                     (float)layer / (float)Extentions.SpriteLayer.Length);
                 }
             }
-            else
-            {
-                for(int i=0; i<TileMap.GetLength(0); i++)
-                {
-                    for(int j=0; j<TileMap.GetLength(1); j++)
-                    {
+            //else
+            //{
+            //    for(int i=0; i<TileMap.GetLength(0); i++)
+            //    {
+            //        for(int j=0; j<TileMap.GetLength(1); j++)
+            //        {
                         
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
                
         }
 

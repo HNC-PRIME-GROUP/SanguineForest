@@ -95,7 +95,7 @@ namespace Sanguine_Forest
 
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, GraphicsDevice);
+            _parallaxManager = new ParallaxManager(Content);
 
 
         }
@@ -118,10 +118,10 @@ namespace Sanguine_Forest
             //Environment update
             _environmentManager.UpdateMe();
 
-            //camera
+            ////camera
             _camera.UpdateMe();
 
-            //Character
+            ////Character
             _character.UpdateMe(currState, prevState);
 
             //Background
@@ -144,11 +144,13 @@ namespace Sanguine_Forest
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+
             _environmentManager.DrawMe(_spriteBatch);
-            _character.DrawMe(_spriteBatch);
+
+            _parallaxManager.Draw(_spriteBatch);
 
             //Background
-            _parallaxManager.Draw(_spriteBatch);
+            _character.DrawMe(_spriteBatch);
 
 
             //Debug test

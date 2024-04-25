@@ -51,7 +51,8 @@ namespace Sanguine_Forest
             environmentManager = new EnvironmentManager();
             environmentManager.platforms = new List<Platform>();
             environmentManager.platforms.Add(new Platform(new Vector2(300, 300), 0, new Vector2(100, 100), Content));
-            environmentManager.platforms.Add(new Platform(new Vector2(500, 200), 0, new Vector2(100, 100), Content));
+            environmentManager.platforms.Add(new Platform(new Vector2(500, 100), 0, new Vector2(100, 100), Content));
+            environmentManager.platforms.Add(new Platform(new Vector2(-600, 400), 0, new Vector2(1000, 100), Content));
 
 
         }
@@ -92,6 +93,7 @@ namespace Sanguine_Forest
 
             DebugManager.DebugString("pos: " + player.GetPosition(), new Vector2(0, 0));
             DebugManager.DebugString("pos: " + player.pos, new Vector2(0, 10));
+            DebugManager.DebugString("Hugwall: "+player.hugwall, new Vector2(0, 20));
 
             _spriteBatch.End();
 

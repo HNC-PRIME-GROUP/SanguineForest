@@ -26,6 +26,7 @@ namespace Sanguine_Forest
             stand,
             jump,
             hugWall,
+            wallJump,
             drink
         }
         enum looking
@@ -57,6 +58,8 @@ namespace Sanguine_Forest
         private float gravity;
         private int ground;
 
+        public bool hugwall;
+
         public Character(Vector2 position, float rotation, Texture2D _txr) : base(position, rotation)
         {
             _spriteModule = new SpriteModule(this, Vector2.Zero, _txr, 
@@ -78,10 +81,10 @@ namespace Sanguine_Forest
 
             //Collisions
             _collision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
-            _feet = new PhysicModule(this, new Vector2(100, 190), new Vector2(140, 20));
+            _feet = new PhysicModule(this, new Vector2(100, 180), new Vector2(130, 20));
 
-            _walldetL = new PhysicModule(this, new Vector2(20, 100), new Vector2(10, 130));
-            _walldetR = new PhysicModule(this, new Vector2(180, 100), new Vector2(10, 130));
+            _walldetL = new PhysicModule(this, new Vector2(35, 100), new Vector2(10, 130));
+            _walldetR = new PhysicModule(this, new Vector2(165, 100), new Vector2(10, 130));
 
 
             _collision.isPhysicActive = true;
@@ -93,7 +96,7 @@ namespace Sanguine_Forest
             vel = Vector2.Zero;
 
             gravity = 0.3f;
-            ground = 400;
+            ground = 800;
 
             _looking = looking.Right;
             _currAni = AniState.stand;
@@ -148,7 +151,8 @@ namespace Sanguine_Forest
 
             if (prev.IsKeyUp(Keys.W)&&curr.IsKeyDown(Keys.W))
             {
-                if (vel.Y == 0 || _currAni == AniState.hugWall)
+                
+                if (vel.Y == 0)
                 {
                     vel.Y = -8;
                     moveL = true;
@@ -169,6 +173,7 @@ namespace Sanguine_Forest
                         _looking = looking.Right;
                     }
                 }
+                hugwall = false;
             }
             position += vel;
 
@@ -262,12 +267,17 @@ namespace Sanguine_Forest
                         vel.X = 0;
                         pos.X = platform.GetPlatformRectangle().Left - _collision.GetPhysicRectangle().Width - 1;
                         moveR = false;
+                        hugwall = true;
                         _currAni = AniState.hugWall;
                     }
                 }
                 else
                 {
                     moveR = true;
+                    if (vel.Y < 0)
+                    {
+                        _currAni = AniState.jump;
+                    }
                 }
                 
                 if (collision.GetThisPhysicModule() == _walldetL)
@@ -277,12 +287,17 @@ namespace Sanguine_Forest
                         vel.X = 0;
                         pos.X = platform.GetPlatformRectangle().Right;
                         moveL = false;
+                        hugwall = true;
                         _currAni = AniState.hugWall;
                     }
                 }
                 else
                 {
                     moveL = true;
+                    if (vel.Y < 0)
+                    {
+                        _currAni = AniState.jump;
+                    }
                 }
 
                 // if we need a physic rectangle of platform here:

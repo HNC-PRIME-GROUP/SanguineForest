@@ -117,24 +117,33 @@ namespace Sanguine_Forest
             }
 
                
-        }
+                for (int i = 0; i < TileMap.GetLength(0); i++)
+                {
+                    for (int j = 0; j < TileMap.GetLength(1); j++)
+                    {
+
+                    }
+                }
+            }
+
+        
 
         /// <summary>
         /// Draw if there is an animation module
         /// </summary>
         /// <param name="sp"></param>
         /// <param name="animation">Animation module</param>
-        //public void DrawMe(SpriteBatch sp, AnimationModule animation)
-        //{
-        //    //terrible work around
-        //    Rectangle temp= new Rectangle(drawRectangle.Location, 
-        //        new Point((int)Math.Round((float)animation.GetFrameRectangle().Width*scale), 
-        //        (int)Math.Round((float)animation.GetFrameRectangle().Height*scale)));
+            //public void DrawMe(SpriteBatch sp, AnimationModule animation)
+            //{
+            //    //terrible work around
+            //    Rectangle temp= new Rectangle(drawRectangle.Location, 
+            //        new Point((int)Math.Round((float)animation.GetFrameRectangle().Width*scale), 
+            //        (int)Math.Round((float)animation.GetFrameRectangle().Height*scale)));
 
-        //    sp.Draw(texture, drawRectangle, animationModule.GetFrameRectangle(), 
-        //        color, GetRotation(), Vector2.Zero, spriteEffect, 
-        //        (float)layer / (float)Extentions.SpriteLayer.Length);
-        //}
+            //    sp.Draw(texture, drawRectangle, animationModule.GetFrameRectangle(), 
+            //        color, GetRotation(), Vector2.Zero, spriteEffect, 
+            //        (float)layer / (float)Extentions.SpriteLayer.Length);
+            //}
 
         public new void UpdateMe()
         {

@@ -14,7 +14,6 @@ namespace Sanguine_Forest
     internal class ParallaxBackground : GameObject
     {
         private SpriteModule spriteModule; // Composition instead of inheritance
-        private SpriteModule? spriteModule2;
         public float ParallaxSpeed { get; set; } // Multiplier to control speed
         public Extentions.SpriteLayer Layer { get; private set; }
 
@@ -41,6 +40,7 @@ namespace Sanguine_Forest
             Vector2 adjustedMovement = deltaMovement * ParallaxSpeed;
             Vector2 newPosition = GetPosition() + adjustedMovement;
 
+            Debug.WriteLine($"ParallaxBackground {Layer} - Old Position: {GetPosition()}, New Position: {newPosition}, Adjusted Movement: {adjustedMovement}");
             // Set the new position
             SetPosition(newPosition);
         }

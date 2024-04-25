@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Sanguine_Forest.Scripts.Environment.Obstacle;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Sanguine_Forest
@@ -62,7 +63,7 @@ namespace Sanguine_Forest
             _spriteModule = new SpriteModule(this, Vector2.Zero, _txr, 
                 Extentions.SpriteLayer.character1);
 
-            _spriteModule.SetScale(0.3f);
+            _spriteModule.SetScale(0.15f);
 
             animations = new Dictionary<string, AnimationSequence>();
             animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));
@@ -85,12 +86,12 @@ namespace Sanguine_Forest
             _walldetR = new PhysicModule(this, new Vector2(180, 100), new Vector2(10, 160));
 
 
-            _collision.isPhysicActive = true;
-            _feet.isPhysicActive =true;
-            _walldetL.isPhysicActive = true;
-            _walldetR.isPhysicActive = true;
+            _collision.isPhysicActive = false;
+            _feet.isPhysicActive = false;
+            _walldetL.isPhysicActive = false;
+            _walldetR.isPhysicActive = false;
 
-            speed = 5f;
+            speed = 10f;
             vel = Vector2.Zero;
 
             gravity = 0.3f;
@@ -106,12 +107,13 @@ namespace Sanguine_Forest
         public void UpdateMe(KeyboardState curr, KeyboardState prev)
         {
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (curr.IsKeyDown(Keys.D))
             {
                 if (moveR == true)
                 {
                     vel.X = speed;
                     _looking = looking.Right;
+                    Debug.WriteLine("Key D is pressed. Expected velocity: " + speed);
                 }
                 
                 if (vel.Y != 0)
@@ -121,12 +123,13 @@ namespace Sanguine_Forest
                 else
                     _currAni = AniState.walk;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.A))
+            else if (curr.IsKeyDown(Keys.A))
             {
                 if (moveL == true)
                 {
                     vel.X = -speed;
                     _looking = looking.Left;
+                    Debug.WriteLine("Key A is pressed. Expected velocity: " + -speed);
                 }
 
                 if (vel.Y != 0)
@@ -140,6 +143,8 @@ namespace Sanguine_Forest
                 vel.X = 0;
                 _currAni = AniState.stand;
             }
+
+            Debug.WriteLine($"Velocity X after input handling: {vel.X}");
 
             if (prev.IsKeyUp(Keys.W)&&curr.IsKeyDown(Keys.W))
             {
@@ -271,11 +276,11 @@ namespace Sanguine_Forest
         }
 
 
-        public Vector2 GetVelocity()
+        public float GetVelocity()
         {
-            return vel;
+            return vel.X;
         }
-        
+
 
 
 

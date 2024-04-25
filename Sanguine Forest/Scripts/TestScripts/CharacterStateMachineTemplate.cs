@@ -24,9 +24,9 @@ namespace Sanguine_Forest
             climb,
             jumpAfterClimb
         }
+
         private CharState currentState;
-
-
+ 
         //Modules
         private SpriteModule spriteModule;
         private AnimationModule animationModule;

@@ -108,6 +108,19 @@ namespace Sanguine_Forest
 
         public void UpdateMe(KeyboardState curr, KeyboardState prev)
         {
+            _animationModule.UpdateMe();
+            _spriteModule.UpdateMe();
+
+            _collision.UpdateMe();
+            _feet.UpdateMe();
+            _walldetL.UpdateMe();
+            _walldetR.UpdateMe();
+
+
+
+
+
+
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
@@ -222,15 +235,6 @@ namespace Sanguine_Forest
                 _animationModule.SetAnimationSpeed(0.1f);
                 _animationModule.Play("Jump");
             }
-
-
-            _animationModule.UpdateMe();
-            _spriteModule.UpdateMe();
-
-            _collision.UpdateMe();
-            _feet.UpdateMe();
-            _walldetL.UpdateMe();
-            _walldetR.UpdateMe();
         }
 
         public void DrawMe(SpriteBatch sp)

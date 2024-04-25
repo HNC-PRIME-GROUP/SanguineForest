@@ -76,6 +76,7 @@ namespace Sanguine_Forest
             spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), animations);
 
             _animationModule = new AnimationModule(this, Vector2.Zero, spriteSheetData, _spriteModule);
+            _spriteModule.AnimtaionInitialise(_animationModule);
 
             pos = position;
 
@@ -234,7 +235,7 @@ namespace Sanguine_Forest
 
         public void DrawMe(SpriteBatch sp)
         {
-            _spriteModule.DrawMe(sp, _animationModule);
+            _spriteModule.DrawMe(sp);
             DebugManager.DebugRectangle(_feet.GetPhysicRectangle());
             DebugManager.DebugRectangle(_collision.GetPhysicRectangle());
             DebugManager.DebugRectangle(_walldetL.GetPhysicRectangle());
@@ -306,6 +307,12 @@ namespace Sanguine_Forest
             {
 
             }
+        }
+
+
+        public Vector2 GetVelocity()
+        {
+            return vel;
         }
         
 

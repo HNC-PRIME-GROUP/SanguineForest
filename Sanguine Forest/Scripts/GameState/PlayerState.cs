@@ -11,5 +11,8 @@ namespace Sanguine_Forest
     {
         public int AlcoholLevel { get; set; } = 0;
         public bool IsAlive { get; set; } = true;
+
+        //current level
+        public int lvlCounter;
     }
 }

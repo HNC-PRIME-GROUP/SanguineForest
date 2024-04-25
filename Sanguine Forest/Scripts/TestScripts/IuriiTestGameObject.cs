@@ -43,6 +43,8 @@ namespace Sanguine_Forest.Scripts.TestScripts
             spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), animations);
 
             _AnimationModule = new AnimationModule(this, Vector2.Zero, spriteSheetData, _SpriteModule);
+            _SpriteModule.AnimtaionInitialise(_AnimationModule);
+
 
 
             //Setting audio Audio
@@ -129,11 +131,15 @@ namespace Sanguine_Forest.Scripts.TestScripts
                 IuriiTestGameObject obj = (IuriiTestGameObject)collision.GetCollidedPhysicModule().GetParent();
                 obj._SpriteModule.SetColor(Color.Red);                
             }
+            if(collision.GetCollidedPhysicModule().GetParent() is Platform)
+            {
+                this._SpriteModule.SetColor(Color.Green);
+            }
         }
 
         public void DrawMe(SpriteBatch sp)
         {
-            _SpriteModule.DrawMe(sp,_AnimationModule);
+            _SpriteModule.DrawMe(sp);
             DebugManager.DebugRectangle(new Rectangle((int)Math.Round(GetPosition().X),(int)Math.Round(GetPosition().Y), 10,10));
             DebugManager.DebugRectangle(new Rectangle((int)Math.Round(_SpriteModule.GetPosition().X), (int)Math.Round(_SpriteModule.GetPosition().Y), 50, 50));
             DebugManager.DebugRectangle(_PhysicsModule.GetPhysicRectangle());

@@ -49,16 +49,15 @@ namespace Extention
         public enum SpriteLayer
         {
 
-            foreground=0,
+            foreground = 0,
             character1,
             character2,
             environment1,
             environment2,
+            background_Fore,
+            background_Mid,
+            background_Back,
             obstacles,
-            background_Forest_1,
-            background_Forest_2,
-            background_Forest_3,
-            background_Lake_4,
             Length
         }
 

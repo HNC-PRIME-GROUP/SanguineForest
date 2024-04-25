@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Extention;
+using System.IO;
 using System;
-using System.Collections.Generic;
 
 namespace Sanguine_Forest
 {
@@ -12,70 +12,129 @@ namespace Sanguine_Forest
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Character player;
 
-        EnvironmentManager environmentManager;
+        //Camers
+        private Camera _camera;
 
-        KeyboardState curr;
-        KeyboardState prev;
+        //Character
+        private Character _character;
+
+        //PlayerState
+        private PlayerState _playerState;
+
+        //Environment
+        private EnvironmentManager _environmentManager;
+
+        //Parallaxing
+        private ParallaxManager _parallaxManager;
+
+
+        //Scene
+        private Scene _currentScene;
+
+        //Control
+        private KeyboardState currState;
+        private KeyboardState prevState;
+
+
 
         public RyanTest()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = 1920;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
-            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
         }
 
         protected override void Initialize()
         {
-          
+
+
+            FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
+
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+
+
+
+            //graphic installing
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
 
+            //Debug initialising
             DebugManager.SpriteBatch = _spriteBatch;
             DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
 
-            player = new Character(new Vector2(0, 0), 0,
-                Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
-           // environmentManager = new EnvironmentManager();
-            environmentManager.platforms = new List<Platform>();
-            environmentManager.platforms.Add(new Platform(new Vector2(300, 300), 0, new Vector2(100, 100), Content));
-            environmentManager.platforms.Add(new Platform(new Vector2(500, 100), 0, new Vector2(100, 100), Content));
-            environmentManager.platforms.Add(new Platform(new Vector2(-600, 400), 0, new Vector2(1000, 100), Content));
+            //Audio
+            //AudioSetting
+            //AudioManager.GeneralVolume = 1.0f;
+
+
+
+            //Load player state and scene
+            _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
+
+            //Set character and camera
+            _character = new Character(_currentScene.characterPosition, 0, Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
+            _camera.SetCameraTarget(_character);
+            //_camera.SetZoom(1f);
+
+            //Set the level's objects
+            _environmentManager = new EnvironmentManager(Content);
+            _environmentManager.Initialise(_currentScene);
+
+
+            //Set decor and parallaxing
+            _parallaxManager = new ParallaxManager(Content);
 
 
         }
 
         protected override void Update(GameTime gameTime)
         {
-            //Global time
-            Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //save curr state of keyboard
+            currState = Keyboard.GetState();
 
             //Physic update
             PhysicManager.UpdateMe();
 
-            curr = Keyboard.GetState();
+            //Audio manager
+            //AudioSetting
+            //AudioManager.UpdateMe();
+
+            //Global time
+            Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            //Environment update
+            _environmentManager.UpdateMe();
+
+            ////camera
+            _camera.UpdateMe();
+
+            ////Character
+            _character.UpdateMe(currState, prevState);
+
+            //Background
+            _parallaxManager.UpdateMe(_character.GetVelocity());
+
+
 
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-            player.UpdateMe(curr, prev);
-            environmentManager.UpdateMe();
-
-            prev = curr;
+            //save prev state
+            prevState = currState;
 
             base.Update(gameTime);
         }
@@ -84,19 +143,20 @@ namespace Sanguine_Forest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+
+            _environmentManager.DrawMe(_spriteBatch);
+
+            _parallaxManager.Draw(_spriteBatch);
+
+            //Background
+            _character.DrawMe(_spriteBatch);
+
 
             //Debug test
-
-            player.DrawMe(_spriteBatch);
-            environmentManager.DrawMe(_spriteBatch);
-
-            DebugManager.DebugString("pos: " + player.GetPosition(), new Vector2(0, 0));
-            DebugManager.DebugString("pos: " + player.pos, new Vector2(0, 10));
-            DebugManager.DebugString("Hugwall: "+player.hugwall, new Vector2(0, 20));
+            // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
 
             _spriteBatch.End();
-
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

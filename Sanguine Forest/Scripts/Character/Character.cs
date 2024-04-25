@@ -157,14 +157,15 @@ namespace Sanguine_Forest
 
                 if (_currAni == AniState.hugWall)
                 {
+                    vel.Y = -9;
                     if (_looking == looking.Right)
                     {
-                        vel.X = -8;
+                        vel.X = -6;
                         _looking = looking.Left;
                     }
                     else if (_looking == looking.Left)
                     {
-                        vel.X = 8;
+                        vel.X = 6;
                         _looking = looking.Right;
                     }
                 }

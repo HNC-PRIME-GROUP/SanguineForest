@@ -18,7 +18,6 @@ namespace Sanguine_Forest
         private SpriteBatch _spriteBatch;
 
 
-
         public static int ScreenWidth = 1920;
         public static int ScreenHeight = 1080;
 
@@ -46,6 +45,7 @@ namespace Sanguine_Forest
         //Control
         private KeyboardState currState;
         private KeyboardState prevState;
+
         private InputManager _inputManager;
 
 
@@ -109,6 +109,8 @@ namespace Sanguine_Forest
 
             //Set the level's objects
             _environmentManager = new EnvironmentManager(Content);
+            _environmentManager.platforms = new List<Platform>();
+            _environmentManager.platforms.Add(new Platform(new Vector2(300, 300), 0, new Vector2(100, 100), Content));
             _environmentManager.Initialise(_currentScene);
 
             //Load Background
@@ -221,7 +223,8 @@ namespace Sanguine_Forest
 
 
             _character.DrawMe(_spriteBatch);
-
+            DebugManager.DebugString("pos: " + _character.GetPosition(), new Vector2(-500, -500));
+            DebugManager.DebugString("pos: " + _character.Position, new Vector2(-500, -500));
 
             //Debug test
             DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));

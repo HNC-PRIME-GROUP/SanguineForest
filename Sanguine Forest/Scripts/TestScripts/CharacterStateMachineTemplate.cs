@@ -10,17 +10,15 @@ using Sanguine_Forest.Scripts.GameState;
 using Microsoft.VisualBasic;
 using Sanguine_Forest.Scripts.Environment.Obstacle;
 using System.Diagnostics.Metrics;
+using System;
 
 namespace Sanguine_Forest
 {
-    internal class CharacterStateMachineTemplate : GameObject
+    internal class CharacterStateMachine : GameObject
     {
+        private SpriteModule _spriteModule;
+        private AnimationModule _animationModule;
 
-
-        private Vector2 velocity;
-        private Vector2 pos;
-
-        //Our character states  (we also can use them for animation later)
         private enum CharState
         {
             idle,
@@ -30,53 +28,51 @@ namespace Sanguine_Forest
             jumpAfterCling
         }
 
-        private CharState currentState;
+        private CharState _currentState;
 
-        //Modules
-        private SpriteModule spriteModule;
-        private AnimationModule animationModule;
-        private PhysicModule characterCollision;
-        private PhysicModule feet;
-        private PhysicModule leftCling;
-        private PhysicModule rightCling;
+        private PhysicModule _characterCollision;
+        private PhysicModule _feet;
+        private PhysicModule _leftCling;
+        private PhysicModule _rightCling;
 
         public bool moveL;
         public bool moveR;
         public bool isClinging;
 
-        CharacterStateMachineTemplate(Vector2 position, float rotation, ContentManager content) : base (position, rotation)
+        private Vector2 _velocity;
+        private Vector2 _position;
+
+        public CharacterStateMachine(Vector2 position, float rotation, Texture2D texture) : base(position, rotation)
         {
+            _spriteModule = new SpriteModule(this, Vector2.Zero, texture, Extentions.SpriteLayer.character1);
+            _spriteModule.SetScale(0.15f);
 
-            //create the sprite module
-            //spriteModule = new SpriteModule();
+            var animations = new Dictionary<string, AnimationSequence>
+            {
+                {"Idle", new AnimationSequence(Vector2.Zero, 3)},
+                {"Run", new AnimationSequence(new Vector2(0, 700), 3)},
+                {"Jump", new AnimationSequence(new Vector2(0, 1400), 5)},
+                {"Cling", new AnimationSequence(new Vector2(4200, 1400), 0)}
+            };
 
-            //do some things for animation here (dictionary and spritesheetdata)
+            var spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), animations);
+            _animationModule = new AnimationModule(this, Vector2.Zero, spriteSheetData, _spriteModule);
+            _spriteModule.AnimtaionInitialise(_animationModule);
 
-            //animationModule = new AnimationModule();
+            _position = position;
+            _characterCollision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
+            _feet = new PhysicModule(this, new Vector2(100, 190), new Vector2(140, 20));
+            _leftCling = new PhysicModule(this, new Vector2(20, 100), new Vector2(10, 160));
+            _rightCling = new PhysicModule(this, new Vector2(180, 100), new Vector2(10, 160));
 
-            //Initialise the animation 
-            spriteModule.AnimtaionInitialise(animationModule);
-
-
-            //Initialise the physic
-            //characterCollision = new PhysicModule();
-            //feet = new PhysicModule(); etc.
-
+            _currentState = CharState.idle;
+            moveL = true;
+            moveR = true;
         }
 
         public void UpdateMe(InputManager inputManager)
         {
-            //update all modules
-            spriteModule.UpdateMe();
-            animationModule.UpdateMe();
-            characterCollision.UpdateMe();
-            feet.UpdateMe();
-            leftCling.UpdateMe();
-            rightCling.UpdateMe();
-
-            //Magic switch - if character in particular state - there is gonna execute only one Update.
-            //All these methods described lower for readability
-            switch(currentState)
+            switch (_currentState)
             {
                 case CharState.idle:
                     IdleUpdate(inputManager);
@@ -95,153 +91,101 @@ namespace Sanguine_Forest
                     break;
             }
 
+            _animationModule.UpdateMe();
+            _spriteModule.UpdateMe();
+            _characterCollision.UpdateMe();
+            _feet.UpdateMe();
+            _leftCling.UpdateMe();
+            _rightCling.UpdateMe();
+        }
+
+        private void JumpAfterClingUpdate(InputManager inputManager)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ClingUpdate(InputManager inputManager)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void JumpUpdate(InputManager inputManager)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void WalkUpdate(InputManager inputManager)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void IdleUpdate(InputManager inputManager)
+        {
+            throw new NotImplementedException();
         }
 
         public void DrawMe(SpriteBatch sp)
         {
-            //spriteModule.DrawMe(sp);
+            _spriteModule.DrawMe(sp);
         }
 
-
-        public void IdleUpdate(InputManager inputManager) 
-        {
-            //animationModule.Play("Idle");
-            //Here you can describe only that things that character can do from the Idle
-            //for example if climbing can be done only from the jump, just don't write here any 
-            //transition to climb
-
-            //transition to jump
-            if(inputManager.IsKeyPressed(Keys.W)) 
-            {
-                velocity.Y += -6;
-                currentState = CharState.jump;
-                
-            }
-
-            //transitions to walk
-            if(inputManager.IsKeyDown(Keys.A))
-            {
-                //Rotate here the sprite but velocity you can add in a walk state
-                currentState = CharState.walk;
-            }
-
-            if(inputManager.IsKeyDown(Keys.D))
-            {
-                //same stuff
-            }        
-        }
-
-        public void WalkUpdate(InputManager inputManager)
-        {
-            //ye, some code should be repeated (or put in another method)
-            if (inputManager.IsKeyPressed(Keys.W))
-            {
-                velocity.Y += -6;
-                currentState = CharState.jump;
-            }
-        
-
-        }
-        public void JumpUpdate(InputManager inputManager)
-        {
-            HandleJump(inputManager);
-
-        }
-
-        public void ClingUpdate (InputManager inputManager)
-        {
-            //ye, some code should be repeated (or put in another method)
-            if (inputManager.IsKeyPressed(Keys.W))
-            {
-                velocity.Y += 0;
-
-                currentState = CharState.cling;
-            }
-
-        }
-
-        public void JumpAfterClingUpdate(InputManager inputManager)
-        {
-            //ye, some code should be repeated (or put in another method)
-            HandleJump(inputManager);
-
-        }
-
-
-        public void ClingState(KeyboardState curr, KeyboardState prev)
-        {
-            //fall slightly
-            
-            //or condition to transiton between states to wall jump
-        }
-
-        private void HandleJump(InputManager inputManager)
-        {
-            if (inputManager.IsKeyPressed(Keys.W))
-            {
-                velocity.Y -= 10; // Consider making this a constant for easier adjustments
-                currentState = CharState.jump;
-            }
-        }
-
+        // Include methods like IdleUpdate, WalkUpdate, JumpUpdate, ClingUpdate, JumpAfterClingUpdate here
+        // Adapt the transitions and behavior from the original Character's UpdateMe method
 
         public override void Collided(Collision collision)
         {
             base.Collided(collision);
+            // Handle collisions as in the original Character's Collided method
             if (collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
                 platform.GetPlatformRectangle();
 
-                if (collision.GetThisPhysicModule() == feet)
+                if (collision.GetThisPhysicModule() == _feet)
                 {
-                    if (velocity.Y > 0)
+                    if (_velocity.Y > 0)
                     {
-                        velocity.Y = 0;
-                        pos.Y = platform.GetPlatformRectangle().Top - characterCollision.GetPhysicRectangle().Height + 1;
+                        _velocity.Y = 0;
+                        position.Y = platform.GetPlatformRectangle().Top - _characterCollision.GetPhysicRectangle().Height + 1;
                     }
                 }
 
-                if (collision.GetThisPhysicModule() == rightCling)
+                if (collision.GetThisPhysicModule() == _rightCling)
                 {
-                    velocity.X = 0;
-                    pos.X = platform.GetPlatformRectangle().Left - characterCollision.GetPhysicRectangle().Width - 1;
+                    _velocity.X = 0;
+                    position.X = platform.GetPlatformRectangle().Left - _characterCollision.GetPhysicRectangle().Width - 1;
                     moveR = false;
-                    currentState = CharState.cling;
+                    _currentState = CharState.cling;
                 }
-                else if (collision.GetThisPhysicModule() != rightCling)
+                else if (collision.GetThisPhysicModule() != _rightCling)
                 {
                     moveR = true;
                 }
 
-                if (collision.GetThisPhysicModule() == leftCling)
+                if (collision.GetThisPhysicModule() == _leftCling)
                 {
-                    velocity.X = 0;
-                    pos.X = platform.GetPlatformRectangle().Right;
+                    _velocity.X = 0;
+                    position.X = platform.GetPlatformRectangle().Right;
                     moveL = false;
-                    currentState = CharState.cling;
+                    _currentState = CharState.cling;
                 }
-                else if (collision.GetThisPhysicModule() != leftCling)
+                else if (collision.GetThisPhysicModule() != _leftCling)
                 {
                     moveL = true;
                 }
 
                 // if we need a physic rectangle of platform here:
             }
-            if (collision.GetThisPhysicModule() == characterCollision && collision.GetCollidedPhysicModule().GetParent() is Obstacle)
+            if (collision.GetThisPhysicModule() == _characterCollision && collision.GetCollidedPhysicModule().GetParent() is Obstacle)
             {
 
             }
         }
+    
 
         public float GetVelocity()
         {
-            return velocity.X;
+            return _velocity.X;
         }
-
-
-
     }
-
 }
-

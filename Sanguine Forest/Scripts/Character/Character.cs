@@ -116,13 +116,29 @@ namespace Sanguine_Forest
             _walldetL.UpdateMe();
             _walldetR.UpdateMe();
 
+            switch (_currAni)
+            {
+                case AniState.stand:
+                    IdleUpdate(curr, prev);
+                    break;
+                case _currAni.walk:
+                    WalkUpdate(curr, prev);
+                    break;
+                case CharState.jump:
+                    JumpUpdate(curr, prev);
+                    break;
+                case CharState.climb:
+                    ClimbUpdate(curr, prev);
+                    break;
+                case CharState.jumpAfterClimb:
+                    JumpAfterClimbUpdate(curr, prev);
+                    break;
 
 
 
 
 
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+                    if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 if (moveR == true)
                 {

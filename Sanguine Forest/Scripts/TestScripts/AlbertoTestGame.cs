@@ -7,13 +7,17 @@ using System;
 using System.Diagnostics;
 using Sanguine_Forest.Scripts.Environment;
 using System.Collections.Generic;
+using Sanguine_Forest.Scripts.GameState;
 
 namespace Sanguine_Forest
 {
     public class AlbertoTestGame : Game
     {
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+
 
         public static int ScreenWidth = 1920;
         public static int ScreenHeight = 1080;
@@ -32,8 +36,8 @@ namespace Sanguine_Forest
         //Environment
         private EnvironmentManager _environmentManager;
 
-        //Parallaxing
-        private ParallaxManager _parallaxManager;
+        ////Parallaxing
+        //private ParallaxManager _parallaxManager;
 
 
         //Scene
@@ -42,6 +46,7 @@ namespace Sanguine_Forest
         //Control
         private KeyboardState currState;
         private KeyboardState prevState;
+        private InputManager _inputManager;
 
 
 
@@ -51,6 +56,7 @@ namespace Sanguine_Forest
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
         }
 
         protected override void Initialize()
@@ -60,6 +66,8 @@ namespace Sanguine_Forest
             _graphics.PreferredBackBufferWidth = ScreenWidth;
             _graphics.PreferredBackBufferHeight = ScreenHeight;
             _graphics.ApplyChanges();
+
+            _inputManager = new InputManager();
 
 
             FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
@@ -137,16 +145,24 @@ namespace Sanguine_Forest
             };
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content);
+            //_parallaxManager = new ParallaxManager(Content);
 
 
         }
+
+        public void HandleInput(GameTime gameTime)
+        {
+            _inputManager.UpdateMe();
+        }
+
 
         protected override void Update(GameTime gameTime)
         {
 
             //save curr state of keyboard
             currState = Keyboard.GetState();
+
+            HandleInput(gameTime);
 
             //Physic update
             PhysicManager.UpdateMe();
@@ -165,11 +181,10 @@ namespace Sanguine_Forest
             _camera.UpdateMe();
 
             ////Character
-            _character.UpdateMe(currState, prevState);
+            _character.UpdateMe(_inputManager);
 
             //Background
             //_parallaxManager.UpdateMe(_character.GetVelocity());
-            Debug.WriteLine($"Updating Backgrounds with _character.GetVelocity(): {_character.GetVelocity()}");
 
 
             foreach (var sb in _scrollingBackground) 

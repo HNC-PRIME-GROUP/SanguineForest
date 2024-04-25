@@ -70,7 +70,7 @@ namespace Sanguine_Forest
                 Exit();
 
 
-            player.UpdateMe(curr, prev);
+            //player.UpdateMe(curr, prev);
             environmentManager.UpdateMe();
 
             prev = curr;
@@ -90,7 +90,7 @@ namespace Sanguine_Forest
             environmentManager.DrawMe(_spriteBatch);
 
             DebugManager.DebugString("pos: " + player.GetPosition(), new Vector2(0, 0));
-            DebugManager.DebugString("pos: " + player.pos, new Vector2(0, 10));
+            DebugManager.DebugString("pos: " + player.Position, new Vector2(0, 10));
 
             _spriteBatch.End();
 

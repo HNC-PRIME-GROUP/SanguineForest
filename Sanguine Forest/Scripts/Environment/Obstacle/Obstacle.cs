@@ -31,7 +31,7 @@ namespace Sanguine_Forest.Scripts.Environment.Obstacle
             if (currentAlcoholLevel >= alcoholLevelThreshold)
             {
                 // Delegate drawing to the spriteModule
-                spriteModule.DrawMe(spriteBatch);
+                //spriteModule.DrawMe(spriteBatch);
                 DebugManager.DebugRectangle(physicModule.GetPhysicRectangle());
             }
         }

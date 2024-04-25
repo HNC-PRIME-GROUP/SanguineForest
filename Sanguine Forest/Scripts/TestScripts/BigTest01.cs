@@ -122,7 +122,7 @@ namespace Sanguine_Forest
             _camera.UpdateMe();
 
             ////Character
-            _character.UpdateMe(currState, prevState);
+            _character.UpdateMe();
 
             //Background
             //_parallaxManager.UpdateMe(_character.GetVelocity());

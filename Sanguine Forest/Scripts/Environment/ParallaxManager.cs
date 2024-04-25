@@ -115,14 +115,11 @@ namespace Sanguine_Forest
                 position.X += screenWidth;  // Position each subsequent background immediately to the right of the last
             }
             layerBackgrounds[layer] = backgrounds;
-            Debug.WriteLine($"Initializing {layer} with initial position {initialPosition} and speed {speed}");
         }
 
         public void UpdateMe(Vector2 deltaMovement)
         {
-            Debug.WriteLine($"Received DeltaMovement: {deltaMovement}");
             deltaMovement.Y = 0;  // Ignore vertical movement for parallax
-            Debug.WriteLine($"Updating Backgrounds with DeltaMovement: {deltaMovement}");
 
             // First update all background positions
             foreach (var layer in layerBackgrounds.Values)
@@ -155,7 +152,6 @@ namespace Sanguine_Forest
                 minLeft = Math.Min(minLeft, leftEdge);
             }
 
-            Debug.WriteLine($"Layer {layer}: Max Right = {maxRight}, Min Left = {minLeft}");
 
             if (deltaMovement != Vector2.Zero)  // Add this check if looping should depend on actual movement
             {
@@ -164,12 +160,10 @@ namespace Sanguine_Forest
                 {
                     if (background.GetPosition().X + screenWidth < 0)  // Background has moved past the left boundary
                     {
-                        Debug.WriteLine($"Background at {background.GetPosition()} moved past left boundary. Looping to right.");
                         background.SetPosition(new Vector2(maxRight, background.GetPosition().Y));  // Loop to right
                     }
                     else if (background.GetPosition().X > screenWidth)  // Background has moved past the right boundary
                     {
-                        Debug.WriteLine($"Background at {background.GetPosition()} moved past right boundary. Looping to left.");
                         background.SetPosition(new Vector2(minLeft - screenWidth, background.GetPosition().Y));  // Loop to left
                     }
                 }

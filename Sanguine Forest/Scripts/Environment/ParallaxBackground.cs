@@ -40,7 +40,6 @@ namespace Sanguine_Forest
             Vector2 adjustedMovement = deltaMovement * ParallaxSpeed;
             Vector2 newPosition = GetPosition() + adjustedMovement;
 
-            Debug.WriteLine($"ParallaxBackground {Layer} - Old Position: {GetPosition()}, New Position: {newPosition}, Adjusted Movement: {adjustedMovement}");
             // Set the new position
             SetPosition(newPosition);
         }

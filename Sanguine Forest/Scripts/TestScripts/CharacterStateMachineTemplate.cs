@@ -6,6 +6,10 @@ using Sanguine_Forest.Scripts.TestScripts;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using SharpDX.DirectWrite;
+using Sanguine_Forest.Scripts.GameState;
+using Microsoft.VisualBasic;
+using Sanguine_Forest.Scripts.Environment.Obstacle;
+using System.Diagnostics.Metrics;
 
 namespace Sanguine_Forest
 {
@@ -14,6 +18,7 @@ namespace Sanguine_Forest
 
 
         private Vector2 velocity;
+        private Vector2 pos;
 
         //Our character states  (we also can use them for animation later)
         private enum CharState
@@ -21,22 +26,25 @@ namespace Sanguine_Forest
             idle,
             walk,
             jump,
-            climb,
-            jumpAfterClimb
+            cling,
+            jumpAfterCling
         }
-        private CharState currentState;
 
+        private CharState currentState;
 
         //Modules
         private SpriteModule spriteModule;
         private AnimationModule animationModule;
-
         private PhysicModule characterCollision;
         private PhysicModule feet;
-        private PhysicModule leftClimb;
-        private PhysicModule rightClimb;
+        private PhysicModule leftCling;
+        private PhysicModule rightCling;
 
-        CharacterStateMachineTemplate (Vector2 position, float rotation, ContentManager content) : base (position, rotation)
+        public bool moveL;
+        public bool moveR;
+        public bool isClinging;
+
+        CharacterStateMachineTemplate(Vector2 position, float rotation, ContentManager content) : base (position, rotation)
         {
 
             //create the sprite module
@@ -45,6 +53,7 @@ namespace Sanguine_Forest
             //do some things for animation here (dictionary and spritesheetdata)
 
             //animationModule = new AnimationModule();
+
             //Initialise the animation 
             spriteModule.AnimtaionInitialise(animationModule);
 
@@ -55,34 +64,34 @@ namespace Sanguine_Forest
 
         }
 
-        public void UpdateMe(KeyboardState curr, KeyboardState prev)
+        public void UpdateMe(InputManager inputManager)
         {
             //update all modules
             spriteModule.UpdateMe();
             animationModule.UpdateMe();
             characterCollision.UpdateMe();
             feet.UpdateMe();
-            leftClimb.UpdateMe();
-            rightClimb.UpdateMe();
+            leftCling.UpdateMe();
+            rightCling.UpdateMe();
 
             //Magic switch - if character in particular state - there is gonna execute only one Update.
             //All these methods described lower for readability
             switch(currentState)
             {
                 case CharState.idle:
-                    IdleUpdate(curr, prev);
+                    IdleUpdate(inputManager);
                     break;
                 case CharState.walk:
-                    WalkUpdate(curr, prev);
+                    WalkUpdate(inputManager);
                     break;
                 case CharState.jump:
-                    JumpUpdate(curr, prev);
+                    JumpUpdate(inputManager);
                     break;
-                case CharState.climb:
-                    ClimbUpdate(curr, prev);
+                case CharState.cling:
+                    ClingUpdate(inputManager);
                     break;
-                case CharState.jumpAfterClimb:
-                    JumpAfterClimbUpdate(curr, prev);
+                case CharState.jumpAfterCling:
+                    JumpAfterClingUpdate(inputManager);
                     break;
             }
 
@@ -90,11 +99,11 @@ namespace Sanguine_Forest
 
         public void DrawMe(SpriteBatch sp)
         {
-            spriteModule.DrawMe(sp);
+            //spriteModule.DrawMe(sp);
         }
 
 
-        public void IdleUpdate(KeyboardState curr, KeyboardState prev) 
+        public void IdleUpdate(InputManager inputManager) 
         {
             //animationModule.Play("Idle");
             //Here you can describe only that things that character can do from the Idle
@@ -102,7 +111,7 @@ namespace Sanguine_Forest
             //transition to climb
 
             //transition to jump
-            if(curr.IsKeyDown(Keys.W)&&prev.IsKeyDown(Keys.W)) 
+            if(inputManager.IsKeyPressed(Keys.W)) 
             {
                 velocity.Y += -6;
                 currentState = CharState.jump;
@@ -110,69 +119,129 @@ namespace Sanguine_Forest
             }
 
             //transitions to walk
-            if(curr.IsKeyDown(Keys.A))
+            if(inputManager.IsKeyDown(Keys.A))
             {
                 //Rotate here the sprite but velocity you can add in a walk state
                 currentState = CharState.walk;
             }
 
-            if(curr.IsKeyDown(Keys.D))
+            if(inputManager.IsKeyDown(Keys.D))
             {
                 //same stuff
             }        
         }
 
-        public void WalkUpdate(KeyboardState curr, KeyboardState prev)
+        public void WalkUpdate(InputManager inputManager)
         {
             //ye, some code should be repeated (or put in another method)
-            if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))
+            if (inputManager.IsKeyPressed(Keys.W))
             {
                 velocity.Y += -6;
                 currentState = CharState.jump;
             }
+        
 
-            
+        }
+        public void JumpUpdate(InputManager inputManager)
+        {
+            HandleJump(inputManager);
+
+        }
+
+        public void ClingUpdate (InputManager inputManager)
+        {
+            //ye, some code should be repeated (or put in another method)
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                velocity.Y += 0;
+
+                currentState = CharState.cling;
+            }
+
+        }
+
+        public void JumpAfterClingUpdate(InputManager inputManager)
+        {
+            //ye, some code should be repeated (or put in another method)
+            HandleJump(inputManager);
 
         }
 
 
-        public void ClimpState(KeyboardState curr, KeyboardState prev)
+        public void ClingState(KeyboardState curr, KeyboardState prev)
         {
             //fall slightly
             
             //or condition to transiton between states to wall jump
         }
 
+        private void HandleJump(InputManager inputManager)
+        {
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                velocity.Y -= 10; // Consider making this a constant for easier adjustments
+                currentState = CharState.jump;
+            }
+        }
+
+
         public override void Collided(Collision collision)
         {
-            if(collision.GetCollidedPhysicModule().GetParent() is Platform)
+            base.Collided(collision);
+            if (collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
-                if(collision.GetThisPhysicModule() == feet && currentState==CharState.jump)
+                Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
+                platform.GetPlatformRectangle();
+
+                if (collision.GetThisPhysicModule() == feet)
                 {
-                    // check if it's riht side of the platform
-                    currentState = CharState.idle;
+                    if (velocity.Y > 0)
+                    {
+                        velocity.Y = 0;
+                        pos.Y = platform.GetPlatformRectangle().Top - characterCollision.GetPhysicRectangle().Height + 1;
+                    }
                 }
 
+                if (collision.GetThisPhysicModule() == rightCling)
+                {
+                    velocity.X = 0;
+                    pos.X = platform.GetPlatformRectangle().Left - characterCollision.GetPhysicRectangle().Width - 1;
+                    moveR = false;
+                    currentState = CharState.cling;
+                }
+                else if (collision.GetThisPhysicModule() != rightCling)
+                {
+                    moveR = true;
+                }
+
+                if (collision.GetThisPhysicModule() == leftCling)
+                {
+                    velocity.X = 0;
+                    pos.X = platform.GetPlatformRectangle().Right;
+                    moveL = false;
+                    currentState = CharState.cling;
+                }
+                else if (collision.GetThisPhysicModule() != leftCling)
+                {
+                    moveL = true;
+                }
+
+                // if we need a physic rectangle of platform here:
             }
+            if (collision.GetThisPhysicModule() == characterCollision && collision.GetCollidedPhysicModule().GetParent() is Obstacle)
+            {
 
+            }
+        }
 
-
+        public float GetVelocity()
+        {
+            return velocity.X;
         }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
 }
+

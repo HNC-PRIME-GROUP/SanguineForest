@@ -1,13 +1,13 @@
   {
-    "characterPosition": "0, 0",
+    "characterPosition": "100, 0",
     "simplePlatforms": [
       {
-        "position": "100,200",
+        "position": "100,100",
         "rotation": "0",
         "platformSize": "576,192"
       },
       {
-        "position": "-1000,200",
+        "position": "-1000,100",
         "rotation": "0",
         "platformSize": "800,400"
       },

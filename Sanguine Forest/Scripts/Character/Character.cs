@@ -256,10 +256,13 @@ namespace Sanguine_Forest
                 
                 if (collision.GetThisPhysicModule() == _walldetR)
                 {
+                    if (_looking == looking.Right)
+                    {
                         vel.X = 0;
                         pos.X = platform.GetPlatformRectangle().Left - _collision.GetPhysicRectangle().Width - 1;
                         moveR = false;
                         _currAni = AniState.hugWall;
+                    }
                 }
                 else
                 {
@@ -268,10 +271,13 @@ namespace Sanguine_Forest
                 
                 if (collision.GetThisPhysicModule() == _walldetL)
                 {
+                    if (_looking == looking.Left)
+                    {
                         vel.X = 0;
                         pos.X = platform.GetPlatformRectangle().Right;
                         moveL = false;
                         _currAni = AniState.hugWall;
+                    }
                 }
                 else
                 {

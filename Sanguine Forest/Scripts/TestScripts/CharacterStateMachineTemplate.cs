@@ -112,7 +112,7 @@ namespace Sanguine_Forest
             //transitions to walk
             if(curr.IsKeyDown(Keys.A))
             {
-                //Rotate here the sprite but velocity you can add in a walk state
+                //flip sprite here but velocity you can add in a walk state
                 currentState = CharState.walk;
             }
 

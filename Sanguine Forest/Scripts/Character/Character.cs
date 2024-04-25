@@ -148,7 +148,7 @@ namespace Sanguine_Forest
 
             if (prev.IsKeyUp(Keys.W)&&curr.IsKeyDown(Keys.W))
             {
-                if (vel.Y == 0)
+                if (vel.Y == 0 || _currAni == AniState.hugWall)
                 {
                     vel.Y = -8;
                     moveL = true;

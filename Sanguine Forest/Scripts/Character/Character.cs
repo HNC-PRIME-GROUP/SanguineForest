@@ -113,13 +113,15 @@ namespace Sanguine_Forest
                     _looking = looking.Right;
                     moveL = true;
                 }
-                
+
                 if (vel.Y != 0)
                 {
                     _currAni = AniState.jump;
                 }
-                else
+                else if (_currAni != AniState.hugWall || vel.X >= speed)
+                {
                     _currAni = AniState.walk;
+                }
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
@@ -132,11 +134,13 @@ namespace Sanguine_Forest
 
                 if (vel.Y != 0)
                     _currAni = AniState.jump;
-                else
+                else if (_currAni != AniState.hugWall || vel.X <= -speed)
+                {
                     _currAni = AniState.walk;
+                }
             }
             else if (_currAni == AniState.jump || _currAni == AniState.walk ||
-                _currAni == AniState.hugWall || _currAni == AniState.drink)
+                  _currAni == AniState.drink)
             {
                 vel.X = 0;
                 _currAni = AniState.stand;
@@ -147,12 +151,26 @@ namespace Sanguine_Forest
                 if (vel.Y == 0)
                 {
                     vel.Y = -8;
+                    moveL = true;
+                    moveR = true;
+                }
+
+                if (_currAni == AniState.hugWall)
+                {
+                    if (_looking == looking.Right)
+                    {
+                        vel.X = -8;
+                        _looking = looking.Left;
+                    }
+                    else if (_looking == looking.Left)
+                    {
+                        vel.X = 8;
+                        _looking = looking.Right;
+                    }
                 }
             }
             position += vel;
 
-            //collision.X = (int)pos.X;
-            //collision.Y = (int)pos.Y;
 
             if (_feet.GetPhysicRectangle().Bottom  < ground)
             {
@@ -167,10 +185,6 @@ namespace Sanguine_Forest
                 position.Y = ground - _collision.GetPhysicRectangle().Height - _feet.GetPhysicRectangle().Height*2;
             }
 
-            
-
-            //feet.X = collision.X + foot;
-            //feet.Y = collision.Y + collision.Height - 2;
 
             if (_looking == looking.Right)
             {
@@ -186,6 +200,11 @@ namespace Sanguine_Forest
                 _animationModule.SetAnimationSpeed(0.6f);
                 _animationModule.Play("Idle");
             }
+            else if (_currAni == AniState.hugWall)
+            {
+                _animationModule.SetAnimationSpeed(0.1f);
+                _animationModule.Play("hugWall");
+            }
             else if (_currAni == AniState.walk)
             {
                 _animationModule.SetAnimationSpeed(0.2f);
@@ -196,11 +215,7 @@ namespace Sanguine_Forest
                 _animationModule.SetAnimationSpeed(0.1f);
                 _animationModule.Play("Jump");
             }
-            else if (_currAni == AniState.hugWall)
-            {
-                _animationModule.SetAnimationSpeed(0.1f);
-                _animationModule.Play("hugWall");
-            }
+
 
             _animationModule.UpdateMe();
             _spriteModule.UpdateMe();

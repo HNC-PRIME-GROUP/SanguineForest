@@ -110,7 +110,7 @@ namespace Sanguine_Forest
             //Set the level's objects
             _environmentManager = new EnvironmentManager(Content);
             _environmentManager.platforms = new List<Platform>();
-            _environmentManager.platforms.Add(new Platform(new Vector2(300, 300), 0, new Vector2(100, 100), Content));
+            //_environmentManager.platforms.Add(new Platform(new Vector2(300, 300), 0, new Vector2(100, 100), Content));
             _environmentManager.Initialise(_currentScene);
 
             //Load Background

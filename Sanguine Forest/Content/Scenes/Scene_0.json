@@ -2,7 +2,7 @@
     "characterPosition": "100, 0",
     "simplePlatforms": [
       {
-        "position": "100,150",
+        "position": "100,100",
         "rotation": "0",
         "platformSize": "576,192"
       },

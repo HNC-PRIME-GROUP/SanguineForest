@@ -425,7 +425,7 @@ namespace Sanguine_Forest
 
             _velocity = Vector2.Zero;
             _gravity = 0.3f;
-            _groundLevel = 100;
+            _groundLevel = 800;
 
             isClinging = false;
 
@@ -506,7 +506,7 @@ namespace Sanguine_Forest
                 if (isGrounded) _currentState = CharState.walk;
 
             }
-            CheckIfGrounded();
+            //CheckIfGrounded();
 
         }
 
@@ -541,7 +541,7 @@ namespace Sanguine_Forest
             }
 
             Position.X += _velocity.X;
-            CheckIfGrounded();
+            //CheckIfGrounded();
 
             // Adjust sprite orientation based on direction
             _spriteModule.SetSpriteEffects(_currentDirection == Direction.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
@@ -650,28 +650,29 @@ namespace Sanguine_Forest
             // Update the position based on velocity
             if (_feet.GetPhysicRectangle().Bottom < _groundLevel)
             {
+                if (_velocity.Y < _gravity*35)
                 _velocity.Y += _gravity; // Continue applying gravity if not grounded
             }
-            else if (_feet.GetPhysicRectangle().Bottom >= _groundLevel && _velocity.Y > 0)
+            else if (_velocity.Y > 0)
             {
                 // If moving downwards and feet are at or below ground level, stop
                 _velocity.Y = 0;
-                Position.Y = _groundLevel - _feet.GetPhysicRectangle().Height + 5; // Adjust to align exactly with ground
+                Position.Y = _groundLevel - _characterCollision.GetPhysicRectangle().Height - _feet.GetPhysicRectangle().Height*2; // Adjust to align exactly with ground
             }
 
             // Now apply vertical velocity after checking conditions
             position.Y += _velocity.Y;
         }
 
-        public void CheckIfGrounded()
-        {
-            if (isGrounded = _feet.GetPhysicRectangle().Bottom >= _groundLevel)
-            {
-                isGrounded = true;
+        //public void CheckIfGrounded()
+        //{
+        //    if (isGrounded = _feet.GetPhysicRectangle().Bottom >= _groundLevel)
+        //    {
+        //        isGrounded = true;
 
-            }
-            else { isGrounded = false; }
-        }
+        //    }
+        //    else { isGrounded = false; }
+        //}
 
 
 
@@ -712,11 +713,11 @@ namespace Sanguine_Forest
                 if (collision.GetThisPhysicModule() == _feet)
                 {
                     Debug.WriteLine("Collided at feet");
-                    if (_velocity.Y >= 0)
+                    if (_velocity.Y > 0)
                     {
                         isGrounded = true;
                         _velocity.Y = 0;
-                        Position = new Vector2(Position.X, platformRect.Top - characterHeight + 1);
+                        Position.Y = platform.GetPlatformRectangle().Top - _characterCollision.GetPhysicRectangle().Height+1;
                     }
                     else
                     {
@@ -730,7 +731,7 @@ namespace Sanguine_Forest
                     Debug.WriteLine("Collided at right cling");
                     // Stop horizontal movement and position character to the left of the platform
                     _velocity.X = 0;
-                    Position = new Vector2(platformRect.Left - _characterCollision.GetPhysicRectangle().Width - 1, Position.Y);
+                    Position.X = platform.GetPlatformRectangle().Left - _characterCollision.GetPhysicRectangle().Width-1;
                     moveRight = false;
                     _currentState = CharState.cling;
                     isClinging = true;
@@ -747,7 +748,7 @@ namespace Sanguine_Forest
                     Debug.WriteLine("Collided at left cling");
                     // Stop horizontal movement and position character to the right of the platform
                     _velocity.X = 0;
-                    Position = new Vector2(platformRect.Right + 1, Position.Y);
+                    Position.X = platform.GetPlatformRectangle().Right;
                     moveLeft = false;
                     _currentState = CharState.cling;
                     isClinging = true;

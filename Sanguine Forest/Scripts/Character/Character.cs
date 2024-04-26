@@ -233,7 +233,6 @@ namespace Sanguine_Forest
         public void JumpUpdate(KeyboardState curr, KeyboardState prev)
         {
             _animationModule.Play("Jump");
-            vel.Y += -6;
         }
 
 

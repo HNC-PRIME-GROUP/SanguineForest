@@ -191,6 +191,7 @@ namespace Sanguine_Forest
                 _currAni = AniState.walk;
                 _looking = looking.Right;
             }
+            CheckIfGrounded();
         }
 
         public void WalkUpdate(KeyboardState curr, KeyboardState prev)
@@ -272,6 +273,16 @@ namespace Sanguine_Forest
             DebugManager.DebugRectangle(_walldetR.GetPhysicRectangle());
             DebugManager.DebugRectangle(new Rectangle(0, ground, 6000, 100));
 
+        }
+
+        public void CheckIfGrounded()
+        {
+            if (isGrounded = _feet.GetPhysicRectangle().Bottom >= _groundLevel)
+            {
+                isGrounded = true;
+
+            }
+            else { isGrounded = false; }
         }
 
         public override void Collided(Collision collision)

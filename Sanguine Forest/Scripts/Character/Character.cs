@@ -57,6 +57,7 @@ namespace Sanguine_Forest
 
         private float gravity;
         private int ground;
+        private bool isGrounded;
 
         public bool hugwall;
 
@@ -299,6 +300,7 @@ namespace Sanguine_Forest
                     {
                         vel.Y = 0;
                         pos.Y = platform.GetPlatformRectangle().Top - _collision.GetPhysicRectangle().Height + 1;
+                        isGrounded = true;
                     }
                 }
 

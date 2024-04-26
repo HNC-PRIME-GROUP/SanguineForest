@@ -172,7 +172,6 @@ namespace Sanguine_Forest
             //transition to jump
             if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))
             {
-                vel.Y += -6;
                 _currAni = AniState.jump;
 
             }
@@ -200,7 +199,6 @@ namespace Sanguine_Forest
             //ye, some code should be repeated (or put in another method)
             if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))
             {
-                vel.Y += -6;
                 _currAni = AniState.jump;
             }
 
@@ -234,6 +232,7 @@ namespace Sanguine_Forest
         public void JumpUpdate(KeyboardState curr, KeyboardState prev)
         {
             _animationModule.Play("Jump");
+            vel.Y += -6;
         }
 
 

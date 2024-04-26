@@ -277,7 +277,7 @@ namespace Sanguine_Forest
 
         public void CheckIfGrounded()
         {
-            if (isGrounded = _feet.GetPhysicRectangle().Bottom >= _groundLevel)
+            if (isGrounded = _feet.GetPhysicRectangle().Bottom >= ground)
             {
                 isGrounded = true;
 

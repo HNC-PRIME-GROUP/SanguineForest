@@ -457,6 +457,9 @@ namespace Sanguine_Forest
                 case CharState.jumpAfterCling:
                     JumpAfterClingUpdate(inputManager);
                     break;
+                case CharState.drink:
+                    drinkUpdate(inputManager);
+                    break;
             }
 
             UpdateMovementPermissions();

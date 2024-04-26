@@ -166,7 +166,6 @@ namespace Sanguine_Forest
         {
             _animationModule.SetAnimationSpeed(0.6f);
             _animationModule.Play("Idle");
-            vel.X = 0;
             //Here you can describe only that things that character can do from the Idle
             //for example if climbing can be done only from the jump, just don't write here any 
             //transition to climb
@@ -195,39 +194,25 @@ namespace Sanguine_Forest
             CheckIfGrounded();
         }
 
-        public void WalkUpdate(KeyboardState curr, KeyboardState prev)
+        public void WalkUpdate(InputManager inputManager)
         {
             _animationModule.SetAnimationSpeed(0.2f);
             _animationModule.Play("Run");
             //ye, some code should be repeated (or put in another method)
-            if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))
-            {
-                _currAni = AniState.jump;
-            }
 
             //transitions to walk
-            if (curr.IsKeyDown(Keys.A))
+            if (curr.IsKeyDown(Keys.A) && _looking == looking.Left)
             {
                 //flip sprite here but velocity you can add in a walk state
-                _currAni = AniState.walk;
-                _looking = looking.Left;
                 vel.X = -speed;
             }
-            else if (prev.IsKeyUp(Keys.A))
+            else if (curr.IsKeyDown(Keys.D) && _looking == looking.Right)
             {
-                _currAni = AniState.stand;
-            }
-
-            if (curr.IsKeyDown(Keys.D))
-            {
-                //same stuff
-                _currAni = AniState.walk;
-                _looking = looking.Right;
                 vel.X = speed;
             }
-            else if (prev.IsKeyUp(Keys.D))
+            else if (prev.IsKeyDown(Keys.W))
             {
-                _currAni = AniState.stand;
+                vel.Y += 
             }
 
         }

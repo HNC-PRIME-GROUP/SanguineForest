@@ -163,6 +163,7 @@ namespace Sanguine_Forest
 
         public void IdleUpdate(KeyboardState curr, KeyboardState prev)
         {
+            _animationModule.SetAnimationSpeed(0.6f);
             _animationModule.Play("Idle");
             vel.X = 0;
             //Here you can describe only that things that character can do from the Idle
@@ -194,7 +195,7 @@ namespace Sanguine_Forest
 
         public void WalkUpdate(KeyboardState curr, KeyboardState prev)
         {
-
+            _animationModule.SetAnimationSpeed(0.2f);
             _animationModule.Play("Run");
             //ye, some code should be repeated (or put in another method)
             if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))

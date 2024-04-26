@@ -116,29 +116,210 @@ namespace Sanguine_Forest
             _walldetL.UpdateMe();
             _walldetR.UpdateMe();
 
+            position += vel;
+
+            if (_feet.GetPhysicRectangle().Bottom < ground)
+            {
+                if (vel.Y < gravity * 35)
+                {
+                    vel.Y += gravity;
+                }
+            }
+            else if (vel.Y > 0)
+            {
+                vel.Y = 0;
+                position.Y = ground - _collision.GetPhysicRectangle().Height - _feet.GetPhysicRectangle().Height * 2;
+            }
+
+            if (_looking == looking.Right)
+            {
+                _spriteModule.SetSpriteEffects(SpriteEffects.None);
+            }
+            else if (_looking == looking.Left)
+            {
+                _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
+            }
+
             switch (_currAni)
             {
                 case AniState.stand:
                     IdleUpdate(curr, prev);
                     break;
-                case _currAni.walk:
+                case AniState.walk:
                     WalkUpdate(curr, prev);
                     break;
-                case CharState.jump:
+                case AniState.jump:
                     JumpUpdate(curr, prev);
                     break;
-                case CharState.climb:
+                case AniState.hugWall:
                     ClimbUpdate(curr, prev);
                     break;
-                case CharState.jumpAfterClimb:
+                case AniState.wallJump:
                     JumpAfterClimbUpdate(curr, prev);
                     break;
+            }
+
+        }
+
+        public void IdleUpdate(KeyboardState curr, KeyboardState prev)
+        {
+            _animationModule.Play("Idle");
+            //Here you can describe only that things that character can do from the Idle
+            //for example if climbing can be done only from the jump, just don't write here any 
+            //transition to climb
+
+            //transition to jump
+            if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))
+            {
+                vel.Y += -6;
+                _currAni = AniState.jump;
+
+            }
+
+            //transitions to walk
+            if (curr.IsKeyDown(Keys.A))
+            {
+                //flip sprite here but velocity you can add in a walk state
+                _currAni = AniState.walk;
+                _looking = looking.Left;
+            }
+
+            if (curr.IsKeyDown(Keys.D))
+            {
+                //same stuff
+                _currAni = AniState.walk;
+                _looking = looking.Right;
+            }
+        }
+
+        public void WalkUpdate(KeyboardState curr, KeyboardState prev)
+        {
+            //ye, some code should be repeated (or put in another method)
+            if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))
+            {
+                vel.Y += -6;
+                _currAni = AniState.jump;
+            }
+
+            //transitions to walk
+            if (curr.IsKeyDown(Keys.A))
+            {
+                //flip sprite here but velocity you can add in a walk state
+                _currAni = AniState.walk;
+                _looking = looking.Left;
+                vel.X = -speed;
+            }
+
+            if (curr.IsKeyDown(Keys.D))
+            {
+                //same stuff
+                _currAni = AniState.walk;
+                _looking = looking.Right;
+                vel.X = speed;
+            }
+
+        }
+
+        public void JumpUpdate(KeyboardState curr, KeyboardState prev)
+        {
+
+        }
+
+
+        public void ClimbUpdate(KeyboardState curr, KeyboardState prev)
+        {
+            //fall slightly
+
+            //or condition to transiton between states to wall jump
+        }
+
+        public void JumpAfterClimbUpdate(KeyboardState curr, KeyboardState prev)
+        {
+
+        }
+
+        public void DrawMe(SpriteBatch sp)
+        {
+            _spriteModule.DrawMe(sp);
+            DebugManager.DebugRectangle(_feet.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_collision.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_walldetL.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_walldetR.GetPhysicRectangle());
+            DebugManager.DebugRectangle(new Rectangle(0, ground, 6000, 100));
+
+        }
+
+        public override void Collided(Collision collision)
+        {
+            base.Collided(collision);
+            if (collision.GetCollidedPhysicModule().GetParent() is Platform)
+            {
+                Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
+                platform.GetPlatformRectangle();
+
+                if (collision.GetThisPhysicModule() == _feet)
+                {
+                    if (vel.Y > 0)
+                    {
+                        vel.Y = 0;
+                        pos.Y = platform.GetPlatformRectangle().Top - _collision.GetPhysicRectangle().Height + 1;
+                    }
+                }
+
+                if (collision.GetThisPhysicModule() == _walldetR)
+                {
+                    if (_looking == looking.Right)
+                    {
+                        vel.X = 0;
+                        pos.X = platform.GetPlatformRectangle().Left - _collision.GetPhysicRectangle().Width - 1;
+                        moveR = false;
+                        hugwall = true;
+                        _currAni = AniState.hugWall;
+                    }
+                }
+                else
+                {
+                    moveR = true;
+                }
+
+                if (collision.GetThisPhysicModule() == _walldetL)
+                {
+                    if (_looking == looking.Left)
+                    {
+                        vel.X = 0;
+                        pos.X = platform.GetPlatformRectangle().Right;
+                        moveL = false;
+                        hugwall = true;
+                        _currAni = AniState.hugWall;
+                    }
+                }
+                else
+                {
+                    moveL = true;
+                }
+
+                // if we need a physic rectangle of platform here:
+            }
+            if (collision.GetThisPhysicModule() == _collision && collision.GetCollidedPhysicModule().GetParent() is Obstacle)
+            {
+
+            }
+        }
+
+
+        public Vector2 GetVelocity()
+        {
+            return vel;
+        }
 
 
 
 
 
-                    if (Keyboard.GetState().IsKeyDown(Keys.D))
+
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 if (moveR == true)
                 {
@@ -205,31 +386,7 @@ namespace Sanguine_Forest
                 }
                 hugwall = false;
             }
-            position += vel;
 
-
-            if (_feet.GetPhysicRectangle().Bottom  < ground)
-            {
-                if(vel.Y < gravity * 35)
-                {
-                    vel.Y += gravity;
-                }
-            }
-            else if(vel.Y>0)
-            {
-                vel.Y = 0;
-                position.Y = ground - _collision.GetPhysicRectangle().Height - _feet.GetPhysicRectangle().Height*2;
-            }
-
-
-            if (_looking == looking.Right)
-            {
-                _spriteModule.SetSpriteEffects(SpriteEffects.None);
-            }
-            else if( _looking == looking.Left)
-            {
-                _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
-            }
 
             if (_currAni == AniState.stand)
             {
@@ -253,87 +410,6 @@ namespace Sanguine_Forest
             }
         }
 
-        public void DrawMe(SpriteBatch sp)
-        {
-            _spriteModule.DrawMe(sp);
-            DebugManager.DebugRectangle(_feet.GetPhysicRectangle());
-            DebugManager.DebugRectangle(_collision.GetPhysicRectangle());
-            DebugManager.DebugRectangle(_walldetL.GetPhysicRectangle());
-            DebugManager.DebugRectangle(_walldetR.GetPhysicRectangle());
-            DebugManager.DebugRectangle(new Rectangle(0, ground, 6000, 100));
-            
-        }
-
-        public override void Collided(Collision collision)
-        {
-            base.Collided(collision);
-            if(collision.GetCollidedPhysicModule().GetParent() is Platform)
-            {
-                Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
-                platform.GetPlatformRectangle();
-
-                if (collision.GetThisPhysicModule() == _feet)
-                {
-                    if (vel.Y > 0)
-                    {
-                        vel.Y = 0;
-                        pos.Y = platform.GetPlatformRectangle().Top - _collision.GetPhysicRectangle().Height + 1;
-                    }
-                }
-                
-                if (collision.GetThisPhysicModule() == _walldetR)
-                {
-                    if (_looking == looking.Right)
-                    {
-                        vel.X = 0;
-                        pos.X = platform.GetPlatformRectangle().Left - _collision.GetPhysicRectangle().Width - 1;
-                        moveR = false;
-                        hugwall = true;
-                        _currAni = AniState.hugWall;
-                    }
-                }
-                else
-                {
-                    moveR = true;
-                    if (vel.Y < 0)
-                    {
-                        _currAni = AniState.jump;
-                    }
-                }
-                
-                if (collision.GetThisPhysicModule() == _walldetL)
-                {
-                    if (_looking == looking.Left)
-                    {
-                        vel.X = 0;
-                        pos.X = platform.GetPlatformRectangle().Right;
-                        moveL = false;
-                        hugwall = true;
-                        _currAni = AniState.hugWall;
-                    }
-                }
-                else
-                {
-                    moveL = true;
-                    if (vel.Y < 0)
-                    {
-                        _currAni = AniState.jump;
-                    }
-                }
-
-                // if we need a physic rectangle of platform here:
-            }
-            if(collision.GetThisPhysicModule() == _collision && collision.GetCollidedPhysicModule().GetParent() is Obstacle)
-            {
-
-            }
-        }
-
-
-        public Vector2 GetVelocity()
-        {
-            return vel;
-        }
         
 
 

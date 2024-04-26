@@ -743,7 +743,7 @@ namespace Sanguine_Forest
                 }
 
                 // Handle collision with platform's left side
-                if (collision.GetThisPhysicModule() == _leftCling)
+                if (collision.GetThisPhysicModule() == _leftCling && isGrounded == false)
                 {
                     Debug.WriteLine("Collided at left cling");
                     // Stop horizontal movement and position character to the right of the platform

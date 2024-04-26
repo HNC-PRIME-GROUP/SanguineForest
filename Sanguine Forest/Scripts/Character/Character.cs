@@ -62,7 +62,7 @@ namespace Sanguine_Forest
 
         public Character(Vector2 position, float rotation, Texture2D _txr) : base(position, rotation)
         {
-            _spriteModule = new SpriteModule(this, Vector2.Zero, _txr, 
+            _spriteModule = new SpriteModule(this, Vector2.Zero, _txr,
                 Extentions.SpriteLayer.character1);
 
             _spriteModule.SetScale(0.3f);
@@ -89,7 +89,7 @@ namespace Sanguine_Forest
 
 
             _collision.isPhysicActive = true;
-            _feet.isPhysicActive =true;
+            _feet.isPhysicActive = true;
             _walldetL.isPhysicActive = true;
             _walldetR.isPhysicActive = true;
 
@@ -164,6 +164,7 @@ namespace Sanguine_Forest
         public void IdleUpdate(KeyboardState curr, KeyboardState prev)
         {
             _animationModule.Play("Idle");
+            vel.X = 0;
             //Here you can describe only that things that character can do from the Idle
             //for example if climbing can be done only from the jump, just don't write here any 
             //transition to climb
@@ -194,6 +195,8 @@ namespace Sanguine_Forest
 
         public void WalkUpdate(KeyboardState curr, KeyboardState prev)
         {
+
+            _animationModule.Play("Run");
             //ye, some code should be repeated (or put in another method)
             if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))
             {
@@ -209,6 +212,10 @@ namespace Sanguine_Forest
                 _looking = looking.Left;
                 vel.X = -speed;
             }
+            else if (prev.IsKeyUp(Keys.A))
+            {
+                _currAni = AniState.stand;
+            }
 
             if (curr.IsKeyDown(Keys.D))
             {
@@ -217,12 +224,16 @@ namespace Sanguine_Forest
                 _looking = looking.Right;
                 vel.X = speed;
             }
+            else if (prev.IsKeyUp(Keys.D))
+            {
+                _currAni = AniState.stand;
+            }
 
         }
 
         public void JumpUpdate(KeyboardState curr, KeyboardState prev)
         {
-
+            _animationModule.Play("Jump");
         }
 
 
@@ -231,11 +242,26 @@ namespace Sanguine_Forest
             //fall slightly
 
             //or condition to transiton between states to wall jump
+            if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))
+            {
+                _currAni = AniState.wallJump;
+            }
         }
 
         public void JumpAfterClimbUpdate(KeyboardState curr, KeyboardState prev)
         {
-
+            _animationModule.Play("Jump");
+            vel.Y = -9;
+            if (_looking == looking.Right)
+            {
+                vel.X = -6;
+                _looking = looking.Left;
+            }
+            else if (_looking == looking.Left)
+            {
+                vel.X = 6;
+                _looking = looking.Right;
+            }
         }
 
         public void DrawMe(SpriteBatch sp)
@@ -268,7 +294,7 @@ namespace Sanguine_Forest
 
                 if (collision.GetThisPhysicModule() == _walldetR)
                 {
-                    if (_looking == looking.Right)
+                    if (_looking == looking.Right && vel.Y != 0)
                     {
                         vel.X = 0;
                         pos.X = platform.GetPlatformRectangle().Left - _collision.GetPhysicRectangle().Width - 1;
@@ -284,7 +310,7 @@ namespace Sanguine_Forest
 
                 if (collision.GetThisPhysicModule() == _walldetL)
                 {
-                    if (_looking == looking.Left)
+                    if (_looking == looking.Left && vel.Y != 0)
                     {
                         vel.X = 0;
                         pos.X = platform.GetPlatformRectangle().Right;
@@ -311,6 +337,8 @@ namespace Sanguine_Forest
         {
             return vel;
         }
+    }
+}
 
 
 
@@ -319,96 +347,96 @@ namespace Sanguine_Forest
 
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                if (moveR == true)
-                {
-                    vel.X = speed;
-                    _looking = looking.Right;
-                    moveL = true;
-                }
+//            if (Keyboard.GetState().IsKeyDown(Keys.D))
+//            {
+//                if (moveR == true)
+//                {
+//                    vel.X = speed;
+//                    _looking = looking.Right;
+//                    moveL = true;
+//                }
 
-                if (vel.Y != 0)
-                {
-                    _currAni = AniState.jump;
-                }
-                else if (_currAni != AniState.hugWall || vel.X >= speed)
-                {
-                    _currAni = AniState.walk;
-                }
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                if (moveL == true)
-                {
-                    vel.X = -speed;
-                    _looking = looking.Left;
-                    moveR = true;
-                }
+//                if (vel.Y != 0)
+//                {
+//                    _currAni = AniState.jump;
+//                }
+//                else if (_currAni != AniState.hugWall || vel.X >= speed)
+//                {
+//                    _currAni = AniState.walk;
+//                }
+//            }
+//            else if (Keyboard.GetState().IsKeyDown(Keys.A))
+//            {
+//                if (moveL == true)
+//                {
+//                    vel.X = -speed;
+//                    _looking = looking.Left;
+//                    moveR = true;
+//                }
 
-                if (vel.Y != 0)
-                    _currAni = AniState.jump;
-                else if (_currAni != AniState.hugWall || vel.X <= -speed)
-                {
-                    _currAni = AniState.walk;
-                }
-            }
-            else if (_currAni == AniState.jump || _currAni == AniState.walk ||
-                  _currAni == AniState.drink)
-            {
-                vel.X = 0;
-                _currAni = AniState.stand;
-            }
+//                if (vel.Y != 0)
+//                    _currAni = AniState.jump;
+//                else if (_currAni != AniState.hugWall || vel.X <= -speed)
+//                {
+//                    _currAni = AniState.walk;
+//                }
+//            }
+//            else if (_currAni == AniState.jump || _currAni == AniState.walk ||
+//                  _currAni == AniState.drink)
+//            {
+//                vel.X = 0;
+//                _currAni = AniState.stand;
+//            }
 
-            if (prev.IsKeyUp(Keys.W)&&curr.IsKeyDown(Keys.W))
-            {
+//            if (prev.IsKeyUp(Keys.W)&&curr.IsKeyDown(Keys.W))
+//            {
                 
-                if (vel.Y == 0)
-                {
-                    vel.Y = -8;
-                    moveL = true;
-                    moveR = true;
-                }
+//                if (vel.Y == 0)
+//                {
+//                    vel.Y = -8;
+//                    moveL = true;
+//                    moveR = true;
+//                }
 
-                if (_currAni == AniState.hugWall)
-                {
-                    vel.Y = -9;
-                    if (_looking == looking.Right)
-                    {
-                        vel.X = -6;
-                        _looking = looking.Left;
-                    }
-                    else if (_looking == looking.Left)
-                    {
-                        vel.X = 6;
-                        _looking = looking.Right;
-                    }
-                }
-                hugwall = false;
-            }
+//                if (_currAni == AniState.hugWall)
+//                {
+//                    vel.Y = -9;
+//                    if (_looking == looking.Right)
+//                    {
+//                        vel.X = -6;
+//                        _looking = looking.Left;
+//                    }
+//                    else if (_looking == looking.Left)
+//                    {
+//                        vel.X = 6;
+//                        _looking = looking.Right;
+//                    }
+//                }
+//                hugwall = false;
+//            }
 
 
-            if (_currAni == AniState.stand)
-            {
-                _animationModule.SetAnimationSpeed(0.6f);
-                _animationModule.Play("Idle");
-            }
-            else if (_currAni == AniState.hugWall)
-            {
-                _animationModule.SetAnimationSpeed(0.1f);
-                _animationModule.Play("hugWall");
-            }
-            else if (_currAni == AniState.walk)
-            {
-                _animationModule.SetAnimationSpeed(0.2f);
-                _animationModule.Play("Run");
-            }
-            else if (_currAni == AniState.jump)
-            {
-                _animationModule.SetAnimationSpeed(0.1f);
-                _animationModule.Play("Jump");
-            }
-        }
+//            if (_currAni == AniState.stand)
+//            {
+//                _animationModule.SetAnimationSpeed(0.6f);
+//                _animationModule.Play("Idle");
+//            }
+//            else if (_currAni == AniState.hugWall)
+//            {
+//                _animationModule.SetAnimationSpeed(0.1f);
+//                _animationModule.Play("hugWall");
+//            }
+//            else if (_currAni == AniState.walk)
+//            {
+//                _animationModule.SetAnimationSpeed(0.2f);
+//                _animationModule.Play("Run");
+//            }
+//            else if (_currAni == AniState.jump)
+//            {
+//                _animationModule.SetAnimationSpeed(0.1f);
+//                _animationModule.Play("Jump");
+//            }
+//        }
 
         
 
@@ -417,5 +445,5 @@ namespace Sanguine_Forest
 
 
 
-    }
-}
+//    }
+//}

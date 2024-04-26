@@ -224,7 +224,7 @@ namespace Sanguine_Forest
 
             _character.DrawMe(_spriteBatch);
             DebugManager.DebugString("pos: " + _character.GetPosition(), new Vector2(-500, -500));
-            DebugManager.DebugString("pos: " + _character.Position, new Vector2(-500, -500));
+            //DebugManager.DebugString("pos: " + _character.Position, new Vector2(-500, -500));
 
             //Debug test
             DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));

@@ -99,29 +99,85 @@ namespace Sanguine_Forest
             _rightCling.UpdateMe();
         }
 
-        private void JumpAfterClingUpdate(InputManager inputManager)
+        public void IdleUpdate(InputManager inputManager)
         {
-            throw new NotImplementedException();
+            //animationModule.Play("Idle");
+            //Here you can describe only that things that character can do from the Idle
+            //for example if climbing can be done only from the jump, just don't write here any 
+            //transition to climb
+
+            //transition to jump
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y += -6;
+                _currentState = CharState.jump;
+
+            }
+
+            //transitions to walk
+            if (inputManager.IsKeyDown(Keys.A))
+            {
+                //Rotate here the sprite but velocity you can add in a walk state
+                _currentState = CharState.walk;
+            }
+
+            if (inputManager.IsKeyDown(Keys.D))
+            {
+                //same stuff
+            }
         }
 
-        private void ClingUpdate(InputManager inputManager)
+        public void WalkUpdate(InputManager inputManager)
         {
-            throw new NotImplementedException();
+            //ye, some code should be repeated (or put in another method)
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y += -6;
+                _currentState = CharState.jump;
+            }
+
+
+        }
+        public void JumpUpdate(InputManager inputManager)
+        {
+            HandleJump(inputManager);
+
         }
 
-        private void JumpUpdate(InputManager inputManager)
+        public void ClingUpdate(InputManager inputManager)
         {
-            throw new NotImplementedException();
+            //ye, some code should be repeated (or put in another method)
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y += 0;
+
+                _currentState = CharState.cling;
+            }
+
         }
 
-        private void WalkUpdate(InputManager inputManager)
+        public void JumpAfterClingUpdate(InputManager inputManager)
         {
-            throw new NotImplementedException();
+            //ye, some code should be repeated (or put in another method)
+            HandleJump(inputManager);
+
         }
 
-        private void IdleUpdate(InputManager inputManager)
+
+        public void ClingState(KeyboardState curr, KeyboardState prev)
         {
-            throw new NotImplementedException();
+            //fall slightly
+
+            //or condition to transiton between states to wall jump
+        }
+
+        private void HandleJump(InputManager inputManager)
+        {
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y -= 10; // Consider making this a constant for easier adjustments
+                _currentState = CharState.jump;
+            }
         }
 
         public void DrawMe(SpriteBatch sp)

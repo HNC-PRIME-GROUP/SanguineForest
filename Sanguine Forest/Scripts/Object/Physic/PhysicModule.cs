@@ -29,8 +29,8 @@ namespace Sanguine_Forest
         public new void UpdateMe()
         {
             base.UpdateMe();
-
             physicRec.Location = (GetPosition() - rectangleHalfSize).ToPoint();
+
         }
 
         /// <summary>

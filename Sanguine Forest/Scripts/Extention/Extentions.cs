@@ -56,6 +56,7 @@ namespace Extention
             environment2,
             background_Fore,
             background_Mid,
+            background_Mid_Back,
             background_Back,
             obstacles,
             Length

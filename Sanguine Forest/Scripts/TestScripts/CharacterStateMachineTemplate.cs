@@ -1,178 +1,247 @@
-﻿//using Microsoft.Xna.Framework;
-//using Microsoft.Xna.Framework.Graphics;
-//using Microsoft.Xna.Framework.Input;
-//using Extention;
-//using Sanguine_Forest.Scripts.TestScripts;
-//using System.Collections.Generic;
-//using Microsoft.Xna.Framework.Content;
-//using SharpDX.DirectWrite;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Extention;
+using Sanguine_Forest.Scripts.TestScripts;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Content;
+using SharpDX.DirectWrite;
+using Sanguine_Forest.Scripts.GameState;
+using Microsoft.VisualBasic;
+using Sanguine_Forest.Scripts.Environment.Obstacle;
+using System.Diagnostics.Metrics;
+using System;
 
-//namespace Sanguine_Forest
-//{
-//    internal class CharacterStateMachineTemplate : GameObject
-//    {
+namespace Sanguine_Forest
+{
+    internal class CharacterStateMachine : GameObject
+    {
+        private SpriteModule _spriteModule;
+        private AnimationModule _animationModule;
 
+        private enum CharState
+        {
+            idle,
+            walk,
+            jump,
+            cling,
+            jumpAfterCling
+        }
 
-//        private Vector2 velocity;
+        private CharState _currentState;
 
-//        //Our character states  (we also can use them for animation later)
-//        private enum CharState
-//        {
-//            idle,
-//            walk,
-//            jump,
-//            climb,
-//            jumpAfterClimb
-//        }
+        private PhysicModule _characterCollision;
+        private PhysicModule _feet;
+        private PhysicModule _leftCling;
+        private PhysicModule _rightCling;
 
-//        private CharState currentState;
- 
-//        //Modules
-//        private SpriteModule spriteModule;
-//        private AnimationModule animationModule;
+        public bool moveL;
+        public bool moveR;
+        public bool isClinging;
 
-//        private PhysicModule characterCollision;
-//        private PhysicModule feet;
-//        private PhysicModule leftClimb;
-//        private PhysicModule rightClimb;
+        private Vector2 _velocity;
+        private Vector2 _position;
 
-//        CharacterStateMachineTemplate (Vector2 position, float rotation, ContentManager content) : base (position, rotation)
-//        {
+        public CharacterStateMachine(Vector2 position, float rotation, Texture2D texture) : base(position, rotation)
+        {
+            _spriteModule = new SpriteModule(this, Vector2.Zero, texture, Extentions.SpriteLayer.character1);
+            _spriteModule.SetScale(0.15f);
 
-//            //create the sprite module
-//            //spriteModule = new SpriteModule();
+            var animations = new Dictionary<string, AnimationSequence>
+            {
+                {"Idle", new AnimationSequence(Vector2.Zero, 3)},
+                {"Run", new AnimationSequence(new Vector2(0, 700), 3)},
+                {"Jump", new AnimationSequence(new Vector2(0, 1400), 5)},
+                {"Cling", new AnimationSequence(new Vector2(4200, 1400), 0)}
+            };
 
-//            //do some things for animation here (dictionary and spritesheetdata)
+            var spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), animations);
+            _animationModule = new AnimationModule(this, Vector2.Zero, spriteSheetData, _spriteModule);
+            _spriteModule.AnimtaionInitialise(_animationModule);
 
-//            //animationModule = new AnimationModule();
-//            //Initialise the animation 
-//            spriteModule.AnimtaionInitialise(animationModule);
+            _position = position;
+            _characterCollision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
+            _feet = new PhysicModule(this, new Vector2(100, 190), new Vector2(140, 20));
+            _leftCling = new PhysicModule(this, new Vector2(20, 100), new Vector2(10, 160));
+            _rightCling = new PhysicModule(this, new Vector2(180, 100), new Vector2(10, 160));
 
+            _currentState = CharState.idle;
+            moveL = true;
+            moveR = true;
+        }
 
-//            //Initialise the physic
-//            //characterCollision = new PhysicModule();
-//            //feet = new PhysicModule(); etc.
+        public void UpdateMe(InputManager inputManager)
+        {
+            switch (_currentState)
+            {
+                case CharState.idle:
+                    IdleUpdate(inputManager);
+                    break;
+                case CharState.walk:
+                    WalkUpdate(inputManager);
+                    break;
+                case CharState.jump:
+                    JumpUpdate(inputManager);
+                    break;
+                case CharState.cling:
+                    ClingUpdate(inputManager);
+                    break;
+                case CharState.jumpAfterCling:
+                    JumpAfterClingUpdate(inputManager);
+                    break;
+            }
 
-//        }
+            _animationModule.UpdateMe();
+            _spriteModule.UpdateMe();
+            _characterCollision.UpdateMe();
+            _feet.UpdateMe();
+            _leftCling.UpdateMe();
+            _rightCling.UpdateMe();
+        }
 
-//        public void UpdateMe(KeyboardState curr, KeyboardState prev)
-//        {
-//            //update all modules
-//            spriteModule.UpdateMe();
-//            animationModule.UpdateMe();
-//            characterCollision.UpdateMe();
-//            feet.UpdateMe();
-//            leftClimb.UpdateMe();
-//            rightClimb.UpdateMe();
+        public void IdleUpdate(InputManager inputManager)
+        {
+            //animationModule.Play("Idle");
+            //Here you can describe only that things that character can do from the Idle
+            //for example if climbing can be done only from the jump, just don't write here any 
+            //transition to climb
 
-//            //Magic switch - if character in particular state - there is gonna execute only one Update.
-//            //All these methods described lower for readability
-//            switch(currentState)
-//            {
-//                case CharState.idle:
-//                    IdleUpdate(curr, prev);
-//                    break;
-//                case CharState.walk:
-//                    WalkUpdate(curr, prev);
-//                    break;
-//                case CharState.jump:
-//                    JumpUpdate(curr, prev);
-//                    break;
-//                case CharState.climb:
-//                    ClimbUpdate(curr, prev);
-//                    break;
-//                case CharState.jumpAfterClimb:
-//                    JumpAfterClimbUpdate(curr, prev);
-//                    break;
-//            }
+            //transition to jump
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y += -6;
+                _currentState = CharState.jump;
 
-//        }
+            }
 
-//        public void DrawMe(SpriteBatch sp)
-//        {
-//            spriteModule.DrawMe(sp);
-//        }
+            //transitions to walk
+            if (inputManager.IsKeyDown(Keys.A))
+            {
+                //Rotate here the sprite but velocity you can add in a walk state
+                _currentState = CharState.walk;
+            }
 
+            if (inputManager.IsKeyDown(Keys.D))
+            {
+                //same stuff
+            }
+        }
 
-//        public void IdleUpdate(KeyboardState curr, KeyboardState prev) 
-//        {
-//            //animationModule.Play("Idle");
-//            //Here you can describe only that things that character can do from the Idle
-//            //for example if climbing can be done only from the jump, just don't write here any 
-//            //transition to climb
-
-//            //transition to jump
-//            if(curr.IsKeyDown(Keys.W)&&prev.IsKeyDown(Keys.W)) 
-//            {
-//                velocity.Y += -6;
-//                currentState = CharState.jump;
-                
-//            }
-
-//            //transitions to walk
-//            if(curr.IsKeyDown(Keys.A))
-//            {
-//                //flip sprite here but velocity you can add in a walk state
-//                currentState = CharState.walk;
-//            }
-
-//            if(curr.IsKeyDown(Keys.D))
-//            {
-//                //same stuff
-//            }        
-//        }
-
-//        public void WalkUpdate(KeyboardState curr, KeyboardState prev)
-//        {
-//            //ye, some code should be repeated (or put in another method)
-//            if (curr.IsKeyDown(Keys.W) && prev.IsKeyDown(Keys.W))
-//            {
-//                velocity.Y += -6;
-//                currentState = CharState.jump;
-//            }
-
-            
-
-//        }
-
-
-//        public void ClimpState(KeyboardState curr, KeyboardState prev)
-//        {
-//            //fall slightly
-            
-//            //or condition to transiton between states to wall jump
-//        }
-
-//        public override void Collided(Collision collision)
-//        {
-//            if(collision.GetCollidedPhysicModule().GetParent() is Platform)
-//            {
-//                if(collision.GetThisPhysicModule() == feet && currentState==CharState.jump)
-//                {
-//                    // check if it's riht side of the platform
-//                    currentState = CharState.idle;
-//                }
-
-//            }
+        public void WalkUpdate(InputManager inputManager)
+        {
+            //ye, some code should be repeated (or put in another method)
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y += -6;
+                _currentState = CharState.jump;
+            }
 
 
+        }
+        public void JumpUpdate(InputManager inputManager)
+        {
+            HandleJump(inputManager);
 
-//        }
+        }
+
+        public void ClingUpdate(InputManager inputManager)
+        {
+            //ye, some code should be repeated (or put in another method)
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y += 0;
+
+                _currentState = CharState.cling;
+            }
+
+        }
+
+        public void JumpAfterClingUpdate(InputManager inputManager)
+        {
+            //ye, some code should be repeated (or put in another method)
+            HandleJump(inputManager);
+
+        }
 
 
+        public void ClingState(KeyboardState curr, KeyboardState prev)
+        {
+            //fall slightly
 
+            //or condition to transiton between states to wall jump
+        }
 
+        private void HandleJump(InputManager inputManager)
+        {
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y -= 10; // Consider making this a constant for easier adjustments
+                _currentState = CharState.jump;
+            }
+        }
 
+        public void DrawMe(SpriteBatch sp)
+        {
+            _spriteModule.DrawMe(sp);
+        }
 
+        // Include methods like IdleUpdate, WalkUpdate, JumpUpdate, ClingUpdate, JumpAfterClingUpdate here
+        // Adapt the transitions and behavior from the original Character's UpdateMe method
 
+        public override void Collided(Collision collision)
+        {
+            base.Collided(collision);
+            // Handle collisions as in the original Character's Collided method
+            if (collision.GetCollidedPhysicModule().GetParent() is Platform)
+            {
+                Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
+                platform.GetPlatformRectangle();
 
+                if (collision.GetThisPhysicModule() == _feet)
+                {
+                    if (_velocity.Y > 0)
+                    {
+                        _velocity.Y = 0;
+                        position.Y = platform.GetPlatformRectangle().Top - _characterCollision.GetPhysicRectangle().Height + 1;
+                    }
+                }
 
+                if (collision.GetThisPhysicModule() == _rightCling)
+                {
+                    _velocity.X = 0;
+                    position.X = platform.GetPlatformRectangle().Left - _characterCollision.GetPhysicRectangle().Width - 1;
+                    moveR = false;
+                    _currentState = CharState.cling;
+                }
+                else if (collision.GetThisPhysicModule() != _rightCling)
+                {
+                    moveR = true;
+                }
 
+                if (collision.GetThisPhysicModule() == _leftCling)
+                {
+                    _velocity.X = 0;
+                    position.X = platform.GetPlatformRectangle().Right;
+                    moveL = false;
+                    _currentState = CharState.cling;
+                }
+                else if (collision.GetThisPhysicModule() != _leftCling)
+                {
+                    moveL = true;
+                }
 
+                // if we need a physic rectangle of platform here:
+            }
+            if (collision.GetThisPhysicModule() == _characterCollision && collision.GetCollidedPhysicModule().GetParent() is Obstacle)
+            {
 
+            }
+        }
+    
 
-
-
-
-//    }
-//}
+        public float GetVelocity()
+        {
+            return _velocity.X;
+        }
+    }
+}

@@ -14,7 +14,6 @@ namespace Sanguine_Forest
     internal class ParallaxBackground : GameObject
     {
         private SpriteModule spriteModule; // Composition instead of inheritance
-        private SpriteModule? spriteModule2;
         public float ParallaxSpeed { get; set; } // Multiplier to control speed
         public Extentions.SpriteLayer Layer { get; private set; }
 

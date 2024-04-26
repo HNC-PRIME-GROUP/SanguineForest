@@ -577,6 +577,7 @@ namespace Sanguine_Forest
 //                moveLeft = moveRight = true; // Reset if not currently hugging a wall
 //            }
 //        }
+
 //        private void ApplyPhysics()
 //        {
 //            Debug.WriteLine($"Feet bottom: {_feet.GetPhysicRectangle().Bottom}, Ground level: {_groundLevel}");
@@ -660,6 +661,7 @@ namespace Sanguine_Forest
 //                    isClinging = true;
 
 //                }
+
 //                else if (collision.GetThisPhysicModule() != _leftCling)
 //                {
 //                    moveLeft = true;

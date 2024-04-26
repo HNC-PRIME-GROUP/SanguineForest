@@ -315,7 +315,8 @@ namespace Sanguine_Forest
             walk,
             jump,
             cling,
-            jumpAfterCling
+            jumpAfterCling,
+            drink
         }
 
         private enum Direction
@@ -611,6 +612,11 @@ namespace Sanguine_Forest
             //ye, some code should be repeated (or put in another method)
             HandleJump(inputManager);
 
+        }
+
+        public void drinkUpdate(InputManager inputManager)
+        {
+            //code for when player is drinking
         }
 
 

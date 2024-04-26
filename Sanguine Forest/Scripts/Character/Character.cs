@@ -201,18 +201,18 @@ namespace Sanguine_Forest
             //ye, some code should be repeated (or put in another method)
 
             //transitions to walk
-            if (curr.IsKeyDown(Keys.A) && _looking == looking.Left)
+            if (inputManager.IsKeyDown(Keys.A) && _looking == looking.Left)
             {
                 //flip sprite here but velocity you can add in a walk state
                 vel.X = -speed;
             }
-            else if (curr.IsKeyDown(Keys.D) && _looking == looking.Right)
+            else if (inputManager.IsKeyDown(Keys.D) && _looking == looking.Right)
             {
                 vel.X = speed;
             }
-            else if (prev.IsKeyDown(Keys.W))
+            else if (inputManager.IsKeyDown(Keys.W))
             {
-                vel.Y += 
+                vel.Y += 5;
             }
 
         }

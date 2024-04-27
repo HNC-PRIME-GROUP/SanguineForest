@@ -149,7 +149,7 @@ namespace Sanguine_Forest
                 return;
             }
 
-            if(curr.GetPressedKeys() is null)
+            if(curr.GetPressedKeys().Length==0)
             {
                 _velocity.X = 0;
             }
@@ -203,10 +203,7 @@ namespace Sanguine_Forest
                 _spriteModule.SetSpriteEffects(SpriteEffects.None);
                 _velocity.X = (_speed*2/3);
             }
-            if(curr.GetPressedKeys() is null)
-            {
-                _velocity.X = 0;
-            }
+            
         }
 
         public void ClingUpdate(KeyboardState prev, KeyboardState curr)
@@ -215,19 +212,21 @@ namespace Sanguine_Forest
             _animationModule.Play("hugWall");
             _gravityEffect = 0; //Make slower gravity effect
             _velocity.X = 0;
-            if(curr.IsKeyDown(Keys.W)) 
+            if(curr.IsKeyUp(Keys.W)&& prev.IsKeyDown(Keys.W)) 
             {
                 if(_spriteModule.GetSpriteEffects()==SpriteEffects.None)
                 {
                     _velocity.X = -_speed;
-                    _velocity.Y = _jumpHigh;
-                    _currentState = CharState.jump; 
+                    _velocity.Y = -_jumpHigh;
+                    _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
+                    _currentState = CharState.jump;
                     return;
                 }
                 else
                 {
                     _velocity.X = _speed;
-                    _velocity.Y = _jumpHigh;
+                    _velocity.Y = -_jumpHigh;
+                    _spriteModule.SetSpriteEffects(SpriteEffects.None);
                     _currentState = CharState.jump;
                     return;
                 }
@@ -263,18 +262,23 @@ namespace Sanguine_Forest
                 }
                 if (_currentState == CharState.walk && collision.GetThisPhysicModule() == _leftCollision)
                 {
-                    _velocity.X = -1;
+                    _velocity.X = 0;
+                    position.X += 2;
+                    _currentState = CharState.idle;
                     return;
                 }
                 if (_currentState == CharState.walk && collision.GetThisPhysicModule() == _rightCollision)
                 {
-                    _velocity.X = 1;
+                    _velocity.X = 0;
+                    position.X -= 2;
+                    _currentState = CharState.idle;
                     return;
                 }
                 if (_currentState == CharState.jump && collision.GetThisPhysicModule() == _leftCollision)
                 {
                     _velocity.X = 0;
-                    //position.X += 1 + _leftCollision.GetShiftPosition().X;
+                    _velocity.Y = 0;
+                    position.X += _leftCollision.GetShiftPosition().X+2;
                     _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
                     _gravityEffect = 0f;
                     _currentState = CharState.cling;
@@ -284,7 +288,8 @@ namespace Sanguine_Forest
                 if (_currentState == CharState.jump && collision.GetThisPhysicModule() == _rightCollision)
                 {
                     _velocity.X = 0;
-                    //position.X -= _rightCollision.GetShiftPosition().X - _rightCollision.GetPhysicRectangle().Width - 1;
+                    _velocity.Y = 0;
+                    position.X -=  _rightCollision.GetPhysicRectangle().Width+10;
                     _gravityEffect = 0f;
                     _spriteModule.SetSpriteEffects(SpriteEffects.None);
                     _currentState = CharState.cling;

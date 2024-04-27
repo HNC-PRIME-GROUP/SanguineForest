@@ -41,7 +41,7 @@ namespace Sanguine_Forest
 
         //Movement
         private float _speed = 10f;
-        private float _jumpHigh = 15f;
+        private float _jumpHigh = 30f;
 
         private Vector2 _velocity = Vector2.Zero;
         private float _gravityRate = 0.3f;
@@ -148,13 +148,18 @@ namespace Sanguine_Forest
                 _currentState = CharState.jump;
                 return;
             }
-            _gravityEffect = 0f;
-            _velocity.Y = 0f;
+
+            if(curr.GetPressedKeys() is null)
+            {
+                _velocity.X = 0;
+            }
+            //_gravityEffect = 0f;
+            //_velocity.Y = 0f;
         }
 
         public void WalkUpdate(KeyboardState prev, KeyboardState curr)
         {
-            _animationModule.SetAnimationSpeed(0.8f);
+            _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Run");
             if (prev.IsKeyDown(Keys.W) && curr.IsKeyDown(Keys.W))
             {
@@ -180,8 +185,8 @@ namespace Sanguine_Forest
                 _spriteModule.SetSpriteEffects(SpriteEffects.None);
                 _velocity.X = _speed;
             }
-            _gravityEffect = 0f;
-            _velocity.Y = 0f;
+           // _gravityEffect = 0f;
+            //_velocity.Y = 0f;
         }
 
         public void JumpUpdate(KeyboardState prev, KeyboardState curr)
@@ -198,13 +203,18 @@ namespace Sanguine_Forest
                 _spriteModule.SetSpriteEffects(SpriteEffects.None);
                 _velocity.X = (_speed*2/3);
             }
+            if(curr.GetPressedKeys() is null)
+            {
+                _velocity.X = 0;
+            }
         }
 
         public void ClingUpdate(KeyboardState prev, KeyboardState curr)
         {
 
             _animationModule.Play("hugWall");
-            _gravityEffect = _gravityRate; //Make slower gravity effect
+            _gravityEffect = 0; //Make slower gravity effect
+            _velocity.X = 0;
             if(curr.IsKeyDown(Keys.W)) 
             {
                 if(_spriteModule.GetSpriteEffects()==SpriteEffects.None)
@@ -232,45 +242,66 @@ namespace Sanguine_Forest
         {
             base.Collided (collision);
 
-            if(collision.GetCollidedPhysicModule().GetParent() is Platform)
+            if (collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
-                if ((_currentState==CharState.idle||_currentState==CharState.walk)&& collision.GetThisPhysicModule() == _feetCollision)
+                if ((_currentState == CharState.idle || _currentState == CharState.walk) && collision.GetThisPhysicModule() == _feetCollision)
                 {
                     _gravityEffect = 0f;
                     _velocity.Y = 0f;
-                    position.Y = collision.GetCollidedPhysicModule().GetPhysicRectangle().Top-_feetCollision.GetShiftPosition().Y;
+                    position.Y = collision.GetCollidedPhysicModule().GetPhysicRectangle().Top - _feetCollision.GetShiftPosition().Y;
                     return;
                 }
 
-                if(_currentState==CharState.jump&&collision.GetThisPhysicModule() == _feetCollision && _velocity.Y>0)
+                if (_currentState == CharState.jump && collision.GetThisPhysicModule() == _feetCollision && _velocity.Y > 0)
                 {
                     _gravityEffect = 0f;
                     _velocity.Y = 0f;
-                    position.Y = collision.GetCollidedPhysicModule().GetPhysicRectangle().Top - _feetCollision.GetShiftPosition().Y ;
+                    position.Y = collision.GetCollidedPhysicModule().GetPhysicRectangle().Top - _feetCollision.GetShiftPosition().Y;
                     _currentState = CharState.idle;
                     return;
                 }
-                if(_currentState==CharState.walk&& collision.GetThisPhysicModule()==_leftCollision)
+                if (_currentState == CharState.walk && collision.GetThisPhysicModule() == _leftCollision)
                 {
-                    _velocity.X = _speed;
+                    _velocity.X = -1;
                     return;
                 }
-                if(_currentState==CharState.walk&& collision.GetThisPhysicModule()==_rightCollision)
+                if (_currentState == CharState.walk && collision.GetThisPhysicModule() == _rightCollision)
                 {
-                    _velocity.X = -_speed;
+                    _velocity.X = 1;
                     return;
                 }
-                if(_currentState==CharState.jump&&collision.GetThisPhysicModule()==_leftCollision||collision.GetThisPhysicModule()==_rightCollision)
+                if (_currentState == CharState.jump && collision.GetThisPhysicModule() == _leftCollision)
                 {
+                    _velocity.X = 0;
+                    //position.X += 1 + _leftCollision.GetShiftPosition().X;
+                    _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
+                    _gravityEffect = 0f;
                     _currentState = CharState.cling;
-                    _gravityEffect= 0f;
+
                     return;
                 }
-                if(_currentState==CharState.cling&&collision.GetThisPhysicModule()==_feetCollision)
+                if (_currentState == CharState.jump && collision.GetThisPhysicModule() == _rightCollision)
+                {
+                    _velocity.X = 0;
+                    //position.X -= _rightCollision.GetShiftPosition().X - _rightCollision.GetPhysicRectangle().Width - 1;
+                    _gravityEffect = 0f;
+                    _spriteModule.SetSpriteEffects(SpriteEffects.None);
+                    _currentState = CharState.cling;
+                    return;
+                }
+                if (_currentState==CharState.cling&&collision.GetThisPhysicModule()==_feetCollision)
                 {
                     _currentState = CharState.idle;
-                    _gravityEffect = _gravityRate;
+                    if(_spriteModule.GetSpriteEffects() == SpriteEffects.None)
+                    {
+                        position.X -= 1;
+                    }
+                    else
+                    {
+                        position.X += 1;
+                    }
+                    _gravityEffect = 0;
                     return;
                 } 
                 

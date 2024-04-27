@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using SharpDX.DirectWrite;
 using Sanguine_Forest.Scripts.GameState;
 using Microsoft.VisualBasic;
-using Sanguine_Forest.Scripts.Environment.Obstacle;
+using Sanguine_Forest;
 using System.Diagnostics.Metrics;
 using System;
 

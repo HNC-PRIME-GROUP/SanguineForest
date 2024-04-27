@@ -14,7 +14,7 @@ namespace Sanguine_Forest
 
         public Rectangle physicRec;
         private Vector2 rectangleHalfSize;
-        public bool isPhysicActive = false;
+        public bool isPhysicActive = true;
 
 
         public PhysicModule(GameObject parent, Vector2 shift, Vector2 rectangleSize) : base(parent, shift)

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sanguine_Forest.Scripts.Environment.Obstacle;
+using Sanguine_Forest;
 using System.Collections.Generic;
 
 namespace Sanguine_Forest

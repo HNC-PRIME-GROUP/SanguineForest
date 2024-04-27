@@ -296,7 +296,7 @@ using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sanguine_Forest.Scripts.Environment.Obstacle;
+using Sanguine_Forest;
 using Sanguine_Forest.Scripts.GameState;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -457,9 +457,9 @@ namespace Sanguine_Forest
                 case CharState.jumpAfterCling:
                     JumpAfterClingUpdate(inputManager);
                     break;
-                case CharState.drink:
-                    drinkUpdate(inputManager);
-                    break;
+  //              case CharState.drink:
+   //                 drinkUpdate(inputManager);
+     //               break;
             }
 
             UpdateMovementPermissions();
@@ -472,13 +472,13 @@ namespace Sanguine_Forest
             _rightCling.UpdateMe();
 
 
-            Debug.WriteLine($"Character Width {_characterCollision.GetPhysicRectangle().Width}");
-            Debug.WriteLine($"Texture Height {_characterCollision.GetPhysicRectangle().Height}");
-            Debug.WriteLine($"Feet Height {_feet.GetPhysicRectangle().Height}");
-            Debug.WriteLine($"Feet Width  {_feet.GetPhysicRectangle().Width}");
+            //Debug.WriteLine($"Character Width {_characterCollision.GetPhysicRectangle().Width}");
+            //Debug.WriteLine($"Texture Height {_characterCollision.GetPhysicRectangle().Height}");
+            //Debug.WriteLine($"Feet Height {_feet.GetPhysicRectangle().Height}");
+            //Debug.WriteLine($"Feet Width  {_feet.GetPhysicRectangle().Width}");
 
-            Debug.WriteLine($"FEET Bottom:  {_feet.GetPhysicRectangle().Bottom}");
-            Debug.WriteLine($"GroundLevel:  {_groundLevel}");
+            //Debug.WriteLine($"FEET Bottom:  {_feet.GetPhysicRectangle().Bottom}");
+            //Debug.WriteLine($"GroundLevel:  {_groundLevel}");
 
 
         }
@@ -549,7 +549,7 @@ namespace Sanguine_Forest
 
         public void JumpUpdate(InputManager inputManager)
         {
-            Debug.WriteLine($"IsGrounded = {isGrounded}");
+          //  Debug.WriteLine($"IsGrounded = {isGrounded}");
 
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Jump");
@@ -693,19 +693,19 @@ namespace Sanguine_Forest
 
         public override void Collided(Collision collision)
         {
-            Debug.WriteLine($"Collision detected with: {collision.GetCollidedPhysicModule().GetParent().GetType()}");
+           // Debug.WriteLine($"Collision detected with: {collision.GetCollidedPhysicModule().GetParent().GetType()}");
             base.Collided(collision);
 
             if (collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
                 Rectangle platformRect = platform.GetPlatformRectangle();
-                Debug.WriteLine($"Platform rectangle: {platformRect}");
+                //Debug.WriteLine($"Platform rectangle: {platformRect}");
 
                 // Handle collision with platform's feet
                 if (collision.GetThisPhysicModule() == _feet)
                 {
-                    Debug.WriteLine("Collided at feet");
+                   // Debug.WriteLine("Collided at feet");
                     if (_velocity.Y >= 0)
                     {
                         isGrounded = true;
@@ -721,7 +721,7 @@ namespace Sanguine_Forest
                 // Handle collision with platform's right side
                 if (collision.GetThisPhysicModule() == _rightCling && isGrounded == false)
                 {
-                    Debug.WriteLine("Collided at right cling");
+                   // Debug.WriteLine("Collided at right cling");
                     // Stop horizontal movement and position character to the left of the platform
                     _velocity.X = 0;
                     Position = new Vector2(platformRect.Left - _characterCollision.GetPhysicRectangle().Width - 1, Position.Y);
@@ -738,7 +738,7 @@ namespace Sanguine_Forest
                 // Handle collision with platform's left side
                 if (collision.GetThisPhysicModule() == _leftCling)
                 {
-                    Debug.WriteLine("Collided at left cling");
+                   // Debug.WriteLine("Collided at left cling");
                     // Stop horizontal movement and position character to the right of the platform
                     _velocity.X = 0;
                     Position = new Vector2(platformRect.Right + 1, Position.Y);

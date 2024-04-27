@@ -50,6 +50,12 @@ namespace Sanguine_Forest
             return _parent;
         }
 
+        public Vector2 GetShiftPosition()
+        {
+            return shiftPosition;
+        }
+
+
 
 
 

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sanguine_Forest.Scripts.Environment.Obstacle
+namespace Sanguine_Forest
 {
     internal class Obstacle : GameObject
     {

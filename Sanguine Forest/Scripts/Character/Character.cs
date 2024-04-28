@@ -432,12 +432,11 @@ namespace Sanguine_Forest
 
         public void UpdateMe(InputManager inputManager)
         {
-
             // Handling input for jumping outside the state checks to ensure it's captured consistently
-            if (inputManager.IsKeyPressed(Keys.W) && isGrounded)
+            if (inputManager.IsKeyPressed(Keys.W))
             {
-                _currentState = CharState.jump;
                 _velocity.Y = -10f; // Set jump velocity
+                _currentState = CharState.jump;d
             }
 
             switch (_currentState)
@@ -525,7 +524,7 @@ namespace Sanguine_Forest
 
             else if (inputManager.IsKeyPressed(Keys.W))
             {
-                _velocity.Y = -_jumpSpeed;
+                _currentState = CharState.jump;
             }
             else
             {
@@ -551,7 +550,13 @@ namespace Sanguine_Forest
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Jump");
 
-            if (isClinging)
+            // Handling input for jumping outside the state checks to ensure it's captured consistently
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y = -10f; // Set jump velocity
+            }
+
+            else if (isClinging)
             {
                 _currentState = CharState.cling;
                 _currentDirection = _currentDirection == Direction.Right ? Direction.Right : Direction.Left;
@@ -567,6 +572,7 @@ namespace Sanguine_Forest
                     _currentState = CharState.idle; // Only reset to idle if grounded
                 }
             }
+            CheckIfGrounded();
 
 
             // Adjust sprite orientation based on direction

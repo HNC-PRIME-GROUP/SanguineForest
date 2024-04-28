@@ -42,8 +42,8 @@ namespace Sanguine_Forest
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            _graphics.PreferredBackBufferHeight = 1024;
-            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = 1920;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -85,7 +85,8 @@ namespace Sanguine_Forest
 
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
-            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1280, 1024));
+            //_character.SetCharacterScale(0.3f);
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
             //_camera.SetZoom(1f);
 

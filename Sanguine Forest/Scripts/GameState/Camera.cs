@@ -25,6 +25,10 @@ namespace Sanguine_Forest
         public Vector2 leftUpperBorder;
         public Vector2 rightBottomBorder;
 
+        //Camera smooth moving 
+        private Vector2 _velocity;
+        private float speed = 10;
+
         //Shaking effect variables
         public Vector2 savedPos;
         private float shakeTimer;
@@ -65,18 +69,53 @@ namespace Sanguine_Forest
 
         public void UpdateMe()
         {
+
+            //velocity counting
+            //if (position.X - 50 + screenSize.X / (2 * zoom) != cameraTarget.GetPosition().X)
+            //{
+            //    _velocity.X = cameraTarget.GetPosition().X - position.X - 50 + screenSize.X / (2 * zoom);
+            //}
+            //else
+            //{
+            //    _velocity.X = 0;
+            //}
+
+            //if (position.Y + 50 + screenSize.Y / (2 * zoom) != cameraTarget.GetPosition().Y)
+            //{
+            //    _velocity.Y = cameraTarget.GetPosition().Y - position.Y + 50 + screenSize.Y / (2 * zoom);
+            //}
+            //else
+            //{
+            //    _velocity.Y = 0;
+            //}
+
+            //if (Math.Abs(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom) - position.X) > speed &&
+            //    Math.Abs(-cameraTarget.GetPosition().Y + 50 + screenSize.Y / (2 * zoom)-position.Y) > speed)
+            //{
+            //    _velocity = -cameraTarget.GetPosition() - position - new Vector2(-50, 50) + new Vector2(screenSize.X / (2 * zoom), screenSize.Y / (2 * zoom));
+            //    _velocity.Normalize();
+            //}
+            //else
+            //{
+            //    _velocity = Vector2.Zero;
+            //}
+
+
+            //position += _velocity * speed;
+
+
             //following for the target in allowed borders
-            if(cameraTarget.GetPosition().X+ screenSize.X/(2*zoom)<rightBottomBorder.X &&
-                cameraTarget.GetPosition().X+screenSize.X/(2*zoom)>leftUpperBorder.X)
+            if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
+                cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) > leftUpperBorder.X)
             {
-                
-                position.X = (-cameraTarget.GetPosition().X + screenSize.X / (2 * zoom));
+
+                position.X =  -cameraTarget.GetPosition().X-50 + screenSize.X / (2 * zoom);
             }
 
-            if(cameraTarget.GetPosition().Y+screenSize.Y/(2*zoom)<rightBottomBorder.Y &&
-                cameraTarget.GetPosition().Y+screenSize.Y/(2*zoom)>leftUpperBorder.Y)
+            if (cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) < rightBottomBorder.Y &&
+                cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) > leftUpperBorder.Y)
             {
-                position.Y = (-cameraTarget.GetPosition().Y + screenSize.Y/  (2 * zoom) - 150);
+                position.Y = - cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom);
             }
 
 
@@ -157,6 +196,19 @@ namespace Sanguine_Forest
         public void SetCameraTarget(GameObject cameraTarget)
         {
             this.cameraTarget = cameraTarget;
+            //following for the target in allowed borders
+            if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
+                cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) > leftUpperBorder.X)
+            {
+
+                position.X = - cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom);
+            }
+
+            if (cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) < rightBottomBorder.Y &&
+                cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) > leftUpperBorder.Y)
+            {
+                position.Y = - cameraTarget.GetPosition().Y + 50 + screenSize.Y / (2 * zoom);
+            }
         }
 
 

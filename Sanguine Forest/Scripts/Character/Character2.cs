@@ -212,6 +212,7 @@ namespace Sanguine_Forest
             _animationModule.Play("hugWall");
             _gravityEffect = 0; //Make slower gravity effect
             _velocity.X = 0;
+            _velocity.Y = _gravityRate;
             if(curr.IsKeyUp(Keys.W)&& prev.IsKeyDown(Keys.W)) 
             {
                 if(_spriteModule.GetSpriteEffects()==SpriteEffects.None)
@@ -278,7 +279,7 @@ namespace Sanguine_Forest
                 {
                     _velocity.X = 0;
                     _velocity.Y = 0;
-                    position.X += _leftCollision.GetShiftPosition().X+2;
+                    position.X = platform.GetPlatformRectangle().Right;
                     _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
                     _gravityEffect = 0f;
                     _currentState = CharState.cling;
@@ -289,7 +290,7 @@ namespace Sanguine_Forest
                 {
                     _velocity.X = 0;
                     _velocity.Y = 0;
-                    position.X -=  _rightCollision.GetPhysicRectangle().Width+10;
+                    position.X = platform.GetPlatformRectangle().Left-collision.GetThisPhysicModule().GetShiftPosition().X-collision.GetThisPhysicModule().GetPhysicRectangle().Width;  
                     _gravityEffect = 0f;
                     _spriteModule.SetSpriteEffects(SpriteEffects.None);
                     _currentState = CharState.cling;
@@ -320,6 +321,14 @@ namespace Sanguine_Forest
             DebugManager.DebugRectangle(_feetCollision.GetPhysicRectangle());
             DebugManager.DebugRectangle(_rightCollision.GetPhysicRectangle());
             DebugManager.DebugRectangle(_leftCollision.GetPhysicRectangle());
+        }
+
+        public void SetCharacterScale(float scale)
+        {
+            _spriteModule.SetScale(scale);
+            _leftCollision.SetScale(scale);
+            _rightCollision.SetScale(scale);
+            _feetCollision.SetScale(scale);
         }
 
 

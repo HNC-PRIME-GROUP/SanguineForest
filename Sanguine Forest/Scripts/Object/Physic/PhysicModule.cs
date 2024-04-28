@@ -23,7 +23,7 @@ namespace Sanguine_Forest
 
         public PhysicModule(GameObject parent, Vector2 shift, Vector2 rectangleSize) : base(parent, shift)
         {
-            physicRec = new Rectangle((int)Math.Round(parent.GetPosition().X), (int)Math.Round(parent.GetPosition().Y),
+            physicRec = new Rectangle((int)Math.Round(parent.GetPosition().X+shift.X), (int)Math.Round(parent.GetPosition().Y+shift.Y),
                 (int)Math.Round(rectangleSize.X), (int)Math.Round(rectangleSize.Y));
             startRec = physicRec;
             // to center this 

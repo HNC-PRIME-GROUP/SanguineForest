@@ -55,7 +55,7 @@ namespace Sanguine_Forest
             _spriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_Character_v1"),
                 Extentions.SpriteLayer.character1);
 
-            _spriteModule.SetScale(0.3f);
+            _spriteModule.SetScale(0.15f);
 
             _animations = new Dictionary<string, AnimationSequence>();
             _animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));
@@ -70,10 +70,10 @@ namespace Sanguine_Forest
 
             //Collisions
            // _characterCollision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
-            _feetCollision = new PhysicModule(this, new Vector2(100, 190), new Vector2(50, 20));
+            _feetCollision = new PhysicModule(this, new Vector2(50, 95), new Vector2(35, 10));
 
-            _leftCollision = new PhysicModule(this, new Vector2(20, 100), new Vector2(10, 160));
-            _rightCollision = new PhysicModule(this, new Vector2(180, 100), new Vector2(10, 160));
+            _leftCollision = new PhysicModule(this, new Vector2(30, 40), new Vector2(10, 40));
+            _rightCollision = new PhysicModule(this, new Vector2(70, 40), new Vector2(10, 40));
 
 
             _currentState = CharState.jump;
@@ -279,7 +279,7 @@ namespace Sanguine_Forest
                 {
                     _velocity.X = 0;
                     _velocity.Y = 0;
-                    position.X = platform.GetPlatformRectangle().Right;
+                    position.X = platform.GetPlatformRectangle().Right-collision.GetThisPhysicModule().GetShiftPosition().X+collision.GetThisPhysicModule().GetPhysicRectangle().Width;
                     _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
                     _gravityEffect = 0f;
                     _currentState = CharState.cling;
@@ -318,9 +318,9 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch sp)
         {
             _spriteModule.DrawMe(sp);
-            DebugManager.DebugRectangle(_feetCollision.GetPhysicRectangle());
-            DebugManager.DebugRectangle(_rightCollision.GetPhysicRectangle());
-            DebugManager.DebugRectangle(_leftCollision.GetPhysicRectangle());
+            //DebugManager.DebugRectangle(_feetCollision.GetPhysicRectangle());
+            //DebugManager.DebugRectangle(_rightCollision.GetPhysicRectangle());
+            //DebugManager.DebugRectangle(_leftCollision.GetPhysicRectangle());
         }
 
         public void SetCharacterScale(float scale)

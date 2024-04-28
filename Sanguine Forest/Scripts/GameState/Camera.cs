@@ -89,34 +89,34 @@ namespace Sanguine_Forest
             //    _velocity.Y = 0;
             //}
 
-            if (Math.Abs(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom) - position.X) > speed &&
-                Math.Abs(-cameraTarget.GetPosition().Y + 50 + screenSize.Y / (2 * zoom)-position.Y) > speed)
-            {
-                _velocity = -cameraTarget.GetPosition() - position - new Vector2(-50, 50) + new Vector2(screenSize.X / (2 * zoom), screenSize.Y / (2 * zoom));
-                _velocity.Normalize();
-            }
-            else
-            {
-                _velocity = Vector2.Zero;
-            }
-            
+            //if (Math.Abs(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom) - position.X) > speed &&
+            //    Math.Abs(-cameraTarget.GetPosition().Y + 50 + screenSize.Y / (2 * zoom)-position.Y) > speed)
+            //{
+            //    _velocity = -cameraTarget.GetPosition() - position - new Vector2(-50, 50) + new Vector2(screenSize.X / (2 * zoom), screenSize.Y / (2 * zoom));
+            //    _velocity.Normalize();
+            //}
+            //else
+            //{
+            //    _velocity = Vector2.Zero;
+            //}
 
-            position += _velocity * speed;
+
+            //position += _velocity * speed;
 
 
             //following for the target in allowed borders
-            //if(cameraTarget.GetPosition().X+ screenSize.X/(2*zoom)<rightBottomBorder.X &&
-            //    cameraTarget.GetPosition().X+screenSize.X/(2*zoom)>leftUpperBorder.X)
-            //{
+            if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
+                cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) > leftUpperBorder.X)
+            {
 
-            //    position.X += (_velocity.X * speed);// -cameraTarget.GetPosition().X-50 + screenSize.X / (2 * zoom);
-            //}
+                position.X =  -cameraTarget.GetPosition().X-50 + screenSize.X / (2 * zoom);
+            }
 
-            //if(cameraTarget.GetPosition().Y+screenSize.Y/(2*zoom)<rightBottomBorder.Y &&
-            //    cameraTarget.GetPosition().Y+screenSize.Y/(2*zoom)>leftUpperBorder.Y)
-            //{
-            //    position.Y += (_velocity.Y * speed);//- cameraTarget.GetPosition().Y + 50 + screenSize.Y / (2 * zoom);
-            //}
+            if (cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) < rightBottomBorder.Y &&
+                cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) > leftUpperBorder.Y)
+            {
+                position.Y = - cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom);
+            }
 
 
         }

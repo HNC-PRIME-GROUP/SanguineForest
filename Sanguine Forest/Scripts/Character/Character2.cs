@@ -55,7 +55,7 @@ namespace Sanguine_Forest
             _spriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_Character_v1"),
                 Extentions.SpriteLayer.character1);
 
-            _spriteModule.SetScale(0.2f);
+            _spriteModule.SetScale(0.3f);
 
             _animations = new Dictionary<string, AnimationSequence>();
             _animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));

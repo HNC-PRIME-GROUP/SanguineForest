@@ -19,6 +19,10 @@ namespace Sanguine_Forest
         protected float shiftRotation;
         private float distance; 
 
+        //scaling        
+        private float scale=1;
+
+
 
         /// <summary>
         /// Module is always follow for their parent object
@@ -32,6 +36,8 @@ namespace Sanguine_Forest
             shiftPosition = shift;
             shiftRotation = (float)Math.Atan2(shift.Y, shift.X);
             distance = (float)Math.Sqrt(Math.Pow(shift.X,2)+Math.Pow(shift.Y,2)); // calculate the distance between module and pivot point
+
+            
         }
         
         /// <summary>
@@ -42,7 +48,7 @@ namespace Sanguine_Forest
             base.UpdateMe();
             SetRotation(_parent.GetRotation() + shiftRotation);
             shiftPosition = new Vector2((float)Math.Cos(GetRotation()), (float)Math.Sin(GetRotation())) * Math.Clamp(distance, 1, float.MaxValue);
-            SetPosition(_parent.GetPosition() + shiftPosition);
+            SetPosition(_parent.GetPosition() + (shiftPosition*scale));
         }
 
         public new GameObject GetParent()
@@ -52,7 +58,12 @@ namespace Sanguine_Forest
 
         public Vector2 GetShiftPosition()
         {
-            return shiftPosition;
+            return shiftPosition*scale;
+        }
+
+        public void SetScale(float scale)
+        {
+            this.scale = scale;
         }
 
 

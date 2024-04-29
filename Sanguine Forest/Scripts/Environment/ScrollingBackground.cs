@@ -117,7 +117,7 @@ namespace Sanguine_Forest.Scripts.Environment
             foreach (var sprite in _sprites)
                 sprite.Draw(gameTime, spriteBatch);
 
-            DebugManager.DebugRectangle(_sprites[1].RectangleBackground);
+           // DebugManager.DebugRectangle(_sprites[1].RectangleBackground);
         }
 
     }

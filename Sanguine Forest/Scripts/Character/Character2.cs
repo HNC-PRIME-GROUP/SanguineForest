@@ -47,6 +47,9 @@ namespace Sanguine_Forest
         private float _gravityRate = 0.3f;
         private float _gravityEffect = 0;
 
+        //work around for cling update
+        private Rectangle currClingRectangle;
+
 
         public Character2(Vector2 position, float rotation, ContentManager content) : base(position, rotation)
         {
@@ -112,6 +115,7 @@ namespace Sanguine_Forest
                     ClingUpdate(prev, curr);
                     break;
                 case CharState.wallJump:
+                    WallJumpUpdate(prev, curr);
                     break;
             }
 
@@ -220,7 +224,7 @@ namespace Sanguine_Forest
                     _velocity.X = -_speed;
                     _velocity.Y = -_jumpHigh;
                     _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
-                    _currentState = CharState.jump;
+                    _currentState = CharState.wallJump;
                     return;
                 }
                 else
@@ -228,8 +232,31 @@ namespace Sanguine_Forest
                     _velocity.X = _speed;
                     _velocity.Y = -_jumpHigh;
                     _spriteModule.SetSpriteEffects(SpriteEffects.None);
-                    _currentState = CharState.jump;
+                    _currentState = CharState.wallJump;
                     return;
+                }
+            }
+            if(_rightCollision.physicRec.Y>currClingRectangle.Y+currClingRectangle.Height) 
+            {
+                _currentState = CharState.jump;
+            }
+        }
+
+        public void WallJumpUpdate(KeyboardState prev, KeyboardState curr)
+        {
+            _animationModule.SetAnimationSpeed(0.1f);
+            _animationModule.PlayOnce("Jump");
+            if (_velocity.Y > 0)
+            {
+                if (curr.IsKeyDown(Keys.A))
+                {
+                    _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
+                    _velocity.X = -(_speed * 2 / 3);
+                }
+                if (curr.IsKeyDown(Keys.D))
+                {
+                    _spriteModule.SetSpriteEffects(SpriteEffects.None);
+                    _velocity.X = (_speed * 2 / 3);
                 }
             }
         }
@@ -253,7 +280,7 @@ namespace Sanguine_Forest
                     return;
                 }
 
-                if (_currentState == CharState.jump && collision.GetThisPhysicModule() == _feetCollision && _velocity.Y > 0)
+                if ((_currentState == CharState.jump|| _currentState==CharState.wallJump) && collision.GetThisPhysicModule() == _feetCollision && _velocity.Y > 0)
                 {
                     _gravityEffect = 0f;
                     _velocity.Y = 0f;
@@ -275,24 +302,26 @@ namespace Sanguine_Forest
                     _currentState = CharState.idle;
                     return;
                 }
-                if (_currentState == CharState.jump && collision.GetThisPhysicModule() == _leftCollision)
+                if ((_currentState == CharState.jump || _currentState == CharState.wallJump) && collision.GetThisPhysicModule() == _leftCollision)
                 {
                     _velocity.X = 0;
                     _velocity.Y = 0;
                     position.X = platform.GetPlatformRectangle().Right-collision.GetThisPhysicModule().GetShiftPosition().X+collision.GetThisPhysicModule().GetPhysicRectangle().Width;
                     _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
+                    currClingRectangle = platform.GetPlatformRectangle();
                     _gravityEffect = 0f;
                     _currentState = CharState.cling;
 
                     return;
                 }
-                if (_currentState == CharState.jump && collision.GetThisPhysicModule() == _rightCollision)
+                if ((_currentState == CharState.jump || _currentState == CharState.wallJump) && collision.GetThisPhysicModule() == _rightCollision)
                 {
                     _velocity.X = 0;
                     _velocity.Y = 0;
                     position.X = platform.GetPlatformRectangle().Left-collision.GetThisPhysicModule().GetShiftPosition().X-collision.GetThisPhysicModule().GetPhysicRectangle().Width;  
                     _gravityEffect = 0f;
                     _spriteModule.SetSpriteEffects(SpriteEffects.None);
+                    currClingRectangle = platform.GetPlatformRectangle();
                     _currentState = CharState.cling;
                     return;
                 }
@@ -310,6 +339,8 @@ namespace Sanguine_Forest
                     _gravityEffect = 0;
                     return;
                 } 
+
+                
                 
             }
 
@@ -318,17 +349,24 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch sp)
         {
             _spriteModule.DrawMe(sp);
-            //DebugManager.DebugRectangle(_feetCollision.GetPhysicRectangle());
-            //DebugManager.DebugRectangle(_rightCollision.GetPhysicRectangle());
-            //DebugManager.DebugRectangle(_leftCollision.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_feetCollision.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_rightCollision.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_leftCollision.GetPhysicRectangle());
         }
 
-        public void SetCharacterScale(float scale)
+
+        //try to change scale of cahracter - failed
+        //public void SetCharacterScale(float scale)
+        //{
+        //    _spriteModule.SetScale(scale);
+        //    _leftCollision.SetScale(scale);
+        //    _rightCollision.SetScale(scale);
+        //    _feetCollision.SetScale(scale);
+        //}
+
+        public float GetVelocity()
         {
-            _spriteModule.SetScale(scale);
-            _leftCollision.SetScale(scale);
-            _rightCollision.SetScale(scale);
-            _feetCollision.SetScale(scale);
+            return _velocity.X;
         }
 
 

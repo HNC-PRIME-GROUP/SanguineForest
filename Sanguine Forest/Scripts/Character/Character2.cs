@@ -81,6 +81,8 @@ namespace Sanguine_Forest
 
             _currentState = CharState.jump;
 
+            _spriteModule.SetColor(Color.Yellow);
+
         }
 
 

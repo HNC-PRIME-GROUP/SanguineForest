@@ -27,7 +27,7 @@ namespace Sanguine_Forest
         private Camera _camera;
 
         //Character
-        private Character _character;
+        private Character2 _character;
 
         //PlayerState
         private PlayerState _playerState;
@@ -102,7 +102,7 @@ namespace Sanguine_Forest
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
 
             //Set character and camera
-            _character = new Character(_currentScene.characterPosition, 0, Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
+            _character = new Character2(_currentScene.characterPosition, 0, Content);
             _camera = new Camera(_currentScene.characterPosition, new Vector2(-20000, -10000), new Vector2(20000, 10000), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
             _camera.SetZoom(1.2f);
@@ -183,7 +183,7 @@ namespace Sanguine_Forest
             _camera.UpdateMe();
 
             ////Character
-            _character.UpdateMe(_inputManager);
+            //_character.UpdateMe(_inputManager);
 
             //Background
             //_parallaxManager.UpdateMe(_character.GetVelocity());

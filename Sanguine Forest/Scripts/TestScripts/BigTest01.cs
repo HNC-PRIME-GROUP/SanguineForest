@@ -28,8 +28,8 @@ namespace Sanguine_Forest
         private EnvironmentManager _environmentManager;
         
         //Parallaxing
-        private ParallaxManager _parallaxManager;
-        
+        //private ParallaxManager _parallaxManager;
+        private List<ScrollingBackground> _scrollingBackground;
 
 
         //Scene
@@ -45,8 +45,8 @@ namespace Sanguine_Forest
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            _graphics.PreferredBackBufferHeight = 1080;
-            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.PreferredBackBufferHeight = Extentions.ScreenHeight;
+            _graphics.PreferredBackBufferWidth = Extentions.ScreenWidth;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -99,8 +99,39 @@ namespace Sanguine_Forest
 
 
             //Set decor and parallaxing
-            
-           
+            //Load Background
+            _scrollingBackground = new List<ScrollingBackground>()
+            {
+                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_01"), _character, 6f)
+                {
+                    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
+                },
+                //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_02"), _character, 6f)
+                //{
+                //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
+                //},
+                //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_03"), _character, 6f)
+                //{
+                //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
+                //},
+                //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_04"), _character, 6f)
+                //{
+                //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
+                //},
+                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_05"), _character, 4f)
+                {
+                    LayerBackground = (float)Extentions.SpriteLayer.background_Mid,
+                },
+                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_06"), _character, 2f)
+                {
+                    LayerBackground = (float)Extentions.SpriteLayer.background_Mid_Back,
+                },
+                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_07"), _character, 0f)
+                {
+                    LayerBackground = (float)Extentions.SpriteLayer.background_Back,
+                },
+            };
+
 
 
         }
@@ -129,6 +160,11 @@ namespace Sanguine_Forest
             ////Character
             _character.UpdateMe(prevState, currState);
 
+            //Parallax            
+            //_parallaxManager.UpdateMe(_character.GetVelocity());
+            foreach (var sb in _scrollingBackground)
+                sb.Update(gameTime);
+
 
 
 
@@ -156,9 +192,13 @@ namespace Sanguine_Forest
             //Character
             _character.DrawMe(_spriteBatch);
 
+            //Parrallax
+            foreach (var sb in _scrollingBackground)
+                sb.Draw(gameTime, _spriteBatch);
+
 
             //Debug test
-           // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+            // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
 
             _spriteBatch.End();
             // TODO: Add your drawing code here

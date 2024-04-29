@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sanguine_Forest.Scripts.Extention;
+using Extention;
 
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,8 @@ namespace Sanguine_Forest.Scripts.Environment
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebach)
         {
-            spritebach.Draw(_texture, PositionBackground, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, LayerBackground);
+            spritebach.Draw(_texture, PositionBackground, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, LayerBackground/(float)Extentions.SpriteLayer.Length);
+            //DebugManager.DebugRectangle(RectangleBackground);
         }
 
     }

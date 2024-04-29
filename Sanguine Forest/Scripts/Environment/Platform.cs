@@ -23,7 +23,7 @@ namespace Sanguine_Forest
         public PhysicModule platformPhysic;
 
 
-        public Platform(Vector2 position, float rotation, Vector2 platformSize, ContentManager content ): base(position, rotation) 
+        public Platform(Vector2 position, float rotation, Vector2 platformSize, ContentManager content, Dictionary<string,Rectangle> tileDictionary, string[,] tileMap): base(position, rotation) 
         {
 
             //Sptire and graphic
@@ -33,77 +33,12 @@ namespace Sanguine_Forest
             //_spriteModule.SetDrawRectangle(platformPhysic.GetPhysicRectangle());
 
 
-            //tiles
-            Dictionary<string, Rectangle> tileDictionary = new Dictionary<string, Rectangle>
-            {
-                {"UpLeft", new Rectangle(0,0,512,512) },
-                {"Up", new Rectangle(512,0,512,512) },
-                {"UpRight", new Rectangle(1024,0,512,512) },
-                {"MidLeft", new Rectangle(0,512,512,512) },
-                {"Mid", new Rectangle(512,512,512,512) },
-                {"MidRight", new Rectangle(1024,512,512,512) },
-                {"BottomLeft", new Rectangle(0,1024,512,512) },
-                {"Bottom", new Rectangle(512,1024,512,512) },
-                {"BottomRight", new Rectangle(1024,1024,512,512) }
-            };
-
-            string[,] tileMap = new string[(int)Math.Round(platformSize.Y / 128), (int)Math.Round(platformSize.X / 128)];
-            for(int i=0;i<tileMap.GetLength(0); i++)
-            {
-                for(int j=0; j<tileMap.GetLength(1); j++) 
-                {
-                    if(i==0&&j==0)
-                    {
-                        tileMap[i, j] = "UpLeft";
-                        continue;
-                    }
-                    if(i==0&&j==tileMap.GetLength(1)-1)
-                    {
-                        tileMap[i, j] = "UpRight";
-                        continue;
-                    }
-                    if(i==0&&j>0)
-                    {
-                        tileMap[i, j] = "Up";
-                        continue;
-                    }
-                    if(i==tileMap.GetLength(0)-1&&j==0)
-                    {
-                        tileMap[i, j] = "BottomLeft";
-                        continue;
-                    }                    
-                    if(i==tileMap.GetLength(0)-1&&j==tileMap.GetLength(1)-1)
-                    {
-                        tileMap[i, j] = "BottomRight";
-                        continue;
-                    }
-                    if(i==tileMap.GetLength(0)-1&& j>0 )
-                    {
-                        tileMap[i, j] = "Bottom";
-                        continue;
-                    }
-                    if(i>0&&j==0)
-                    {
-                        tileMap[i, j] = "MidLeft";
-                        continue;
-                    }
-                    if(i>0&&j==tileMap.GetLength(1)-1)
-                    {
-                        tileMap[i, j] = "MidRight";
-                        continue;
-                    }
-                    if(i>0&&j>0)
-                    {
-                        tileMap[i, j] = "Mid";
-                        continue;
-                    }
-                }
-            }
+          
             _spriteModule.TillingMe(tileDictionary,tileMap,new Rectangle((int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y), 
                 (int)Math.Round(platformSize.X / 128)*128, (int)Math.Round(platformSize.Y / 128)*128), new Rectangle(0,0,128,128));
 
             //Collision
-            platformPhysic = new PhysicModule(this, Vector2.Zero, new Vector2((int)Math.Round(platformSize.X / 128)*128, (int)Math.Round(platformSize.Y / 128) * 128));
+            platformPhysic = new PhysicModule(this, new Vector2(25,25), new Vector2((int)Math.Round(platformSize.X / 128)*128-50, (int)Math.Round(platformSize.Y / 128) * 128-50));
             platformPhysic.isPhysicActive = true;
 
 
@@ -117,7 +52,7 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch spriteBatch) 
         {
             _spriteModule.DrawMe(spriteBatch);
-            DebugManager.DebugRectangle(platformPhysic.GetPhysicRectangle());
+            //DebugManager.DebugRectangle(platformPhysic.GetPhysicRectangle());
         }
 
         /// <summary>

@@ -475,7 +475,6 @@ namespace Sanguine_Forest
             //Debug.WriteLine($"Texture Height {_characterCollision.GetPhysicRectangle().Height}");
             //Debug.WriteLine($"Feet Height {_feet.GetPhysicRectangle().Height}");
             //Debug.WriteLine($"Feet Width  {_feet.GetPhysicRectangle().Width}");
-
             //Debug.WriteLine($"FEET Bottom:  {_feet.GetPhysicRectangle().Bottom}");
             //Debug.WriteLine($"GroundLevel:  {_groundLevel}");
 

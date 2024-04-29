@@ -436,7 +436,7 @@ namespace Sanguine_Forest
             if (inputManager.IsKeyPressed(Keys.W))
             {
                 _velocity.Y = -10f; // Set jump velocity
-                _currentState = CharState.jump;d
+                _currentState = CharState.jump;
             }
 
             switch (_currentState)

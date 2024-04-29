@@ -26,6 +26,7 @@ namespace Sanguine_Forest
         private PhysicModule _feetCollision;
         private PhysicModule _leftCollision;
         private PhysicModule _rightCollision;
+        private PhysicModule _headCollision;
 
 
         //Character state
@@ -35,7 +36,8 @@ namespace Sanguine_Forest
             walk,
             jump,
             cling,
-            wallJump
+            wallJump,
+            falling
         }
         private CharState _currentState;
 
@@ -74,9 +76,10 @@ namespace Sanguine_Forest
             //Collisions
            // _characterCollision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
             _feetCollision = new PhysicModule(this, new Vector2(50, 95), new Vector2(35, 10));
+            _headCollision = new PhysicModule(this, new Vector2(50, 0), new Vector2(35, 10));
 
-            _leftCollision = new PhysicModule(this, new Vector2(30, 40), new Vector2(10, 40));
-            _rightCollision = new PhysicModule(this, new Vector2(70, 40), new Vector2(10, 40));
+            _leftCollision = new PhysicModule(this, new Vector2(30, 50), new Vector2(10, 60));
+            _rightCollision = new PhysicModule(this, new Vector2(70, 50), new Vector2(10, 60));
 
 
             _currentState = CharState.jump;
@@ -95,6 +98,7 @@ namespace Sanguine_Forest
             _feetCollision.UpdateMe();
             _leftCollision.UpdateMe();
             _rightCollision.UpdateMe();
+            _headCollision.UpdateMe();
 
             //Made separated _gravity effect to make possible stop it
             if (_gravityEffect < 1)
@@ -119,6 +123,9 @@ namespace Sanguine_Forest
                 case CharState.wallJump:
                     WallJumpUpdate(prev, curr);
                     break;
+                case CharState.falling:
+                    FallingUpdate(prev, curr);
+                    break;
             }
 
 
@@ -137,7 +144,7 @@ namespace Sanguine_Forest
             _animationModule.Play("Idle");
 
             //transition to jump
-            if (prev.IsKeyDown(Keys.W) && curr.IsKeyDown(Keys.W))
+            if (curr.IsKeyDown(Keys.W))
             {
                 _velocity.Y = -_jumpHigh;                
             }
@@ -149,10 +156,14 @@ namespace Sanguine_Forest
             }
 
             //transition to fall or jump
-            if(_velocity.Y!=0)
+            if(_velocity.Y<0)
             {
                 _currentState = CharState.jump;
                 return;
+            }
+            if(_velocity.Y>0)
+            {
+                _currentState = CharState.wallJump;
             }
 
             if(curr.GetPressedKeys().Length==0)
@@ -167,7 +178,7 @@ namespace Sanguine_Forest
         {
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Run");
-            if (prev.IsKeyDown(Keys.W) && curr.IsKeyDown(Keys.W))
+            if (curr.IsKeyDown(Keys.W))
             {
                 _velocity.Y = -_jumpHigh;
                 _currentState = CharState.jump;
@@ -191,7 +202,19 @@ namespace Sanguine_Forest
                 _spriteModule.SetSpriteEffects(SpriteEffects.None);
                 _velocity.X = _speed;
             }
-           // _gravityEffect = 0f;
+
+            //transition to fall or jump
+            //transition to fall or jump
+            if (_velocity.Y < 0)
+            {
+                _currentState = CharState.jump;
+                return;
+            }
+            if (_velocity.Y > 0)
+            {
+                _currentState = CharState.wallJump;
+            }
+            // _gravityEffect = 0f;
             //_velocity.Y = 0f;
         }
 
@@ -219,7 +242,7 @@ namespace Sanguine_Forest
             _gravityEffect = 0; //Make slower gravity effect
             _velocity.X = 0;
             _velocity.Y = _gravityRate;
-            if(curr.IsKeyUp(Keys.W)&& prev.IsKeyDown(Keys.W)) 
+            if(curr.IsKeyDown(Keys.W)&& prev.IsKeyUp(Keys.W)) 
             {
                 if(_spriteModule.GetSpriteEffects()==SpriteEffects.None)
                 {
@@ -240,7 +263,7 @@ namespace Sanguine_Forest
             }
             if(_rightCollision.physicRec.Y>currClingRectangle.Y+currClingRectangle.Height) 
             {
-                _currentState = CharState.jump;
+                _currentState = CharState.falling;
             }
         }
 
@@ -263,6 +286,22 @@ namespace Sanguine_Forest
             }
         }
 
+        public void FallingUpdate(KeyboardState prev, KeyboardState curr)
+        {
+            _animationModule.SetAnimationSpeed(0.1f);
+            _animationModule.PlayOnce("Jump");
+            if (curr.IsKeyDown(Keys.A))
+            {
+                _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
+                _velocity.X = -(_speed * 1 / 5);
+            }
+            if (curr.IsKeyDown(Keys.D))
+            {
+                _spriteModule.SetSpriteEffects(SpriteEffects.None);
+                _velocity.X = (_speed * 1 / 5);
+            }
+        }
+
         #endregion
 
 
@@ -282,7 +321,7 @@ namespace Sanguine_Forest
                     return;
                 }
 
-                if ((_currentState == CharState.jump|| _currentState==CharState.wallJump) && collision.GetThisPhysicModule() == _feetCollision && _velocity.Y > 0)
+                if ((_currentState == CharState.jump|| _currentState==CharState.wallJump || _currentState==CharState.falling) && collision.GetThisPhysicModule() == _feetCollision && _velocity.Y > 0)
                 {
                     _gravityEffect = 0f;
                     _velocity.Y = 0f;
@@ -293,15 +332,15 @@ namespace Sanguine_Forest
                 if (_currentState == CharState.walk && collision.GetThisPhysicModule() == _leftCollision)
                 {
                     _velocity.X = 0;
-                    position.X += 2;
-                    _currentState = CharState.idle;
+                    position.X = platform.GetPlatformRectangle().Right - collision.GetThisPhysicModule().GetShiftPosition().X + collision.GetThisPhysicModule().GetPhysicRectangle().Width;
+                    _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
                     return;
                 }
                 if (_currentState == CharState.walk && collision.GetThisPhysicModule() == _rightCollision)
                 {
                     _velocity.X = 0;
-                    position.X -= 2;
-                    _currentState = CharState.idle;
+                    position.X = platform.GetPlatformRectangle().Left - collision.GetThisPhysicModule().GetShiftPosition().X - collision.GetThisPhysicModule().GetPhysicRectangle().Width;
+                    _spriteModule.SetSpriteEffects(SpriteEffects.None);
                     return;
                 }
                 if ((_currentState == CharState.jump || _currentState == CharState.wallJump) && collision.GetThisPhysicModule() == _leftCollision)
@@ -341,6 +380,29 @@ namespace Sanguine_Forest
                     _gravityEffect = 0;
                     return;
                 } 
+                if(_currentState==CharState.falling&&collision.GetThisPhysicModule() == _leftCollision)
+                {
+                    _velocity.X = 0;                    
+                    position.X = platform.GetPlatformRectangle().Right - collision.GetThisPhysicModule().GetShiftPosition().X + collision.GetThisPhysicModule().GetPhysicRectangle().Width;
+                    _spriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
+                    return;
+                }
+                if(_currentState==CharState.falling&&collision.GetThisPhysicModule()==_rightCollision) 
+                {
+                    _velocity.X = 0;                    
+                    position.X = platform.GetPlatformRectangle().Left - collision.GetThisPhysicModule().GetShiftPosition().X - collision.GetThisPhysicModule().GetPhysicRectangle().Width;
+                    _spriteModule.SetSpriteEffects(SpriteEffects.None);
+                    return;
+                }
+                if(collision.GetThisPhysicModule()==_headCollision)
+                {
+                    _velocity.Y = 0;
+                    _velocity.X = 0;
+                    position.Y = platform.GetPlatformRectangle().Bottom+_headCollision.GetShiftPosition().Y+10;
+                    
+                   // _currentState = CharState.falling; 
+                    return;
+                }    
 
                 
                 
@@ -354,6 +416,7 @@ namespace Sanguine_Forest
             DebugManager.DebugRectangle(_feetCollision.GetPhysicRectangle());
             DebugManager.DebugRectangle(_rightCollision.GetPhysicRectangle());
             DebugManager.DebugRectangle(_leftCollision.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_headCollision.GetPhysicRectangle());
         }
 
 

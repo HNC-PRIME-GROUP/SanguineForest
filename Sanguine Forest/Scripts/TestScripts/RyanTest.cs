@@ -50,7 +50,7 @@ namespace Sanguine_Forest
                 Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
            // environmentManager = new EnvironmentManager();
             environmentManager.platforms = new List<Platform>();
-            environmentManager.platforms.Add(new Platform(new Vector2(300, 300), 0, new Vector2(100, 100), Content));
+            //environmentManager.platforms.Add(new Platform(new Vector2(300, 300), 0, new Vector2(100, 100), Content));
             
 
         }

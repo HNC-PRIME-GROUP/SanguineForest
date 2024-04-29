@@ -25,7 +25,7 @@ namespace Sanguine_Forest.Scripts.Environment
 
         private List <Sprite> _sprites;
 
-        private readonly Character _character;
+        private readonly Character2 _character;
 
         private float _speed;
 
@@ -42,14 +42,14 @@ namespace Sanguine_Forest.Scripts.Environment
             }
         }
 
-        public ScrollingBackground(Texture2D texture, Character character, float scrollingSpeed, bool constantSpeed = false)
+        public ScrollingBackground(Texture2D texture, Character2 character, float scrollingSpeed, bool constantSpeed = false)
             : this (new List<Texture2D>() { texture, texture }, character, scrollingSpeed, constantSpeed)
         {
 
         }
 
 
-        public ScrollingBackground(List<Texture2D> textures, Character character, float scrollingSpeed, bool constantSpeed = false)
+        public ScrollingBackground(List<Texture2D> textures, Character2 character, float scrollingSpeed, bool constantSpeed = false)
         {
             _character = character;
 
@@ -66,7 +66,7 @@ namespace Sanguine_Forest.Scripts.Environment
                 _sprites.Add(new Sprite(texture)
                 {
                     // Lock image in the screen
-                    PositionBackground = new Vector2((i * texture.Width) - 1, AlbertoTestGame.ScreenHeight - texture.Height),
+                    PositionBackground = new Vector2(_character.GetPosition().X-(i * texture.Width) - texture.Width*2/3 - 1, _character.GetPosition().Y-  texture.Height/2),
 
                 });
             }
@@ -116,6 +116,8 @@ namespace Sanguine_Forest.Scripts.Environment
         {
             foreach (var sprite in _sprites)
                 sprite.Draw(gameTime, spriteBatch);
+
+            DebugManager.DebugRectangle(_sprites[1].RectangleBackground);
         }
 
     }

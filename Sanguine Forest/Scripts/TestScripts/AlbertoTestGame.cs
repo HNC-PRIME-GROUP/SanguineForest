@@ -173,8 +173,9 @@ namespace Sanguine_Forest
             ////Character
             _character.UpdateMe(prevState, currState);
 
-            //Parallax            
-            _parallaxManager.UpdateMe(_character.GetVelocity());
+            //Parallax
+            Vector2 velocityVector = new Vector2(_character.GetVelocity(), 0);
+            _parallaxManager.UpdateMe(velocityVector);
             //foreach (var sb in _scrollingBackground)
             //    sb.Update(gameTime);
 
@@ -202,8 +203,9 @@ namespace Sanguine_Forest
             _character.DrawMe(_spriteBatch);
 
             //Parrallax
-            foreach (var sb in _scrollingBackground)
-                sb.Draw(gameTime, _spriteBatch);
+            //foreach (var sb in _scrollingBackground)
+            //    sb.Draw(gameTime, _spriteBatch);
+            _parallaxManager.Draw(_spriteBatch);
 
 
             //Debug test

@@ -81,7 +81,6 @@ namespace Sanguine_Forest
             //AudioManager.GeneralVolume = 1.0f;
 
 
-
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter+".json");
@@ -185,9 +184,6 @@ namespace Sanguine_Forest
             _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
 
             _environmentManager.DrawMe(_spriteBatch);
-
-
-
 
             //Character
             _character.DrawMe(_spriteBatch);

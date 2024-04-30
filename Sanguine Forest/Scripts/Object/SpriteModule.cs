@@ -28,8 +28,6 @@ namespace Sanguine_Forest
         //Animation module to control the spritesheet
         private AnimationModule? animationModule;
 
-
-
         // default rectangle in case if this sprite is not under the animation control
         private Rectangle defaultFrameRectangle;
         // rectangle that actually used 

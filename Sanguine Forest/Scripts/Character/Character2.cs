@@ -403,9 +403,7 @@ namespace Sanguine_Forest
                    // _currentState = CharState.falling; 
                     return;
                 }    
-
-                
-                
+              
             }
 
         }

@@ -48,7 +48,7 @@ namespace Sanguine_Forest
             this.position = pos;
             leftUpperBorder = leftUpBorder;
             rightBottomBorder = rightBottBorder;
-            this.screenSize = screenSize;
+            this.  = screenSize;
             zoom = 1;
             rng = new Random();
             shakeTimer = 0;

@@ -26,12 +26,12 @@ namespace Sanguine_Forest
 
         private void InitializeBackgrounds(ContentManager content)
         {
-            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_01" }, 0.65f, content);
-            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_02" }, 0.65f, content);
-            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_03" }, 0.65f, content);
-            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_04" }, 0.65f, content);
-            InitializeLayer(Extentions.SpriteLayer.background_Mid, new[] { "Sprites/Background_day_05" }, 0.45f, content);
-            InitializeLayer(Extentions.SpriteLayer.background_Mid_Back, new[] { "Sprites/Background_day_06" }, 0.25f, content);
+            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_01" }, 0.45f, content);
+            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_02" }, 0.45f, content);
+            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_03" }, 0.45f, content);
+            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_04" }, 0.45f, content);
+            InitializeLayer(Extentions.SpriteLayer.background_Mid, new[] { "Sprites/Background_day_05" }, 0.25f, content);
+            InitializeLayer(Extentions.SpriteLayer.background_Mid_Back, new[] { "Sprites/Background_day_06" }, 0.15f, content);
             InitializeLayer(Extentions.SpriteLayer.background_Back, new[] { "Sprites/Background_day_07" }, 0.05f, content);
 
         }
@@ -39,7 +39,7 @@ namespace Sanguine_Forest
         private void InitializeLayer(Extentions.SpriteLayer layer, string[] textures, float speed, ContentManager content)
         {
             List<ParallaxBackground> backgrounds = new List<ParallaxBackground>();
-            Vector2 position = new Vector2(-_screenWidth/3, -_screenHeight/2);
+            Vector2 position = new Vector2(0, 0);
 
             foreach (var texturePath in textures)
             {

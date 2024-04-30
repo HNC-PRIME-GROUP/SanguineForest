@@ -17,7 +17,6 @@ namespace Sanguine_Forest
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-
         //Camers
         private Camera _camera;
 
@@ -32,7 +31,6 @@ namespace Sanguine_Forest
 
         //Parallaxing
         private ParallaxManager _parallaxManager;
-        private List<ScrollingBackground> _scrollingBackground;
 
         //Scene
         private Scene _currentScene;
@@ -41,10 +39,7 @@ namespace Sanguine_Forest
         private KeyboardState currState;
         private KeyboardState prevState;
 
-
         private InputManager _inputManager;
-
-
 
         public AlbertoTestGame()
         {
@@ -54,7 +49,6 @@ namespace Sanguine_Forest
             _graphics.PreferredBackBufferWidth = Extentions.ScreenWidth;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
         }
 
         protected override void Initialize()
@@ -63,9 +57,7 @@ namespace Sanguine_Forest
 
             _inputManager = new InputManager();
 
-
             FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
-
 
             base.Initialize();
         }
@@ -73,11 +65,8 @@ namespace Sanguine_Forest
         protected override void LoadContent()
         {
 
-
-
             //graphic installing
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
 
             //Debug initialising
             DebugManager.SpriteBatch = _spriteBatch;
@@ -104,43 +93,8 @@ namespace Sanguine_Forest
             _environmentManager = new EnvironmentManager(Content);
             _environmentManager.Initialise(_currentScene);
 
-            ////Load Background
-            //_scrollingBackground = new List<ScrollingBackground>()
-            //{
-            //    new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_01"), _character, 6f)
-            //    {
-            //        LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
-            //    },
-            //    //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_02"), _character, 6f)
-            //    //{
-            //    //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
-            //    //},
-            //    //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_03"), _character, 6f)
-            //    //{
-            //    //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
-            //    //},
-            //    //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_04"), _character, 6f)
-            //    //{
-            //    //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
-            //    //},
-            //    new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_05"), _character, 4f)
-            //    {
-            //        LayerBackground = (float)Extentions.SpriteLayer.background_Mid,
-            //    },
-            //    new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_06"), _character, 2f)
-            //    {
-            //        LayerBackground = (float)Extentions.SpriteLayer.background_Mid_Back,
-            //    },
-            //    new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_07"), _character, 0f)
-            //    {
-            //        LayerBackground = (float)Extentions.SpriteLayer.background_Back,
-            //    },
-            //};
-
             //Set decor and parallaxing
             _parallaxManager = new ParallaxManager(Content);
-
-
         }
 
         public void HandleInput(GameTime gameTime)
@@ -176,11 +130,6 @@ namespace Sanguine_Forest
             //Parallax
             Vector2 velocityVector = new Vector2(_character.GetVelocity(), 0);
             _parallaxManager.UpdateMe(velocityVector);
-            //foreach (var sb in _scrollingBackground)
-            //    sb.Update(gameTime);
-
-
-
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -203,17 +152,13 @@ namespace Sanguine_Forest
             _character.DrawMe(_spriteBatch);
 
             //Parrallax
-            //foreach (var sb in _scrollingBackground)
-            //    sb.Draw(gameTime, _spriteBatch);
-            _parallaxManager.Draw(_spriteBatch);
 
+            _parallaxManager.Draw(_spriteBatch);
 
             //Debug test
             // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
 
             _spriteBatch.End();
-
-
 
             base.Draw(gameTime);
         }

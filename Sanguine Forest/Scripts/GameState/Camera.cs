@@ -115,7 +115,7 @@ namespace Sanguine_Forest
             if (cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) < rightBottomBorder.Y &&
                 cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) > leftUpperBorder.Y)
             {
-                position.Y = - cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) ;
+                //position.Y = - cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) ;
             }
 
 

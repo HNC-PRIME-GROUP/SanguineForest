@@ -13,12 +13,15 @@ namespace Sanguine_Forest
         private int _screenWidth;
         private int _screenHeight;
 
+        private Camera _camera;
 
-        public ParallaxManager(ContentManager content)
+
+        public ParallaxManager(ContentManager content, Camera camera)
         {
             
             _screenWidth = Extentions.ScreenWidth;
             _screenHeight = Extentions.ScreenHeight;
+            _camera = camera;
 
             layerBackgrounds = new Dictionary<Extentions.SpriteLayer, List<ParallaxBackground>>();
             InitializeBackgrounds(content);
@@ -39,7 +42,7 @@ namespace Sanguine_Forest
         private void InitializeLayer(Extentions.SpriteLayer layer, string[] textures, float speed, ContentManager content)
         {
             List<ParallaxBackground> backgrounds = new List<ParallaxBackground>();
-            Vector2 position = new Vector2(0, 0);
+            Vector2 position = new Vector2(-_camera.position.X, -_camera.position.Y);
 
             foreach (var texturePath in textures)
             {

@@ -39,7 +39,7 @@ namespace Sanguine_Forest
         private void InitializeLayer(Extentions.SpriteLayer layer, string[] textures, float speed, ContentManager content)
         {
             List<ParallaxBackground> backgrounds = new List<ParallaxBackground>();
-            Vector2 position = new Vector2(0, 0);
+            Vector2 position = new Vector2(-_screenWidth/2, -_screenHeight/2 + 30); // HARDCODED
 
             foreach (var texturePath in textures)
             {

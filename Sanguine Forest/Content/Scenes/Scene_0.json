@@ -1,8 +1,8 @@
   {
-    "characterPosition": "250, -200",
+    "characterPosition": "0, -0",
     "simplePlatforms": [
       {
-        "position": "100,100",
+        "position": "-100,100",
         "rotation": "0",
         "platformSize": "10000,192"
       },

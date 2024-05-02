@@ -296,7 +296,7 @@ using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sanguine_Forest.Scripts.Environment.Obstacle;
+using Sanguine_Forest;
 using Sanguine_Forest.Scripts.GameState;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -315,8 +315,7 @@ namespace Sanguine_Forest
             walk,
             jump,
             cling,
-            jumpAfterCling,
-            drink
+            jumpAfterCling
         }
 
         private enum Direction
@@ -425,7 +424,7 @@ namespace Sanguine_Forest
 
             _velocity = Vector2.Zero;
             _gravity = 0.3f;
-            _groundLevel = 800;
+            _groundLevel = 100;
 
             isClinging = false;
 
@@ -433,12 +432,11 @@ namespace Sanguine_Forest
 
         public void UpdateMe(InputManager inputManager)
         {
-
             // Handling input for jumping outside the state checks to ensure it's captured consistently
-            if (inputManager.IsKeyPressed(Keys.W) && isGrounded)
+            if (inputManager.IsKeyPressed(Keys.W))
             {
-                _currentState = CharState.jump;
                 _velocity.Y = -10f; // Set jump velocity
+                _currentState = CharState.jump;
             }
 
             switch (_currentState)
@@ -458,9 +456,9 @@ namespace Sanguine_Forest
                 case CharState.jumpAfterCling:
                     JumpAfterClingUpdate(inputManager);
                     break;
-                case CharState.drink:
-                    drinkUpdate(inputManager);
-                    break;
+  //              case CharState.drink:
+   //                 drinkUpdate(inputManager);
+     //               break;
             }
 
             UpdateMovementPermissions();
@@ -473,13 +471,12 @@ namespace Sanguine_Forest
             _rightCling.UpdateMe();
 
 
-            Debug.WriteLine($"Character Width {_characterCollision.GetPhysicRectangle().Width}");
-            Debug.WriteLine($"Texture Height {_characterCollision.GetPhysicRectangle().Height}");
-            Debug.WriteLine($"Feet Height {_feet.GetPhysicRectangle().Height}");
-            Debug.WriteLine($"Feet Width  {_feet.GetPhysicRectangle().Width}");
-
-            Debug.WriteLine($"FEET Bottom:  {_feet.GetPhysicRectangle().Bottom}");
-            Debug.WriteLine($"GroundLevel:  {_groundLevel}");
+            //Debug.WriteLine($"Character Width {_characterCollision.GetPhysicRectangle().Width}");
+            //Debug.WriteLine($"Texture Height {_characterCollision.GetPhysicRectangle().Height}");
+            //Debug.WriteLine($"Feet Height {_feet.GetPhysicRectangle().Height}");
+            //Debug.WriteLine($"Feet Width  {_feet.GetPhysicRectangle().Width}");
+            //Debug.WriteLine($"FEET Bottom:  {_feet.GetPhysicRectangle().Bottom}");
+            //Debug.WriteLine($"GroundLevel:  {_groundLevel}");
 
 
         }
@@ -506,7 +503,7 @@ namespace Sanguine_Forest
                 if (isGrounded) _currentState = CharState.walk;
 
             }
-            //CheckIfGrounded();
+            CheckIfGrounded();
 
         }
 
@@ -529,7 +526,7 @@ namespace Sanguine_Forest
 
             else if (inputManager.IsKeyPressed(Keys.W))
             {
-                _velocity.Y = -_jumpSpeed;
+                _currentState = CharState.jump;
             }
             else
             {
@@ -541,7 +538,7 @@ namespace Sanguine_Forest
             }
 
             Position.X += _velocity.X;
-            //CheckIfGrounded();
+            CheckIfGrounded();
 
             // Adjust sprite orientation based on direction
             _spriteModule.SetSpriteEffects(_currentDirection == Direction.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
@@ -550,12 +547,18 @@ namespace Sanguine_Forest
 
         public void JumpUpdate(InputManager inputManager)
         {
-            Debug.WriteLine($"IsGrounded = {isGrounded}");
+          //  Debug.WriteLine($"IsGrounded = {isGrounded}");
 
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Jump");
 
-            if (isClinging)
+            // Handling input for jumping outside the state checks to ensure it's captured consistently
+            if (inputManager.IsKeyPressed(Keys.W))
+            {
+                _velocity.Y = -10f; // Set jump velocity
+            }
+
+            else if (isClinging)
             {
                 _currentState = CharState.cling;
                 _currentDirection = _currentDirection == Direction.Right ? Direction.Right : Direction.Left;
@@ -571,6 +574,7 @@ namespace Sanguine_Forest
                     _currentState = CharState.idle; // Only reset to idle if grounded
                 }
             }
+            CheckIfGrounded();
 
 
             // Adjust sprite orientation based on direction
@@ -614,11 +618,6 @@ namespace Sanguine_Forest
 
         }
 
-        public void drinkUpdate(InputManager inputManager)
-        {
-            //code for when player is drinking
-        }
-
 
         public void ClingState(InputManager inputManager)
         {
@@ -650,29 +649,28 @@ namespace Sanguine_Forest
             // Update the position based on velocity
             if (_feet.GetPhysicRectangle().Bottom < _groundLevel)
             {
-                if (_velocity.Y < _gravity*35)
                 _velocity.Y += _gravity; // Continue applying gravity if not grounded
             }
-            else if (_velocity.Y > 0)
+            else if (_feet.GetPhysicRectangle().Bottom >= _groundLevel && _velocity.Y > 0)
             {
                 // If moving downwards and feet are at or below ground level, stop
                 _velocity.Y = 0;
-                Position.Y = _groundLevel - _characterCollision.GetPhysicRectangle().Height - _feet.GetPhysicRectangle().Height*2; // Adjust to align exactly with ground
+                Position.Y = _groundLevel - _feet.GetPhysicRectangle().Height + 5; // Adjust to align exactly with ground
             }
 
             // Now apply vertical velocity after checking conditions
             position.Y += _velocity.Y;
         }
 
-        //public void CheckIfGrounded()
-        //{
-        //    if (isGrounded = _feet.GetPhysicRectangle().Bottom >= _groundLevel)
-        //    {
-        //        isGrounded = true;
+        public void CheckIfGrounded()
+        {
+            if (isGrounded = _feet.GetPhysicRectangle().Bottom >= _groundLevel)
+            {
+                isGrounded = true;
 
-        //    }
-        //    else { isGrounded = false; }
-        //}
+            }
+            else { isGrounded = false; }
+        }
 
 
 
@@ -700,24 +698,24 @@ namespace Sanguine_Forest
 
         public override void Collided(Collision collision)
         {
-            Debug.WriteLine($"Collision detected with: {collision.GetCollidedPhysicModule().GetParent().GetType()}");
+           // Debug.WriteLine($"Collision detected with: {collision.GetCollidedPhysicModule().GetParent().GetType()}");
             base.Collided(collision);
 
             if (collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
                 Rectangle platformRect = platform.GetPlatformRectangle();
-                Debug.WriteLine($"Platform rectangle: {platformRect}");
+                //Debug.WriteLine($"Platform rectangle: {platformRect}");
 
                 // Handle collision with platform's feet
                 if (collision.GetThisPhysicModule() == _feet)
                 {
-                    Debug.WriteLine("Collided at feet");
-                    if (_velocity.Y > 0)
+                   // Debug.WriteLine("Collided at feet");
+                    if (_velocity.Y >= 0)
                     {
                         isGrounded = true;
                         _velocity.Y = 0;
-                        Position.Y = platform.GetPlatformRectangle().Top - _characterCollision.GetPhysicRectangle().Height+1;
+                        Position = new Vector2(Position.X, platformRect.Top - characterHeight + 1);
                     }
                     else
                     {
@@ -728,10 +726,10 @@ namespace Sanguine_Forest
                 // Handle collision with platform's right side
                 if (collision.GetThisPhysicModule() == _rightCling && isGrounded == false)
                 {
-                    Debug.WriteLine("Collided at right cling");
+                   // Debug.WriteLine("Collided at right cling");
                     // Stop horizontal movement and position character to the left of the platform
                     _velocity.X = 0;
-                    Position.X = platform.GetPlatformRectangle().Left - _characterCollision.GetPhysicRectangle().Width-1;
+                    Position = new Vector2(platformRect.Left - _characterCollision.GetPhysicRectangle().Width - 1, Position.Y);
                     moveRight = false;
                     _currentState = CharState.cling;
                     isClinging = true;
@@ -743,12 +741,12 @@ namespace Sanguine_Forest
                 }
 
                 // Handle collision with platform's left side
-                if (collision.GetThisPhysicModule() == _leftCling && isGrounded == false)
+                if (collision.GetThisPhysicModule() == _leftCling)
                 {
-                    Debug.WriteLine("Collided at left cling");
+                   // Debug.WriteLine("Collided at left cling");
                     // Stop horizontal movement and position character to the right of the platform
                     _velocity.X = 0;
-                    Position.X = platform.GetPlatformRectangle().Right;
+                    Position = new Vector2(platformRect.Right + 1, Position.Y);
                     moveLeft = false;
                     _currentState = CharState.cling;
                     isClinging = true;

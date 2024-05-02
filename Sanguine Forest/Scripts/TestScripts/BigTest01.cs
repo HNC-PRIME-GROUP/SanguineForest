@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using Extention;
 using System.IO;
 using System;
+using Sanguine_Forest.Scripts.Environment;
+using System.Collections.Generic;
 
 namespace Sanguine_Forest
 {
@@ -17,7 +19,7 @@ namespace Sanguine_Forest
         private Camera _camera;
 
         //Character
-        private Character _character;
+        private Character2 _character;
 
         //PlayerState
         private PlayerState _playerState;
@@ -26,7 +28,8 @@ namespace Sanguine_Forest
         private EnvironmentManager _environmentManager;
         
         //Parallaxing
-        private ParallaxManager _parallaxManager;
+        //private ParallaxManager _parallaxManager;
+        private List<ScrollingBackground> _scrollingBackground;
 
 
         //Scene
@@ -36,14 +39,19 @@ namespace Sanguine_Forest
         private KeyboardState currState;
         private KeyboardState prevState;
 
+        //Debug tools
+        private DebugObserver _debugObserver;
+        private bool isObserverWork=false;
+
+
         
 
         public BigTest01()
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            _graphics.PreferredBackBufferHeight = 1080;
-            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.PreferredBackBufferHeight = Extentions.ScreenHeight;
+            _graphics.PreferredBackBufferWidth = Extentions.ScreenWidth;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -72,11 +80,12 @@ namespace Sanguine_Forest
             DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
+         
+
 
             //Audio
             //AudioSetting
             //AudioManager.GeneralVolume = 1.0f;
-
 
 
             //Load player state and scene
@@ -84,7 +93,8 @@ namespace Sanguine_Forest
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter+".json");
 
             //Set character and camera
-            _character = new Character(_currentScene.characterPosition, 0, Content.Load<Texture2D>("Sprites/Sprites_Character_v1"));
+            _character = new Character2(_currentScene.characterPosition, 0, Content);
+            //_character.SetCharacterScale(0.3f);
             _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
             //_camera.SetZoom(1f);
@@ -95,9 +105,42 @@ namespace Sanguine_Forest
 
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content);
+            //Load Background
+            _scrollingBackground = new List<ScrollingBackground>()
+            {
+                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_01"), _character, 6f)
+                {
+                    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
+                },
+                //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_02"), _character, 6f)
+                //{
+                //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
+                //},
+                //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_03"), _character, 6f)
+                //{
+                //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
+                //},
+                //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_04"), _character, 6f)
+                //{
+                //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
+                //},
+                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_05"), _character, 4f)
+                {
+                    LayerBackground = (float)Extentions.SpriteLayer.background_Mid,
+                },
+                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_06"), _character, 2f)
+                {
+                    LayerBackground = (float)Extentions.SpriteLayer.background_Mid_Back,
+                },
+                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_07"), _character, 0f)
+                {
+                    LayerBackground = (float)Extentions.SpriteLayer.background_Back,
+                },
+            };
 
-
+            //Debug camera
+            DebugManager.Camera = _camera;
+            _debugObserver = new DebugObserver(_character.GetPosition(), 0);
         }
 
         protected override void Update(GameTime gameTime)
@@ -121,12 +164,37 @@ namespace Sanguine_Forest
             ////camera
             _camera.UpdateMe();
 
-            ////Character
-            _character.UpdateMe();
+            ////Character (not updated while observer mod is on)\
+            if (!isObserverWork)
+            {
+                _character.UpdateMe(prevState, currState);
+            }
 
-            //Background
+            //Parallax            
             //_parallaxManager.UpdateMe(_character.GetVelocity());
+            foreach (var sb in _scrollingBackground)
+                sb.Update(gameTime);
 
+
+            //Debug observer (flying cam without character)
+            if(currState.IsKeyUp(Keys.O)&&prevState.IsKeyDown(Keys.O))
+            {
+                if (!isObserverWork)
+                {
+                    _camera.SetCameraTarget(_debugObserver);
+                    isObserverWork = true;
+                }
+                else
+                {
+                    _camera.SetCameraTarget(_character);
+                    isObserverWork = false;
+                }
+            }
+
+            if (isObserverWork)
+            {
+                _debugObserver.UpdateMe(currState);
+            }
 
 
 
@@ -147,14 +215,21 @@ namespace Sanguine_Forest
 
             _environmentManager.DrawMe(_spriteBatch);
 
-            _parallaxManager.Draw(_spriteBatch);
-
-            //Background
+            //Character
             _character.DrawMe(_spriteBatch);
+
+            //Parrallax
+            foreach (var sb in _scrollingBackground)
+                sb.Draw(gameTime, _spriteBatch);
+
 
 
             //Debug test
-           // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+            // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+            DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
+            DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
+            if (isObserverWork)
+                DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
 
             _spriteBatch.End();
             // TODO: Add your drawing code here

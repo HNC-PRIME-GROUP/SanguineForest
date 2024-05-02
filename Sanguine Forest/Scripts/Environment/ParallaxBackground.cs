@@ -1,55 +1,48 @@
 ﻿using Extention;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Diagnostics;
 
 namespace Sanguine_Forest
 {
-    /// <summary>
-    /// Object of background that can be moved by parallax manager
-    /// </summary>
     internal class ParallaxBackground : GameObject
     {
-        private SpriteModule spriteModule; // Composition instead of inheritance
-        public float ParallaxSpeed { get; set; } // Multiplier to control speed
-        public Extentions.SpriteLayer Layer { get; private set; }
+        private SpriteModule spriteModule;
+        public float ParallaxSpeed { get; private set; }
 
-        public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, Extentions.SpriteLayer layer, float parallaxSpeed) 
-            : base (position, rotation)
-        
+
+        public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, Extentions.SpriteLayer layer, float parallaxSpeed, Camera camera)
+            : base(position, rotation)
         {
-            // Initialize the SpriteModule with the position, rotation, and layer specified
-            this.Layer = layer; // Set the layer property
             this.spriteModule = new SpriteModule(this, Vector2.Zero, texture, layer);
-            
             this.ParallaxSpeed = parallaxSpeed;
         }
 
-        public void UpdateMe(Vector2 deltaMovement)
+        public void UpdateMe(Vector2 cameraMovement)
         {
-
             spriteModule.UpdateMe();
-          
 
-            //Debug.WriteLine($"Update ParBackground");
+            //Debug.WriteLine($"Before Update - Position: {GetPosition()}");
 
-            //// Adjust the background's position based on its parallax speed
-            Vector2 adjustedMovement = deltaMovement * ParallaxSpeed;
+            // Adjust the background's position based on its parallax speed
+            Vector2 adjustedMovement = cameraMovement * -ParallaxSpeed;
             Vector2 newPosition = GetPosition() + adjustedMovement;
+
+            // Round positions to the nearest whole number
+            newPosition.X = (float)Math.Round(newPosition.X);
+            newPosition.Y = (float)Math.Round(newPosition.Y);
 
             // Set the new position
             SetPosition(newPosition);
+
+            //Debug.WriteLine($"After Update - Position: {GetPosition()}");
         }
 
-        // Method to draw the background
-        public void Draw(SpriteBatch spriteBatch)
+        public void DrawMe(SpriteBatch spriteBatch)
         {
-            //Debug.WriteLine($"Draw ParBackground");
-            // Delegate drawing to the spriteModule
             spriteModule.DrawMe(spriteBatch);
         }
+
     }
 }

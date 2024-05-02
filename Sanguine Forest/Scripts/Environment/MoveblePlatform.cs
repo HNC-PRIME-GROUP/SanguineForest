@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using System.Security.Policy;
 
 namespace Sanguine_Forest
@@ -18,10 +19,12 @@ namespace Sanguine_Forest
         public MoveblePlatform(Vector2 position, 
                                 float rotation,
                                 Vector2 platformSize,
-                                ContentManager content,                                
+                                ContentManager content,
+                                Dictionary<string, Rectangle> tileDictionary,
+                                string[,] tileMap,
                                 Vector2 targetPoint,
                                 float speed): 
-                                base(position, rotation, platformSize, content) 
+                                base(position, rotation, platformSize, content, tileDictionary, tileMap) 
         {
             startPoint = position;
             this.targetPoint = targetPoint;

@@ -224,12 +224,12 @@ namespace Sanguine_Forest
             if (curr.IsKeyDown(Keys.A))
             {
                 _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
-                _velocity.X = -(_speed*2/3);
+                _velocity.X = -_speed;
             }
             if (curr.IsKeyDown(Keys.D))
             {
                 _SpriteModule.SetSpriteEffects(SpriteEffects.None);
-                _velocity.X = (_speed*2/3);
+                _velocity.X = _speed;
             }
             
         }

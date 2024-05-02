@@ -20,14 +20,14 @@ namespace Sanguine_Forest
 
         //Environments and platforms
         public List<PlatformData> simplePlatforms;
-        public List<MoveblePlatform> moveblPlatforms;
-        public List<FallingPlatform> fallingPlatforms;
+        //public List<MoveblePlatform> moveblPlatforms;
+        //public List<FallingPlatform> fallingPlatforms;
 
-        public List<Decor> decors; // in case if we add some
+        //public List<Decor> decors; // in case if we add some
 
 
         //Background parallaxing
-        public List<ParallaxBackground> bachgrounds;
+        //public List<ParallaxBackground> bachgrounds;
 
 
 

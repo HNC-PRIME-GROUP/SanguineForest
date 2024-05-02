@@ -18,17 +18,20 @@ namespace Sanguine_Forest
 
         public void UpdateMe(Vector2 cameraMovement)
         {
-            // Calculate the adjusted movement based on the parallax speed
-            Vector2 adjustedMovement = cameraMovement * ParallaxSpeed;
-
-            // Directly update position using the base GameObject's capabilities
-            this.position -= adjustedMovement;
             spriteModule.UpdateMe();
+
+            // Adjust the background's position based on its parallax speed
+            Vector2 adjustedMovement = cameraMovement * -ParallaxSpeed * 0.2f;
+            Vector2 newPosition = GetPosition() + adjustedMovement;
+
+            // Set the new position
+            SetPosition(newPosition);
         }
 
         public void DrawMe(SpriteBatch spriteBatch)
         {
             spriteModule.DrawMe(spriteBatch);
         }
+
     }
 }

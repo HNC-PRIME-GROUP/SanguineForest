@@ -94,7 +94,7 @@ namespace Sanguine_Forest
             _environmentManager.Initialise(_currentScene);
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content);
+            _parallaxManager = new ParallaxManager(Content, _camera);
         }
 
         public void HandleInput(GameTime gameTime)
@@ -153,7 +153,7 @@ namespace Sanguine_Forest
 
             //Parrallax
 
-            _parallaxManager.Draw(_spriteBatch);
+            _parallaxManager.DrawMe(_spriteBatch);
 
             //Debug test
             // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));

@@ -87,7 +87,7 @@ namespace Sanguine_Forest
             //_character.SetCharacterScale(0.3f);
             _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
-            //_camera.SetZoom(1f);
+            _camera.SetZoom(2f);
 
             //Set the level's objects
             _environmentManager = new EnvironmentManager(Content);
@@ -95,6 +95,7 @@ namespace Sanguine_Forest
 
             //Set decor and parallaxing
             _parallaxManager = new ParallaxManager(Content, _camera);
+            
         }
 
         public void HandleInput(GameTime gameTime)

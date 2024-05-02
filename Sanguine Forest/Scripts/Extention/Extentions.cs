@@ -55,6 +55,7 @@ namespace Extention
             environment1,
             environment2,
             background_Fore,
+            background_Fore_Mid,
             background_Mid,
             background_Mid_Back,
             background_Back,

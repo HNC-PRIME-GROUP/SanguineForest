@@ -1,5 +1,5 @@
   {
-    "characterPosition": "0, -0",
+    "characterPosition": "250, -250",
     "simplePlatforms": [
       {
         "position": "-100,100",
@@ -8,27 +8,33 @@
       },
 
       {
-        "position": "0,-1000",
+        "position": "0,-500",
         "rotation": "0",
-        "platformSize": "200,1000"
+        "platformSize": "200,500"
       },
 
       {
-        "position": "600,-1000",
+        "position": "600,-500",
         "rotation": "0",
-        "platformSize": "200,1000"
+        "platformSize": "200,500"
       },
 
       {
-        "position": "1200,-1000",
+        "position": "1200,-500",
         "rotation": "0",
-        "platformSize": "200,1000"
+        "platformSize": "200,500"
       },
 
       {
-        "position": "1800,-1000",
+        "position": "1800,-500",
         "rotation": "0",
-        "platformSize": "200,1000"
+        "platformSize": "200,500"
+      },
+
+      {
+        "position": "-100, -990",
+        "rotation": "0",
+        "platformSize": "10000,192"
       }
 
     ],

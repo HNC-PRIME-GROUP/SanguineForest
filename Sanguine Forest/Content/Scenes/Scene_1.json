@@ -25,7 +25,7 @@
 
     {
       "comment": "First Wall",
-      "position": "2600,-300",
+      "position": "2600,-200",
       "rotation": "0",
       "platformSize": "200,350"
     }

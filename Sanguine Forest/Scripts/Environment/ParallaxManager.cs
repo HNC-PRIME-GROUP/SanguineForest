@@ -15,15 +15,9 @@ namespace Sanguine_Forest
         private int _screenHeight;
         private Camera _camera;
 
-        private Camera _camera;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> Alberto
         public ParallaxManager(ContentManager content, Camera camera)
         {
-            _camera = camera;
 
             _screenWidth = Extentions.ScreenWidth;
             _screenHeight = Extentions.ScreenHeight;
@@ -45,19 +39,17 @@ namespace Sanguine_Forest
         private void InitializeLayer(Extentions.SpriteLayer layer, string[] textures, float speed, Vector2 initialPosition, ContentManager content)
         {
             List<ParallaxBackground> backgrounds = new List<ParallaxBackground>();
-<<<<<<< HEAD
-            Vector2 position = new Vector2(-_camera.position.X, -_camera.position.Y);
 
-            foreach (var texturePath in textures)
-=======
             Vector2 position = initialPosition;
+
             foreach (var texture in textures)
->>>>>>> Alberto
+
             {
                 ParallaxBackground background = new ParallaxBackground(position, 0, content.Load<Texture2D>(texture), layer, speed);
                 backgrounds.Add(background);
                 position.X += _screenWidth + 60;  // Position each subsequent background immediately to the right of the last
             }
+
             layerBackgrounds[layer] = backgrounds;
 
         }

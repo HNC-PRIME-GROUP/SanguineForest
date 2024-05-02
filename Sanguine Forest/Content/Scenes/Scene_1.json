@@ -1,0 +1,33 @@
+{
+  "characterPosition": "0, -0",
+  "comment": "Simple platforms",
+  "simplePlatforms": [
+    {
+      "comment": "First floor",
+      "position": "-100,100",
+      "rotation": "0",
+      "platformSize": "1000,192"
+    },
+
+    {
+      "comment": "First platform",
+      "position": "1150,0",
+      "rotation": "0",
+      "platformSize": "200,350"
+    },
+
+    {
+      "comment": "Second floor",
+      "position": "1650,100",
+      "rotation": "0",
+      "platformSize": "1000,192"
+    },
+
+    {
+      "comment": "First Wall",
+      "position": "2600,-300",
+      "rotation": "0",
+      "platformSize": "200,350"
+    }
+  ]
+}

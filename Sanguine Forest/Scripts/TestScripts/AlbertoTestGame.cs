@@ -153,7 +153,9 @@ namespace Sanguine_Forest
 
             //Parrallax
 
-            //_parallaxManager.DrawMe(_spriteBatch);
+
+            _parallaxManager.DrawMe(_spriteBatch);
+
 
 
             //Debug test

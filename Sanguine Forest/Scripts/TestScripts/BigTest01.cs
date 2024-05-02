@@ -39,6 +39,10 @@ namespace Sanguine_Forest
         private KeyboardState currState;
         private KeyboardState prevState;
 
+        //Debug tools
+        private DebugObserver _debugObserver;
+
+
         
 
         public BigTest01()
@@ -75,6 +79,8 @@ namespace Sanguine_Forest
             DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
+            _debugObserver = new DebugObserver(Vector2.Zero, 0);
+
 
             //Audio
             //AudioSetting
@@ -165,7 +171,11 @@ namespace Sanguine_Forest
                 sb.Update(gameTime);
 
 
+            //Debug observer (flying cam without character)
+            if(currState.IsKeyUp(Keys.O)&&prevState.IsKeyDown(Keys.O))
+            {
 
+            }
 
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))

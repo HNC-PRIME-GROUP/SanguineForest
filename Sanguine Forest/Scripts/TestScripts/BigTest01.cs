@@ -39,6 +39,11 @@ namespace Sanguine_Forest
         private KeyboardState currState;
         private KeyboardState prevState;
 
+        //Debug tools
+        private DebugObserver _debugObserver;
+        private bool isObserverWork=false;
+
+
         
 
         public BigTest01()
@@ -75,6 +80,8 @@ namespace Sanguine_Forest
             DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
+         
+
 
             //Audio
             //AudioSetting
@@ -131,8 +138,9 @@ namespace Sanguine_Forest
                 },
             };
 
-
-
+            //Debug camera
+            DebugManager.Camera = _camera;
+            _debugObserver = new DebugObserver(_character.GetPosition(), 0);
         }
 
         protected override void Update(GameTime gameTime)
@@ -156,8 +164,11 @@ namespace Sanguine_Forest
             ////camera
             _camera.UpdateMe();
 
-            ////Character
-            _character.UpdateMe(prevState, currState);
+            ////Character (not updated while observer mod is on)\
+            if (!isObserverWork)
+            {
+                _character.UpdateMe(prevState, currState);
+            }
 
             //Parallax            
             //_parallaxManager.UpdateMe(_character.GetVelocity());
@@ -165,6 +176,25 @@ namespace Sanguine_Forest
                 sb.Update(gameTime);
 
 
+            //Debug observer (flying cam without character)
+            if(currState.IsKeyUp(Keys.O)&&prevState.IsKeyDown(Keys.O))
+            {
+                if (!isObserverWork)
+                {
+                    _camera.SetCameraTarget(_debugObserver);
+                    isObserverWork = true;
+                }
+                else
+                {
+                    _camera.SetCameraTarget(_character);
+                    isObserverWork = false;
+                }
+            }
+
+            if (isObserverWork)
+            {
+                _debugObserver.UpdateMe(currState);
+            }
 
 
 
@@ -193,8 +223,13 @@ namespace Sanguine_Forest
                 sb.Draw(gameTime, _spriteBatch);
 
 
+
             //Debug test
             // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+            DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
+            DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
+            if (isObserverWork)
+                DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
 
             _spriteBatch.End();
             // TODO: Add your drawing code here

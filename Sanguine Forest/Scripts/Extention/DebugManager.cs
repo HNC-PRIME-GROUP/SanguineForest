@@ -22,7 +22,7 @@ namespace Sanguine_Forest
         {
             if (isWorking)
             {
-                SpriteBatch.DrawString(DebugFont, message, pos, Color.White);
+                SpriteBatch.DrawString(DebugFont, message, new Vector2(-Camera.position.X+pos.X, -Camera.position.Y+pos.Y), Color.White);
             }
         }
 

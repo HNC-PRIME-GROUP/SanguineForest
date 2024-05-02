@@ -153,10 +153,13 @@ namespace Sanguine_Forest
 
             //Parrallax
 
-            _parallaxManager.DrawMe(_spriteBatch);
+            _parallaxManager.Draw(_spriteBatch);
+
 
             //Debug test
             // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+            DebugManager.DebugString("Camera pos:"+_camera.position, new Vector2(0,0));
+            DebugManager.DebugString("Character pos: "+ _character.GetPosition(), new Vector2(0,20));
 
             _spriteBatch.End();
 

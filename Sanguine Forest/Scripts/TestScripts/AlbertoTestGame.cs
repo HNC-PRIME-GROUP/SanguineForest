@@ -152,7 +152,9 @@ namespace Sanguine_Forest
             _character.DrawMe(_spriteBatch);
 
             //Parrallax
+
             _parallaxManager.Draw(_spriteBatch);
+
 
             //Debug test
             // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));

@@ -19,6 +19,12 @@ namespace Sanguine_Forest
         /// </summary>
         protected Vector2 position;
 
+        public void Move(Vector2 movement)
+        {
+            this.position += movement;
+        
+        }
+
         /// <summary>
         /// Rotation with clamp between -PI and PI
         /// </summary>

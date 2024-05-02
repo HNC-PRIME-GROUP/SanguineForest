@@ -41,7 +41,7 @@ namespace Sanguine_Forest
         private CharState _currentState;
 
         //Movement
-        private float _speed = 10f;
+        private float _speed = 9f;
         private float _jumpHigh = 25f;
 
         private Vector2 _velocity = Vector2.Zero;
@@ -77,8 +77,8 @@ namespace Sanguine_Forest
             _feetCollision = new PhysicModule(this, new Vector2(50, 95), new Vector2(35, 10));
             _headCollision = new PhysicModule(this, new Vector2(50, 0), new Vector2(35, 10));
 
-            _leftCollision = new PhysicModule(this, new Vector2(30, 50), new Vector2(10, 60));
-            _rightCollision = new PhysicModule(this, new Vector2(70, 50), new Vector2(10, 60));
+            _leftCollision = new PhysicModule(this, new Vector2(15, 50), new Vector2(10, 60));
+            _rightCollision = new PhysicModule(this, new Vector2(85, 50), new Vector2(10, 60));
 
 
             _currentState = CharState.jump;

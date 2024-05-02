@@ -1,13 +1,16 @@
   {
     "characterPosition": "0, -0",
+    "comment": "Simple platforms",
     "simplePlatforms": [
       {
+        "comment": "First platform",
         "position": "-100,100",
         "rotation": "0",
         "platformSize": "10000,192"
       },
 
       {
+        "comment": "Second platform",
         "position": "0,-1000",
         "rotation": "0",
         "platformSize": "200,1000"

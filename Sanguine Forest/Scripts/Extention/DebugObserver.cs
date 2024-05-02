@@ -21,13 +21,13 @@ namespace Sanguine_Forest
         {
             if(curr.IsKeyDown(Keys.A))
             {
-                position.X -= 10;
+                position.X -= 15;
             
             }
 
             if(curr.IsKeyDown(Keys.D))
             {
-                position.X += 10;
+                position.X += 15;
             }
 
         }

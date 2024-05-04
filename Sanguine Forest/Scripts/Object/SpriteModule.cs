@@ -152,7 +152,7 @@ namespace Sanguine_Forest
         /// Set scale of this spritemodule
         /// </summary>
         /// <param name="scale"></param>
-        public void SetScale(float scale) { 
+        public new void SetScale(float scale) { 
             this.scale = scale;
             drawRectangle.Height = (int)Math.Round((float)drawRectangle.Height * scale);
             drawRectangle.Width = (int)Math.Round((float)drawRectangle.Width * scale);

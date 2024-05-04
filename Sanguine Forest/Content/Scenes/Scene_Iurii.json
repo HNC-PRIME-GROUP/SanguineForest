@@ -16,13 +16,13 @@
       "comment": "Second platform",
       "position": "0,-1000",
       "rotation": "0",
-      "platformSize": "200,500"
+      "platformSize": "100,100"
     },
 
     {
       "position": "600,-500",
       "rotation": "0",
-      "platformSize": "200,500"
+      "platformSize": "100,100"
     },
 
     {

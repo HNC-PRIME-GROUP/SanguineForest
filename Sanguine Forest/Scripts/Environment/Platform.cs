@@ -35,10 +35,10 @@ namespace Sanguine_Forest
 
           
             _spriteModule.TillingMe(tileDictionary,tileMap,new Rectangle((int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y), 
-                (int)Math.Round(platformSize.X / 128)*128, (int)Math.Round(platformSize.Y / 128)*128), new Rectangle(0,0,128,128));
+                (int)Math.Round(platformSize.X / 64)*64, (int)Math.Round(platformSize.Y / 64)*64), new Rectangle(0,0,64,64));
 
             //Collision
-            platformPhysic = new PhysicModule(this, new Vector2(25,25), new Vector2((int)Math.Round(platformSize.X / 128)*128-50, (int)Math.Round(platformSize.Y / 128) * 128-50));
+            platformPhysic = new PhysicModule(this, new Vector2(18,25), new Vector2((int)Math.Round(platformSize.X / 64)*64-36, (int)Math.Round(platformSize.Y / 64) * 64-50));
             platformPhysic.isPhysicActive = true;
 
 

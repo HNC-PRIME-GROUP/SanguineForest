@@ -52,7 +52,7 @@ namespace Sanguine_Forest
 
             for (int p =0; p<scene.simplePlatforms.Count; p++) 
             {
-                string[,] tileMap = new string[(int)Math.Round(scene.simplePlatforms[p].platformSize.Y / 128), (int)Math.Round(scene.simplePlatforms[p].platformSize.X / 128)];
+                string[,] tileMap = new string[(int)Math.Round(scene.simplePlatforms[p].platformSize.Y / 64), (int)Math.Round(scene.simplePlatforms[p].platformSize.X / 64)];
                 for (int i = 0; i < tileMap.GetLength(0); i++)
                 {
                     for (int j = 0; j < tileMap.GetLength(1); j++)
@@ -62,14 +62,9 @@ namespace Sanguine_Forest
                             tileMap[i, j] = "UpLeft";
                             continue;
                         }
-                        if (i == 0 && j == tileMap.GetLength(1) - 1)
+                        if (i == 0 && j == tileMap.GetLength(1) -1 )
                         {
                             tileMap[i, j] = "UpRight";
-                            continue;
-                        }
-                        if (i == 0 && j > 0)
-                        {
-                            tileMap[i, j] = "Up";
                             continue;
                         }
                         if (i == tileMap.GetLength(0) - 1 && j == 0)
@@ -82,6 +77,13 @@ namespace Sanguine_Forest
                             tileMap[i, j] = "BottomRight";
                             continue;
                         }
+                        if (i == 0 && j > 0)
+                        {
+                            tileMap[i, j] = "Up";
+                            continue;
+                        }
+
+
                         if (i == tileMap.GetLength(0) - 1 && j > 0)
                         {
                             tileMap[i, j] = "Bottom";

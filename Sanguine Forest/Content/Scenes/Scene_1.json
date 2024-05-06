@@ -32,23 +32,23 @@
 
     {
       "comment": "Second Wall",
-      "position": "2200,-600",
+      "position": "2200,-650",
       "rotation": "0",
-      "platformSize": "200,450"
+      "platformSize": "200,500"
     },
 
     {
       "comment": "Decor Wall1",
-      "position": "2100,-1050",
+      "position": "2100,-1250",
       "rotation": "0",
-      "platformSize": "500,450"
+      "platformSize": "500,650"
     },
 
     {
       "comment": "Third Floor",
-      "position": "2800,-300",
+      "position": "2600,-300",
       "rotation": "0",
-      "platformSize": "500,200"
+      "platformSize": "700,200"
     },
     {
       "comment": "Second Platform",
@@ -72,7 +72,7 @@
     },
     {
       "comment": "Decor Wall2",
-      "position": "5250,20",
+      "position": "5250,-10",
       "rotation": "0",
       "platformSize": "200,500"
     },
@@ -86,14 +86,14 @@
 
     {
       "comment": "Third Wall",
-      "position": "7000,-1000",
+      "position": "7000,-1600",
       "rotation": "0",
-      "platformSize": "450,700"
+      "platformSize": "450,1300"
     },
 
     {
       "comment": "5th Platform",
-      "position": "6980,150",
+      "position": "6980,120",
       "rotation": "0",
       "platformSize": "400,200"
     }

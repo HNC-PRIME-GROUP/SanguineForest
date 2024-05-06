@@ -98,5 +98,10 @@
       "platformSize": "400,200"
     }
 
+  ],
+  "moveablPlatforms": [
+    {
+
+    }
   ]
 }

@@ -28,8 +28,7 @@ namespace Sanguine_Forest
         private EnvironmentManager _environmentManager;
 
         //Parallaxing
-        //private ParallaxManager _parallaxManager;
-        private List<ScrollingBackground> _scrollingBackground;
+        private ParallaxManager _parallaxManager;
 
 
         //Scene
@@ -89,8 +88,7 @@ namespace Sanguine_Forest
 
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
-            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_1.json");
-
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
@@ -99,43 +97,15 @@ namespace Sanguine_Forest
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content);
+            _environmentManager = new EnvironmentManager(Content, _playerState);
             _environmentManager.Initialise(_currentScene);
+            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
 
 
             //Set decor and parallaxing
             //Load Background
-            _scrollingBackground = new List<ScrollingBackground>()
-            {
-                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_01"), _character, 6f)
-                {
-                    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
-                },
-                //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_02"), _character, 6f)
-                //{
-                //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
-                //},
-                //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_03"), _character, 6f)
-                //{
-                //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
-                //},
-                //new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_04"), _character, 6f)
-                //{
-                //    LayerBackground = (float)Extentions.SpriteLayer.background_Fore,
-                //},
-                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_05"), _character, 4f)
-                {
-                    LayerBackground = (float)Extentions.SpriteLayer.background_Mid,
-                },
-                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_06"), _character, 2f)
-                {
-                    LayerBackground = (float)Extentions.SpriteLayer.background_Mid_Back,
-                },
-                new ScrollingBackground(Content.Load<Texture2D>("Sprites/Background_day_07"), _character, 0f)
-                {
-                    LayerBackground = (float)Extentions.SpriteLayer.background_Back,
-                },
-            };
+            //Set decor and parallaxing
+            _parallaxManager = new ParallaxManager(Content, _camera);
 
             //Debug camera
             DebugManager.Camera = _camera;
@@ -169,10 +139,9 @@ namespace Sanguine_Forest
                 _character.UpdateMe(prevState, currState);
             }
 
+
             //Parallax            
-            //_parallaxManager.UpdateMe(_character.GetVelocity());
-            foreach (var sb in _scrollingBackground)
-                sb.Update(gameTime);
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
 
 
             //Debug observer (flying cam without character)
@@ -218,8 +187,7 @@ namespace Sanguine_Forest
             _character.DrawMe(_spriteBatch);
 
             //Parrallax
-            foreach (var sb in _scrollingBackground)
-                sb.Draw(gameTime, _spriteBatch);
+            _parallaxManager.DrawMe(_spriteBatch);
 
 
 

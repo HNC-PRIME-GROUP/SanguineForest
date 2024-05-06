@@ -41,6 +41,10 @@ namespace Sanguine_Forest
 
         private InputManager _inputManager;
 
+        //Debug tools
+        private DebugObserver _debugObserver;
+        private bool isObserverWork = false;
+
         public AlbertoTestGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -87,7 +91,7 @@ namespace Sanguine_Forest
             //_character.SetCharacterScale(0.3f);
             _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
-            _camera.SetZoom(1f);
+            //_camera.SetZoom(1f);
 
             //Set the level's objects
             _environmentManager = new EnvironmentManager(Content,_playerState);
@@ -95,7 +99,11 @@ namespace Sanguine_Forest
 
             //Set decor and parallaxing
             _parallaxManager = new ParallaxManager(Content, _camera);
-            
+
+            //Debug camera
+            DebugManager.Camera = _camera;
+            _debugObserver = new DebugObserver(_character.GetPosition(), 0);
+
         }
 
         public void HandleInput(GameTime gameTime)
@@ -125,12 +133,34 @@ namespace Sanguine_Forest
             ////camera
             _camera.UpdateMe();
 
-            ////Character
-            _character.UpdateMe(prevState, currState);
+            ////Character (not updated while observer mod is on)\
+            if (!isObserverWork)
+            {
+                _character.UpdateMe(prevState, currState);
+            }
 
-            //Parallax
-            Vector2 velocityVector = new Vector2(_character.GetVelocity(), 0);
-            _parallaxManager.UpdateMe(velocityVector);
+            //Parallax            
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
+
+            //Debug observer (flying cam without character)
+            if (currState.IsKeyUp(Keys.O) && prevState.IsKeyDown(Keys.O))
+            {
+                if (!isObserverWork)
+                {
+                    _camera.SetCameraTarget(_debugObserver);
+                    isObserverWork = true;
+                }
+                else
+                {
+                    _camera.SetCameraTarget(_character);
+                    isObserverWork = false;
+                }
+            }
+
+            if (isObserverWork)
+            {
+                _debugObserver.UpdateMe(currState);
+            }
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -161,8 +191,10 @@ namespace Sanguine_Forest
 
             //Debug test
             // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
-            DebugManager.DebugString("Camera pos:"+_camera.position, new Vector2(0,0));
-            DebugManager.DebugString("Character pos: "+ _character.GetPosition(), new Vector2(0,20));
+            DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
+            DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
+            if (isObserverWork)
+                DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
 
             _spriteBatch.End();
 

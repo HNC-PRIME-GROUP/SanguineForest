@@ -9,7 +9,7 @@ namespace Sanguine_Forest
     /// </summary>
     public class PlayerState
     {
-        public int AlcoholLevel { get; set; } = 0;
+        public int RiskLevel { get; set; } = 0;
         public bool IsAlive { get; set; } = true;
 
         //current level

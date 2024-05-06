@@ -8,9 +8,15 @@
       },
 
       {
-        "position": "0,-500",
+        "position": "0,-300",
         "rotation": "0",
-        "platformSize": "200,500"
+        "platformSize": "300,200"
+      },
+
+      {
+        "position": "-150,-550",
+        "rotation": "0",
+        "platformSize": "300,200"
       },
 
       {
@@ -29,13 +35,8 @@
         "position": "1800,-500",
         "rotation": "0",
         "platformSize": "200,500"
-      },
-
-      {
-        "position": "-100, -1020",
-        "rotation": "0",
-        "platformSize": "10000,192"
       }
+
 
     ],
     "moveblPlatforms": [],

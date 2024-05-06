@@ -35,7 +35,7 @@ namespace Sanguine_Forest
             InitializeLayer(Extentions.SpriteLayer.background_Fore_Mid, new[] { "Sprites/Background_day_03", "Sprites/Background_day_04", "Sprites/Background_day_03" }, 0.35f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
             InitializeLayer(Extentions.SpriteLayer.background_Mid, new[] { "Sprites/Background_day_05", "Sprites/Background_day_05", "Sprites/Background_day_05" }, 0.25f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
             InitializeLayer(Extentions.SpriteLayer.background_Mid_Back, new[] { "Sprites/Background_day_06", "Sprites/Background_day_06", "Sprites/Background_day_06" }, 0.15f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
-            InitializeLayer(Extentions.SpriteLayer.background_Back, new[] { "Sprites/Background_day_07", "Sprites/Background_day_07", "Sprites/Background_day_07" }, 0.05f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
+            InitializeLayer(Extentions.SpriteLayer.background_Back, new[] { "Sprites/Background_day_07", "Sprites/Background_day_07", "Sprites/Background_day_07" }, 0.05f, new Vector2(-_camera.position.X  , -_camera.position.Y), content, _camera);
         }
         private void InitializeLayer(Extentions.SpriteLayer layer, string[] textures, float speed, Vector2 initialPosition, ContentManager content, Camera camera2)
         {
@@ -47,7 +47,7 @@ namespace Sanguine_Forest
 
             {
                 ParallaxBackground background = new ParallaxBackground(position, 0, content.Load<Texture2D>(texture), layer, speed, camera2);
-                background.spriteModule.SetDrawRectangle(new Rectangle(_camera.position.ToPoint(), new Vector2(_screenWidth,_screenHeight).ToPoint()));
+                background.spriteModule.SetDrawRectangle(new Rectangle(_camera.position.ToPoint(), new Vector2(_screenWidth + 5,_screenHeight).ToPoint()));
                 backgrounds.Add(background);
                 position.X += _screenWidth;  // Position each subsequent background immediately to the right of the last
             }
@@ -91,15 +91,15 @@ namespace Sanguine_Forest
                 {
                     float originalX = background.GetPosition().X;  // Store original position for logging
                     // Reposition to the right if the background has moved out of the visible area on the left
-                    if (background.GetPosition().X + _screenWidth * _camera.zoom < -_camera.position.X)
+                    if (background.GetPosition().X + _screenWidth < -_camera.position.X)
                     {
                         background.SetPosition(new Vector2(maxRight , background.GetPosition().Y));
                         //Debug.WriteLine($"Repositioning from {originalX} to {background.GetPosition().X} (right loop)");
                     }
                     // Reposition to the left if the background has moved out of the visible area on the right
-                    else if (background.GetPosition().X > -_camera.position.X + _screenWidth * _camera.zoom)
+                    else if (background.GetPosition().X > -_camera.position.X + _screenWidth)
                     {
-                        background.SetPosition(new Vector2(minLeft - _screenWidth * _camera.zoom, background.GetPosition().Y));
+                        background.SetPosition(new Vector2(minLeft - _screenWidth, background.GetPosition().Y));
                         //Debug.WriteLine($"Repositioning from {originalX} to {background.GetPosition().X} (left loop)");
                     }
                 }

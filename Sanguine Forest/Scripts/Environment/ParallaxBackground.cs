@@ -26,7 +26,7 @@ namespace Sanguine_Forest
             //Debug.WriteLine($"Before Update - Position: {GetPosition()}");
 
             // Adjust the background's position based on its parallax speed
-            Vector2 adjustedMovement = cameraMovement * -ParallaxSpeed;
+            Vector2 adjustedMovement = cameraMovement * -ParallaxSpeed * 0.2f;
             Vector2 newPosition = GetPosition() + adjustedMovement;
 
             // Round positions to the nearest whole number

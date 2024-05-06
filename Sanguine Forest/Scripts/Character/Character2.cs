@@ -51,6 +51,9 @@ namespace Sanguine_Forest
         //work around for cling update
         private Rectangle currClingRectangle;
 
+        //Death event
+        public event EventHandler DeathEvent;
+
 
         public Character2(Vector2 position, float rotation, ContentManager content) : base(position, rotation)
         {
@@ -405,6 +408,11 @@ namespace Sanguine_Forest
               
             }
 
+        }
+
+        public void Death()
+        {
+            DeathEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public void DrawMe(SpriteBatch sp)

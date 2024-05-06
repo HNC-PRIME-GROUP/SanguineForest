@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Extention;
-using Sanguine_Forest.Scripts.TestScripts;
+using System.IO;
+using System;
+using Sanguine_Forest.Scripts.Environment;
 using System.Collections.Generic;
 
 namespace Sanguine_Forest
@@ -13,35 +15,53 @@ namespace Sanguine_Forest
         private SpriteBatch _spriteBatch;
 
 
-        //Camera
-        private Camera camera;
+        //Camers
+        private Camera _camera;
 
-        //Test objects
-        private IuriiTestGameObject _gameObject;
-        private IuriiTestGameObject _gameObject1;
+        //Character
+        private Character2 _character;
 
-        private Platform platform; 
+        //PlayerState
+        private PlayerState _playerState;
 
-        //Test scene
-        private Scene scene;
+        //Environment
+        private EnvironmentManager _environmentManager;
 
+        //Parallaxing
+        private ParallaxManager _parallaxManager;
+        
+
+
+        //Scene
+        private Scene _currentScene;
 
         //Control
-        private KeyboardState currKeyState;
-        private KeyboardState prevKeyState;
+        private KeyboardState currState;
+        private KeyboardState prevState;
+
+        //Debug tools
+        private DebugObserver _debugObserver;
+        private bool isObserverWork = false;
+
+
 
 
         public IuriiGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            _graphics.PreferredBackBufferHeight = Extentions.ScreenHeight;
+            _graphics.PreferredBackBufferWidth = Extentions.ScreenWidth;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
+
+            FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
+
 
             base.Initialize();
         }
@@ -49,19 +69,10 @@ namespace Sanguine_Forest
         protected override void LoadContent()
         {
 
-            //AudioSetting
-            AudioManager.GeneralVolume = 1.0f;
 
+
+            //graphic installing
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            camera = new Camera(Vector2.Zero, new Vector2(-5000, -5000 ), new Vector2(5000, 5000), new Vector2(720, 720));
-
-
-
-
-            //test scene creation
-           // scene = FileLoader.LoadFromJson<Scene>("D:/Documents/EdinburghCollegeVScode/SanguineForest/Sanguine Forest/Content/Scenes/SceneTest");
-
 
 
             //Debug initialising
@@ -71,50 +82,94 @@ namespace Sanguine_Forest
             DebugManager.isWorking = true;
 
 
-            //test object
-            _gameObject = new IuriiTestGameObject(Vector2.Zero, 0f, Content);
-            _gameObject1 = new IuriiTestGameObject(new Vector2(100, 100), 0f, Content);
 
-            _gameObject._SpriteModule.SetScale(0.3f);
-            _gameObject1._SpriteModule.SetScale(0.3f);
-
-            //platform = new Platform(new Vector2(300, 0), 0f, new Vector2(100, 100), Content);
-            platform._spriteModule.SetScale(1f);
-            camera.SetCameraTarget(_gameObject);
+            //Audio
+            //AudioSetting
+            //AudioManager.GeneralVolume = 1.0f;
 
 
+            //Load player state and scene
+            _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Iurii" + ".json");
+
+            //Set character and camera
+            _character = new Character2(_currentScene.characterPosition, 0, Content);
+            //_character.SetCharacterScale(0.3f);
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
+            _camera.SetCameraTarget(_character);
+            //_camera.SetZoom(1f);
+
+            //Set the level's objects
+            _environmentManager = new EnvironmentManager(Content, _playerState);
+            _environmentManager.Initialise(_currentScene);
+
+
+            //Set decor and parallaxing
+            _parallaxManager = new ParallaxManager(Content, _camera);
+
+            //Debug camera
+            DebugManager.Camera = _camera;
+            _debugObserver = new DebugObserver(_character.GetPosition(), 0);
         }
 
         protected override void Update(GameTime gameTime)
         {
+            //save curr state of keyboard
+            currState = Keyboard.GetState();
 
+            //Physic update
             PhysicManager.UpdateMe();
-            currKeyState = Keyboard.GetState();
+
+            //Audio manager
+            //AudioSetting
+            //AudioManager.UpdateMe();
+
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            platform.UpdateMe();
-            camera.UpdateMe();
+            //Environment update
+            _environmentManager.UpdateMe();
+
+            ////camera
+            _camera.UpdateMe();
+
+            ////Character (not updated while observer mod is on)\
+            if (!isObserverWork)
+            {
+                _character.UpdateMe(prevState, currState);
+            }
+
+            //Parallax            
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(),0));
+
+
+            //Debug observer (flying cam without character)
+            if (currState.IsKeyUp(Keys.O) && prevState.IsKeyDown(Keys.O))
+            {
+                if (!isObserverWork)
+                {
+                    _camera.SetCameraTarget(_debugObserver);
+                    isObserverWork = true;
+                }
+                else
+                {
+                    _camera.SetCameraTarget(_character);
+                    isObserverWork = false;
+                }
+            }
+
+            if (isObserverWork)
+            {
+                _debugObserver.UpdateMe(currState);
+            }
+
+
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            _gameObject.UpdateMe(currKeyState,prevKeyState);
-            _gameObject1.UpdateMe();
-            camera.UpdateMe();
 
-            //test scene creation
-            //if(!currKeyState.IsKeyDown(Keys.Space)|| prevKeyState.IsKeyDown(Keys.Space))
-            //{
-            //    FileLoader.SaveToJson<Scene>(scene, "D:/Documents/EdinburghCollegeVScode/SanguineForest/Sanguine Forest/Content/Scenes/SceneTest");
-            //}
-
-            //scene test
-            if(!currKeyState.IsKeyDown(Keys.Space)||prevKeyState.IsKeyDown(Keys.Space)) 
-            {
-               
-            }
-
-            prevKeyState = currKeyState;
+            //save prev state
+            prevState = currState;
 
             base.Update(gameTime);
         }
@@ -123,17 +178,24 @@ namespace Sanguine_Forest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(SpriteSortMode.BackToFront,null,null,null,null,null, camera.GetCam());
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
 
-            _gameObject.DrawMe(_spriteBatch);
-            _gameObject1.DrawMe(_spriteBatch);
+            _environmentManager.DrawMe(_spriteBatch);
 
-            platform.DrawMe(_spriteBatch);
+            //Character
+            _character.DrawMe(_spriteBatch);
+
+            //Parrallax
+            _parallaxManager.DrawMe(_spriteBatch);
+
+
 
             //Debug test
-           // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
-
-            
+            // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+            DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
+            DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
+            if (isObserverWork)
+                DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
 
             _spriteBatch.End();
             // TODO: Add your drawing code here

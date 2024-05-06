@@ -54,34 +54,49 @@
       "comment": "Second Platform",
       "position": "3660,0",
       "rotation": "0",
-      "platformSize": "450,200"
+      "platformSize": "400,200"
     },
 
     {
       "comment": "Third Platform",
-      "position": "4350,-180",
+      "position": "4300,-180",
       "rotation": "0",
-      "platformSize": "450,200"
+      "platformSize": "400,200"
     },
 
     {
       "comment": "Forth Floor",
-      "position": "5120,-180",
+      "position": "5040,-180",
       "rotation": "0",
-      "platformSize": "1000,200"
+      "platformSize": "1050,200"
     },
     {
       "comment": "Decor Wall2",
-      "position": "5300,20",
+      "position": "5250,20",
       "rotation": "0",
       "platformSize": "200,500"
     },
 
     {
       "comment": "Forth Platform",
-      "position": "6420,-280",
+      "position": "6370,-280",
       "rotation": "0",
-      "platformSize": "450,200"
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "Third Wall",
+      "position": "7000,-1000",
+      "rotation": "0",
+      "platformSize": "450,700"
+    },
+
+    {
+      "comment": "5th Platform",
+      "position": "6980,150",
+      "rotation": "0",
+      "platformSize": "400,200"
     }
+
   ]
 }

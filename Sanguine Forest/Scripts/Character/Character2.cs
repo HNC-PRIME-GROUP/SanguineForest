@@ -41,7 +41,7 @@ namespace Sanguine_Forest
         private CharState _currentState;
 
         //Movement
-        private float _speed = 9f;
+        private float _speed = 9.5f;
         private float _jumpHigh = 24f;
 
         private Vector2 _velocity = Vector2.Zero;

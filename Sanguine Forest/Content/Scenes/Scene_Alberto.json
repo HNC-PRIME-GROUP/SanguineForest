@@ -5,22 +5,31 @@
   "simplePlatforms": [
     {
       "comment": "First platform",
-      "position": "-100,100",
+      "position": "-100,500",
+
       "rotation": "0",
-      "platformSize": "10000,192"
+      "platformSize": "50000,192"
+    },
+    {
+      "comment": "Second platform",
+      "position": "400,100",
+
+      "rotation": "0",
+      "platformSize": "500,192"
     },
 
     {
       "comment": "Second platform",
-      "position": "0,-1000",
+      "position": "700,700",
+
       "rotation": "0",
-      "platformSize": "200,500"
+      "platformSize": "500,192"
     },
 
     {
       "position": "600,-500",
       "rotation": "0",
-      "platformSize": "200,500"
+      "platformSize": "100,100"
     },
 
     {
@@ -44,10 +53,11 @@
   ],
   "comment02": "platform that change their position slightly after death if risk level is high",
   "moveablPlatforms": [
-
     {
-      "comment": "random platform 1",
-      "position": "200,300"
+      "position": "0, 100",
+      "rotation": "0",
+      "platformSize": "100,100",
+      "maxShift": "50,50"
     }
   ],
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",

@@ -10,13 +10,17 @@ namespace Sanguine_Forest
     {
         public SpriteModule spriteModule;
         public float ParallaxSpeed { get; private set; }
+        public float ParallaxSpeedX { get; set; } // Existing property for horizontal speed
+        public float ParallaxSpeedY { get; set; } // New property for vertical speed
 
 
-        public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, Extentions.SpriteLayer layer, float parallaxSpeed, Camera camera)
+        public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, Extentions.SpriteLayer layer, float parallaxSpeedX, float parallaxSpeedY, Camera camera)
             : base(position, rotation)
         {
             this.spriteModule = new SpriteModule(this, Vector2.Zero, texture, layer);
-            this.ParallaxSpeed = parallaxSpeed;
+            this.ParallaxSpeedX = parallaxSpeedX;
+            this.ParallaxSpeedY = parallaxSpeedY;
+
         }
 
         public void UpdateMe(Vector2 cameraMovement)
@@ -26,7 +30,7 @@ namespace Sanguine_Forest
             //Debug.WriteLine($"Before Update - Position: {GetPosition()}");
 
             // Adjust the background's position based on its parallax speed
-            Vector2 adjustedMovement = cameraMovement * -ParallaxSpeed * 0.2f;
+            Vector2 adjustedMovement = cameraMovement * -ParallaxSpeedX * 0.2f;
             Vector2 newPosition = GetPosition() + adjustedMovement;
 
             // Round positions to the nearest whole number

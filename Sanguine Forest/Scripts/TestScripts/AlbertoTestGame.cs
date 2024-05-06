@@ -95,7 +95,7 @@ namespace Sanguine_Forest
 
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
-            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Alberto" + ".json");
 
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
@@ -160,7 +160,16 @@ namespace Sanguine_Forest
                     _environmentManager.UpdateMe();
                     break;
                 case UIManager.GameState.GameOver:
-                    // Maybe freeze the game or setup for restart
+                    // freeze the game or setup for restart
+                    break;
+                case UIManager.GameState.Win:
+                    
+                    break;
+                case UIManager.GameState.Stats:
+
+                    break;
+                case UIManager.GameState.Transitioning:
+
                     break;
             }
 
@@ -203,7 +212,7 @@ namespace Sanguine_Forest
                 _character.UpdateMe(prevState, currState);
             }
             _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
-            // Other game updates related to the Playing state
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -218,6 +227,13 @@ namespace Sanguine_Forest
                 _character.DrawMe(_spriteBatch);
                 _parallaxManager.DrawMe(_spriteBatch);
 
+                //Debug test
+                // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+                DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
+                DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
+                if (isObserverWork)
+                    DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
+
                 _spriteBatch.End();
             }
 
@@ -230,19 +246,16 @@ namespace Sanguine_Forest
                 _spriteBatch.End();
 
                 // Begin a new sprite batch without any camera transformations
-                _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-
-                // Draw the semi-transparent overlay over the whole screen
-                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
-
-                _spriteBatch.End();
-
-
                 _spriteBatch.Begin();
+
+                // Draw  semi-transparent overlay over the whole screen
+                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
 
                 _uiManager.DrawMe();
 
+
                 _spriteBatch.End();
+
             }
 
             else if (_uiManager.CurrentGameState == UIManager.GameState.Paused)
@@ -255,17 +268,15 @@ namespace Sanguine_Forest
 
                 _spriteBatch.End();
 
+
                 // Begin a new sprite batch without any camera transformations
-                _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-
-                // Draw the semi-transparent overlay over the whole screen
-                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
-
-                _spriteBatch.End();
-
                 _spriteBatch.Begin();
 
+                // Draw  semi-transparent overlay over the whole screen
+                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+
                 _uiManager.DrawMe();
+
 
                 _spriteBatch.End();
             }

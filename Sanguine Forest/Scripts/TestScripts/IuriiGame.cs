@@ -100,7 +100,7 @@ namespace Sanguine_Forest
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content);
+            _environmentManager = new EnvironmentManager(Content, _playerState);
             _environmentManager.Initialise(_currentScene);
 
 

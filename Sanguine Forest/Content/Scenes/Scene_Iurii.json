@@ -10,14 +10,7 @@
       "rotation": "0",
       "platformSize": "10000,192"
     },
-
-    {
-
-      "comment": "Second platform",
-      "position": "0,-1000",
-      "rotation": "0",
-      "platformSize": "100,100"
-    },
+  
 
     {
       "position": "600,-500",
@@ -45,7 +38,14 @@
 
   ],
   "comment02": "platform that change their position slightly after death if risk level is high",
-  "moveblPlatforms": [],
+  "moveablPlatforms": [
+    {
+      "position": "0, 100",
+      "rotation": "0",
+      "platformSize": "100,100",
+      "maxShift": "50,50"
+    }
+  ],
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
   "fallingPlatforms": [],
   "comment04": "dangerous place in any case (pites, water, thorns)",

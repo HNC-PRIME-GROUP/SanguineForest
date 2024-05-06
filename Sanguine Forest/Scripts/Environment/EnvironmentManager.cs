@@ -17,16 +17,20 @@ namespace Sanguine_Forest
         //Content manaher
         private ContentManager content;
 
+        //Player state
+        private PlayerState playerState;
+
         public List<Platform> platforms;
-        //private List<MoveblePlatform> movebles;
+        private List<MoveblePlatform> movebles;
         //private List<FallingPlatform> falling;
         //private List<Decor> decors;
 
 
         //link to content manager
-        public EnvironmentManager(ContentManager content) 
+        public EnvironmentManager(ContentManager content, PlayerState playerState) 
         { 
         this.content = content;
+            this.playerState = playerState;
         }
 
 
@@ -106,10 +110,72 @@ namespace Sanguine_Forest
                         }
                     }
                 }
-                platforms.Add(new Platform(scene.simplePlatforms[p].position, scene.simplePlatforms[p].rotation, scene.simplePlatforms[p].platformSize, content, tileDictionary, tileMap));
+                platforms.Add(new Platform(scene.simplePlatforms[p].position, scene.simplePlatforms[p].rotation, 
+                    scene.simplePlatforms[p].platformSize, content, tileDictionary, tileMap));
 
             }
-            
+
+            movebles = new List<MoveblePlatform>();
+
+            for (int p = 0; p < scene.moveablPlatforms.Count; p++)
+            {
+                string[,] tileMap = new string[(int)Math.Round(scene.moveablPlatforms[p].platformSize.Y / 64), (int)Math.Round(scene.moveablPlatforms[p].platformSize.X / 64)];
+                for (int i = 0; i < tileMap.GetLength(0); i++)
+                {
+                    for (int j = 0; j < tileMap.GetLength(1); j++)
+                    {
+                        if (i == 0 && j == 0)
+                        {
+                            tileMap[i, j] = "UpLeft";
+                            continue;
+                        }
+                        if (i == 0 && j == tileMap.GetLength(1) - 1)
+                        {
+                            tileMap[i, j] = "UpRight";
+                            continue;
+                        }
+                        if (i == tileMap.GetLength(0) - 1 && j == 0)
+                        {
+                            tileMap[i, j] = "BottomLeft";
+                            continue;
+                        }
+                        if (i == tileMap.GetLength(0) - 1 && j == tileMap.GetLength(1) - 1)
+                        {
+                            tileMap[i, j] = "BottomRight";
+                            continue;
+                        }
+                        if (i == 0 && j > 0)
+                        {
+                            tileMap[i, j] = "Up";
+                            continue;
+                        }
+
+
+                        if (i == tileMap.GetLength(0) - 1 && j > 0)
+                        {
+                            tileMap[i, j] = "Bottom";
+                            continue;
+                        }
+                        if (i > 0 && j == 0)
+                        {
+                            tileMap[i, j] = "MidLeft";
+                            continue;
+                        }
+                        if (i > 0 && j == tileMap.GetLength(1) - 1)
+                        {
+                            tileMap[i, j] = "MidRight";
+                            continue;
+                        }
+                        if (i > 0 && j > 0)
+                        {
+                            tileMap[i, j] = "Mid";
+                            continue;
+                        }
+                    }
+                }
+                movebles.Add(new MoveblePlatform(scene.moveablPlatforms[p].position, scene.moveablPlatforms[p].rotation,
+                    scene.moveablPlatforms[p].platformSize, content, tileDictionary, tileMap, scene.moveablPlatforms[p].maxShift));
+            }
 
             //movebles = scene.moveblPlatforms;
             //falling = scene.fallingPlatforms;   
@@ -121,7 +187,7 @@ namespace Sanguine_Forest
         {
             //Update for all platforms
             for (int i = 0; i < platforms.Count; i++){platforms[i].UpdateMe();}
-            //for (int i = 0; i < movebles.Count; i++) { movebles[i].UpdateMe(); }
+            for (int i = 0; i < movebles.Count; i++) { movebles[i].UpdateMe(); }
             //for (int i = 0; i < falling.Count; i++) falling[i].UpdateMe();
 
             ////update for decors
@@ -132,11 +198,19 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < platforms.Count; i++) { platforms[i].DrawMe(spriteBatch); }
-            //for (int i = 0;i < movebles.Count; i++) { movebles[i].DrawMe(spriteBatch); }
+            for (int i = 0;i < movebles.Count; i++) { movebles[i].DrawMe(spriteBatch); }
             //for(int i = 0;i<falling.Count; i++) { falling[i].DrawMe(spriteBatch); }
 
             //for(int i =0; i < decors.Count; i++) { decors[i].DrawMe(spriteBatch); }
 
+        }
+
+        public void DeathUpdate(object sender, EventArgs e)
+        {
+            for(int i =0; i<movebles.Count;i++)
+            {
+                movebles[i].MoveMe(playerState.RiskLevel);
+            }
         }
 
     }

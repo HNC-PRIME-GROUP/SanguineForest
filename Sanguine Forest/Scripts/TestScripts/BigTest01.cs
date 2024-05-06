@@ -80,7 +80,7 @@ namespace Sanguine_Forest
             DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
-         
+
 
 
             //Audio
@@ -90,7 +90,7 @@ namespace Sanguine_Forest
 
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
-            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter+".json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
 
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
@@ -100,8 +100,9 @@ namespace Sanguine_Forest
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content);
+            _environmentManager = new EnvironmentManager(Content,_playerState);
             _environmentManager.Initialise(_currentScene);
+            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
 
 
             //Set decor and parallaxing

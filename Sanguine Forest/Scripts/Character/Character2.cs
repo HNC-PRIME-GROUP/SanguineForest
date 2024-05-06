@@ -42,7 +42,7 @@ namespace Sanguine_Forest
 
         //Movement
         private float _speed = 9f;
-        private float _jumpHigh = 25f;
+        private float _jumpHigh = 20f;
 
         private Vector2 _velocity = Vector2.Zero;
         private float _gravityRate = 0.3f;

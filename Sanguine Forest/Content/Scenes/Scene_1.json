@@ -11,7 +11,7 @@
 
     {
       "comment": "First platform",
-      "position": "1150,0",
+      "position": "1150,20",
       "rotation": "0",
       "platformSize": "200,350"
     },
@@ -25,9 +25,37 @@
 
     {
       "comment": "First Wall",
-      "position": "2600,-200",
+      "position": "2600,-300",
       "rotation": "0",
-      "platformSize": "200,350"
+      "platformSize": "200,450"
+    },
+
+    {
+      "comment": "Second Wall",
+      "position": "2200,-600",
+      "rotation": "0",
+      "platformSize": "200,450"
+    },
+
+    {
+      "comment": "Third Wall",
+      "position": "2100,-1050",
+      "rotation": "0",
+      "platformSize": "500,450"
+    },
+
+    {
+      "comment": "Third Floor",
+      "position": "2800,-300",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+    {
+      "comment": "Second Platform",
+      "position": "3650,150",
+      "rotation": "0",
+      "platformSize": "450,200"
     }
+
   ]
 }

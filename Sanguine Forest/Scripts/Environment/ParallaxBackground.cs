@@ -8,7 +8,7 @@ namespace Sanguine_Forest
 {
     internal class ParallaxBackground : GameObject
     {
-        private SpriteModule spriteModule;
+        public SpriteModule spriteModule;
         public float ParallaxSpeed { get; private set; }
 
 

@@ -32,7 +32,7 @@ namespace Sanguine_Forest
         {
             // Initialize each layer individually
             InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_01", "Sprites/Background_day_02", "Sprites/Background_day_01" }, 0.55f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
-            InitializeLayer(Extentions.SpriteLayer.background_Fore_Mid, new[] { "Sprites/Background_day_03", "Sprites/Background_day_04", "Sprites/Background_day_03" }, 0.35f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
+            InitializeLayer(Extentions.SpriteLayer.background_Fore_Mid, new[] { "Sprites/Background_day_03", "Sprites/Background_day_04", "Sprites/Background_day_03" }, 0.45f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
             InitializeLayer(Extentions.SpriteLayer.background_Mid, new[] { "Sprites/Background_day_05", "Sprites/Background_day_05", "Sprites/Background_day_05" }, 0.25f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
             InitializeLayer(Extentions.SpriteLayer.background_Mid_Back, new[] { "Sprites/Background_day_06", "Sprites/Background_day_06", "Sprites/Background_day_06" }, 0.15f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
             InitializeLayer(Extentions.SpriteLayer.background_Back, new[] { "Sprites/Background_day_07", "Sprites/Background_day_07", "Sprites/Background_day_07" }, 0.05f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);

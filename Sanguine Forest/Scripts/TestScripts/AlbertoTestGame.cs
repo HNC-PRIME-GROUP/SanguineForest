@@ -9,6 +9,7 @@ using Sanguine_Forest.Scripts.Environment;
 using System.Collections.Generic;
 using Sanguine_Forest.Scripts.GameState;
 
+
 namespace Sanguine_Forest
 {
     public class AlbertoTestGame : Game
@@ -45,6 +46,10 @@ namespace Sanguine_Forest
         private DebugObserver _debugObserver;
         private bool isObserverWork = false;
 
+        private UIManager _uiManager;
+
+        Texture2D semiTransparentTexture;
+
         public AlbertoTestGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -64,6 +69,12 @@ namespace Sanguine_Forest
             FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
 
             base.Initialize();
+        }
+
+        private void ExitGame()
+        {
+            // Exit method of the Game class to exit the game
+            Exit();
         }
 
         protected override void LoadContent()
@@ -104,6 +115,14 @@ namespace Sanguine_Forest
             DebugManager.Camera = _camera;
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
 
+            // Initialize UI manager. Create an Exit method for UIManager
+            _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
+            _uiManager.RequestExit += ExitGame;
+
+            // Create a 1x1 pixel texture and set it to a semi-transparent color
+            semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
+            semiTransparentTexture.SetData(new[] { new Color(0, 0, 0, 128) }); // Adjust alpha to increase/decrease darkness
+
         }
 
         public void HandleInput(GameTime gameTime)
@@ -127,20 +146,23 @@ namespace Sanguine_Forest
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            //Environment update
-            _environmentManager.UpdateMe();
+            _uiManager.UpdateMe(currState, prevState); // Update UI manager which will handle state transitions
 
-            ////camera
-            _camera.UpdateMe();
-
-            ////Character (not updated while observer mod is on)\
-            if (!isObserverWork)
+            switch (_uiManager.CurrentGameState)
             {
-                _character.UpdateMe(prevState, currState);
+                case UIManager.GameState.StartScreen:
+                    _parallaxManager.UpdateMe(new Vector2(15, 0));
+                    break;
+                case UIManager.GameState.Playing:
+                    UpdatePlaying(gameTime);
+                    break;
+                case UIManager.GameState.Paused:
+                    _environmentManager.UpdateMe();
+                    break;
+                case UIManager.GameState.GameOver:
+                    // Maybe freeze the game or setup for restart
+                    break;
             }
-
-            //Parallax            
-            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
 
             //Debug observer (flying cam without character)
             if (currState.IsKeyUp(Keys.O) && prevState.IsKeyDown(Keys.O))
@@ -171,32 +193,83 @@ namespace Sanguine_Forest
             base.Update(gameTime);
         }
 
+        private void UpdatePlaying(GameTime gameTime)
+        {
+            // Update all game logic here when in Playing state
+            _environmentManager.UpdateMe();
+            _camera.UpdateMe();
+            if (!isObserverWork)
+            {
+                _character.UpdateMe(prevState, currState);
+            }
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
+            // Other game updates related to the Playing state
+        }
+
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+            if (_uiManager.CurrentGameState == UIManager.GameState.Playing)
+            {
+                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
 
-            _environmentManager.DrawMe(_spriteBatch);
+                _environmentManager.DrawMe(_spriteBatch);
+                _character.DrawMe(_spriteBatch);
+                _parallaxManager.DrawMe(_spriteBatch);
 
-            //Character
-            _character.DrawMe(_spriteBatch);
+                _spriteBatch.End();
+            }
 
-            //Parrallax
+            else if (_uiManager.CurrentGameState == UIManager.GameState.StartScreen)
+            {
+                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+
+                _parallaxManager.DrawMe(_spriteBatch); 
+
+                _spriteBatch.End();
+
+                // Begin a new sprite batch without any camera transformations
+                _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+
+                // Draw the semi-transparent overlay over the whole screen
+                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+
+                _spriteBatch.End();
 
 
-            _parallaxManager.DrawMe(_spriteBatch);
+                _spriteBatch.Begin();
 
+                _uiManager.DrawMe();
 
+                _spriteBatch.End();
+            }
 
-            //Debug test
-            // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
-            DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
-            DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
-            if (isObserverWork)
-                DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
+            else if (_uiManager.CurrentGameState == UIManager.GameState.Paused)
+            {
+                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
 
-            _spriteBatch.End();
+                _environmentManager.DrawMe(_spriteBatch);
+                _character.DrawMe(_spriteBatch);
+                _parallaxManager.DrawMe(_spriteBatch);
+
+                _spriteBatch.End();
+
+                // Begin a new sprite batch without any camera transformations
+                _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+
+                // Draw the semi-transparent overlay over the whole screen
+                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+
+                _spriteBatch.End();
+
+                _spriteBatch.Begin();
+
+                _uiManager.DrawMe();
+
+                _spriteBatch.End();
+            }
+
 
             base.Draw(gameTime);
         }

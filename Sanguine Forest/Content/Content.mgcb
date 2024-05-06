@@ -80,6 +80,34 @@
 /processorParam:TextureFormat=Compressed
 /build:Extentions/debugFont.spritefont
 
+#begin Fonts/GameFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/GameFont.spritefont
+
+#begin Fonts/GameFontLrg.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/GameFontLrg.spritefont
+
+#begin Fonts/TitleFontLrg.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/TitleFontLrg.spritefont
+
+#begin Fonts/TitleFontSmll.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/TitleFontSmll.spritefont
+
 #begin Sounds/Sound_Char_Climb.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

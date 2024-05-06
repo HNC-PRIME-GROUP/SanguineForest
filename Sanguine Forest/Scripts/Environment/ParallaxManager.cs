@@ -47,7 +47,7 @@ namespace Sanguine_Forest
 
             {
                 ParallaxBackground background = new ParallaxBackground(position, 0, content.Load<Texture2D>(texture), layer, speed, camera2);
-                background.spriteModule.SetDrawRectangle(new Rectangle(_camera.position.ToPoint(), new Vector2(_screenWidth,_screenHeight).ToPoint()));
+                background.spriteModule.SetDrawRectangle(new Rectangle(new Vector2(_camera.position.X, _camera.position.Y-100).ToPoint(), new Vector2(_screenWidth,_screenHeight+200).ToPoint()));
                 backgrounds.Add(background);
                 position.X += _screenWidth;  // Position each subsequent background immediately to the right of the last
             }
@@ -73,6 +73,7 @@ namespace Sanguine_Forest
                 foreach (var background in backgrounds)
                 {
                     background.UpdateMe(deltaMovement);
+                    background.SetPosition(new Vector2(background.GetPosition().X, _camera.GetCameraTarget().GetPosition().Y-_screenHeight/2-100));
                     float currentRightEdge = background.GetPosition().X + _screenWidth;
                     float currentLeftEdge = background.GetPosition().X;
 
@@ -102,7 +103,9 @@ namespace Sanguine_Forest
                         background.SetPosition(new Vector2(minLeft - _screenWidth * _camera.zoom, background.GetPosition().Y));
                         //Debug.WriteLine($"Repositioning from {originalX} to {background.GetPosition().X} (left loop)");
                     }
+                    
                 }
+                
                 
                 //backgrounds.ForEach(bg => Debug.WriteLine($"Layer {layer.Key} - After Update - Position: {bg.GetPosition()}"));
             }

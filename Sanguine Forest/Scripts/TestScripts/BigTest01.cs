@@ -90,7 +90,7 @@ namespace Sanguine_Forest
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
-
+            
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
@@ -181,6 +181,12 @@ namespace Sanguine_Forest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            _spriteBatch.Begin();
+            //Parrallax
+            _parallaxManager.DrawMe(_spriteBatch);
+            _spriteBatch.End();
+              
+
             _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
 
             _environmentManager.DrawMe(_spriteBatch);
@@ -188,8 +194,7 @@ namespace Sanguine_Forest
             //Character
             _character.DrawMe(_spriteBatch);
 
-            //Parrallax
-            _parallaxManager.DrawMe(_spriteBatch);
+            
 
 
 
@@ -201,6 +206,8 @@ namespace Sanguine_Forest
                 DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
 
             _spriteBatch.End();
+
+
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

@@ -1,5 +1,5 @@
-{ 
-  "AlcoholLevel" : "0",
-  "IsAlive" : "true",
-  "lvlCounter" :  "0"
+{
+  "RiskLevel": "0",
+  "IsAlive": "true",
+  "lvlCounter": "0"
 }

@@ -5,6 +5,7 @@ using System;
 using Extention;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace Sanguine_Forest
 {
@@ -195,6 +196,16 @@ namespace Sanguine_Forest
         {
             drawRectangle = defaultFrameRectangle;
         }
+
+        /// <summary>
+        /// Set new texture for the 
+        /// </summary>
+        /// <param name="texture"></param>
+        public void SetTexture(Texture2D texture)
+        {
+            this.texture = texture;   
+        }
+
 
 
         #endregion

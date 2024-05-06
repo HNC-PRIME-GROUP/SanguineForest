@@ -90,7 +90,7 @@ namespace Sanguine_Forest
             _camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content);
+            _environmentManager = new EnvironmentManager(Content,_playerState);
             _environmentManager.Initialise(_currentScene);
 
             //Set decor and parallaxing
@@ -154,10 +154,15 @@ namespace Sanguine_Forest
 
             //Parrallax
 
+
             _parallaxManager.DrawMe(_spriteBatch);
+
+
 
             //Debug test
             // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+            DebugManager.DebugString("Camera pos:"+_camera.position, new Vector2(0,0));
+            DebugManager.DebugString("Character pos: "+ _character.GetPosition(), new Vector2(0,20));
 
             _spriteBatch.End();
 

@@ -146,7 +146,7 @@ namespace Sanguine_Forest
             //Global time
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            _uiManager.UpdateMe(currState, prevState); // Update UI manager which will handle state transitions
+            _uiManager.UpdateMe(gameTime, currState, prevState); // Update UI manager which will handle state transitions
 
             switch (_uiManager.CurrentGameState)
             {

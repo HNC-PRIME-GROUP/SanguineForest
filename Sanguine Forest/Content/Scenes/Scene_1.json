@@ -1,5 +1,5 @@
 {
-  "characterPosition": "0, -0",
+  "characterPosition": "9050,-1600",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -32,14 +32,14 @@
 
     {
       "comment": "Second Wall",
-      "position": "2200,-650",
+      "position": "2200,-800",
       "rotation": "0",
-      "platformSize": "200,500"
+      "platformSize": "200,650"
     },
 
     {
       "comment": "Decor Wall1",
-      "position": "2100,-1250",
+      "position": "2100,-1400",
       "rotation": "0",
       "platformSize": "500,650"
     },
@@ -114,9 +114,9 @@
 
     {
       "comment": "Forth Wall",
-      "position": "8450,-1600",
+      "position": "8450,-2000",
       "rotation": "0",
-      "platformSize": "400,1200"
+      "platformSize": "400,1700"
     },
 
     {
@@ -131,7 +131,36 @@
       "position": "9050,-1600",
       "rotation": "0",
       "platformSize": "400,600"
+    },
+
+    {
+      "comment": "First Roof",
+      "position": "8450,-2000",
+      "rotation": "0",
+      "platformSize": "2750,100"
+    },
+
+    {
+      "comment": "6th Floor",
+      "position": "9050,-1600",
+      "rotation": "0",
+      "platformSize": "2000,200"
+    },
+
+    {
+      "comment": "7th Wall",
+      "position": "9880,-1600",
+      "rotation": "0",
+      "platformSize": "400,2200"
+    },
+
+    {
+      "comment": "7th Platform",
+      "position": "11150,-1350",
+      "rotation": "0",
+      "platformSize": "400,200"
     }
+
 
   ],
   "moveablPlatforms": [

@@ -5,6 +5,7 @@ using System;
 using Sanguine_Forest.Scripts.GameState;
 using Microsoft.Xna.Framework.Content;
 
+
 namespace Sanguine_Forest
 {
     internal class UIManager
@@ -186,28 +187,37 @@ namespace Sanguine_Forest
             spriteBatch.DrawString(gameFontSmll, backText, backPosition, Color.White);
         }
 
-        private void DrawInteractionTextsExit()
+        private void DrawInteractionTextsStartScreen()
         {
-            string okText = "Press A - OK";
-            string backText = "Press B - Exit";
+            string newgameText = "N - NEW GAME";
+            string loadgameText = "L - LOAD GAME";
+            string instructionsText = "I - INSTRUCTIONS";
+            string backText = "ESC - Exit";
 
             // Measure text size to position it at the center-bottom of the screen
-            Vector2 okSize = gameFontSmll.MeasureString(okText);
+            Vector2 newgameSize = gameFontSmll.MeasureString(newgameText);
+            Vector2 loadgameSize = gameFontSmll.MeasureString(loadgameText);
+            Vector2 instructionsSize = gameFontSmll.MeasureString(instructionsText);
             Vector2 backSize = gameFontSmll.MeasureString(backText);
 
             // Calculate positions
-            Vector2 okPosition = new Vector2((graphicsDevice.Viewport.Width - okSize.X) / 2, graphicsDevice.Viewport.Height - okSize.Y - 50);
-            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, graphicsDevice.Viewport.Height - backSize.Y - 10);
+            Vector2 newgamePosition = new Vector2((graphicsDevice.Viewport.Width - newgameSize.X) / 2, (graphicsDevice.Viewport.Height - newgameSize.Y) / 2 - 100);
+            Vector2 loadgamePosition = new Vector2((graphicsDevice.Viewport.Width - loadgameSize.X) / 2 , (graphicsDevice.Viewport.Height - loadgameSize.Y) / 2 + 0);
+            Vector2 instructionsPosition = new Vector2((graphicsDevice.Viewport.Width - instructionsSize.X) / 2, (graphicsDevice.Viewport.Height - instructionsSize.Y) / 2 + 100);
+            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, (graphicsDevice.Viewport.Height - backSize.Y) / 2 + 200);
 
             // Draw text
-            spriteBatch.DrawString(gameFontSmll, okText, okPosition, Color.White);
+            spriteBatch.DrawString(gameFontSmll, newgameText, newgamePosition, Color.White);
+            spriteBatch.DrawString(gameFontSmll, loadgameText, loadgamePosition, Color.White);
+            // Draw text
+            spriteBatch.DrawString(gameFontSmll, instructionsText, instructionsPosition, Color.White);
             spriteBatch.DrawString(gameFontSmll, backText, backPosition, Color.White);
         }
 
         private void DrawStartScreen()
         {
             DrawScreen("Sanguine Forest");
-            DrawInteractionTextsExit();                       
+            DrawInteractionTextsStartScreen();                       
         }
 
         private void DrawPlayingScreen()

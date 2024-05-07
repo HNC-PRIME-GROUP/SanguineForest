@@ -29,14 +29,16 @@ namespace Sanguine_Forest
 
 
         //Character state
-        private enum CharState
+        public enum CharState
         {
             idle,
             walk,
             jump,
             cling,
             wallJump,
-            falling
+            falling,
+            Death
+
         }
         private CharState _currentState;
 
@@ -47,6 +49,8 @@ namespace Sanguine_Forest
         private Vector2 _velocity = Vector2.Zero;
         private float _gravityRate = 0.3f;
         private float _gravityEffect = 0;
+        //start position saved to restore the character here
+        private Vector2 startPos;
 
         //work around for cling update
         private Rectangle currClingRectangle;
@@ -58,17 +62,24 @@ namespace Sanguine_Forest
         public Character2(Vector2 position, float rotation, ContentManager content) : base(position, rotation)
         {
 
+            //Save start pos
+            startPos = position;
+
             //Animation and graphic
             _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_Character_v1"),
                 Extentions.SpriteLayer.character1);
 
             _SpriteModule.SetScale(0.15f);
 
-            _animations = new Dictionary<string, AnimationSequence>();
-            _animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));
-            _animations.Add("Run", new AnimationSequence(new Vector2(0, 700), 3));
-            _animations.Add("Jump", new AnimationSequence(new Vector2(0, 1400), 5));
-            _animations.Add("hugWall", new AnimationSequence(new Vector2(4200, 1400), 0));
+            _animations = new Dictionary<string, AnimationSequence>
+            {
+                { "Idle", new AnimationSequence(Vector2.Zero, 3) },
+                { "Run", new AnimationSequence(new Vector2(0, 700), 3) },
+                { "Jump", new AnimationSequence(new Vector2(0, 1400), 5) },
+                { "hugWall", new AnimationSequence(new Vector2(4200, 1400), 0) },
+                { "Death", new AnimationSequence(new Vector2(0, 2100), 2) }
+            };
+
 
             _spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), _animations);
 
@@ -127,6 +138,8 @@ namespace Sanguine_Forest
                     break;
                 case CharState.falling:
                     FallingUpdate(prev, curr);
+                    break;
+                case CharState.Death:
                     break;
             }
 
@@ -304,6 +317,30 @@ namespace Sanguine_Forest
             }
         }
 
+        public void DeathUpdate()
+        {
+            _animationModule.SetAnimationSpeed(0.9f);
+            _animationModule.PlayOnce("Death");
+            _animationModule.AnimationEnd += CharacterRestore;
+
+
+        }
+
+        public void CharacterRestore(object obj, EventArgs e)
+        {
+            _currentState = CharState.idle;
+            position = startPos;
+            _animationModule.AnimationEnd -= CharacterRestore;
+        }
+
+        public void CharacterRestore()
+        {
+            _currentState = CharState.idle;
+            position = startPos;
+        }
+
+
+
         #endregion
 
 
@@ -412,6 +449,7 @@ namespace Sanguine_Forest
 
         public void Death()
         {
+            _currentState = CharState.Death;
             DeathEvent?.Invoke(this, EventArgs.Empty);
         }
 
@@ -439,6 +477,10 @@ namespace Sanguine_Forest
             return _velocity.X;
         }
 
+        public CharState GetCharacterState()
+        {
+            return _currentState;
+        }
 
 
     }

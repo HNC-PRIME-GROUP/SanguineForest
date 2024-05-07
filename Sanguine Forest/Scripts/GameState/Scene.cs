@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sanguine_Forest.Scripts.Environment.Obstacle;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
@@ -23,11 +24,12 @@ namespace Sanguine_Forest
         public List<MovebalPlatformData> moveablPlatforms;
         //public List<FallingPlatform> fallingPlatforms;
 
+        //Obstacles
+        public List<ThornsData> thorns;
+        
         //public List<Decor> decors; // in case if we add some
 
 
-        //Background parallaxing
-        //public List<ParallaxBackground> bachgrounds;
 
 
 

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sanguine_Forest.Scripts.Environment.Obstacle;
 using SharpDX.MediaFoundation;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,9 @@ namespace Sanguine_Forest
         private List<MoveblePlatform> movebles;
         //private List<FallingPlatform> falling;
         //private List<Decor> decors;
+
+        //Dangerous
+        public List<Thorns> thorns;
 
 
         //link to content manager
@@ -115,6 +119,7 @@ namespace Sanguine_Forest
 
             }
 
+            //Initialise moveable platforms
             movebles = new List<MoveblePlatform>();
 
             for (int p = 0; p < scene.moveablPlatforms.Count; p++)
@@ -177,6 +182,14 @@ namespace Sanguine_Forest
                     scene.moveablPlatforms[p].platformSize, content, tileDictionary, tileMap, scene.moveablPlatforms[p].maxShift));
             }
 
+
+            thorns = new List<Thorns>();
+            for(int i =0; i< scene.thorns.Count; i++) 
+            {
+                thorns.Add(new Thorns(scene.thorns[i].Position, scene.thorns[i].Rotation, content, scene.thorns[i].ThornsSize));
+            }
+
+
             //movebles = scene.moveblPlatforms;
             //falling = scene.fallingPlatforms;   
             //decors = scene.decors;
@@ -188,6 +201,7 @@ namespace Sanguine_Forest
             //Update for all platforms
             for (int i = 0; i < platforms.Count; i++){platforms[i].UpdateMe();}
             for (int i = 0; i < movebles.Count; i++) { movebles[i].UpdateMe(); }
+            for (int i = 0;i < thorns.Count; i++) { thorns[i].UpdateMe();}
             //for (int i = 0; i < falling.Count; i++) falling[i].UpdateMe();
 
             ////update for decors
@@ -199,6 +213,7 @@ namespace Sanguine_Forest
         {
             for (int i = 0; i < platforms.Count; i++) { platforms[i].DrawMe(spriteBatch); }
             for (int i = 0;i < movebles.Count; i++) { movebles[i].DrawMe(spriteBatch); }
+            for(int i =0; i< thorns.Count; i++) { thorns[i].DrawMe(spriteBatch); }
             //for(int i = 0;i<falling.Count; i++) { falling[i].DrawMe(spriteBatch); }
 
             //for(int i =0; i < decors.Count; i++) { decors[i].DrawMe(spriteBatch); }

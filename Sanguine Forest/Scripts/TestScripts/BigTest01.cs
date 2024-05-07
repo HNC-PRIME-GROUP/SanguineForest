@@ -184,6 +184,7 @@ namespace Sanguine_Forest
             _spriteBatch.Begin();
             //Parrallax
             _parallaxManager.DrawMe(_spriteBatch);
+          
             _spriteBatch.End();
               
 
@@ -205,6 +206,10 @@ namespace Sanguine_Forest
             if (isObserverWork)
                 DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
 
+            _spriteBatch.End();
+
+            _spriteBatch.Begin();
+            DebugManager.DebugRectangle(new Rectangle(100, 100, 50, 50));
             _spriteBatch.End();
 
 

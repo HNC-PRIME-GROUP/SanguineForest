@@ -179,16 +179,12 @@ namespace Sanguine_Forest
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
-
             _environmentManager.DrawMe(_spriteBatch);
-
             //Character
             _character.DrawMe(_spriteBatch);
 
             //Parrallax
             _parallaxManager.DrawMe(_spriteBatch);
-
-
 
             //Debug test
             // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
@@ -196,7 +192,11 @@ namespace Sanguine_Forest
             DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
             if (isObserverWork)
                 DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
+           // DebugManager.DebugRectangle(new Rectangle(500, -500, 128, 128));
+            _spriteBatch.End();
 
+            _spriteBatch.Begin();
+            DebugManager.DebugRectangle(new Rectangle(100, 100, 50, 50));
             _spriteBatch.End();
             // TODO: Add your drawing code here
 

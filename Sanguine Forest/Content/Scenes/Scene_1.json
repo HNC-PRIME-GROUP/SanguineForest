@@ -11,9 +11,9 @@
 
     {
       "comment": "First platform",
-      "position": "1150,20",
+      "position": "1150,-50",
       "rotation": "0",
-      "platformSize": "200,350"
+      "platformSize": "250,350"
     },
 
     {
@@ -88,7 +88,7 @@
       "comment": "Third Wall",
       "position": "7000,-1600",
       "rotation": "0",
-      "platformSize": "450,1300"
+      "platformSize": "450,1100"
     },
 
     {
@@ -96,6 +96,41 @@
       "position": "6980,120",
       "rotation": "0",
       "platformSize": "400,200"
+    },
+
+    {
+      "comment": "5th Floor",
+      "position": "7550,-100",
+      "rotation": "0",
+      "platformSize": "500,1000"
+    },
+
+    {
+      "comment": "6th Platform",
+      "position": "8450,100",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "Forth Wall",
+      "position": "8450,-1600",
+      "rotation": "0",
+      "platformSize": "400,1200"
+    },
+
+    {
+      "comment": "5th Wall",
+      "position": "9050,-600",
+      "rotation": "0",
+      "platformSize": "400,1200"
+    },
+
+    {
+      "comment": "6th Wall",
+      "position": "9050,-1600",
+      "rotation": "0",
+      "platformSize": "400,600"
     }
 
   ],

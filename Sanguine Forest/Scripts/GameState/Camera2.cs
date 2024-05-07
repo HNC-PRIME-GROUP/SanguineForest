@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Sanguine_Forest.Scripts.GameState
 {
     internal class Camera2
     {
-        public Rectangle Viewport;  // Defines the portion of the world to show on the screen.
+        public Rectangle Viewport;  // Defines the portion of the world to show on the screen
         public Vector2 Position;
         public float Zoom;
 
@@ -22,12 +23,11 @@ namespace Sanguine_Forest.Scripts.GameState
             this.Viewport = new Rectangle((int)position.X, (int)position.Y, 1920, 1080);
             this.Zoom = 1.0f;
 
-            // Set the viewport size to 50% of the full game resolution
             this.Viewport = new Rectangle(
                 (int)position.X,
-                (int)position.Y,
-                (int)(screenSize.X * 0.7),
-                (int)(screenSize.Y * 0.7)
+            (int)position.Y,
+                (int)(screenSize.X * 0.7), // 70 % of the full game resolution
+                (int)(screenSize.Y * 0.7)  // 70 % of the full game resolution
             );
         }
 
@@ -38,7 +38,7 @@ namespace Sanguine_Forest.Scripts.GameState
             Position.X = MathHelper.Clamp(targetX, -100000, 100000 - Viewport.Width);
 
             // Fixed Y position relative to the background and character jump range
-            Position.Y = MathHelper.Clamp(CameraTarget.GetPosition().Y, 0, 350);  // Adjust these values based on your game's design
+            Position.Y = MathHelper.Clamp(CameraTarget.GetPosition().Y, 0, 350);  
 
             // Update the viewport as the camera moves
             this.Viewport = new Rectangle((int)Position.X, (int)Position.Y, Viewport.Width, Viewport.Height);

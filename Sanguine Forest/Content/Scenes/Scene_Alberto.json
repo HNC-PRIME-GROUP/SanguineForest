@@ -5,38 +5,67 @@
   "simplePlatforms": [
     {
       "comment": "First platform",
-      "position": "-100,500",
+      "position": "-100,1000",
 
       "rotation": "0",
-      "platformSize": "50000,192"
+      "platformSize": "50000,200"
     },
     {
       "comment": "Second platform",
-      "position": "400,100",
+      "position": "400,900",
 
       "rotation": "0",
-      "platformSize": "500,192"
+      "platformSize": "500,200"
     },
 
     {
       "comment": "Second platform",
-      "position": "700,700",
+      "position": "500,800",
 
       "rotation": "0",
-      "platformSize": "500,192"
+      "platformSize": "500,200"
     },
 
     {
-      "position": "600,-500",
+      "position": "600,700",
       "rotation": "0",
-      "platformSize": "100,100"
+      "platformSize": "500,200"
     },
 
     {
-      "position": "1200,-500",
+      "position": "700,600",
       "rotation": "0",
-      "platformSize": "200,500"
+      "platformSize": "500,200"
     },
+    {
+      "position": "800,500",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+
+    {
+      "position": "900,400",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+
+    {
+      "position": "1000,300",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+    {
+      "position": "2000,200",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+
+    {
+      "position": "900,400",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+
 
     {
       "position": "1800,-500",

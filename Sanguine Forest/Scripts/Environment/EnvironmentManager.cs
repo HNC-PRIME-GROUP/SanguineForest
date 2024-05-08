@@ -29,6 +29,11 @@ namespace Sanguine_Forest
         //Dangerous
         public List<Thorns> thorns;
 
+        //Obstacles
+        public List<Obstacle> obstacles1;
+        public List<Obstacle> obstacles2;
+        public List<Obstacle> obstacles3;
+
 
         //link to content manager
         public EnvironmentManager(ContentManager content, PlayerState playerState) 
@@ -43,7 +48,7 @@ namespace Sanguine_Forest
         {
             platforms = new List<Platform>();
 
-            //tiles
+            //tiles for platforms
             Dictionary<string, Rectangle> tileDictionary = new Dictionary<string, Rectangle>
             {
                 {"UpLeft", new Rectangle(0,0,512,512) },
@@ -189,7 +194,7 @@ namespace Sanguine_Forest
                 thorns.Add(new Thorns(scene.thorns[i].Position, scene.thorns[i].Rotation, content, scene.thorns[i].ThornsSize));
             }
 
-
+            //Falling platforms
             fallingPlatforms = new List<FallingPlatform>();
             for(int p =0;p<scene.fallingPlatforms.Count;p++) 
             {
@@ -250,7 +255,31 @@ namespace Sanguine_Forest
                 fallingPlatforms.Add(new FallingPlatform(scene.fallingPlatforms[p].Position, scene.fallingPlatforms[p].Rotation,
                     scene.fallingPlatforms[p].PlatformSize, content, tileDictionary, tileMap, scene.fallingPlatforms[p].TimeToFall));
             }
-              
+
+
+            //Obstacles several lists to make them different levels of difficulty according to risk level 
+            obstacles1 = new List<Obstacle>();
+            for (int i =0; i <scene.obstaclesData1.Count;i++)
+            {
+                obstacles1.Add(new Obstacle(scene.obstaclesData1[i].Position, scene.obstaclesData1[i].Rotation, 
+                    content, scene.obstaclesData1[i].slimeType, scene.obstaclesData1[i].finPosition, 
+                    scene.obstaclesData1[i].Speed, scene.obstaclesData1[i].Size));
+            }
+            obstacles2 = new List<Obstacle>();
+            for (int i = 0; i < scene.obstaclesData2.Count; i++)
+            {
+                obstacles2.Add(new Obstacle(scene.obstaclesData2[i].Position, scene.obstaclesData2[i].Rotation,
+                    content, scene.obstaclesData2[i].slimeType, scene.obstaclesData2[i].finPosition,
+                    scene.obstaclesData2[i].Speed, scene.obstaclesData2[i].Size));
+            }
+            obstacles3 = new List<Obstacle>();
+            for (int i = 0; i < scene.obstaclesData3.Count; i++)
+            {
+                obstacles3.Add(new Obstacle(scene.obstaclesData3[i].Position, scene.obstaclesData3[i].Rotation,
+                    content, scene.obstaclesData3[i].slimeType, scene.obstaclesData3[i].finPosition,
+                    scene.obstaclesData3[i].Speed, scene.obstaclesData3[i].Size));
+            }
+
             //decors = scene.decors;
         }
 
@@ -263,6 +292,11 @@ namespace Sanguine_Forest
             for (int i = 0;i < thorns.Count; i++) { thorns[i].UpdateMe();}
             for (int i = 0; i < fallingPlatforms.Count; i++) fallingPlatforms[i].UpdateMe();
 
+            //update for obstacles
+            for(int i =0; i < obstacles1.Count; i++) { obstacles1[i].UpdateMe(); }
+            for(int i = 0; i < obstacles2.Count; i++) { obstacles2[i].UpdateMe(); }
+            for(int i =0;i< obstacles3.Count; i++) { obstacles3[i].UpdateMe(); }
+
             ////update for decors
             //for(int i =0; i < decors.Count; i++) { decors[i].UpdateMe(); }
         
@@ -270,10 +304,18 @@ namespace Sanguine_Forest
 
         public void DrawMe(SpriteBatch spriteBatch)
         {
+            //platform draw
             for (int i = 0; i < platforms.Count; i++) { platforms[i].DrawMe(spriteBatch); }
-            for (int i = 0;i < movebles.Count; i++) { movebles[i].DrawMe(spriteBatch); }
-            for(int i =0; i< thorns.Count; i++) { thorns[i].DrawMe(spriteBatch); }
+            for (int i = 0;i < movebles.Count; i++) { movebles[i].DrawMe(spriteBatch); }            
             for(int i = 0;i<fallingPlatforms.Count; i++) { fallingPlatforms[i].DrawMe(spriteBatch); }
+
+            //thorns draw
+            for (int i = 0; i < thorns.Count; i++) { thorns[i].DrawMe(spriteBatch); }
+
+            //obstacles draw
+            for (int i = 0; i < obstacles1.Count; i++) { obstacles1[i].Draw(spriteBatch); }
+            for(int i = 0; i < obstacles2.Count; i++) { obstacles2[i].Draw(spriteBatch); }
+            for(int i = 0; i < obstacles3.Count; i++) { obstacles3[i].Draw(spriteBatch); }
 
             //for(int i =0; i < decors.Count; i++) { decors[i].DrawMe(spriteBatch); }
 
@@ -284,6 +326,10 @@ namespace Sanguine_Forest
             for(int i =0; i<movebles.Count;i++)
             {
                 movebles[i].MoveMe(playerState.RiskLevel);
+            }
+            for(int i =0; i<fallingPlatforms.Count;i++) 
+            {
+                fallingPlatforms[i].RandomMyFallingTime(playerState.RiskLevel);
             }
         }
 

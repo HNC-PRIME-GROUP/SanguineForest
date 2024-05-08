@@ -30,7 +30,7 @@ namespace Sanguine_Forest.Scripts.Environment.Obstacle
         public Thorns(Vector2 positioon, float rotation, ContentManager content, Vector2 thornsSize) : base(positioon, rotation)
         {
 
-            _spriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/thorns_02"), Extentions.SpriteLayer.environment1);
+            _spriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/thorns_02"), Extentions.SpriteLayer.environment2);
             tileSize = new Vector2(128, 128);
             Dictionary<string, Rectangle> dictionary = new Dictionary<string, Rectangle>()
             {

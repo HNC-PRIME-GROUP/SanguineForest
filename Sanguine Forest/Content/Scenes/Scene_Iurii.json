@@ -12,8 +12,8 @@
     {
       "Position": "800,-100",
       "Rotation": "0",
-      "PlatformSize": "200,200",
-      
+      "PlatformSize": "200,200"
+
     }
   ],
   "comment02": "platform that change their position slightly after death if risk level is high",
@@ -28,7 +28,7 @@
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
   "fallingPlatforms": [
 
-   
+
     {
       "Position": "400,-300",
       "Rotation": "0",
@@ -47,11 +47,33 @@
   "dangerPlaces": [],
   "comment05": "decor",
   "decors": [],
-  "comment06": "Obstacles that can be reduced with risk level (or opposite - added)",
-  "obstacles": [],
+
+  "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
+  "obstaclesData1": [
+    {
+      "Position": "100,100",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "200,-200",
+      "Speed": "2",
+      "Size":  "200,200"
+    }
+  ],
+  "obstaclesData2": [
+    {
+      "Position": "-300,100",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "-600,-200",
+      "Speed": "5",
+      "Size": "200,200"
+    }
+
+  ],
+  "obstaclesData3": [],
   "comment07": "Thorns - danger polaces",
   "thorns": [
-   
+
     {
       "Position": "-500,-800",
       "Rotation": "0",

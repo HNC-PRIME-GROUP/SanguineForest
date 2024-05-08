@@ -25,6 +25,11 @@ namespace Sanguine_Forest
         public List<FallingPlatformData> fallingPlatforms;
 
         //Obstacles
+        public List<ObstacleData> obstaclesData1;
+        public List<ObstacleData> obstaclesData2;
+        public List<ObstacleData> obstaclesData3;
+
+        //Obstacles
         public List<ThornsData> thorns;
         
         //public List<Decor> decors; // in case if we add some

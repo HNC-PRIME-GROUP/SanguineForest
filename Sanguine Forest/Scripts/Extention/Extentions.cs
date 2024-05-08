@@ -52,6 +52,7 @@ namespace Extention
             foreground = 0,
             character1,
             character2,
+            obstacles,
             environment1,
             environment2,
             background_Fore,
@@ -59,7 +60,7 @@ namespace Extention
             background_Mid,
             background_Mid_Back,
             background_Back,
-            obstacles,
+            
             Length
         }
 

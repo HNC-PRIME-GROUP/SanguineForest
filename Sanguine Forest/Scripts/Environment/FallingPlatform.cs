@@ -31,7 +31,11 @@ namespace Sanguine_Forest
         //fall timers
         private float maxTimer;
         private float currTimer;
+        //the revive is a double timer actually 
+        private float reviveTimer = 4f;
 
+        //Randomise the fall time
+        private Random _rng;
 
         public FallingPlatform(Vector2 position, 
                                 float rotation, 
@@ -47,7 +51,9 @@ namespace Sanguine_Forest
             maxTimer=timeToFall;
             state = FallState.Stand;
             this.timeToFall=timeToFall;
-        
+            _rng = new Random();
+
+
         }
 
         public new  void UpdateMe()
@@ -61,17 +67,18 @@ namespace Sanguine_Forest
                 case FallState.Falling:
                     currTimer -= Extention.Extentions.globalTime;
                     Color currColor = _spriteModule.GetColor();
-                    currColor.A -= (byte)Math.Round(Math.Clamp((255 / timeToFall * Extention.Extentions.globalTime), 1, byte.MaxValue));
-                    currColor.R -= (byte)Math.Round(Math.Clamp((255 / timeToFall * Extention.Extentions.globalTime), 1, byte.MaxValue));
-                    currColor.G -= (byte)Math.Round(Math.Clamp((255 / timeToFall * Extention.Extentions.globalTime), 1, byte.MaxValue));
-                    currColor.B -= (byte)Math.Round(Math.Clamp((255 / timeToFall * Extention.Extentions.globalTime), 1, byte.MaxValue));
+                    byte redux = (byte)Math.Round(Math.Clamp((255 / timeToFall * Extention.Extentions.globalTime), 1, byte.MaxValue));
+                    currColor.A -= redux;
+                    currColor.R -= redux;
+                    currColor.G -= redux;
+                    currColor.B -= redux;
                     _spriteModule.SetColor(currColor);
                     if(currTimer<=0)
                     {
                         platformPhysic.isPhysicActive = false;
                         currColor = Color.Transparent;
                         _spriteModule.SetColor(currColor);
-                        currTimer = timeToFall;
+                        currTimer = reviveTimer;
                         state= FallState.Pause;
                     }
                     break;
@@ -79,17 +86,18 @@ namespace Sanguine_Forest
                     currTimer -= Extention.Extentions.globalTime;
                     if(currTimer<=0)
                     {
-                        currTimer= timeToFall;
+                        currTimer= reviveTimer;
                         state= FallState.Restoring;
                     }
                     break;
                 case FallState.Restoring:
                     currTimer -=Extention.Extentions.globalTime;
                     Color currColorBack = _spriteModule.GetColor();
-                    currColorBack.A += (byte)Math.Round(Math.Clamp((255 / timeToFall * Extention.Extentions.globalTime), 1, byte.MaxValue));
-                    //currColorBack.R += (byte)Math.Round(Math.Clamp((255 / timeToFall * Extention.Extentions.globalTime), 1, byte.MaxValue));
-                    currColorBack.G += (byte)Math.Round(Math.Clamp((255 / timeToFall * Extention.Extentions.globalTime), 1, byte.MaxValue));
-                    currColorBack.B += (byte)Math.Round(Math.Clamp((255 / timeToFall * Extention.Extentions.globalTime), 1, byte.MaxValue));
+                    byte reduxBack = (byte)Math.Round(Math.Clamp((255 / reviveTimer * Extention.Extentions.globalTime), 1, byte.MaxValue));
+                    currColorBack.A += reduxBack;
+                    //currColorBack.R += reduxBack ;
+                    currColorBack.G += reduxBack;
+                    currColorBack.B += reduxBack;
                     _spriteModule.SetColor(currColorBack);
                     if(currTimer<=0)
                     {
@@ -114,6 +122,11 @@ namespace Sanguine_Forest
             }
 
 
+        }
+
+        public void RandomMyFallingTime(float riskLevel)
+        {
+            timeToFall = (float)Math.Clamp(maxTimer - _rng.NextDouble() * riskLevel, 0, maxTimer);
         }
     }
 

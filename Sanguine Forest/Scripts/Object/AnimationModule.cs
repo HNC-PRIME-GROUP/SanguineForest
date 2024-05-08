@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Extention;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System;
 
 namespace Sanguine_Forest
 {
@@ -26,6 +27,8 @@ namespace Sanguine_Forest
         private int _currentFrameIndex=0;
         private string _currentFramStringInd;
 
+        //Messing up with events
+        public event EventHandler AnimationEnd;
 
 
         
@@ -54,7 +57,7 @@ namespace Sanguine_Forest
         public override void UpdateMe()
         {
             animationTimer += Extentions.globalTime;
-            if(animationTimer>animationSpeed)
+            if(animationTimer>animationSpeed && _animationSequence.animationState!=AnimationSequence.AnimationState.stopped)
             {
                 animationTimer = 0f;
                 isTimeToNextFrame = true;
@@ -73,6 +76,10 @@ namespace Sanguine_Forest
                             _currentFrame.Location = _animationSequence.startFramPos.ToPoint();
                             break;
                         case AnimationSequence.AnimationState.playingOnce:
+                            AnimationEnd?.Invoke(this, EventArgs.Empty);
+                            _animationSequence.animationState = AnimationSequence.AnimationState.stopped;
+                            break;
+                        case AnimationSequence.AnimationState.stopped:
                             break;
                     }
                 }

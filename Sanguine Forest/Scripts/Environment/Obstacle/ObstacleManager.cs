@@ -27,7 +27,7 @@ namespace Sanguine_Forest
         {
             foreach (var obstacle in obstacles)
             {
-                obstacle.Draw(spriteBatch, currentAlcoholLevel);
+                //obstacle.Draw(spriteBatch, currentAlcoholLevel);
             }
         }
     }

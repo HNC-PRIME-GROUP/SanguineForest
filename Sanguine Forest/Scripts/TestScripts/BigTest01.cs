@@ -184,6 +184,7 @@ namespace Sanguine_Forest
             _spriteBatch.Begin();
             //Parrallax
             _parallaxManager.DrawMe(_spriteBatch);
+          
             _spriteBatch.End();
               
 
@@ -208,8 +209,10 @@ namespace Sanguine_Forest
             _spriteBatch.End();
 
             _spriteBatch.Begin();
+
             DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
             _spriteBatch.End();
+
 
 
 

@@ -32,7 +32,8 @@ namespace Sanguine_Forest
         //Obstacles
         public List<ThornsData> thorns;
         
-        //public List<Decor> decors; // in case if we add some
+        //Decor
+        public List<DecorGrassData> decors; //Grass
 
 
 

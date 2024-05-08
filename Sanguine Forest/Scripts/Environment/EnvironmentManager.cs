@@ -34,6 +34,9 @@ namespace Sanguine_Forest
         public List<Obstacle> obstacles2;
         public List<Obstacle> obstacles3;
 
+        //Decor Grass
+        public List<Decor> grassDecor;
+
 
         //link to content manager
         public EnvironmentManager(ContentManager content, PlayerState playerState) 
@@ -280,7 +283,14 @@ namespace Sanguine_Forest
                     scene.obstaclesData3[i].Speed, scene.obstaclesData3[i].Size));
             }
 
-            //decors = scene.decors;
+
+            //Grass Decor
+            grassDecor = new List<Decor>();
+            for(int i =0;i<scene.decors.Count;i++)
+            {
+                grassDecor.Add(new Decor(scene.decors[i].Position, scene.decors[i].Rotation, content, scene.decors[i].GrassType));
+            }
+
         }
 
 
@@ -298,7 +308,7 @@ namespace Sanguine_Forest
             for(int i =0;i< obstacles3.Count; i++) { obstacles3[i].UpdateMe(); }
 
             ////update for decors
-            //for(int i =0; i < decors.Count; i++) { decors[i].UpdateMe(); }
+            for(int i =0; i < grassDecor.Count; i++) { grassDecor[i].UpdateMe(); }
         
         }
 
@@ -317,7 +327,8 @@ namespace Sanguine_Forest
             for(int i = 0; i < obstacles2.Count; i++) { obstacles2[i].Draw(spriteBatch); }
             for(int i = 0; i < obstacles3.Count; i++) { obstacles3[i].Draw(spriteBatch); }
 
-            //for(int i =0; i < decors.Count; i++) { decors[i].DrawMe(spriteBatch); }
+            //Decors drawning 
+            for(int i =0; i < grassDecor.Count; i++) { grassDecor[i].DrawMe(spriteBatch); }
 
         }
 

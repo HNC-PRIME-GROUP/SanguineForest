@@ -109,7 +109,7 @@ namespace Sanguine_Forest
 
                         sp.Draw(texture, drawRectangle, tilesDictionary[TileMap[i,j]], color, 
                             GetRotation(),Vector2.Zero, spriteEffect, (float)layer/ (float)Extentions.SpriteLayer.Length);
-                        DebugManager.DebugRectangle(drawRectangle);
+                        //DebugManager.DebugRectangle(drawRectangle);
                         drawRectangle.Location = new Point(drawRectangle.Location.X+oneTileRectangle.Width, drawRectangle.Location.Y);
                         
                     }

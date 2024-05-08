@@ -16,6 +16,7 @@ namespace Sanguine_Forest.Scripts.Environment.Obstacle
 
         //Visual effect
         private SpriteModule _spriteModule;
+        private Vector2 tileSize ;
 
         //Collision
         private PhysicModule _physicModule;
@@ -29,44 +30,32 @@ namespace Sanguine_Forest.Scripts.Environment.Obstacle
         public Thorns(Vector2 positioon, float rotation, ContentManager content, Vector2 thornsSize) : base(positioon, rotation)
         {
 
-            _spriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Thorns"), Extentions.SpriteLayer.environment1);
+            _spriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/thorns_02"), Extentions.SpriteLayer.environment1);
+            tileSize = new Vector2(128, 128);
             Dictionary<string, Rectangle> dictionary = new Dictionary<string, Rectangle>()
             {
-                { "tex", new Rectangle(0,0,1536,1024) }
+                { "tex", new Rectangle(0,0,512,512) }
             };
 
-            string[,] tileMap = new string[(int)Math.Round(thornsSize.Y / 128), (int)Math.Round(thornsSize.X / 128)];
-            for(int i =0; i <tileMap.GetLength(0); i++)
+            string[,] tileMap = new string[(int)Math.Round(thornsSize.Y / tileSize.Y), (int)Math.Round(thornsSize.X / tileSize.X)];
+            for (int i = 0; i < tileMap.GetLength(0); i++)
             {
-                for(int j=0; j<tileMap.GetLength(1); j++)
+                for (int j = 0; j < tileMap.GetLength(1); j++)
                 {
                     tileMap[i, j] = "tex";
                 }
             }
-            
-            //Depends on rotation we do vertical or horisontal draw rectangle;
-            if(rotation!=0)
-            {
-                SetRotation((float)Math.PI);
-                _spriteModule.TillingMe(dictionary, tileMap, new Rectangle((int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y),
-                (int)Math.Round(thornsSize.X / 128) * 128, (int)Math.Round(thornsSize.Y / 128) * 128), new Rectangle(0, 0, 128, 128));
 
-                //different physic with correction 
-                _physicModule = new PhysicModule(this, new Vector2(50, 0), new Vector2((int)Math.Round(thornsSize.X / 128) * 128 - 100, 
-                    (int)Math.Round(thornsSize.Y / 128) * 128 ));
-            }
-            else
-            {
-                SetRotation(0);
-                
+            //Depends on rotation we do vertical or horisontal draw rectangle;            
+
                 _spriteModule.TillingMe(dictionary, tileMap, 
-                    new Rectangle((int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y), (int)Math.Round(thornsSize.X / 128) * 128, (int)Math.Round(thornsSize.Y / 128) * 128), 
-                    new Rectangle(0, 0, 128, 128));
+                    new Rectangle((int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y), (int)Math.Round(thornsSize.X / tileSize.Y) * (int)tileSize.Y, (int)Math.Round(thornsSize.Y / tileSize.X) * (int)tileSize.X), 
+                    new Rectangle(0, 0, (int)tileSize.Y, (int)tileSize.X));
 
 
-                _physicModule = new PhysicModule(this, new Vector2(0, 50), new Vector2((int)Math.Round(thornsSize.X / 128) * 128 ,
-                    (int)Math.Round(thornsSize.Y / 128) * 128));
-            }
+                _physicModule = new PhysicModule(this, new Vector2(0, 0), new Vector2((int)Math.Round(thornsSize.X / tileSize.Y) * tileSize.Y ,
+                    (int)Math.Round(thornsSize.Y / tileSize.X) * tileSize.X));
+            
             
         }
 
@@ -87,7 +76,7 @@ namespace Sanguine_Forest.Scripts.Environment.Obstacle
         public void DrawMe(SpriteBatch sp)
         {
             _spriteModule.DrawMe(sp);
-            DebugManager.DebugRectangle(_physicModule.GetPhysicRectangle());
+            //DebugManager.DebugRectangle(_physicModule.GetPhysicRectangle());
         }
 
 

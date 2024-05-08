@@ -22,7 +22,7 @@ namespace Sanguine_Forest
         //Environments and platforms
         public List<PlatformData> simplePlatforms;
         public List<MovebalPlatformData> moveablPlatforms;
-        //public List<FallingPlatform> fallingPlatforms;
+        public List<FallingPlatformData> fallingPlatforms;
 
         //Obstacles
         public List<ThornsData> thorns;

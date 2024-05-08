@@ -65,6 +65,11 @@ namespace Sanguine_Forest
             return platformPhysic.GetPhysicRectangle();
         }
 
+        public PhysicModule GetPhysicModule()
+        {
+            return platformPhysic;
+        }
+
     }
 
     internal struct PlatformData

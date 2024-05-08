@@ -1,14 +1,19 @@
 {
 
-  "characterPosition": "0, -0",
+  "characterPosition": "0, -200",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
       "comment": "First platform",
       "position": "-100,100",
-
       "rotation": "0",
       "platformSize": "10000,192"
+    },
+    {
+      "Position": "800,-100",
+      "Rotation": "0",
+      "PlatformSize": "200,200",
+      
     }
   ],
   "comment02": "platform that change their position slightly after death if risk level is high",
@@ -21,7 +26,23 @@
     }
   ],
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
-  "fallingPlatforms": [],
+  "fallingPlatforms": [
+
+   
+    {
+      "Position": "400,-300",
+      "Rotation": "0",
+      "PlatformSize": "200,200",
+      "TimeToFall": "1"
+    },
+    {
+      "Position": "800,-600",
+      "Rotation": "0",
+      "PlatformSize": "200,200",
+      "TimeToFall": "1"
+    }
+
+  ],
   "comment04": "dangerous place in any case (pites, water, thorns)",
   "dangerPlaces": [],
   "comment05": "decor",
@@ -30,10 +51,11 @@
   "obstacles": [],
   "comment07": "Thorns - danger polaces",
   "thorns": [
+   
     {
-      "Position": "500,-500",
+      "Position": "-500,-800",
       "Rotation": "0",
-      "ThornsSize": "1000,200"
+      "ThornsSize": "200,500"
     }
 
 

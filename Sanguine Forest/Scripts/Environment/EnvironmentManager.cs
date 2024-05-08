@@ -23,7 +23,7 @@ namespace Sanguine_Forest
 
         public List<Platform> platforms;
         private List<MoveblePlatform> movebles;
-        //private List<FallingPlatform> falling;
+        private List<FallingPlatform> fallingPlatforms;
         //private List<Decor> decors;
 
         //Dangerous
@@ -182,7 +182,7 @@ namespace Sanguine_Forest
                     scene.moveablPlatforms[p].platformSize, content, tileDictionary, tileMap, scene.moveablPlatforms[p].maxShift));
             }
 
-
+            //thorn loading
             thorns = new List<Thorns>();
             for(int i =0; i< scene.thorns.Count; i++) 
             {
@@ -190,8 +190,67 @@ namespace Sanguine_Forest
             }
 
 
-            //movebles = scene.moveblPlatforms;
-            //falling = scene.fallingPlatforms;   
+            fallingPlatforms = new List<FallingPlatform>();
+            for(int p =0;p<scene.fallingPlatforms.Count;p++) 
+            {
+                string[,] tileMap = new string[(int)Math.Round(scene.fallingPlatforms[p].PlatformSize.Y / 64), (int)Math.Round(scene.fallingPlatforms[p].PlatformSize.X / 64)];
+                for (int i = 0; i < tileMap.GetLength(0); i++)
+                {
+                    for (int j = 0; j < tileMap.GetLength(1); j++)
+                    {
+                        if (i == 0 && j == 0)
+                        {
+                            tileMap[i, j] = "UpLeft";
+                            continue;
+                        }
+                        if (i == 0 && j == tileMap.GetLength(1) - 1)
+                        {
+                            tileMap[i, j] = "UpRight";
+                            continue;
+                        }
+                        if (i == tileMap.GetLength(0) - 1 && j == 0)
+                        {
+                            tileMap[i, j] = "BottomLeft";
+                            continue;
+                        }
+                        if (i == tileMap.GetLength(0) - 1 && j == tileMap.GetLength(1) - 1)
+                        {
+                            tileMap[i, j] = "BottomRight";
+                            continue;
+                        }
+                        if (i == 0 && j > 0)
+                        {
+                            tileMap[i, j] = "Up";
+                            continue;
+                        }
+
+
+                        if (i == tileMap.GetLength(0) - 1 && j > 0)
+                        {
+                            tileMap[i, j] = "Bottom";
+                            continue;
+                        }
+                        if (i > 0 && j == 0)
+                        {
+                            tileMap[i, j] = "MidLeft";
+                            continue;
+                        }
+                        if (i > 0 && j == tileMap.GetLength(1) - 1)
+                        {
+                            tileMap[i, j] = "MidRight";
+                            continue;
+                        }
+                        if (i > 0 && j > 0)
+                        {
+                            tileMap[i, j] = "Mid";
+                            continue;
+                        }
+                    }
+                }
+                fallingPlatforms.Add(new FallingPlatform(scene.fallingPlatforms[p].Position, scene.fallingPlatforms[p].Rotation,
+                    scene.fallingPlatforms[p].PlatformSize, content, tileDictionary, tileMap, scene.fallingPlatforms[p].TimeToFall));
+            }
+              
             //decors = scene.decors;
         }
 
@@ -202,7 +261,7 @@ namespace Sanguine_Forest
             for (int i = 0; i < platforms.Count; i++){platforms[i].UpdateMe();}
             for (int i = 0; i < movebles.Count; i++) { movebles[i].UpdateMe(); }
             for (int i = 0;i < thorns.Count; i++) { thorns[i].UpdateMe();}
-            //for (int i = 0; i < falling.Count; i++) falling[i].UpdateMe();
+            for (int i = 0; i < fallingPlatforms.Count; i++) fallingPlatforms[i].UpdateMe();
 
             ////update for decors
             //for(int i =0; i < decors.Count; i++) { decors[i].UpdateMe(); }
@@ -214,7 +273,7 @@ namespace Sanguine_Forest
             for (int i = 0; i < platforms.Count; i++) { platforms[i].DrawMe(spriteBatch); }
             for (int i = 0;i < movebles.Count; i++) { movebles[i].DrawMe(spriteBatch); }
             for(int i =0; i< thorns.Count; i++) { thorns[i].DrawMe(spriteBatch); }
-            //for(int i = 0;i<falling.Count; i++) { falling[i].DrawMe(spriteBatch); }
+            for(int i = 0;i<fallingPlatforms.Count; i++) { fallingPlatforms[i].DrawMe(spriteBatch); }
 
             //for(int i =0; i < decors.Count; i++) { decors[i].DrawMe(spriteBatch); }
 

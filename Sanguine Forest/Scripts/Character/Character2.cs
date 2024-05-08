@@ -149,8 +149,6 @@ namespace Sanguine_Forest
             _velocity.Y += _gravityEffect;
             position += _velocity;
 
-
-
         }
 
         #region State updates
@@ -259,7 +257,15 @@ namespace Sanguine_Forest
             _gravityEffect = 0; //Make slower gravity effect
             _velocity.X = 0;
             _velocity.Y = _gravityRate;
-            if(curr.IsKeyDown(Keys.W)&& prev.IsKeyUp(Keys.W)) 
+
+            if (prev.IsKeyDown(Keys.S))
+            {
+                _velocity.X = 0;
+                _currentState = CharState.idle;
+            }
+
+
+            if (curr.IsKeyDown(Keys.W)&& prev.IsKeyUp(Keys.W)) 
             {
                 if(_SpriteModule.GetSpriteEffects()==SpriteEffects.None)
                 {

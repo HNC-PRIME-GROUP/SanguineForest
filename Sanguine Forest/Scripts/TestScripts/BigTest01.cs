@@ -209,8 +209,11 @@ namespace Sanguine_Forest
             _spriteBatch.End();
 
             _spriteBatch.Begin();
-            DebugManager.DebugRectangle(new Rectangle(100, 100, 50, 50));
+
+            DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
             _spriteBatch.End();
+
+
 
 
             // TODO: Add your drawing code here

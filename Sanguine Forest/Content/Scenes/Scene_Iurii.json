@@ -70,7 +70,12 @@
     {
       "position": "-50, -300",
       "rotation": "-0.5",
-        "GrassType": "Grass3"
+      "GrassType": "Grass3"
+    },
+    {
+      "position": "-50, -320",
+      "rotation": "0.5",
+      "GrassType": "Grass2"
     }
 
   ],

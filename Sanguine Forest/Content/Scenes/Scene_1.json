@@ -167,5 +167,23 @@
     {
 
     }
+  ],
+  "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "decors": [
+   
+  ],
+  "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
+  "obstaclesData1": [
+
+  ],
+  "obstaclesData2": [
+
+  ],
+  "obstaclesData3": [],
+  "fallingPlatforms": [
+  ],
+  "comment07": "Thorns - danger polaces",
+  "thorns": [
+
   ]
 }

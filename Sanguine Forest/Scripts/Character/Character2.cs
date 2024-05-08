@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sanguine_Forest.Scripts.Environment.Obstacle;
 
 namespace Sanguine_Forest
 {
@@ -29,14 +30,16 @@ namespace Sanguine_Forest
 
 
         //Character state
-        private enum CharState
+        public enum CharState
         {
             idle,
             walk,
             jump,
             cling,
             wallJump,
-            falling
+            falling,
+            Death
+
         }
         private CharState _currentState;
 
@@ -47,9 +50,11 @@ namespace Sanguine_Forest
         private Vector2 _velocity = Vector2.Zero;
         private float _gravityRate = 0.3f;
         private float _gravityEffect = 0;
+        //start position saved to restore the character here
+        private Vector2 startPos;
 
         //work around for cling update
-        private Rectangle currClingRectangle;
+        private PhysicModule currClingRectangle;
 
         //Death event
         public event EventHandler DeathEvent;
@@ -58,17 +63,24 @@ namespace Sanguine_Forest
         public Character2(Vector2 position, float rotation, ContentManager content) : base(position, rotation)
         {
 
+            //Save start pos
+            startPos = position;
+
             //Animation and graphic
             _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_Character_v1"),
                 Extentions.SpriteLayer.character1);
 
             _SpriteModule.SetScale(0.15f);
 
-            _animations = new Dictionary<string, AnimationSequence>();
-            _animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));
-            _animations.Add("Run", new AnimationSequence(new Vector2(0, 700), 3));
-            _animations.Add("Jump", new AnimationSequence(new Vector2(0, 1400), 5));
-            _animations.Add("hugWall", new AnimationSequence(new Vector2(4200, 1400), 0));
+            _animations = new Dictionary<string, AnimationSequence>
+            {
+                { "Idle", new AnimationSequence(Vector2.Zero, 3) },
+                { "Run", new AnimationSequence(new Vector2(0, 700), 3) },
+                { "Jump", new AnimationSequence(new Vector2(0, 1400), 5) },
+                { "hugWall", new AnimationSequence(new Vector2(4200, 1400), 0) },
+                { "Death", new AnimationSequence(new Vector2(0, 2100), 2) }
+            };
+
 
             _spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), _animations);
 
@@ -128,13 +140,14 @@ namespace Sanguine_Forest
                 case CharState.falling:
                     FallingUpdate(prev, curr);
                     break;
+                case CharState.Death:
+                    DeathUpdate();
+                    break;
             }
 
 
             _velocity.Y += _gravityEffect;
             position += _velocity;
-
-
 
         }
 
@@ -244,7 +257,15 @@ namespace Sanguine_Forest
             _gravityEffect = 0; //Make slower gravity effect
             _velocity.X = 0;
             _velocity.Y = _gravityRate;
-            if(curr.IsKeyDown(Keys.W)&& prev.IsKeyUp(Keys.W)) 
+
+            if (prev.IsKeyDown(Keys.S))
+            {
+                _velocity.X = 0;
+                _currentState = CharState.idle;
+            }
+
+
+            if (curr.IsKeyDown(Keys.W)&& prev.IsKeyUp(Keys.W)) 
             {
                 if(_SpriteModule.GetSpriteEffects()==SpriteEffects.None)
                 {
@@ -263,7 +284,7 @@ namespace Sanguine_Forest
                     return;
                 }
             }
-            if(_rightCollision.physicRec.Y>currClingRectangle.Y+currClingRectangle.Height) 
+            if(_rightCollision.physicRec.Y>currClingRectangle.GetPhysicRectangle().Y+currClingRectangle.GetPhysicRectangle().Height||!currClingRectangle.isPhysicActive ) 
             {
                 _currentState = CharState.falling;
             }
@@ -304,6 +325,33 @@ namespace Sanguine_Forest
             }
         }
 
+        public void DeathUpdate()
+        {
+            _animationModule.SetAnimationSpeed(0.9f);            
+            _animationModule.PlayOnce("Death");
+            _velocity.X = 0;
+            _velocity.Y = 0;
+            _gravityEffect = 0;
+            _animationModule.AnimationEnd += CharacterRestore;
+
+
+        }
+
+        public void CharacterRestore(object obj, EventArgs e)
+        {
+            _currentState = CharState.jump;
+            position = startPos;
+            _animationModule.AnimationEnd -= CharacterRestore;
+        }
+
+        public void CharacterRestore()
+        {
+            _currentState = CharState.jump;
+            position = startPos;
+        }
+
+
+
         #endregion
 
 
@@ -315,6 +363,14 @@ namespace Sanguine_Forest
             if (collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
+
+                if (collision.GetCollidedPhysicModule().GetParent() is Thorns)
+                {
+                    _velocity.Y = 0;
+                    _velocity.X = 0;
+                    _gravityEffect = 0;
+                    return;
+                }
                 if ((_currentState == CharState.idle || _currentState == CharState.walk) && collision.GetThisPhysicModule() == _feetCollision)
                 {
                     _gravityEffect = 0f;
@@ -351,7 +407,7 @@ namespace Sanguine_Forest
                     _velocity.Y = 0;
                     position.X = platform.GetPlatformRectangle().Right-collision.GetThisPhysicModule().GetShiftPosition().X+collision.GetThisPhysicModule().GetPhysicRectangle().Width;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
-                    currClingRectangle = platform.GetPlatformRectangle();
+                    currClingRectangle = platform.GetPhysicModule();
                     _gravityEffect = 0f;
                     _currentState = CharState.cling;
 
@@ -364,7 +420,7 @@ namespace Sanguine_Forest
                     position.X = platform.GetPlatformRectangle().Left-collision.GetThisPhysicModule().GetShiftPosition().X-collision.GetThisPhysicModule().GetPhysicRectangle().Width;  
                     _gravityEffect = 0f;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.None);
-                    currClingRectangle = platform.GetPlatformRectangle();
+                    currClingRectangle = platform.GetPhysicModule();
                     _currentState = CharState.cling;
                     return;
                 }
@@ -404,14 +460,21 @@ namespace Sanguine_Forest
                     
                    // _currentState = CharState.falling; 
                     return;
-                }    
+                }   
               
+            }
+            if (collision.GetCollidedPhysicModule().GetParent() is Thorns)
+            {
+                _velocity.X = 0;
+                _velocity.Y = 0;
+                _gravityEffect = 0;
             }
 
         }
 
         public void Death()
         {
+            _currentState = CharState.Death;
             DeathEvent?.Invoke(this, EventArgs.Empty);
         }
 
@@ -439,6 +502,10 @@ namespace Sanguine_Forest
             return _velocity.X;
         }
 
+        public CharState GetCharacterState()
+        {
+            return _currentState;
+        }
 
 
     }

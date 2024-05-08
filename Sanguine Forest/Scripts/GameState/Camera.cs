@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using Extention;
+using Microsoft.VisualBasic;
 
 namespace Sanguine_Forest
 {
@@ -104,7 +105,7 @@ namespace Sanguine_Forest
             //position += _velocity * speed;
 
 
-            //following for the target in allowed borders
+            ////following for the target in allowed borders
             if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
                 cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) > leftUpperBorder.X)
             {
@@ -117,6 +118,31 @@ namespace Sanguine_Forest
             {
                 position.Y = - cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom);
             }
+
+            // Update X - axis position
+            //if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
+            //    cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) > leftUpperBorder.X)
+            //{
+            //    position.X = -cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom);
+            //}
+
+            //// Update Y-axis position
+            //float halfScreenHeight = screenSize.Y / (2 * zoom);
+            //float targetY = cameraTarget.GetPosition().Y;
+
+            //// Check if the target Y position adjusted by half the screen height is within the vertical game bounds
+            //if (targetY - halfScreenHeight < 0) // Checking if it goes above the top border
+            //{
+            //    position.Y = halfScreenHeight; // Keep the camera centered within the boundary
+            //}
+            //else if (targetY + halfScreenHeight > 1080) // Checking if it goes below the bottom border
+            //{
+            //    position.Y = 1080 - halfScreenHeight; // Adjust to keep within the bottom boundary
+            //}
+            //else
+            //{
+            //    position.Y = targetY; // Normal follow behavior
+            //}
 
 
         }

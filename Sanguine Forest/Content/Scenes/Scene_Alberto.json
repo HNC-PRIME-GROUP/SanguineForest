@@ -5,29 +5,67 @@
   "simplePlatforms": [
     {
       "comment": "First platform",
-      "position": "-100,100",
+      "position": "-100,1000",
+
       "rotation": "0",
-      "platformSize": "10000,192"
+      "platformSize": "50000,200"
+    },
+    {
+      "comment": "Second platform",
+      "position": "400,900",
+
+      "rotation": "0",
+      "platformSize": "1000,200"
     },
 
     {
       "comment": "Second platform",
-      "position": "0,-1000",
+      "position": "500,800",
+
       "rotation": "0",
-      "platformSize": "200,500"
+      "platformSize": "500,200"
     },
 
     {
-      "position": "600,-500",
+      "position": "600,700",
       "rotation": "0",
-      "platformSize": "200,500"
+      "platformSize": "500,200"
     },
 
     {
-      "position": "1200,-500",
+      "position": "700,600",
       "rotation": "0",
-      "platformSize": "200,500"
+      "platformSize": "500,200"
     },
+    {
+      "position": "800,500",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+
+    {
+      "position": "900,400",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+
+    {
+      "position": "1000,300",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+    {
+      "position": "2000,200",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+
+    {
+      "position": "900,400",
+      "rotation": "0",
+      "platformSize": "500,200"
+    },
+
 
     {
       "position": "1800,-500",
@@ -44,10 +82,11 @@
   ],
   "comment02": "platform that change their position slightly after death if risk level is high",
   "moveablPlatforms": [
-
     {
-      "comment": "random platform 1",
-      "position": "200,300"
+      "position": "0, 100",
+      "rotation": "0",
+      "platformSize": "100,100",
+      "maxShift": "50,50"
     }
   ],
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",

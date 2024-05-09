@@ -1,5 +1,5 @@
 {
-  "characterPosition": "9050,-1600",
+  "characterPosition": "9050,-700",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -123,7 +123,7 @@
       "comment": "5th Wall",
       "position": "9050,-600",
       "rotation": "0",
-      "platformSize": "400,1200"
+      "platformSize": "400,3100"
     },
 
     {
@@ -135,9 +135,9 @@
 
     {
       "comment": "First Roof",
-      "position": "8450,-2000",
+      "position": "8450,-2100",
       "rotation": "0",
-      "platformSize": "2750,100"
+      "platformSize": "5050,100"
     },
 
     {
@@ -151,37 +151,154 @@
       "comment": "7th Wall",
       "position": "9880,-1600",
       "rotation": "0",
-      "platformSize": "400,2200"
+      "platformSize": "900,2720"
     },
 
     {
       "comment": "7th Platform",
-      "position": "11150,-1350",
+      "position": "11350,-1350",
       "rotation": "0",
       "platformSize": "400,200"
+    },
+
+    {
+      "comment": "8th Wall",
+      "position": "10680,-1600",
+      "rotation": "0",
+      "platformSize": "400,1400"
+    },
+
+    {
+      "comment": "7th Floor",
+      "position": "11030,-1010",
+      "rotation": "0",
+      "platformSize": "1050,200"
+    },
+
+    {
+      "comment": "9th Wall",
+      "position": "11930,-1400",
+      "rotation": "0",
+      "platformSize": "200,600"
+    },
+
+    {
+      "comment": "8th Floor",
+      "position": "11930,-1210",
+      "rotation": "0",
+      "platformSize": "600,400"
+    },
+
+    {
+      "comment": "9th Floor",
+      "position": "12480,-1020",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "10th Wall",
+      "position": "13100,-2100",
+      "rotation": "0",
+      "platformSize": "100,3040"
+    },
+
+    {
+      "comment": "10th Floor",
+      "position": "11350,-500",
+      "rotation": "0",
+      "platformSize": "1800,200"
+    },
+
+    {
+      "comment": "11th Floor",
+      "position": "9880,930",
+      "rotation": "0",
+      "platformSize": "2000,200"
+    },
+
+    {
+      "comment": "12th Floor",
+      "position": "11450,80",
+      "rotation": "0",
+      "platformSize": "300,900"
+    },
+
+    {
+      "comment": "13th Floor",
+      "position": "11750,205",
+      "rotation": "0",
+      "platformSize": "850,540"
+    },
+
+    {
+      "comment": "8th Platform",
+      "position": "12050,10",
+      "rotation": "0",
+      "platformSize": "200,250"
+    },
+
+    {
+      "comment": "14th Floor",
+      "position": "12450,930",
+      "rotation": "0",
+      "platformSize": "800,200"
+    },
+
+    {
+      "comment": "15th Floor",
+      "position": "9050,2200",
+      "rotation": "0",
+      "platformSize": "1000,400"
+    },
+
+    {
+      "comment": "16th Floor",
+      "position": "9450,2300",
+      "rotation": "0",
+      "platformSize": "1000,300"
+    },
+
+    {
+      "comment": "17th Floor",
+      "position": "9450,2400",
+      "rotation": "0",
+      "platformSize": "2000,200"
     }
-
-
   ],
+
   "moveablPlatforms": [
     {
 
     }
   ],
+
   "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "decors": [
-   
+
   ],
+
   "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
   "obstaclesData1": [
 
   ],
+
   "obstaclesData2": [
 
   ],
+
   "obstaclesData3": [],
+
   "fallingPlatforms": [
+    {
+      "comment": "First Platform",
+      "position": "11050,280",
+      "rotation": "0",
+      "platformSize": "200,100",
+      "TimeToFall": "4"
+    }
   ],
+
   "comment07": "Thorns - danger polaces",
   "thorns": [
 

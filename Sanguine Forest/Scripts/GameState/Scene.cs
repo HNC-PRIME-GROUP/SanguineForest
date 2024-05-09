@@ -35,6 +35,12 @@ namespace Sanguine_Forest
         //Decor
         public List<DecorGrassData> decors; //Grass
 
+        //Cutscene mode
+        public bool isCutScene;
+        public List<CutSceneObjectData> cutSceneObjects;
+        public List<string> cutSceneString;
+
+
 
 
 

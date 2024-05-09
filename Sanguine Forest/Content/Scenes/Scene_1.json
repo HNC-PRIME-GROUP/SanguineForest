@@ -1,5 +1,5 @@
 {
-  "characterPosition": "9050,-700",
+  "characterPosition": "11650,1500",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -263,7 +263,112 @@
       "comment": "17th Floor",
       "position": "9450,2400",
       "rotation": "0",
-      "platformSize": "2000,200"
+      "platformSize": "2300,200"
+    },
+
+    {
+      "comment": "18th Floor",
+      "position": "10750,2150",
+      "rotation": "0",
+      "platformSize": "600,300"
+    },
+
+    {
+      "comment": "11th Wall",
+      "position": "11650,1600",
+      "rotation": "0",
+      "platformSize": "600,1200"
+    },
+
+    {
+      "comment": "19th Floor",
+      "position": "10450,1700",
+      "rotation": "0",
+      "platformSize": "1000,100"
+    },
+
+    {
+      "comment": "12th Wall",
+      "position": "10450,1100",
+      "rotation": "0",
+      "platformSize": "600,700"
+    },
+
+    {
+      "comment": "20th Floor",
+      "position": "11650,2780",
+      "rotation": "0",
+      "platformSize": "2400,200"
+    },
+
+    {
+      "comment": "13th Wall",
+      "position": "12600,1100",
+      "rotation": "0",
+      "platformSize": "400,1200"
+    },
+
+    {
+      "comment": "9th Platform",
+      "position": "12600,2620",
+      "rotation": "0",
+      "platformSize": "800,200"
+    },
+
+    {
+      "comment": "10th Platform",
+      "position": "13620,2420",
+      "rotation": "0",
+      "platformSize": "400,100"
+    },
+
+    {
+      "comment": "11th Platform",
+      "position": "13000,2220",
+      "rotation": "0",
+      "platformSize": "400,100"
+    },
+
+    {
+      "comment": "14th Wall",
+      "position": "14020,1220",
+      "rotation": "0",
+      "platformSize": "600,2600"
+    },
+
+    {
+      "comment": "21st Floor",
+      "position": "13620,2020",
+      "rotation": "0",
+      "platformSize": "600,100"
+    },
+
+    {
+      "comment": "15th Wall",
+      "position": "13420,920",
+      "rotation": "0",
+      "platformSize": "300,900"
+    },
+
+    {
+      "comment": "2nd Roof",
+      "position": "13420,910",
+      "rotation": "0",
+      "platformSize": "800,100"
+    },
+
+    {
+      "comment": "16th Wall",
+      "position": "14520,910",
+      "rotation": "0",
+      "platformSize": "200,400"
+    },
+
+    {
+      "comment": "12th Platform",
+      "position": "14350,1050",
+      "rotation": "0",
+      "platformSize": "200,200"
     }
   ],
 

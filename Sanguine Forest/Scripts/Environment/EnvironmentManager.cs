@@ -37,6 +37,11 @@ namespace Sanguine_Forest
         //Decor Grass
         public List<Decor> grassDecor;
 
+        //Cutscene option
+        public List<CutSceneObject> cutSceneObjects;
+        public bool isCutScene;
+        
+
 
         //link to content manager
         public EnvironmentManager(ContentManager content, PlayerState playerState) 
@@ -291,6 +296,18 @@ namespace Sanguine_Forest
                 grassDecor.Add(new Decor(scene.decors[i].Position, scene.decors[i].Rotation, content, scene.decors[i].GrassType));
             }
 
+            //Cutscene load
+            isCutScene = scene.isCutScene;
+            if (scene.isCutScene)
+            {
+                for(int i =0;i<scene.cutSceneObjects.Count;i++)
+                {
+                    cutSceneObjects.Add(new CutSceneObject(scene.cutSceneObjects[i].Position, scene.cutSceneObjects[i].Rotation, content, scene.cutSceneObjects[i].Scale));
+                }
+            }
+
+
+
         }
 
 
@@ -309,6 +326,12 @@ namespace Sanguine_Forest
 
             ////update for decors
             for(int i =0; i < grassDecor.Count; i++) { grassDecor[i].UpdateMe(); }
+
+            //Update for cut scene mode
+            if (isCutScene)
+            {
+                for (int i = 0; i < cutSceneObjects.Count; i++) { cutSceneObjects[i].UpdateMe(); }
+            }
         
         }
 
@@ -329,6 +352,12 @@ namespace Sanguine_Forest
 
             //Decors drawning 
             for(int i =0; i < grassDecor.Count; i++) { grassDecor[i].DrawMe(spriteBatch); }
+
+            //Update for cut scene
+            if (isCutScene)
+            {
+                for (int i = 0; i < cutSceneObjects.Count; i++) { cutSceneObjects[i].DrawMe(spriteBatch); }
+            }
 
         }
 

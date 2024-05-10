@@ -108,6 +108,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/TitleFontSmll.spritefont
 
+#begin Fonts/TrajanRegular.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/TrajanRegular.spritefont
+
 #begin Sounds/Sound_Char_Climb.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

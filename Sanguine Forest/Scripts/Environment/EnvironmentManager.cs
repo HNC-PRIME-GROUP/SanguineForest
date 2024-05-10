@@ -40,6 +40,9 @@ namespace Sanguine_Forest
         //Cutscene option
         public List<CutSceneObject> cutSceneObjects;
         public bool isCutScene;
+
+        //Environment random
+        private Random _rng;
         
 
 
@@ -48,6 +51,7 @@ namespace Sanguine_Forest
         { 
         this.content = content;
             this.playerState = playerState;
+            _rng = new Random();
         }
 
 
@@ -291,10 +295,33 @@ namespace Sanguine_Forest
 
             //Grass Decor
             grassDecor = new List<Decor>();
-            for(int i =0;i<scene.decors.Count;i++)
+            //decor tupes
+            string[] Grasstupes = new string[5]
             {
-                grassDecor.Add(new Decor(scene.decors[i].Position, scene.decors[i].Rotation, content, scene.decors[i].GrassType));
+                "Flower",
+                "Grass1",
+                "Grass2",
+                "Grass3",
+                "Grass4"
+            };
+            for(int i =0; i<platforms.Count; i++)
+            {
+                Vector2 currGrassPos = platforms[i].GetPosition()-new Vector2(0,50);
+                do
+                {
+                    int randomTypeId = _rng.Next(0, 5);
+                    grassDecor.Add(new Decor(currGrassPos, 0, content, Grasstupes[randomTypeId]));
+                    currGrassPos.X += 256;
+                }
+                while (currGrassPos.X  < platforms[i].GetPosition().X + platforms[i].GetPlatformRectangle().Width);
+
+
             }
+
+            //for(int i =0;i<scene.decors.Count;i++)
+            //{
+            //    grassDecor.Add(new Decor(scene.decors[i].Position, scene.decors[i].Rotation, content, scene.decors[i].GrassType));
+            //}
 
             //Cutscene load
             isCutScene = scene.isCutScene;

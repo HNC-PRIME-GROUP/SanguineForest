@@ -306,12 +306,14 @@ namespace Sanguine_Forest
             };
             for(int i =0; i<platforms.Count; i++)
             {
-                Vector2 currGrassPos = platforms[i].GetPosition()-new Vector2(0,50);
+                Vector2 currGrassPos = platforms[i].GetPosition()-new Vector2(0,25);
                 do
                 {
                     int randomTypeId = _rng.Next(0, 5);
                     grassDecor.Add(new Decor(currGrassPos, 0, content, Grasstupes[randomTypeId]));
-                    currGrassPos.X += 256;
+                    grassDecor[grassDecor.Count-1]._spriteModule.SetScale(0.5f);
+                    grassDecor[grassDecor.Count-1]._spriteModule.SetSpriteEffects((SpriteEffects)_rng.Next(0, 2));
+                    currGrassPos.X += 128;
                 }
                 while (currGrassPos.X  < platforms[i].GetPosition().X + platforms[i].GetPlatformRectangle().Width);
 

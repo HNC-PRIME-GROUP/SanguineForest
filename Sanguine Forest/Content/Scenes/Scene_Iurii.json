@@ -33,13 +33,13 @@
       "Position": "400,-300",
       "Rotation": "0",
       "PlatformSize": "200,200",
-      "TimeToFall": "1"
+      "TimeToFall": "4"
     },
     {
       "Position": "800,-600",
       "Rotation": "0",
       "PlatformSize": "200,200",
-      "TimeToFall": "1"
+      "TimeToFall": "4"
     }
 
   ],

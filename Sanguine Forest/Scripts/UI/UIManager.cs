@@ -61,7 +61,7 @@ namespace Sanguine_Forest
             titleFontLrg = content.Load<SpriteFont>("Fonts/TitleFontLrg"); // 100
 
             //Load Buttons
-            string newgameText = "NEW GAME";
+            string newgameText = "New Game";
             string loadgameText = "LOAD GAME";
             string instructionsText = "INSTRUCTIONS";
             string backText = "EXIT";
@@ -73,15 +73,15 @@ namespace Sanguine_Forest
             Vector2 backSize = gameFontSmll.MeasureString(backText);
 
             // Calculate positions
-            Vector2 newgamePosition = new Vector2((graphicsDevice.Viewport.Width - newgameSize.X) / 2, (graphicsDevice.Viewport.Height - newgameSize.Y) / 2 - 100);
-            Vector2 loadgamePosition = new Vector2((graphicsDevice.Viewport.Width - loadgameSize.X) / 2, (graphicsDevice.Viewport.Height - loadgameSize.Y) / 2 + 0);
-            Vector2 instructionsPosition = new Vector2((graphicsDevice.Viewport.Width - instructionsSize.X) / 2, (graphicsDevice.Viewport.Height - instructionsSize.Y) / 2 + 100);
-            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, (graphicsDevice.Viewport.Height - backSize.Y) / 2 + 200);
+            Vector2 newgamePosition = new Vector2((graphicsDevice.Viewport.Width - newgameSize.X) / 2, (graphicsDevice.Viewport.Height - newgameSize.Y) / 2 - 0);
+            Vector2 loadgamePosition = new Vector2((graphicsDevice.Viewport.Width - loadgameSize.X) / 2, (graphicsDevice.Viewport.Height - loadgameSize.Y) / 2 + 100);
+            Vector2 instructionsPosition = new Vector2((graphicsDevice.Viewport.Width - instructionsSize.X) / 2, (graphicsDevice.Viewport.Height - instructionsSize.Y) / 2 + 200);
+            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, (graphicsDevice.Viewport.Height - backSize.Y) / 2 + 300);
 
 
             startButtons = new List<UIButton>
             {
-                 new UIButton("NEW GAME", gameFontSmll, newgamePosition),
+                 new UIButton("New Game", gameFontSmll, newgamePosition),
                  new UIButton("LOAD GAME", gameFontSmll, loadgamePosition),
                  new UIButton("INSTRUCTIONS", gameFontSmll, instructionsPosition),
                  new UIButton("EXIT", gameFontSmll, backPosition)
@@ -195,7 +195,7 @@ namespace Sanguine_Forest
             }
             if (curr.IsKeyDown(Keys.Enter) && prev.IsKeyUp(Keys.Enter))
             {
-                if (startButtons[activeButtonIndex].Txt == "NEW GAME")
+                if (startButtons[activeButtonIndex].Txt == "New Game")
                 {
                     ResetButtons(startButtons);
                     CurrentGameState = GameState.Playing;
@@ -317,6 +317,13 @@ namespace Sanguine_Forest
             spriteBatch.DrawString(gameFontLrg, screenTitle, position, Color.White);
         }
 
+        private void DrawTitleScreen(string screenTitle)
+        {
+            Vector2 size = titleFontLrg.MeasureString(screenTitle);
+            Vector2 position = new Vector2((graphicsDevice.Viewport.Width - size.X) / 2, 200);  // Top center of the screen
+            spriteBatch.DrawString(titleFontLrg, screenTitle, position, Color.White);
+        }
+
         private void DrawInteractionTexts()
         {
             string okText = "Press A - OK";
@@ -335,36 +342,9 @@ namespace Sanguine_Forest
             spriteBatch.DrawString(gameFontSmll, backText, backPosition, Color.White);
         }
 
-        private void DrawInteractionTextsStartScreen()
-        {
-            string newgameText = "N - NEW GAME";
-            string loadgameText = "L - LOAD GAME";
-            string instructionsText = "I - INSTRUCTIONS";
-            string backText = "ESC - Exit";
-
-            // Measure text size to position it at the center-bottom of the screen
-            Vector2 newgameSize = gameFontSmll.MeasureString(newgameText);
-            Vector2 loadgameSize = gameFontSmll.MeasureString(loadgameText);
-            Vector2 instructionsSize = gameFontSmll.MeasureString(instructionsText);
-            Vector2 backSize = gameFontSmll.MeasureString(backText);
-
-            // Calculate positions
-            Vector2 newgamePosition = new Vector2((graphicsDevice.Viewport.Width - newgameSize.X) / 2, (graphicsDevice.Viewport.Height - newgameSize.Y) / 2 - 100);
-            Vector2 loadgamePosition = new Vector2((graphicsDevice.Viewport.Width - loadgameSize.X) / 2 , (graphicsDevice.Viewport.Height - loadgameSize.Y) / 2 + 0);
-            Vector2 instructionsPosition = new Vector2((graphicsDevice.Viewport.Width - instructionsSize.X) / 2, (graphicsDevice.Viewport.Height - instructionsSize.Y) / 2 + 100);
-            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, (graphicsDevice.Viewport.Height - backSize.Y) / 2 + 200);
-
-            // Draw text
-            spriteBatch.DrawString(gameFontSmll, newgameText, newgamePosition, Color.White);
-            spriteBatch.DrawString(gameFontSmll, loadgameText, loadgamePosition, Color.White);
-            // Draw text
-            spriteBatch.DrawString(gameFontSmll, instructionsText, instructionsPosition, Color.White);
-            spriteBatch.DrawString(gameFontSmll, backText, backPosition, Color.White);
-        }
-
         private void DrawStartScreen(SpriteBatch sb)
         {
-            DrawScreen("Sanguine Forest");
+            DrawTitleScreen("Sanguine Forest");
 
             foreach (var button in startButtons)
             {

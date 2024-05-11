@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sanguine_Forest.Scripts.Environment.Obstacle;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
@@ -21,13 +22,26 @@ namespace Sanguine_Forest
         //Environments and platforms
         public List<PlatformData> simplePlatforms;
         public List<MovebalPlatformData> moveablPlatforms;
-        //public List<FallingPlatform> fallingPlatforms;
+        public List<FallingPlatformData> fallingPlatforms;
 
-        //public List<Decor> decors; // in case if we add some
+        //Obstacles
+        public List<ObstacleData> obstaclesData1;
+        public List<ObstacleData> obstaclesData2;
+        public List<ObstacleData> obstaclesData3;
+
+        //Obstacles
+        public List<ThornsData> thorns;
+        
+        //Decor
+        public List<DecorGrassData> decors; //Grass
+
+        //Cutscene mode
+        public bool isCutScene;
+        public List<CutSceneObjectData> cutSceneObjects;
+        public List<string> cutSceneString;
 
 
-        //Background parallaxing
-        //public List<ParallaxBackground> bachgrounds;
+
 
 
 

@@ -18,11 +18,29 @@ namespace Sanguine_Forest
         static public bool isWorking;
         static public Camera Camera;
 
+
+        /// <summary>
+        /// Method for camera following
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="pos"></param>
+        /// <param name="camera"></param>
+        static public void DebugString(string message, Vector2 pos, Camera camera)
+        {
+            if (isWorking)
+            {
+                SpriteBatch.DrawString(DebugFont, message, new Vector2(-camera.position.X+pos.X, -camera.position.Y+pos.Y), Color.White);
+            }
+        }
+
+        /// <summary>
+        /// Method without camera  (put in SpriteBanch that didn't take camera as an input)
+        /// </summary>
         static public void DebugString(string message, Vector2 pos)
         {
             if (isWorking)
             {
-                SpriteBatch.DrawString(DebugFont, message, new Vector2(-Camera.position.X+pos.X, -Camera.position.Y+pos.Y), Color.White);
+                SpriteBatch.DrawString(DebugFont, message, new Vector2(pos.X, pos.Y), Color.White);
             }
         }
 

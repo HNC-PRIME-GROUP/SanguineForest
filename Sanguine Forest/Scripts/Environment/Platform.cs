@@ -34,8 +34,9 @@ namespace Sanguine_Forest
 
 
           
-            _spriteModule.TillingMe(tileDictionary,tileMap,new Rectangle((int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y), 
-                (int)Math.Round(platformSize.X / 64)*64, (int)Math.Round(platformSize.Y / 64)*64), new Rectangle(0,0,64,64));
+            _spriteModule.TillingMe(tileDictionary,tileMap,
+                new Rectangle((int)Math.Round(GetPosition().X), (int)Math.Round(GetPosition().Y),(int)Math.Round(platformSize.X / 64)*64, (int)Math.Round(platformSize.Y / 64)*64), 
+                new Rectangle(0,0,64,64));
 
             //Collision
             platformPhysic = new PhysicModule(this, new Vector2(18,25), new Vector2((int)Math.Round(platformSize.X / 64)*64-36, (int)Math.Round(platformSize.Y / 64) * 64-50));
@@ -62,6 +63,11 @@ namespace Sanguine_Forest
         public Rectangle GetPlatformRectangle()
         {
             return platformPhysic.GetPhysicRectangle();
+        }
+
+        public PhysicModule GetPhysicModule()
+        {
+            return platformPhysic;
         }
 
     }

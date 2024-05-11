@@ -27,7 +27,7 @@ namespace Sanguine_Forest
         public Vector2 rightBottomBorder;
 
         //Camera smooth moving 
-        private Vector2 _velocity;
+        public Vector2 _velocity;
         private float speed = 10;
 
         //Shaking effect variables
@@ -104,20 +104,40 @@ namespace Sanguine_Forest
 
             //position += _velocity * speed;
 
+            //_velocity = new Vector2(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom) - position.X, - cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom)-position.Y);
+            //_velocity.Normalize();
+            //speed = 10;//(float)Math.Pow(Vector2.Distance(cameraTarget.GetPosition(), position)/200,2);
+            ////speed +=  acceleration;
+
+
 
             ////following for the target in allowed borders
             if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
                 cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) > leftUpperBorder.X)
             {
-
-                position.X =  -cameraTarget.GetPosition().X-50 + screenSize.X / (2 * zoom);
+                //if (Vector2.Distance(position,new Vector2(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom), -cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom))) > 10)
+                //{ position.X += _velocity.X * speed; }
+                var oldPositionX = position.X;
+                position.X = MathHelper.Lerp(position.X, -cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom), 0.04f);
+                //-cameraTarget.GetPosition().X-50 + screenSize.X / (2 * zoom);
+                _velocity.X = position.X - oldPositionX;
+                
+                
             }
 
             if (cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) < rightBottomBorder.Y &&
                 cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) > leftUpperBorder.Y)
             {
-                position.Y = - cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom);
+                //if(Vector2.Distance(position, new Vector2(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom), -cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom))) > 10)
+                //{ position.Y += _velocity.Y * speed; }
+                var oldPositionY = position.Y;
+                position.Y = MathHelper.Lerp(position.Y, -cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom),0.04f);
+                _velocity.Y=position.Y - oldPositionY;
+                //- cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom);
+                
             }
+
+            
 
             // Update X - axis position
             //if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&

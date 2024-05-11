@@ -221,6 +221,8 @@ namespace Sanguine_Forest
 
             if (_uiManager.CurrentGameState == UIManager.GameState.Playing)
             {
+
+
                 _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
 
                 _environmentManager.DrawMe(_spriteBatch);

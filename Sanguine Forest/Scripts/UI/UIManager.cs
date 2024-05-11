@@ -55,10 +55,10 @@ namespace Sanguine_Forest
 
         private void LoadContent()
         {
-            gameFontSmll = content.Load<SpriteFont>("Fonts/GameFont"); // 24
-            gameFontLrg = content.Load<SpriteFont>("Fonts/GameFontLrg"); // 30
-            titleFontSmll = content.Load<SpriteFont>("Fonts/TitleFontSmll"); // 80
-            titleFontLrg = content.Load<SpriteFont>("Fonts/TitleFontLrg"); // 100
+            gameFontSmll = content.Load<SpriteFont>("Fonts/TrajanRegular"); // 24
+            gameFontLrg = content.Load<SpriteFont>("Fonts/TrajanBold"); // 30
+            titleFontSmll = content.Load<SpriteFont>("Fonts/TrajanBold"); // 80
+            titleFontLrg = content.Load<SpriteFont>("Fonts/TrajanBold"); // 100
 
             //Load Buttons
             string newgameText = "New Game";

@@ -125,11 +125,6 @@ namespace Sanguine_Forest
 
         }
 
-        public void HandleInput(GameTime gameTime)
-        {
-            _inputManager.UpdateMe();
-        }
-
 
         protected override void Update(GameTime gameTime)
         {

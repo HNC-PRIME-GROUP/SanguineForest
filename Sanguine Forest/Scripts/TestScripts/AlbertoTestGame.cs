@@ -40,7 +40,6 @@ namespace Sanguine_Forest
         private KeyboardState currState;
         private KeyboardState prevState;
 
-        private InputManager _inputManager;
 
         //Debug tools
         private DebugObserver _debugObserver;
@@ -63,19 +62,11 @@ namespace Sanguine_Forest
         protected override void Initialize()
         {
 
-
-            _inputManager = new InputManager();
-
             FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
 
             base.Initialize();
         }
 
-        private void ExitGame()
-        {
-            // Exit method of the Game class to exit the game
-            Exit();
-        }
 
         protected override void LoadContent()
         {
@@ -105,8 +96,9 @@ namespace Sanguine_Forest
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content,_playerState);
+            _environmentManager = new EnvironmentManager(Content, _playerState);
             _environmentManager.Initialise(_currentScene);
+            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
 
             //Set decor and parallaxing
             _parallaxManager = new ParallaxManager(Content, _camera);
@@ -117,7 +109,6 @@ namespace Sanguine_Forest
 
             // Initialize UI manager. Create an Exit method for UIManager
             _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
-            _uiManager.RequestExit += ExitGame;
 
             // Create a 1x1 pixel texture and set it to a semi-transparent color
             semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);

@@ -31,11 +31,11 @@ namespace Sanguine_Forest
         private void InitializeBackgrounds(ContentManager content)
         {
             // Initialize each layer individually
-            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_01", "Sprites/Background_day_02", "Sprites/Background_day_01" }, 0.55f, 0.0f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
-            InitializeLayer(Extentions.SpriteLayer.background_Fore_Mid, new[] { "Sprites/Background_day_03", "Sprites/Background_day_04", "Sprites/Background_day_03" }, 0.35f, 0.0f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
-            InitializeLayer(Extentions.SpriteLayer.background_Mid, new[] { "Sprites/Background_day_05", "Sprites/Background_day_05", "Sprites/Background_day_05" }, 0.25f, 0.025f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
-            InitializeLayer(Extentions.SpriteLayer.background_Mid_Back, new[] { "Sprites/Background_day_06", "Sprites/Background_day_06", "Sprites/Background_day_06" }, 0.15f, 0.015f, new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
-            InitializeLayer(Extentions.SpriteLayer.background_Back, new[] { "Sprites/Background_day_07", "Sprites/Background_day_07", "Sprites/Background_day_07" }, 0.05f, 0.01f ,new Vector2(-_camera.position.X, -_camera.position.Y), content, _camera);
+            InitializeLayer(Extentions.SpriteLayer.background_Fore, new[] { "Sprites/Background_day_01", "Sprites/Background_day_02", "Sprites/Background_day_01" }, 0.55f, 0.0f, new Vector2(-_camera.position.X,0), content, _camera); // -_camera.position.Y
+            InitializeLayer(Extentions.SpriteLayer.background_Fore_Mid, new[] { "Sprites/Background_day_03", "Sprites/Background_day_04", "Sprites/Background_day_03" }, 0.35f, 0.0f, new Vector2(-_camera.position.X, 0), content, _camera);
+            InitializeLayer(Extentions.SpriteLayer.background_Mid, new[] { "Sprites/Background_day_05", "Sprites/Background_day_05", "Sprites/Background_day_05" }, 0.25f, 0.025f, new Vector2(-_camera.position.X, 0), content, _camera);
+            InitializeLayer(Extentions.SpriteLayer.background_Mid_Back, new[] { "Sprites/Background_day_06", "Sprites/Background_day_06", "Sprites/Background_day_06" }, 0.15f, 0.015f, new Vector2(-_camera.position.X, 0), content, _camera);
+            InitializeLayer(Extentions.SpriteLayer.background_Back, new[] { "Sprites/Background_day_07", "Sprites/Background_day_07", "Sprites/Background_day_07" }, 0.05f, 0.01f ,new Vector2(-_camera.position.X,0), content, _camera);
         }
         private void InitializeLayer(Extentions.SpriteLayer layer, string[] textures, float speedX, float speedY, Vector2 initialPosition, ContentManager content, Camera camera2)
         {
@@ -73,7 +73,8 @@ namespace Sanguine_Forest
                 foreach (var background in backgrounds)
                 {
                     background.UpdateMe(deltaMovement);
-                    background.SetPosition(new Vector2(background.GetPosition().X, _camera.GetCameraTarget().GetPosition().Y - _screenHeight / 2 - 100));
+                    //background.SetPosition(new Vector2(background.GetPosition().X, _camera.GetCameraTarget().GetPosition().Y - _screenHeight / 2 - 100));
+                    background.SetPosition(new Vector2(background.GetPosition().X, background.GetPosition().Y));
 
                     //// Calculate the parallax effect on Y position
                     //float parallaxEffectY = (_camera.GetCameraTarget().GetPosition().Y - _camera.position.Y) * background.ParallaxSpeedY;

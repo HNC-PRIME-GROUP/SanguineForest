@@ -13,7 +13,7 @@ namespace Sanguine_Forest
     {
 
         private AnimationModule _animationModule;
-        private SpriteModule _spriteModule;
+        public SpriteModule _spriteModule;
         private string grassType;
 
 

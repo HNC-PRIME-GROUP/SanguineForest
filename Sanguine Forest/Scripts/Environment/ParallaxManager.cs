@@ -74,6 +74,7 @@ namespace Sanguine_Forest
                 {
                     background.UpdateMe(deltaMovement);
                     background.SetPosition(new Vector2(background.GetPosition().X, _camera.GetCameraTarget().GetPosition().Y - _screenHeight / 2 - 100));
+                    //background.SetPosition(new Vector2(background.GetPosition().X, background.GetPosition().Y));
 
                     //// Calculate the parallax effect on Y position
                     //float parallaxEffectY = (_camera.GetCameraTarget().GetPosition().Y - _camera.position.Y) * background.ParallaxSpeedY;

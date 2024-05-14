@@ -43,6 +43,9 @@ namespace Sanguine_Forest
         private DebugObserver _debugObserver;
         private bool isObserverWork = false;
 
+        Texture2D semiTransparentTexture;
+
+
 
 
 
@@ -100,7 +103,7 @@ namespace Sanguine_Forest
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content, _playerState);
+            _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
             _environmentManager.Initialise(_currentScene);
 
 
@@ -110,6 +113,10 @@ namespace Sanguine_Forest
             //Debug camera
             DebugManager.Camera = _camera;
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
+
+            // Create a 1x1 pixel texture and set it to a semi-transparent color
+            semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
+            semiTransparentTexture.SetData(new[] { new Color(0, 0, 0, 128) }); // Adjust alpha to increase/decrease darkness
         }
 
         protected override void Update(GameTime gameTime)
@@ -179,7 +186,7 @@ namespace Sanguine_Forest
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
-            _environmentManager.DrawMe(_spriteBatch);
+            //_environmentManager.DrawMe(_spriteBatch);
             //Character
             _character.DrawMe(_spriteBatch);
 

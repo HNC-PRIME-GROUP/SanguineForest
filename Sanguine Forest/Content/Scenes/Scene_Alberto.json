@@ -1,52 +1,58 @@
 {
 
-  "characterPosition": "0, -200",
+  "characterPosition": "-200, -150",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
       "comment": "First platform",
-      "position": "-100,100",
+      "position": "-500,100",
       "rotation": "0",
-      "platformSize": "10000,192"
-    },
-    {
-      "Position": "800,-100",
-      "Rotation": "0",
-      "PlatformSize": "200,200"
+      "platformSize": "1900,192"
+    }
 
-    }
+    //{
+    //  "Position": "800,-100",
+    //  "Rotation": "0",
+    //  "PlatformSize": "200,200"
+    //}
+
   ],
-  "comment02": "platform that change their position slightly after death if risk level is high",
+  //"comment02": "platform that change their position slightly after death if risk level is high",
   "moveablPlatforms": [
-    {
-      "position": "0, -300",
-      "rotation": "0",
-      "platformSize": "100,100",
-      "maxShift": "50,50"
-    }
+
+    //{
+    //    "position": "0, -300",
+    //    "rotation": "0",
+    //    "platformSize": "100,100",
+    //    "maxShift": "50,50"
+    //}
+
   ],
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
   "fallingPlatforms": [
 
 
-    {
-      "Position": "400,-300",
-      "Rotation": "0",
-      "PlatformSize": "200,200",
-      "TimeToFall": "4"
-    },
-    {
-      "Position": "800,-600",
-      "Rotation": "0",
-      "PlatformSize": "200,200",
-      "TimeToFall": "4"
-    }
+    //{
+    //  "Position": "400,-300",
+    //  "Rotation": "0",
+    //  "PlatformSize": "200,200",
+    //  "TimeToFall": "1"
+    //},
+    //{
+    //  "Position": "800,-600",
+    //  "Rotation": "0",
+    //  "PlatformSize": "200,200",
+    //  "TimeToFall": "1"
+    //}
 
   ],
   "comment04": "dangerous place in any case (pites, water, thorns)",
   "dangerPlaces": [],
+
+
   "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "decors": [
+
     {
       "Position": "0,40",
       "Rotation": "0.5",
@@ -85,49 +91,59 @@
 
   ],
   "obstaclesData2": [
-    {
-      "Position": "-300,100",
-      "Rotation": "0",
-      "slimeType": "Brown",
-      "finPosition": "-600,-200",
-      "Speed": "5",
-      "Size": "200,200"
-    }
+
+    //{
+    //  "Position": "-300,100",
+    //  "Rotation": "0",
+    //  "slimeType": "Brown",
+    //  "finPosition": "-600,-200",
+    //  "Speed": "5",
+    //  "Size": "200,200"
+    //}
 
   ],
   "obstaclesData3": [],
   "comment07": "Thorns - danger polaces",
   "thorns": [
 
-    {
-      "Position": "-500,-800",
-      "Rotation": "0",
-      "ThornsSize": "200,500"
-    },
-    {
-      "Position": "500,200",
-      "Rotation": "0",
-      "ThornsSize": "200,200"
-    }
+    //{
+    //  "Position": "-500,-800",
+    //  "Rotation": "0",
+    //  "ThornsSize": "200,500"
+    //},
+    //{
+    //  "Position": "500,200",
+    //  "Rotation": "0",
+    //  "ThornsSize": "200,200"
+    //}
+
   ],
+
+
   "comment 07 ": "Data about cutscenes",
-  "cutSceneString": [
-    "Bla bla bla",
-    "BloBloBLO"
+  "cutSceneDialogues": [
 
-
-
+    {
+      //"Speaker": "NPC1",
+      "Text": "WhatUp bruh,",
+      "Position": "100, -200"
+    }
 
   ],
-  "isCutScene": "false",
+
+  "isCutScene": "true",
   "cutSceneObjects": [
     {
-      "Position": "100,100",
-      "Rotation": "0",
-      "Scale": "1"
+      "Position": "300,-20",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Pink"
+    },
+    {
+      "Position": "200,-20",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Blue"
     }
-
   ]
-
 }
-

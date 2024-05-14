@@ -106,7 +106,7 @@ namespace Sanguine_Forest
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content,_playerState);
+            _environmentManager = new EnvironmentManager(Content,_playerState, semiTransparentTexture);
             _environmentManager.Initialise(_currentScene);
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
 
@@ -206,11 +206,13 @@ namespace Sanguine_Forest
 
             _spriteBatch.End();
 
+            Matrix cameraTransform = _camera.GetCam();
+
             if (_uiManager.CurrentGameState == UIManager.GameState.Playing)
             {
 
 
-                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, cameraTransform);
 
                 _environmentManager.DrawMe(_spriteBatch);
                 _character.DrawMe(_spriteBatch);
@@ -228,7 +230,7 @@ namespace Sanguine_Forest
 
             else if (_uiManager.CurrentGameState == UIManager.GameState.StartScreen)
             {
-                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, cameraTransform);
 
                 _parallaxManager.DrawMe(_spriteBatch);
 
@@ -249,7 +251,7 @@ namespace Sanguine_Forest
 
             else if (_uiManager.CurrentGameState == UIManager.GameState.Paused)
             {
-                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, cameraTransform);
 
                 _environmentManager.DrawMe(_spriteBatch);
                 _character.DrawMe(_spriteBatch);

@@ -202,7 +202,7 @@ namespace Sanguine_Forest
 
            
             // Update cutscene
-            _environmentManager.UpdateCutscene(gameTime, currState, prevState, _character.GetPosition());
+            _environmentManager.UpdateCutscene(gameTime, currState, prevState, _character);
 
         }
 

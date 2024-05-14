@@ -61,7 +61,7 @@ namespace Sanguine_Forest
         //Death event
         public event EventHandler DeathEvent;
 
-        private Vector2 targetPosition;
+        private Vector2 _targetPosition;
         private bool isWalkingToTarget;
 
 
@@ -170,25 +170,27 @@ namespace Sanguine_Forest
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Run");
 
-            if (position != targetPosition)
+            if (Vector2.Distance(position, _targetPosition) > walkSpeed)
             {
-                Vector2 direction = Vector2.Normalize(targetPosition - position);
+                Vector2 direction = Vector2.Normalize(_targetPosition - position);
                 _velocity.X = direction.X * walkSpeed;
 
                 // Debug log for walking to target
-                Debug.WriteLine($"Walking to target. Direction: {direction}, Velocity: {_velocity}, Target Position: {targetPosition}");
+                Debug.WriteLine($"Walking to target. Direction: {direction}, Velocity: {_velocity}, Target Position: {_targetPosition}");
+            }
+            else
+            {
+                // If the character is close enough to the target, set position directly
+                position = _targetPosition;
+                isWalkingToTarget = false;
+                _currentState = CharState.idle;
+                _velocity = Vector2.Zero;
 
-                // Check if we have reached the target
-                if (Vector2.Distance(position, targetPosition) < walkSpeed)
-                {
-                    position = targetPosition;
-                    isWalkingToTarget = false;
-                    _currentState = CharState.idle;
-                    _velocity = Vector2.Zero;
+                // Debug log for reaching the target
+                Debug.WriteLine($"Reached target position: {_targetPosition}");
 
-                    // Debug log for reaching the target
-                    Debug.WriteLine($"Reached target position: {targetPosition}");
-                }
+                // Ensure the character is idle
+                _animationModule.Play("Idle");
             }
         }
 
@@ -412,7 +414,7 @@ namespace Sanguine_Forest
                     _gravityEffect = 0;
                     return;
                 }
-                if ((_currentState == CharState.idle || _currentState == CharState.walk) && collision.GetThisPhysicModule() == _feetCollision)
+                if ((_currentState == CharState.idle || _currentState == CharState.walk || _currentState == CharState.walkToTarget) && collision.GetThisPhysicModule() == _feetCollision)
                 {
                     _gravityEffect = 0f;
                     _velocity.Y = 0f;
@@ -550,9 +552,10 @@ namespace Sanguine_Forest
 
         public void SetTargetPosition(Vector2 targetPosition)
         {
-            this.targetPosition = targetPosition;
+            this._targetPosition = targetPosition;
             this.isWalkingToTarget = true;
             this._currentState = CharState.walkToTarget;
+
             Debug.WriteLine($"Set target position: {targetPosition}");
         }
 

@@ -160,6 +160,12 @@
       "NPCType": "Pink"
     },
     {
+      "Position": "400,-20",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Green"
+    },
+    {
       "Position": "500,-20",
       "Rotation": 0.0,
       "Scale": 1.0,

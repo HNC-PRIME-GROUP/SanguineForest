@@ -532,6 +532,10 @@ namespace Sanguine_Forest
 
         public bool IsDialogueActive => isDialogueActive;
 
+        private bool isMovingToNPC = false;
+        private Vector2 targetPosition;
+        private CutSceneObject nearestNPC;
+
 
         private Random _rng;
 
@@ -543,15 +547,7 @@ namespace Sanguine_Forest
             _rng = new Random();
 
             font = content.Load<SpriteFont>("Fonts/TitleFontSmll");
-            if (font == null)
-            {
-                throw new Exception("Font could not be loaded.");
-            }
 
-            if (semiTransparentTexture == null)
-            {
-                throw new Exception("Semi-transparent texture could not be loaded.");
-            }
         }
 
         // Initialize all platforms and other environment from the scene
@@ -735,6 +731,7 @@ namespace Sanguine_Forest
                 {
                     cutSceneObject.UpdateMe();
                 }
+
             }
         }
 
@@ -802,23 +799,57 @@ namespace Sanguine_Forest
 
 
 
-        public void UpdateCutscene(GameTime gameTime, KeyboardState currentKeyboardState, KeyboardState previousKeyboardState, Vector2 characterPosition)
+        public void UpdateCutscene(GameTime gameTime, KeyboardState currentKeyboardState, KeyboardState previousKeyboardState, Character2 character)
         {
             if (isCutScene && cutSceneDialogues != null && cutSceneDialogues.Count > 0)
             {
                 if (currentKeyboardState.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E))
                 {
-                    if (!isDialogueActive && IsCharacterCloseToNPC(characterPosition))
+                    if (!isDialogueActive && IsCharacterCloseToNPC(character.GetPosition()))
                     {
-                        isDialogueActive = true;
-                        DisplayNextDialogue();
+                        nearestNPC = GetNearestNPC(character.GetPosition());
+                        if (nearestNPC != null)
+                        {
+                            targetPosition = GetTargetPositionInFrontOfNPC(nearestNPC);
+                            isMovingToNPC = true;
+                            character.SetTargetPosition(targetPosition);
+                        }
                     }
-                    else if (isDialogueActive)
+                    else if (isDialogueActive || (character.GetCharacterState() == Character2.CharState.idle && !isMovingToNPC))
                     {
                         DisplayNextDialogue();
                     }
                 }
+
+                if (isMovingToNPC)
+                {
+                    if (character.GetCharacterState() != Character2.CharState.walkToTarget)
+                    {
+                        isMovingToNPC = false;
+                        isDialogueActive = true;
+                        DisplayNextDialogue();
+                    }
+                }
             }
+        }
+
+
+        private CutSceneObject GetNearestNPC(Vector2 characterPosition)
+        {
+            CutSceneObject nearestNPC = null;
+            float minDistance = float.MaxValue;
+
+            foreach (var cutSceneObject in cutSceneObjects)
+            {
+                float distance = Vector2.Distance(characterPosition, cutSceneObject.GetPosition());
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestNPC = cutSceneObject;
+                }
+            }
+
+            return nearestNPC;
         }
 
         private bool IsCharacterCloseToNPC(Vector2 characterPosition)
@@ -832,6 +863,13 @@ namespace Sanguine_Forest
                 }
             }
             return false;
+        }
+
+        private Vector2 GetTargetPositionInFrontOfNPC(CutSceneObject npc)
+        {
+            Vector2 npcPosition = npc.GetPosition();
+            Vector2 offset = new Vector2(-150, 50); // Adjust the offset as needed to place the character in front of the NPC
+            return npcPosition + offset;
         }
 
         private void DisplayNextDialogue()

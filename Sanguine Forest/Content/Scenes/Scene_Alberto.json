@@ -1,6 +1,6 @@
 {
 
-  "characterPosition": "-200, -350",
+  "characterPosition": "-200, -150",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -126,7 +126,7 @@
     {
       //"Speaker": "NPC1",
       "Text": "WhatUp bruh,",
-      "Position": "100, -120"
+      "Position": "100, -200"
     }
 
   ],

@@ -208,45 +208,44 @@ namespace Sanguine_Forest
 
             if (_uiManager.CurrentGameState == UIManager.GameState.Playing)
             {
-
-
-                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+                Matrix cameraTransform = _camera.GetCam();
+                _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, cameraTransform);
 
                 _environmentManager.DrawMe(_spriteBatch);
                 _character.DrawMe(_spriteBatch);
                 _parallaxManager.DrawMe(_spriteBatch);
 
-                //Debug test
-                // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+                // Debug test
                 DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
                 DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
                 if (isObserverWork)
                     DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
 
                 _spriteBatch.End();
-            }
 
+                // Begin a new sprite batch without camera transformations for UI
+                _spriteBatch.Begin();
+                _environmentManager.DrawCutSceneDialogues(_spriteBatch, cameraTransform);
+                _spriteBatch.End();
+            }
             else if (_uiManager.CurrentGameState == UIManager.GameState.StartScreen)
             {
                 _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
 
-                _parallaxManager.DrawMe(_spriteBatch); 
+                _parallaxManager.DrawMe(_spriteBatch);
 
                 _spriteBatch.End();
 
                 // Begin a new sprite batch without any camera transformations
                 _spriteBatch.Begin();
 
-                // Draw  semi-transparent overlay over the whole screen
+                // Draw semi-transparent overlay over the whole screen
                 _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
 
                 _uiManager.DrawMe();
 
-
                 _spriteBatch.End();
-
             }
-
             else if (_uiManager.CurrentGameState == UIManager.GameState.Paused)
             {
                 _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
@@ -257,21 +256,101 @@ namespace Sanguine_Forest
 
                 _spriteBatch.End();
 
-
                 // Begin a new sprite batch without any camera transformations
                 _spriteBatch.Begin();
 
-                // Draw  semi-transparent overlay over the whole screen
+                // Draw semi-transparent overlay over the whole screen
                 _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
 
                 _uiManager.DrawMe();
 
-
                 _spriteBatch.End();
             }
 
-
             base.Draw(gameTime);
         }
+
+        //protected override void Draw(GameTime gameTime)
+        //{
+        //    GraphicsDevice.Clear(Color.Black);
+
+        //    Matrix camTransform = _camera.GetCam();
+
+        //    if (_uiManager.CurrentGameState == UIManager.GameState.Playing)
+        //    {
+
+
+        //        _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camTransform);
+
+        //        //_environmentManager.DrawMe(_spriteBatch);
+        //        _character.DrawMe(_spriteBatch);
+        //        _parallaxManager.DrawMe(_spriteBatch);
+
+
+        //        //Debug test
+        //        // DebugManager.DebugRectangle(new Rectangle(50, 50, 50, 50));
+        //        DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
+        //        DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
+        //        if (isObserverWork)
+        //            DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
+
+        //        _spriteBatch.End();
+
+        //        // Begin a new sprite batch without any camera transformations
+        //        _spriteBatch.Begin();
+
+        //        _environmentManager.DrawMe(_spriteBatch, camTransform);
+
+
+        //        _spriteBatch.End();
+        //    }
+
+        //    else if (_uiManager.CurrentGameState == UIManager.GameState.StartScreen)
+        //    {
+        //        _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+
+        //        _parallaxManager.DrawMe(_spriteBatch); 
+
+        //        _spriteBatch.End();
+
+        //        // Begin a new sprite batch without any camera transformations
+        //        _spriteBatch.Begin();
+
+        //        // Draw  semi-transparent overlay over the whole screen
+        //        _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+
+        //        _uiManager.DrawMe();
+
+
+        //        _spriteBatch.End();
+
+        //    }
+
+        //    else if (_uiManager.CurrentGameState == UIManager.GameState.Paused)
+        //    {
+        //        _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
+
+        //        //_environmentManager.DrawMe(_spriteBatch);
+        //        _character.DrawMe(_spriteBatch);
+        //        _parallaxManager.DrawMe(_spriteBatch);
+
+        //        _spriteBatch.End();
+
+
+        //        // Begin a new sprite batch without any camera transformations
+        //        _spriteBatch.Begin();
+
+        //        // Draw  semi-transparent overlay over the whole screen
+        //        _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+
+        //        _uiManager.DrawMe();
+
+
+        //        _spriteBatch.End();
+        //    }
+
+
+        //    base.Draw(gameTime);
+        //}
     }
 }

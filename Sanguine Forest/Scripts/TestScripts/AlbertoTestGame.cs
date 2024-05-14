@@ -80,6 +80,10 @@ namespace Sanguine_Forest
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
 
+                        // Create a 1x1 pixel texture and set it to a semi-transparent color
+            semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
+            semiTransparentTexture.SetData(new[] { new Color(0, 0, 0, 128) }); // Adjust alpha to increase/decrease darkness
+
             //Audio
             //AudioSetting
             //AudioManager.GeneralVolume = 1.0f;
@@ -96,7 +100,7 @@ namespace Sanguine_Forest
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content, _playerState);
+            _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
             _environmentManager.Initialise(_currentScene);
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
 
@@ -110,9 +114,6 @@ namespace Sanguine_Forest
             // Initialize UI manager. Create an Exit method for UIManager
             _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
 
-            // Create a 1x1 pixel texture and set it to a semi-transparent color
-            semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
-            semiTransparentTexture.SetData(new[] { new Color(0, 0, 0, 128) }); // Adjust alpha to increase/decrease darkness
 
         }
 

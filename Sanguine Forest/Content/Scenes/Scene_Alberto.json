@@ -1,6 +1,6 @@
 {
 
-  "characterPosition": "-200, -200",
+  "characterPosition": "-200, -350",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -121,18 +121,14 @@
 
 
   "comment 07 ": "Data about cutscenes",
-  "cutSceneString": [
-    
-    //{
-    //  "Text": "Bla bla bla",
-    //  "Position": "-300,100"
-    //},
+  "cutSceneDialogues": [
 
-    //{
-    //  "Text": "Bla bla bla",
-    //  "Position": "-300,100"
-    //}
-    
+    {
+      //"Speaker": "NPC1",
+      "Text": "WhatUp bruh,",
+      "Position": "100, -120"
+    }
+
   ],
 
   "isCutScene": "true",

@@ -38,7 +38,7 @@ namespace Sanguine_Forest
         //Cutscene mode
         public bool isCutScene;
         public List<CutSceneObjectData> cutSceneObjects;
-        public List<string> cutSceneString;
+        public List<CutSceneDialogue> cutSceneDialogues;
 
 
 
@@ -48,7 +48,6 @@ namespace Sanguine_Forest
 
         public Scene()
         {
-
 
         }
 

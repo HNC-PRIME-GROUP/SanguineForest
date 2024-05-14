@@ -18,7 +18,7 @@ namespace Sanguine_Forest
 
 
         //graphic
-        public SpriteModule _spriteModule;
+        public SpriteModule _SpriteModule;
         private AnimationModule _animationModule;
         private string NPCType;
 
@@ -29,30 +29,30 @@ namespace Sanguine_Forest
 
         public CutSceneObject(Vector2 position, float rotation, ContentManager content, string NPCType, string cutsceneText, SpriteFont font) : base (position, rotation)         
         {
-             _spriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_NPC_v1"), Extention.Extentions.SpriteLayer.environment2);
+             _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_NPC_v1"), Extentions.SpriteLayer.environment2);
             Dictionary<string, AnimationSequence> animations = new Dictionary<string, AnimationSequence>()
             {   { "Pink", new AnimationSequence(Vector2.Zero, 1) },
                 { "Blue", new AnimationSequence(new Vector2(0, 512), 1) },
                 { "Green", new AnimationSequence(new Vector2(0, 1024), 1) },
             };
             SpriteSheetData spriteSheet = new SpriteSheetData(new Rectangle(0, 0, 512, 512), animations);
-            _animationModule = new AnimationModule(this, Vector2.Zero, spriteSheet, _spriteModule);
-            _spriteModule.AnimtaionInitialise(_animationModule);
+            _animationModule = new AnimationModule(this, Vector2.Zero, spriteSheet, _SpriteModule);
+            _SpriteModule.AnimtaionInitialise(_animationModule);
             this.NPCType = NPCType;
             _animationModule.SetAnimationSpeed(0.8f);
-            _spriteModule.SetScale(0.25f);
+            _SpriteModule.SetScale(0.25f);
+            _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
 
             // Initialize text fields
             _cutsceneText = cutsceneText;
             _font = font;
-
 
         }   
 
         
         public new void UpdateMe()
         {
-            _spriteModule.UpdateMe();
+            _SpriteModule.UpdateMe();
             _animationModule.UpdateMe();
             _animationModule.Play(NPCType);
 
@@ -62,7 +62,7 @@ namespace Sanguine_Forest
 
         public void DrawMe(SpriteBatch sp)
         {
-            _spriteModule.DrawMe(sp);
+            _SpriteModule.DrawMe(sp);
 
             // Draw the text
             if (!string.IsNullOrEmpty(_cutsceneText))
@@ -80,5 +80,12 @@ namespace Sanguine_Forest
         public float Rotation;
         public float Scale;
         public string NPCType;
+    }
+
+    public struct CutSceneDialogue
+    {
+        //public string Speaker;      // Name of the speaker (optional)
+        public string Text;         // The dialogue text
+        public Vector2 Position;    // Position where the text should appear
     }
 }

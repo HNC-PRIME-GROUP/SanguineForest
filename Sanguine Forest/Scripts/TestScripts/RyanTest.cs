@@ -87,7 +87,7 @@ namespace Sanguine_Forest
             //Debug test
 
             player.DrawMe(_spriteBatch);
-            environmentManager.DrawMe(_spriteBatch);
+            //environmentManager.DrawMe(_spriteBatch);
 
             DebugManager.DebugString("pos: " + player.GetPosition(), new Vector2(0, 0));
             //DebugManager.DebugString("pos: " + player.Position, new Vector2(0, 10));

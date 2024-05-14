@@ -73,14 +73,8 @@ namespace Sanguine_Forest
                 foreach (var background in backgrounds)
                 {
                     background.UpdateMe(deltaMovement);
-                    background.SetPosition(new Vector2(background.GetPosition().X, _camera.GetCameraTarget().GetPosition().Y - _screenHeight / 2 - 100));
-                    //background.SetPosition(new Vector2(background.GetPosition().X, background.GetPosition().Y));
-
-                    //// Calculate the parallax effect on Y position
-                    //float parallaxEffectY = (_camera.GetCameraTarget().GetPosition().Y - _camera.position.Y) * background.ParallaxSpeedY;
-
-                    //// Set new position with parallax effect on Y-axis
-                    //background.SetPosition(new Vector2(background.GetPosition().X, -_screenHeight / 2 - parallaxEffectY));
+                    //background.SetPosition(new Vector2(background.GetPosition().X, _camera.GetCameraTarget().GetPosition().Y - _screenHeight / 2 - 100));
+                    background.SetPosition(new Vector2(background.GetPosition().X, background.GetPosition().Y));
 
                     float currentRightEdge = background.GetPosition().X + _screenWidth;
                     float currentLeftEdge = background.GetPosition().X;
@@ -113,8 +107,7 @@ namespace Sanguine_Forest
                     }
                     
                 }
-                
-                
+                           
                 //backgrounds.ForEach(bg => Debug.WriteLine($"Layer {layer.Key} - After Update - Position: {bg.GetPosition()}"));
             }
         }

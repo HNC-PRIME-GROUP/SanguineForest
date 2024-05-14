@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sanguine_Forest.Scripts.Environment.Obstacle;
+using System.Diagnostics;
 
 namespace Sanguine_Forest
 {
@@ -38,7 +39,8 @@ namespace Sanguine_Forest
             cling,
             wallJump,
             falling,
-            Death
+            Death,
+            walkToTarget
 
         }
         private CharState _currentState;
@@ -46,7 +48,7 @@ namespace Sanguine_Forest
         //Movement
         private float _speed = 9f;
         private float _jumpHigh = 25f;
-
+        private float walkSpeed = 3f; // Set a fixed walk speed
         private Vector2 _velocity = Vector2.Zero;
         private float _gravityRate = 0.3f;
         private float _gravityEffect = 0;
@@ -58,6 +60,10 @@ namespace Sanguine_Forest
 
         //Death event
         public event EventHandler DeathEvent;
+
+        private Vector2 targetPosition;
+        private bool isWalkingToTarget;
+
 
 
         public Character2(Vector2 position, float rotation, ContentManager content) : base(position, rotation)
@@ -98,7 +104,9 @@ namespace Sanguine_Forest
 
             _currentState = CharState.jump;
 
-            
+            this.isWalkingToTarget = false;
+            this._currentState = CharState.idle;
+
 
         }
 
@@ -143,15 +151,46 @@ namespace Sanguine_Forest
                 case CharState.Death:
                     DeathUpdate();
                     break;
+                case CharState.walkToTarget:
+                    WalkToTargetUpdate();
+                    break;
             }
 
 
             _velocity.Y += _gravityEffect;
             position += _velocity;
 
+            Debug.WriteLine($"Character Position: {position}, Velocity: {_velocity}, State: {_currentState}");
+
         }
 
         #region State updates
+        private void WalkToTargetUpdate()
+        {
+            _animationModule.SetAnimationSpeed(0.1f);
+            _animationModule.Play("Run");
+
+            if (position != targetPosition)
+            {
+                Vector2 direction = Vector2.Normalize(targetPosition - position);
+                _velocity.X = direction.X * walkSpeed;
+
+                // Debug log for walking to target
+                Debug.WriteLine($"Walking to target. Direction: {direction}, Velocity: {_velocity}, Target Position: {targetPosition}");
+
+                // Check if we have reached the target
+                if (Vector2.Distance(position, targetPosition) < walkSpeed)
+                {
+                    position = targetPosition;
+                    isWalkingToTarget = false;
+                    _currentState = CharState.idle;
+                    _velocity = Vector2.Zero;
+
+                    // Debug log for reaching the target
+                    Debug.WriteLine($"Reached target position: {targetPosition}");
+                }
+            }
+        }
 
         public void IdleUpdate(KeyboardState prev, KeyboardState curr)
         {
@@ -231,6 +270,8 @@ namespace Sanguine_Forest
             }
             // _gravityEffect = 0f;
             //_velocity.Y = 0f;
+
+            Debug.WriteLine($"Walk Update. Position: {position}, Velocity: {_velocity}");
         }
 
         public void JumpUpdate(KeyboardState prev, KeyboardState curr)
@@ -507,6 +548,13 @@ namespace Sanguine_Forest
             return _currentState;
         }
 
+        public void SetTargetPosition(Vector2 targetPosition)
+        {
+            this.targetPosition = targetPosition;
+            this.isWalkingToTarget = true;
+            this._currentState = CharState.walkToTarget;
+            Debug.WriteLine($"Set target position: {targetPosition}");
+        }
 
     }
 }

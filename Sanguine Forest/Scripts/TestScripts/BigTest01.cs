@@ -149,7 +149,7 @@ namespace Sanguine_Forest
                     UpdatePlaying(gameTime);
                     break;
                 case UIManager.GameState.Paused:
-                    _environmentManager.UpdateMe();
+                  //  _environmentManager.UpdateMe();
                     break;
                 case UIManager.GameState.GameOver:
                     // freeze the game or setup for restart
@@ -208,7 +208,7 @@ namespace Sanguine_Forest
 
                 _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, cameraTransform);
 
-                _environmentManager.DrawMe(_spriteBatch);
+                //_environmentManager.DrawMe(_spriteBatch);
                 _character.DrawMe(_spriteBatch);
                 _parallaxManager.DrawMe(_spriteBatch);
 
@@ -247,7 +247,7 @@ namespace Sanguine_Forest
             {
                 _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, cameraTransform);
 
-                _environmentManager.DrawMe(_spriteBatch);
+                //_environmentManager.DrawMe(_spriteBatch);
                 _character.DrawMe(_spriteBatch);
                 _parallaxManager.DrawMe(_spriteBatch);
 
@@ -273,7 +273,7 @@ namespace Sanguine_Forest
         private void UpdatePlaying(GameTime gameTime)
         {
             // Update all game logic here when in Playing state
-            _environmentManager.UpdateMe();
+            //_environmentManager.UpdateMe();
             _camera.UpdateMe();
             if (!isObserverWork)
             {

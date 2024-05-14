@@ -497,6 +497,7 @@ using Sanguine_Forest.Scripts.GameState;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Sanguine_Forest
 {
@@ -523,6 +524,14 @@ namespace Sanguine_Forest
         private SpriteFont font;
         private Texture2D semiTransparentTexture;
         public bool isCutScene;
+
+        private int currentDialogueIndex = 0;
+        private bool isDialogueActive = false;
+
+        private float proximityRange = 200f; // Adjust this value as needed
+
+        public bool IsDialogueActive => isDialogueActive;
+
 
         private Random _rng;
 
@@ -654,15 +663,17 @@ namespace Sanguine_Forest
                 }
             }
 
+            // Initialize Vuts
             cutSceneObjects = new List<CutSceneObject>();
             isCutScene = scene.isCutScene;
             cutSceneDialogues = scene.cutSceneDialogues ?? new List<CutSceneDialogue>();
 
             if (scene.isCutScene)
             {
+
                 foreach (var data in scene.cutSceneObjects)
                 {
-                    cutSceneObjects.Add(new CutSceneObject(data.Position, data.Rotation, content, data.NPCType, string.Empty, font));
+                    cutSceneObjects.Add(new CutSceneObject(data.Position, data.Rotation, content, data.NPCType, font, semiTransparentTexture));
                 }
             }
         }
@@ -727,7 +738,7 @@ namespace Sanguine_Forest
             }
         }
 
-        public void DrawMe(SpriteBatch spriteBatch)
+        public void DrawMe(SpriteBatch spriteBatch, Vector2 characterPosition)
         {
             // Draw platforms
             foreach (var platform in platforms) { platform.DrawMe(spriteBatch); }
@@ -749,38 +760,33 @@ namespace Sanguine_Forest
             {
                 foreach (var cutSceneObject in cutSceneObjects)
                 {
-                    cutSceneObject.DrawMe(spriteBatch);
+                    cutSceneObject.DrawMe(spriteBatch, false);
                 }
             }
         }
 
         public void DrawCutSceneDialogues(SpriteBatch spriteBatch, Matrix cameraTransform)
         {
-            if (isCutScene && cutSceneDialogues != null)
+            if (isCutScene && cutSceneDialogues != null && cutSceneDialogues.Count > 0 && isDialogueActive)
             {
-                foreach (var dialogue in cutSceneDialogues)
+                foreach (var cutSceneObject in cutSceneObjects)
                 {
-                    Vector2 textPosition = Vector2.Transform(new Vector2(dialogue.Position.X, dialogue.Position.Y), cameraTransform);
-                    Vector2 textSize = font.MeasureString(dialogue.Text);
+                    if (!string.IsNullOrEmpty(cutSceneObject.CutsceneText))
+                    {
+                        var textPosition = Vector2.Transform(cutSceneObject.TextPosition, cameraTransform);
+                        var textSize = font.MeasureString(cutSceneObject.CutsceneText);
 
-                    Rectangle backgroundRectangle = new Rectangle((int)textPosition.X - 5, (int)textPosition.Y - 5, (int)textSize.X + 10, (int)textSize.Y + 10);
-                    spriteBatch.Draw(semiTransparentTexture, backgroundRectangle, Color.Black * 0.5f);
-
-                    // Debug log for rectangle
-                    Debug.WriteLine($"Drawing rectangle at {backgroundRectangle} for text: {dialogue.Text}");
-                }
-
-                // Draw the text on top of the rectangles
-                foreach (var dialogue in cutSceneDialogues)
-                {
-                    Vector2 textPosition = Vector2.Transform(new Vector2(dialogue.Position.X, dialogue.Position.Y), cameraTransform);
-                    spriteBatch.DrawString(font, dialogue.Text, textPosition, Color.White);
-
-                    // Debug log for text
-                    Debug.WriteLine($"Drawing text: {dialogue.Text} at position {textPosition}");
+                        Rectangle backgroundRectangle = new Rectangle((int)textPosition.X - 5, (int)textPosition.Y - 5, (int)textSize.X + 10, (int)textSize.Y + 10);
+                        spriteBatch.Draw(semiTransparentTexture, backgroundRectangle, Color.Black * 0.5f);
+                        spriteBatch.DrawString(font, cutSceneObject.CutsceneText, textPosition, Color.White);
+                    }
                 }
             }
         }
+
+
+
+
 
         public void DeathUpdate(object sender, EventArgs e)
         {
@@ -793,5 +799,84 @@ namespace Sanguine_Forest
                 platform.RandomMyFallingTime(playerState.RiskLevel);
             }
         }
+
+
+
+        public void UpdateCutscene(GameTime gameTime, KeyboardState currentKeyboardState, KeyboardState previousKeyboardState, Vector2 characterPosition)
+        {
+            if (isCutScene && cutSceneDialogues != null && cutSceneDialogues.Count > 0)
+            {
+                if (currentKeyboardState.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E))
+                {
+                    if (!isDialogueActive && IsCharacterCloseToNPC(characterPosition))
+                    {
+                        isDialogueActive = true;
+                        DisplayNextDialogue();
+                    }
+                    else if (isDialogueActive)
+                    {
+                        DisplayNextDialogue();
+                    }
+                }
+            }
+        }
+
+        private bool IsCharacterCloseToNPC(Vector2 characterPosition)
+        {
+            foreach (var cutSceneObject in cutSceneObjects)
+            {
+                float distance = Vector2.Distance(characterPosition, cutSceneObject.GetPosition());
+                if (distance <= proximityRange)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void DisplayNextDialogue()
+        {
+            // Clear previous text from all cutscene objects
+            foreach (var cutSceneObject in cutSceneObjects)
+            {
+                cutSceneObject.SetCutsceneText(string.Empty, Vector2.Zero);
+            }
+
+            // Set the current dialogue text to the appropriate cutscene object
+            if (currentDialogueIndex < cutSceneDialogues.Count)
+            {
+                var dialogue = cutSceneDialogues[currentDialogueIndex];
+                var cutSceneObject = cutSceneObjects[currentDialogueIndex % cutSceneObjects.Count];
+                cutSceneObject.SetCutsceneText(dialogue.Text, dialogue.Position);
+                currentDialogueIndex++;
+            }
+            else
+            {
+                isDialogueActive = false;
+                currentDialogueIndex = 0; // Reset index for potential restart
+            }
+        }
+
+        public void DrawPressEPrompts(SpriteBatch spriteBatch, Matrix cameraTransform, Vector2 characterPosition)
+        {
+            if (isCutScene && !isDialogueActive)
+            {
+                foreach (var cutSceneObject in cutSceneObjects)
+                {
+                    if (IsCharacterCloseToNPC(characterPosition))
+                    {
+                        string pressEText = "Press E";
+                        Vector2 pressETextSize = font.MeasureString(pressEText);
+                        var npcScreenPosition = Vector2.Transform(cutSceneObject.GetPosition(), cameraTransform);
+                        Vector2 pressETextPosition = new Vector2(npcScreenPosition.X, npcScreenPosition.Y - 30); // Adjust as needed
+
+                        Rectangle backgroundRectangle = new Rectangle((int)pressETextPosition.X - 5, (int)pressETextPosition.Y - 5, (int)pressETextSize.X + 10, (int)pressETextSize.Y + 10);
+                        spriteBatch.Draw(semiTransparentTexture, backgroundRectangle, Color.Black * 0.5f);
+                        spriteBatch.DrawString(font, pressEText, pressETextPosition, Color.White);
+                    }
+                }
+            }
+        }
+
     }
 }

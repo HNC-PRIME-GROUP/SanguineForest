@@ -71,7 +71,7 @@ namespace Sanguine_Forest
 
 
             //player.UpdateMe(curr, prev);
-            environmentManager.UpdateMe();
+            //environmentManager.UpdateMe();
 
             prev = curr;
 

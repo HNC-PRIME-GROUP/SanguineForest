@@ -108,7 +108,7 @@ namespace Sanguine_Forest
 
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, _camera);
+          //  _parallaxManager = new ParallaxManager(Content, _camera);
 
             //Debug camera
             DebugManager.Camera = _camera;

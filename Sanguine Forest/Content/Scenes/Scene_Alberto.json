@@ -8,6 +8,20 @@
       "position": "-500,100",
       "rotation": "0",
       "platformSize": "1900,192"
+    },
+
+    {
+      "comment": "First platform",
+      "position": "-200,800",
+      "rotation": "0",
+      "platformSize": "1900,192"
+    },
+
+    {
+      "comment": "First platform",
+      "position": "-200,1480",
+      "rotation": "0",
+      "platformSize": "1900,192"
     }
 
     //{
@@ -17,7 +31,7 @@
     //}
 
   ],
-  //"comment02": "platform that change their position slightly after death if risk level is high",
+  "comment02": "platform that change their position slightly after death if risk level is high",
   "moveablPlatforms": [
 
     //{
@@ -158,18 +172,19 @@
       "Rotation": 0.0,
       "Scale": 1.0,
       "NPCType": "Pink"
-    },
-    {
-      "Position": "400,-20",
-      "Rotation": 0.0,
-      "Scale": 1.0,
-      "NPCType": "Green"
-    },
-    {
-      "Position": "500,-20",
-      "Rotation": 0.0,
-      "Scale": 1.0,
-      "NPCType": "Blue"
     }
+    //,
+    //{
+    //  "Position": "400,-20",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Green"
+    //},
+    //{
+    //  "Position": "500,-20",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Blue"
+    //}
   ]
 }

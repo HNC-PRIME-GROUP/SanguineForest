@@ -16,7 +16,6 @@ namespace Sanguine_Forest
     internal class CutSceneObject : GameObject
     {
 
-
         //graphic
         public SpriteModule _SpriteModule;
         private AnimationModule _animationModule;
@@ -41,12 +40,12 @@ namespace Sanguine_Forest
             private set => _textPosition = value;
         }
 
-
         public CutSceneObject(Vector2 position, float rotation, ContentManager content, string NPCType, SpriteFont font, Texture2D semiTransparentTexture) : base(position, rotation)
         {
              _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_NPC_v1"), Extentions.SpriteLayer.environment2);
             Dictionary<string, AnimationSequence> animations = new Dictionary<string, AnimationSequence>()
-            {   { "Pink", new AnimationSequence(Vector2.Zero, 1) },
+            {   
+                { "Pink", new AnimationSequence(Vector2.Zero, 1) },
                 { "Blue", new AnimationSequence(new Vector2(0, 512), 1) },
                 { "Green", new AnimationSequence(new Vector2(0, 1024), 1) },
             };
@@ -62,11 +61,11 @@ namespace Sanguine_Forest
             _font = font;
             _semiTransparentTexture = semiTransparentTexture;
 
-        }   
+        }
 
-        
         public new void UpdateMe()
         {
+
             _SpriteModule.UpdateMe();
             _animationModule.UpdateMe();
             _animationModule.Play(NPCType);
@@ -90,8 +89,6 @@ namespace Sanguine_Forest
                 sp.DrawString(_font, pressEText, pressETextPosition, Color.White);
             }
         }
-
-
 
         public void SetCutsceneText(string text, Vector2 textPosition)
         {

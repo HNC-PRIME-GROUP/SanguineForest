@@ -659,7 +659,7 @@ namespace Sanguine_Forest
                 }
             }
 
-            // Initialize Vuts
+            // Initialize Cutscene
             cutSceneObjects = new List<CutSceneObject>();
             isCutScene = scene.isCutScene;
             cutSceneDialogues = scene.cutSceneDialogues ?? new List<CutSceneDialogue>();
@@ -813,6 +813,7 @@ namespace Sanguine_Forest
                             targetPosition = GetTargetPositionInFrontOfNPC(nearestNPC);
                             isMovingToNPC = true;
                             character.SetTargetPosition(targetPosition);
+                            character._currentState = Character2.CharState.walkToTarget; // Set state to walkToTarget
                         }
                     }
                     else if (isDialogueActive || (character.GetCharacterState() == Character2.CharState.idle && !isMovingToNPC))

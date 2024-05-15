@@ -37,6 +37,10 @@ namespace Sanguine_Forest
         public Random rng;
         private int shakePower;
 
+        // Add properties for the Y-axis boundaries
+        private float topBoundary;
+        private float bottomBoundary;
+
         /// <summary>
         /// Camera 
         /// </summary>
@@ -111,60 +115,80 @@ namespace Sanguine_Forest
 
 
 
-            ////following for the target in allowed borders
-            if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
-                cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) > leftUpperBorder.X)
-            {
-                //if (Vector2.Distance(position,new Vector2(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom), -cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom))) > 10)
-                //{ position.X += _velocity.X * speed; }
-                var oldPositionX = position.X;
-                position.X = MathHelper.Lerp(position.X, -cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom), 0.04f);
-                //-cameraTarget.GetPosition().X-50 + screenSize.X / (2 * zoom);
-                _velocity.X = position.X - oldPositionX;
-                
-                
-            }
-
-            if (cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) < rightBottomBorder.Y &&
-                cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) > leftUpperBorder.Y)
-            {
-                //if(Vector2.Distance(position, new Vector2(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom), -cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom))) > 10)
-                //{ position.Y += _velocity.Y * speed; }
-                var oldPositionY = position.Y;
-                position.Y = MathHelper.Lerp(position.Y, -cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom),0.04f);
-                _velocity.Y=position.Y - oldPositionY;
-                //- cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom);
-                
-            }
-
-            
-
-            // Update X - axis position
+            //////following for the target in allowed borders
             //if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
             //    cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) > leftUpperBorder.X)
             //{
-            //    position.X = -cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom);
+            //    //if (Vector2.Distance(position,new Vector2(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom), -cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom))) > 10)
+            //    //{ position.X += _velocity.X * speed; }
+            //    var oldPositionX = position.X;
+            //    position.X = MathHelper.Lerp(position.X, -cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom), 0.04f);
+            //    //-cameraTarget.GetPosition().X-50 + screenSize.X / (2 * zoom);
+            //    _velocity.X = position.X - oldPositionX;
+
+
             //}
 
-            //// Update Y-axis position
-            //float halfScreenHeight = screenSize.Y / (2 * zoom);
-            //float targetY = cameraTarget.GetPosition().Y;
-
-            //// Check if the target Y position adjusted by half the screen height is within the vertical game bounds
-            //if (targetY - halfScreenHeight < 0) // Checking if it goes above the top border
+            //if (cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) < rightBottomBorder.Y &&
+            //    cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) > leftUpperBorder.Y)
             //{
-            //    position.Y = halfScreenHeight; // Keep the camera centered within the boundary
-            //}
-            //else if (targetY + halfScreenHeight > 1080) // Checking if it goes below the bottom border
-            //{
-            //    position.Y = 1080 - halfScreenHeight; // Adjust to keep within the bottom boundary
-            //}
-            //else
-            //{
-            //    position.Y = targetY; // Normal follow behavior
+            //    //if(Vector2.Distance(position, new Vector2(-cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom), -cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom))) > 10)
+            //    //{ position.Y += _velocity.Y * speed; }
+            //    var oldPositionY = position.Y;
+            //    position.Y = MathHelper.Lerp(position.Y, -cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom),0.04f);
+            //    _velocity.Y=position.Y - oldPositionY;
+            //    //- cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom);
+
             //}
 
+            if (cameraTarget != null)
+            {
+                float targetX = -cameraTarget.GetPosition().X + screenSize.X / (3 * zoom);
+                float targetY = -cameraTarget.GetPosition().Y + (2 * screenSize.Y / 3) / zoom;
 
+                if (targetX + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
+                    targetX + screenSize.X / (2 * zoom) > leftUpperBorder.X)
+                {
+                    position.X = MathHelper.Lerp(position.X, targetX, 0.04f);
+                    _velocity.X = position.X - targetX;
+                }
+
+                if (targetY + screenSize.Y / (2 * zoom) < rightBottomBorder.Y &&
+                    targetY + screenSize.Y / (2 * zoom) > leftUpperBorder.Y)
+                {
+                    position.Y = MathHelper.Lerp(position.Y, targetY, 0.04f);
+                    _velocity.Y = position.Y - targetY;
+                }
+
+
+
+                // Update X - axis position
+                //if (cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
+                //    cameraTarget.GetPosition().X + screenSize.X / (2 * zoom) > leftUpperBorder.X)
+                //{
+                //    position.X = -cameraTarget.GetPosition().X - 50 + screenSize.X / (2 * zoom);
+                //}
+
+                //// Update Y-axis position
+                //float halfScreenHeight = screenSize.Y / (2 * zoom);
+                //float targetY = cameraTarget.GetPosition().Y;
+
+                //// Check if the target Y position adjusted by half the screen height is within the vertical game bounds
+                //if (targetY - halfScreenHeight < 0) // Checking if it goes above the top border
+                //{
+                //    position.Y = halfScreenHeight; // Keep the camera centered within the boundary
+                //}
+                //else if (targetY + halfScreenHeight > 1080) // Checking if it goes below the bottom border
+                //{
+                //    position.Y = 1080 - halfScreenHeight; // Adjust to keep within the bottom boundary
+                //}
+                //else
+                //{
+                //    position.Y = targetY; // Normal follow behavior
+                //}
+
+
+            }
         }
 
         public void Shaking(Vector2 cameraTarget)
@@ -256,9 +280,6 @@ namespace Sanguine_Forest
                 position.Y = - cameraTarget.GetPosition().Y + 50 + screenSize.Y / (2 * zoom);
             }
         }
-
-
-
 
 
     }

@@ -43,7 +43,7 @@ namespace Sanguine_Forest
             walkToTarget
 
         }
-        private CharState _currentState;
+        public CharState _currentState;
 
         //Movement
         private float _speed = 9f;
@@ -175,6 +175,9 @@ namespace Sanguine_Forest
                 Vector2 direction = Vector2.Normalize(_targetPosition - position);
                 _velocity.X = direction.X * walkSpeed;
 
+                // Set the character's sprite effect based on the direction
+                _SpriteModule.SetSpriteEffects(direction.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+
                 // Debug log for walking to target
                 Debug.WriteLine($"Walking to target. Direction: {direction}, Velocity: {_velocity}, Target Position: {_targetPosition}");
             }
@@ -186,11 +189,14 @@ namespace Sanguine_Forest
                 _currentState = CharState.idle;
                 _velocity = Vector2.Zero;
 
+                // Face towards the NPC after reaching the target
+                Vector2 directionToNPC = Vector2.Normalize(_targetPosition - GetPosition());
+                _SpriteModule.SetSpriteEffects(directionToNPC.X > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
                 // Debug log for reaching the target
                 Debug.WriteLine($"Reached target position: {_targetPosition}");
 
                 // Ensure the character is idle
-                _animationModule.Play("Idle");
+                //_animationModule.Play("Idle");
             }
         }
 

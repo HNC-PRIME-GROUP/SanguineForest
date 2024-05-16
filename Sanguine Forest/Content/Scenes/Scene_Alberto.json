@@ -8,6 +8,20 @@
       "position": "-500,100",
       "rotation": "0",
       "platformSize": "1900,192"
+    },
+
+    {
+      "comment": "First platform",
+      "position": "-200,800",
+      "rotation": "0",
+      "platformSize": "1900,192"
+    },
+
+    {
+      "comment": "First platform",
+      "position": "-200,1480",
+      "rotation": "0",
+      "platformSize": "1900,192"
     }
 
     //{
@@ -17,7 +31,7 @@
     //}
 
   ],
-  //"comment02": "platform that change their position slightly after death if risk level is high",
+  "comment02": "platform that change their position slightly after death if risk level is high",
   "moveablPlatforms": [
 
     //{
@@ -124,10 +138,30 @@
   "cutSceneDialogues": [
 
     {
-      //"Speaker": "NPC1",
-      "Text": "WhatUp bruh,",
-      "Position": "100, -200"
+      "Text": "How you doing bru?!",
+      "Position": "300, -60"
+    },
+    {
+      "Text": "Wanna smoke some green?!",
+      "Position": "300, -60"
+    },
+    {
+      "Text": "Sure I am fucking loosing \nmy mind with this texts",
+      "Position": "0, -80"
+    },
+    {
+      "Text": "There you go have some bruh",
+      "Position": "300, -60"
+    },
+    {
+      "Text": "Fuck yeah!",
+      "Position": "0, -80"
+    },
+    {
+      "Text": "I WANT MORE! \nMOOOOREEEEE!!!!",
+      "Position": "0, -80"
     }
+
 
   ],
 
@@ -138,12 +172,19 @@
       "Rotation": 0.0,
       "Scale": 1.0,
       "NPCType": "Pink"
-    },
-    {
-      "Position": "200,-20",
-      "Rotation": 0.0,
-      "Scale": 1.0,
-      "NPCType": "Blue"
     }
+    //,
+    //{
+    //  "Position": "400,-20",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Green"
+    //},
+    //{
+    //  "Position": "500,-20",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Blue"
+    //}
   ]
 }

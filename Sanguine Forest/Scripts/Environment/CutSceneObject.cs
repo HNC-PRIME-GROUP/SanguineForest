@@ -16,22 +16,36 @@ namespace Sanguine_Forest
     internal class CutSceneObject : GameObject
     {
 
-
         //graphic
         public SpriteModule _SpriteModule;
         private AnimationModule _animationModule;
         private string NPCType;
 
         // Text display
-        private string _cutsceneText;
+        public string _cutsceneText;
         private SpriteFont _font;
+        private Vector2 _textPosition;
 
+        private Texture2D _semiTransparentTexture;
 
-        public CutSceneObject(Vector2 position, float rotation, ContentManager content, string NPCType, string cutsceneText, SpriteFont font) : base (position, rotation)         
+        public string CutsceneText
         {
-             _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_NPC_v1"), Extentions.SpriteLayer.environment2);
+            get => _cutsceneText;
+            private set => _cutsceneText = value;
+        }
+
+        public Vector2 TextPosition
+        {
+            get => _textPosition;
+            private set => _textPosition = value;
+        }
+
+        public CutSceneObject(Vector2 position, float rotation, ContentManager content, string NPCType, SpriteFont font, Texture2D semiTransparentTexture) : base(position, rotation)
+        {
+            _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_NPC_v1"), Extentions.SpriteLayer.environment2);
             Dictionary<string, AnimationSequence> animations = new Dictionary<string, AnimationSequence>()
-            {   { "Pink", new AnimationSequence(Vector2.Zero, 1) },
+            {
+                { "Pink", new AnimationSequence(Vector2.Zero, 1) },
                 { "Blue", new AnimationSequence(new Vector2(0, 512), 1) },
                 { "Green", new AnimationSequence(new Vector2(0, 1024), 1) },
             };
@@ -43,15 +57,15 @@ namespace Sanguine_Forest
             _SpriteModule.SetScale(0.25f);
             _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
 
-            // Initialize text fields
-            _cutsceneText = cutsceneText;
+            // Initialize text fields 
             _font = font;
+            _semiTransparentTexture = semiTransparentTexture;
 
-        }   
+        }
 
-        
         public new void UpdateMe()
         {
+
             _SpriteModule.UpdateMe();
             _animationModule.UpdateMe();
             _animationModule.Play(NPCType);
@@ -60,18 +74,27 @@ namespace Sanguine_Forest
 
         }
 
-        public void DrawMe(SpriteBatch sp)
+        public void DrawMe(SpriteBatch sp, bool showPressE)
         {
             _SpriteModule.DrawMe(sp);
 
-            // Draw the text
-            if (!string.IsNullOrEmpty(_cutsceneText))
+            if (showPressE)
             {
-                Vector2 textPosition = new Vector2(position.X, position.Y - 20); // Adjust text position as needed
-                sp.DrawString(_font, _cutsceneText, textPosition, Color.White);
+                string pressEText = "Press E";
+                Vector2 pressETextSize = _font.MeasureString(pressEText);
+                Vector2 pressETextPosition = new Vector2(GetPosition().X, GetPosition().Y - 30); // Use GetPosition() method
+
+                Rectangle backgroundRectangle = new Rectangle((int)pressETextPosition.X - 5, (int)pressETextPosition.Y - 5, (int)pressETextSize.X + 10, (int)pressETextSize.Y + 10);
+                sp.Draw(_semiTransparentTexture, backgroundRectangle, Color.Black * 0.5f);
+                sp.DrawString(_font, pressEText, pressETextPosition, Color.White);
             }
         }
 
+        public void SetCutsceneText(string text, Vector2 textPosition)
+        {
+            _cutsceneText = text;
+            _textPosition = textPosition;
+        }
     }
 
     public struct CutSceneObjectData
@@ -89,3 +112,4 @@ namespace Sanguine_Forest
         public Vector2 Position;    // Position where the text should appear
     }
 }
+

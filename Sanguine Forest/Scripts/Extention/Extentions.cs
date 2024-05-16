@@ -60,7 +60,9 @@ namespace Extention
             background_Mid,
             background_Mid_Back,
             background_Back,
-            
+            underground_Fore,
+            underground_Mid,
+            underground_Back,
             Length
         }
 

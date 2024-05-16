@@ -214,7 +214,7 @@ namespace Sanguine_Forest
 
                 _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, cameraTransform);
 
-                _environmentManager.DrawMe(_spriteBatch);
+               // _environmentManager.DrawMe(_spriteBatch);
                 _character.DrawMe(_spriteBatch);
                 _parallaxManager.DrawMe(_spriteBatch);
 
@@ -253,7 +253,7 @@ namespace Sanguine_Forest
             {
                 _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, cameraTransform);
 
-                _environmentManager.DrawMe(_spriteBatch);
+              //  _environmentManager.DrawMe(_spriteBatch);
                 _character.DrawMe(_spriteBatch);
                // _parallaxManager.DrawMe(_spriteBatch);
 

@@ -5,21 +5,46 @@
   "simplePlatforms": [
     {
       "comment": "First platform",
-      "position": "-500,100",
+      "position": "-500, 400",
       "rotation": "0",
-      "platformSize": "1900,192"
+      "platformSize": "800,400"
+    },
+    {
+      "comment": "First platform",
+      "position": "350, 400",
+      "rotation": "0",
+      "platformSize": "8000,400"
+    },
+
+
+
+    {
+      "comment": "Second platform",
+      "position": "500, -300",
+      "rotation": "0",
+      "platformSize": "300, 192"
     },
 
     {
-      "comment": "First platform",
-      "position": "-200,800",
+      "comment": "Second platform",
+      "position": "1000, -300",
       "rotation": "0",
-      "platformSize": "1900,192"
+      "platformSize": "300, 500"
+    },
+
+
+
+
+    {
+      "comment": "3 platform",
+      "position": "0, 1880",
+      "rotation": "0",
+      "platformSize": "19000, 400"
     },
 
     {
-      "comment": "First platform",
-      "position": "-200,1480",
+      "comment": "3 platform",
+      "position": "-300, 1480",
       "rotation": "0",
       "platformSize": "1900,192"
     }
@@ -168,7 +193,7 @@
   "isCutScene": "true",
   "cutSceneObjects": [
     {
-      "Position": "300,-20",
+      "Position": "300,290",
       "Rotation": 0.0,
       "Scale": 1.0,
       "NPCType": "Pink"

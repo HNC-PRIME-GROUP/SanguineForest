@@ -869,7 +869,7 @@ namespace Sanguine_Forest
         private Vector2 GetTargetPositionInFrontOfNPC(CutSceneObject npc)
         {
             Vector2 npcPosition = npc.GetPosition();
-            Vector2 offset = new Vector2(-150, 50); // Adjust the offset as needed to place the character in front of the NPC
+            Vector2 offset = new Vector2(-180, 40); // Adjust the offset as needed to place the character in front of the NPC
             return npcPosition + offset;
         }
 

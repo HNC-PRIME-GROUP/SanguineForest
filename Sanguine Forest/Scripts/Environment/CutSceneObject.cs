@@ -42,9 +42,9 @@ namespace Sanguine_Forest
 
         public CutSceneObject(Vector2 position, float rotation, ContentManager content, string NPCType, SpriteFont font, Texture2D semiTransparentTexture) : base(position, rotation)
         {
-             _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_NPC_v1"), Extentions.SpriteLayer.environment2);
+            _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_NPC_v1"), Extentions.SpriteLayer.environment2);
             Dictionary<string, AnimationSequence> animations = new Dictionary<string, AnimationSequence>()
-            {   
+            {
                 { "Pink", new AnimationSequence(Vector2.Zero, 1) },
                 { "Blue", new AnimationSequence(new Vector2(0, 512), 1) },
                 { "Green", new AnimationSequence(new Vector2(0, 1024), 1) },
@@ -112,3 +112,4 @@ namespace Sanguine_Forest
         public Vector2 Position;    // Position where the text should appear
     }
 }
+

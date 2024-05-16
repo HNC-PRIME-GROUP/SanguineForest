@@ -94,7 +94,7 @@ namespace Sanguine_Forest
             _SpriteModule.AnimtaionInitialise(_animationModule);
 
             //Collisions
-           // _characterCollision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
+            // _characterCollision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
             _feetCollision = new PhysicModule(this, new Vector2(50, 95), new Vector2(35, 10));
             _headCollision = new PhysicModule(this, new Vector2(50, 0), new Vector2(35, 10));
 
@@ -208,27 +208,27 @@ namespace Sanguine_Forest
             //transition to jump
             if (curr.IsKeyDown(Keys.W))
             {
-                _velocity.Y = -_jumpHigh;                
+                _velocity.Y = -_jumpHigh;
             }
 
             //transition to walk
-            if (prev.IsKeyDown(Keys.A)||prev.IsKeyDown(Keys.D))
+            if (prev.IsKeyDown(Keys.A) || prev.IsKeyDown(Keys.D))
             {
                 _currentState = CharState.walk;
             }
 
             //transition to fall or jump
-            if(_velocity.Y<0)
+            if (_velocity.Y < 0)
             {
                 _currentState = CharState.jump;
                 return;
             }
-            if(_velocity.Y>0)
+            if (_velocity.Y > 0)
             {
                 _currentState = CharState.wallJump;
             }
 
-            if(curr.GetPressedKeys().Length==0)
+            if (curr.GetPressedKeys().Length == 0)
             {
                 _velocity.X = 0;
             }
@@ -245,10 +245,10 @@ namespace Sanguine_Forest
                 _velocity.Y = -_jumpHigh;
                 _currentState = CharState.jump;
                 return;
-                
+
             }
 
-            if(curr.GetPressedKeys().Length==0)
+            if (curr.GetPressedKeys().Length == 0)
             {
                 _velocity.X = 0;
                 _currentState = CharState.idle;
@@ -289,14 +289,14 @@ namespace Sanguine_Forest
             if (curr.IsKeyDown(Keys.A))
             {
                 _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
-                _velocity.X = -(_speed*2/3);
+                _velocity.X = -(_speed * 2 / 3);
             }
             if (curr.IsKeyDown(Keys.D))
             {
                 _SpriteModule.SetSpriteEffects(SpriteEffects.None);
-                _velocity.X = (_speed*2/3);
+                _velocity.X = (_speed * 2 / 3);
             }
-            
+
         }
 
         public void ClingUpdate(KeyboardState prev, KeyboardState curr)
@@ -314,9 +314,9 @@ namespace Sanguine_Forest
             }
 
 
-            if (curr.IsKeyDown(Keys.W)&& prev.IsKeyUp(Keys.W)) 
+            if (curr.IsKeyDown(Keys.W) && prev.IsKeyUp(Keys.W))
             {
-                if(_SpriteModule.GetSpriteEffects()==SpriteEffects.None)
+                if (_SpriteModule.GetSpriteEffects() == SpriteEffects.None)
                 {
                     _velocity.X = -_speed;
                     _velocity.Y = -_jumpHigh;
@@ -333,7 +333,7 @@ namespace Sanguine_Forest
                     return;
                 }
             }
-            if(_rightCollision.physicRec.Y>currClingRectangle.GetPhysicRectangle().Y+currClingRectangle.GetPhysicRectangle().Height||!currClingRectangle.isPhysicActive ) 
+            if (_rightCollision.physicRec.Y > currClingRectangle.GetPhysicRectangle().Y + currClingRectangle.GetPhysicRectangle().Height || !currClingRectangle.isPhysicActive)
             {
                 _currentState = CharState.falling;
             }
@@ -376,7 +376,7 @@ namespace Sanguine_Forest
 
         public void DeathUpdate()
         {
-            _animationModule.SetAnimationSpeed(0.9f);            
+            _animationModule.SetAnimationSpeed(0.9f);
             _animationModule.PlayOnce("Death");
             _velocity.X = 0;
             _velocity.Y = 0;
@@ -405,9 +405,9 @@ namespace Sanguine_Forest
 
 
 
-        public override void Collided (Collision collision)
+        public override void Collided(Collision collision)
         {
-            base.Collided (collision);
+            base.Collided(collision);
 
             if (collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
@@ -428,7 +428,7 @@ namespace Sanguine_Forest
                     return;
                 }
 
-                if ((_currentState == CharState.jump|| _currentState==CharState.wallJump || _currentState==CharState.falling) && collision.GetThisPhysicModule() == _feetCollision && _velocity.Y > 0)
+                if ((_currentState == CharState.jump || _currentState == CharState.wallJump || _currentState == CharState.falling) && collision.GetThisPhysicModule() == _feetCollision && _velocity.Y > 0)
                 {
                     _gravityEffect = 0f;
                     _velocity.Y = 0f;
@@ -454,7 +454,7 @@ namespace Sanguine_Forest
                 {
                     _velocity.X = 0;
                     _velocity.Y = 0;
-                    position.X = platform.GetPlatformRectangle().Right-collision.GetThisPhysicModule().GetShiftPosition().X+collision.GetThisPhysicModule().GetPhysicRectangle().Width;
+                    position.X = platform.GetPlatformRectangle().Right - collision.GetThisPhysicModule().GetShiftPosition().X + collision.GetThisPhysicModule().GetPhysicRectangle().Width;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
                     currClingRectangle = platform.GetPhysicModule();
                     _gravityEffect = 0f;
@@ -466,17 +466,17 @@ namespace Sanguine_Forest
                 {
                     _velocity.X = 0;
                     _velocity.Y = 0;
-                    position.X = platform.GetPlatformRectangle().Left-collision.GetThisPhysicModule().GetShiftPosition().X-collision.GetThisPhysicModule().GetPhysicRectangle().Width;  
+                    position.X = platform.GetPlatformRectangle().Left - collision.GetThisPhysicModule().GetShiftPosition().X - collision.GetThisPhysicModule().GetPhysicRectangle().Width;
                     _gravityEffect = 0f;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.None);
                     currClingRectangle = platform.GetPhysicModule();
                     _currentState = CharState.cling;
                     return;
                 }
-                if (_currentState==CharState.cling&&collision.GetThisPhysicModule()==_feetCollision)
+                if (_currentState == CharState.cling && collision.GetThisPhysicModule() == _feetCollision)
                 {
                     _currentState = CharState.idle;
-                    if(_SpriteModule.GetSpriteEffects() == SpriteEffects.None)
+                    if (_SpriteModule.GetSpriteEffects() == SpriteEffects.None)
                     {
                         position.X -= 1;
                     }
@@ -486,31 +486,31 @@ namespace Sanguine_Forest
                     }
                     _gravityEffect = 0;
                     return;
-                } 
-                if(_currentState==CharState.falling&&collision.GetThisPhysicModule() == _leftCollision)
+                }
+                if (_currentState == CharState.falling && collision.GetThisPhysicModule() == _leftCollision)
                 {
-                    _velocity.X = 0;                    
+                    _velocity.X = 0;
                     position.X = platform.GetPlatformRectangle().Right - collision.GetThisPhysicModule().GetShiftPosition().X + collision.GetThisPhysicModule().GetPhysicRectangle().Width;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
                     return;
                 }
-                if(_currentState==CharState.falling&&collision.GetThisPhysicModule()==_rightCollision) 
+                if (_currentState == CharState.falling && collision.GetThisPhysicModule() == _rightCollision)
                 {
-                    _velocity.X = 0;                    
+                    _velocity.X = 0;
                     position.X = platform.GetPlatformRectangle().Left - collision.GetThisPhysicModule().GetShiftPosition().X - collision.GetThisPhysicModule().GetPhysicRectangle().Width;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.None);
                     return;
                 }
-                if(collision.GetThisPhysicModule()==_headCollision)
+                if (collision.GetThisPhysicModule() == _headCollision)
                 {
                     _velocity.Y = 0;
                     _velocity.X = 0;
-                    position.Y = platform.GetPlatformRectangle().Bottom+_headCollision.GetShiftPosition().Y+10;
-                    
-                   // _currentState = CharState.falling; 
+                    position.Y = platform.GetPlatformRectangle().Bottom + _headCollision.GetShiftPosition().Y + 10;
+
+                    // _currentState = CharState.falling; 
                     return;
-                }   
-              
+                }
+
             }
             if (collision.GetCollidedPhysicModule().GetParent() is Thorns)
             {

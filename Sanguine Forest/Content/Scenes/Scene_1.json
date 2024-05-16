@@ -1,5 +1,5 @@
 {
-  "characterPosition": "0,0",
+  "characterPosition": "14350,950",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -369,7 +369,114 @@
       "position": "14350,1050",
       "rotation": "0",
       "platformSize": "200,200"
-    }
+    },
+
+    {
+      "comment": "22nd Floor",
+      "position": "14520,910",
+      "rotation": "0",
+      "platformSize": "1000,200"
+    },
+
+    {
+      "comment": "23rd Floor",
+      "position": "14120,500",
+      "rotation": "0",
+      "platformSize": "1400,200"
+    },
+
+    {
+      "comment": "17th Wall",
+      "position": "15820,200",
+      "rotation": "0",
+      "platformSize": "200,900"
+    },
+
+    {
+      "comment": "18th Wall",
+      "position": "13950,-1300",
+      "rotation": "0",
+      "platformSize": "200,2300"
+    },
+
+    {
+      "comment": "19th Wall",
+      "position": "14400,-800",
+      "rotation": "0",
+      "platformSize": "100,1100"
+    },
+
+    {
+      "comment": "3rd Roof",
+      "position": "14120,-1400",
+      "rotation": "0",
+      "platformSize": "2000,100"
+    },
+
+    {
+      "comment": "19th Wall",
+      "position": "14400,-1400",
+      "rotation": "0",
+      "platformSize": "100,200"
+    },
+
+    {
+      "comment": "13th Platform",
+      "position": "14400,-800",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "14th Platform",
+      "position": "15000,-400",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "20th Floor",
+      "position": "14400,100",
+      "rotation": "0",
+      "platformSize": "1600,200"
+    },
+
+    {
+      "comment": "15th Platform",
+      "position": "15700,-500",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "22nd Floor",
+      "position": "14520,950",
+      "rotation": "0",
+      "platformSize": "4000,200"
+    },
+
+    {
+      "comment": "16th Platform",
+      "position": "16400,800",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "20th Wall",
+      "position": "16920,-1550",
+      "rotation": "0",
+      "platformSize": "200,2000"
+    },
+
+    {
+      "comment": "17th Platform",
+      "position": "17150,800",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+
   ],
 
   "moveablPlatforms": [

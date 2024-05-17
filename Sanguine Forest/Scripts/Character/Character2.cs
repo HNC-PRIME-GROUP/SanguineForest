@@ -160,7 +160,7 @@ namespace Sanguine_Forest
             _velocity.Y += _gravityEffect;
             position += _velocity;
 
-            Debug.WriteLine($"Character Position: {position}, Velocity: {_velocity}, State: {_currentState}");
+            //Debug.WriteLine($"Character Position: {position}, Velocity: {_velocity}, State: {_currentState}");
 
         }
 
@@ -504,7 +504,7 @@ namespace Sanguine_Forest
                 if (collision.GetThisPhysicModule() == _headCollision)
                 {
                     _velocity.Y = 0;
-                    _velocity.X = 0;
+                    //_velocity.X = 0;
                     position.Y = platform.GetPlatformRectangle().Bottom + _headCollision.GetShiftPosition().Y + 10;
 
                     // _currentState = CharState.falling; 

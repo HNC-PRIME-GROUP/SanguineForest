@@ -1,5 +1,5 @@
 {
-  "characterPosition": "14350,950",
+  "characterPosition": "17150,700",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -452,7 +452,7 @@
       "comment": "22nd Floor",
       "position": "14520,950",
       "rotation": "0",
-      "platformSize": "4000,200"
+      "platformSize": "6000,200"
     },
 
     {
@@ -476,6 +476,54 @@
       "platformSize": "400,200"
     },
 
+    {
+      "comment": "18th Platform",
+      "position": "17650,600",
+      "rotation": "0",
+      "platformSize": "400,400"
+    },
+
+    {
+      "comment": "19th Platform",
+      "position": "16950,330",
+      "rotation": "0",
+      "platformSize": "500,100"
+    },
+
+    {
+      "comment": "21st Wall",
+      "position": "18000,-300",
+      "rotation": "0",
+      "platformSize": "200,1300"
+    },
+
+    {
+      "comment": "20th Platform",
+      "position": "17650,100",
+      "rotation": "0",
+      "platformSize": "500,100"
+    },
+
+    {
+      "comment": "21st Platform",
+      "position": "16950,-250",
+      "rotation": "0",
+      "platformSize": "500,100"
+    },
+
+    {
+      "comment": "23rd Floor",
+      "position": "17700,-400",
+      "rotation": "0",
+      "platformSize": "500,100"
+    },
+
+    {
+      "comment": "22nd Wall",
+      "position": "19000,-2000",
+      "rotation": "0",
+      "platformSize": "200,2500"
+    }
 
   ],
 

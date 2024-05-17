@@ -1,6 +1,6 @@
 {
 
-  "characterPosition": "0, -0",
+  "characterPosition": "11200, 0",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -160,27 +160,105 @@
       "comment": "28",
       "position": "11200, -1200",
       "rotation": "0",
-      "platformSize": "4000, 900"
+      "platformSize": "1000, 900"
     },
 
     {
       "comment": "29",
       "position": "11200, 0",
       "rotation": "0",
-      "platformSize": "4000, 900"
+      "platformSize": "1000, 900"
     },
-
-
-
-
-
 
     {
-      "comment": "26",
-      "position": "8100, 600",
+      "comment": "30",
+      "position": "12210, 300",
       "rotation": "0",
-      "platformSize": "6000, 100"
+      "platformSize": "700, 970"
     },
+    {
+      "comment": "31",
+      "position": "12900, 200",
+      "rotation": "0",
+      "platformSize": "300, 900"
+    },
+
+    {
+      "comment": "32",
+      "position": "13500, -0",
+      "rotation": "0",
+      "platformSize": "600, 200"
+    },
+
+    {
+      "comment": "33",
+      "position": "14300, -350",
+      "rotation": "0",
+      "platformSize": "100, 300"
+    },
+    {
+      "comment": "34",
+      "position": "13900, -600",
+      "rotation": "0",
+      "platformSize": "100, 300"
+    },
+
+    {
+      "comment": "35",
+      "position": "14300, -750",
+      "rotation": "0",
+      "platformSize": "100, 300"
+    },
+
+    {
+      "comment": "36",
+      "position": "14700, -450",
+      "rotation": "0",
+      "platformSize": "400, 200"
+    },
+
+    {
+      "comment": "37",
+      "position": "15600, -450",
+      "rotation": "0",
+      "platformSize": "400, 200"
+    },  
+    
+    {
+      "comment": "38",
+      "position": "15600, -450",
+      "rotation": "0",
+      "platformSize": "400, 200"
+    },
+
+    {
+      "comment": "39",
+      "position": "16300, -1200",
+      "rotation": "0",
+      "platformSize": "4000, 350"
+    },
+
+    {
+      "comment": "40",
+      "position": "16700, -350",
+      "rotation": "0",
+      "platformSize": "4000, 1400"
+    },
+
+
+
+
+
+
+
+
+
+    //{
+    //  "comment": "26",
+    //  "position": "8100, 600",
+    //  "rotation": "0",
+    //  "platformSize": "6000, 100"
+    //},
 
 
 
@@ -320,8 +398,40 @@
       "rotation": "0",
       "platformSize": "200, 100",
       "TimeToFall": "5"
-    }
+    },
 
+    {
+      "comment": "14",
+      "position": "13000, -100",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "5"
+    },
+
+    {
+      "comment": "15",
+      "position": "15300, -450",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "5"
+    },
+
+    {
+      "comment": "16",
+      "position": "16300, -775",
+      "rotation": "0",
+      "platformSize": "100, 500",
+      "TimeToFall": "5"
+      }
+      ,
+
+    {
+      "comment": "17",
+      "position": "16100, 0",
+      "rotation": "0",
+      "platformSize": "500, 100",
+      "TimeToFall": "5"
+    }
 
 
     //{

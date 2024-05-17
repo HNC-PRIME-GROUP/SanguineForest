@@ -1,5 +1,5 @@
 {
-  "characterPosition": "17150,700",
+  "characterPosition": "0, 0",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -7,6 +7,13 @@
       "position": "-100,100",
       "rotation": "0",
       "platformSize": "1000,192"
+    },
+
+    {
+      "comment": "base floor",
+      "position": "-100,170",
+      "rotation": "0",
+      "platformSize": "2000,100"
     },
 
     {
@@ -27,7 +34,14 @@
       "comment": "First Wall",
       "position": "2600,-300",
       "rotation": "0",
-      "platformSize": "200,450"
+      "platformSize": "200,750"
+    },
+
+    {
+      "comment": "base floor",
+      "position": "2600,450",
+      "rotation": "0",
+      "platformSize": "2800,192"
     },
 
     {
@@ -527,6 +541,34 @@
 
   ],
 
+  "comment07": "Thorns - danger polaces",
+  "thorns": [
+
+    {
+      "Position": "920,120",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "1400,120",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "2700,-100",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "2850,400",
+      "Rotation": "0",
+      "ThornsSize": "2600,100"
+    }
+  ],
+
   "moveablPlatforms": [
     {
 
@@ -557,10 +599,6 @@
       "platformSize": "200,100",
       "TimeToFall": "4"
     }
-  ],
-
-  "comment07": "Thorns - danger polaces",
-  "thorns": [
-
   ]
+
 }

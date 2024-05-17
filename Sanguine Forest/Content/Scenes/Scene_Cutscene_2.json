@@ -1,0 +1,277 @@
+{
+
+  "characterPosition": "-200, -150",
+  "comment": "Simple platforms",
+  "simplePlatforms": [
+    {
+      "comment": "First platform - Middle edge ",
+      "position": "-500, 355",
+      "rotation": "0",
+      "platformSize": "1600,420"
+    },
+    //{
+    //  "comment": "First platform",
+    //  "position": "350, 400",
+    //  "rotation": "0",
+    //  "platformSize": "8000,400"
+    //},
+
+
+
+    //{
+    //  "comment": "Second platform",
+    //  "position": "500, -300",
+    //  "rotation": "0",
+    //  "platformSize": "300, 192"
+    //},
+
+    //{
+    //  "comment": "Second platform",
+    //  "position": "1000, -300",
+    //  "rotation": "0",
+    //  "platformSize": "300, 500"
+    //},
+
+
+
+
+    {
+      "comment": "3 platform",
+      "position": "0, 1880",
+      "rotation": "0",
+      "platformSize": "19000, 400"
+    }
+
+    //{
+    //  "comment": "3 platform",
+    //  "position": "-300, 1480",
+    //  "rotation": "0",
+    //  "platformSize": "1900,192"
+    //}
+
+    //{
+    //  "Position": "800,-100",
+    //  "Rotation": "0",
+    //  "PlatformSize": "200,200"
+    //}
+
+  ],
+  "comment02": "platform that change their position slightly after death if risk level is high",
+  "moveablPlatforms": [
+
+    //{
+    //    "position": "0, -300",
+    //    "rotation": "0",
+    //    "platformSize": "100,100",
+    //    "maxShift": "50,50"
+    //}
+
+  ],
+  "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
+  "fallingPlatforms": [
+
+
+    //{
+    //  "Position": "400,-300",
+    //  "Rotation": "0",
+    //  "PlatformSize": "200,200",
+    //  "TimeToFall": "1"
+    //},
+    //{
+    //  "Position": "800,-600",
+    //  "Rotation": "0",
+    //  "PlatformSize": "200,200",
+    //  "TimeToFall": "1"
+    //}
+
+  ],
+  "comment04": "dangerous place in any case (pites, water, thorns)",
+  "dangerPlaces": [],
+
+
+  "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "decors": [
+
+    {
+      "Position": "0,40",
+      "Rotation": "0.5",
+      "GrassType": "Flower"
+    },
+    {
+      "Position": "200,40",
+      "Rotation": "0",
+      "GrassType": "Grass4"
+    },
+    {
+      "Position": "100,40",
+      "Rotation": "0",
+      "GrassType": "Grass2"
+    },
+    {
+      "Position": "-140,80",
+      "Rotation": "0",
+      "GrassType": "Flower"
+    },
+    {
+      "position": "-50, -300",
+      "rotation": "-0.5",
+      "GrassType": "Grass3"
+    },
+    {
+      "position": "-50, -320",
+      "rotation": "0.5",
+      "GrassType": "Grass2"
+    }
+
+  ],
+
+  "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "patchDecors": [
+    //{
+    //  "Position": "250, 400",
+    //  "PatchType": "Sprites/Patch"
+    //},
+    //{
+    //  "Position": "-800, 400",
+    //  "PatchType": "Sprites/Patch"
+    //}
+
+  ],
+
+  "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
+  "obstaclesData1": [
+
+  ],
+  "obstaclesData2": [
+
+    //{
+    //  "Position": "-300,100",
+    //  "Rotation": "0",
+    //  "slimeType": "Brown",
+    //  "finPosition": "-600,-200",
+    //  "Speed": "5",
+    //  "Size": "200,200"
+    //}
+
+  ],
+  "obstaclesData3": [],
+  "comment07": "Thorns - danger polaces",
+  "thorns": [
+
+    //{
+    //  "Position": "-500,-800",
+    //  "Rotation": "0",
+    //  "ThornsSize": "200,500"
+    //},
+    //{
+    //  "Position": "500,200",
+    //  "Rotation": "0",
+    //  "ThornsSize": "200,200"
+    //}
+
+  ],
+
+
+  "comment 07 ": "Data about cutscenes",
+  "cutSceneDialogues": [
+    //"\\n",
+    {
+      "Text": "Sam, hey!",
+      "Position": "-0, 180"
+    },
+    {
+      "Text": "How's it going?",
+      "Position": "-0, 180"
+    },
+    {
+      "Text": "Oh, Alex. I'm... alright, I guess.",
+      "Position": "300, 160"
+    },
+
+    {
+      "Text": " Just thinking about some stuff.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "Anything you want to talk about?",
+      "Position": "-200, 180"
+    },
+    {
+      "Text": "It's just... this place",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "it's beautiful,",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "but it makes you think.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "You know, about the choices we make.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "Like, I've had a few drinks already.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "Feels great in the moment, but...",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "is it worth it?",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "I get it. We all want to have fun,",
+      "Position": "-200, 180"
+    },
+    {
+      "Text": "but we also need to take care of ourselves.",
+      "Position": "-220, 180"
+    },
+    {
+      "Text": "It's a fine line.",
+      "Position": "-50, 180"
+    },
+    {
+      "Text": "Yeah. Thanks, Alex.",
+      "Position": "300, 180"
+    },
+    {
+      "Text": "I'll keep that in mind.",
+      "Position": "300, 180"
+    },
+    {
+      "Text": "Let's keep moving.",
+      "Position": "300, 180"
+    }
+
+
+  ],
+
+  "isCutScene": "true",
+  "cutSceneObjects": [
+    {
+      "Position": "300,240",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Pink"
+    }
+    //,
+    //{
+    //  "Position": "400,-240",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Green"
+    //},
+    //{
+    //  "Position": "500,-240",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Blue"
+    //}
+  ]
+}

@@ -55,14 +55,17 @@ namespace Extention
             obstacles,
             environment1,
             environment2,
+            underground_Fore,
+            underground_Mid,
+            underground_Back,
+            patch_texture_layer,
             background_Fore,
             background_Fore_Mid,
             background_Mid,
             background_Mid_Back,
             background_Back,
-            underground_Fore,
-            underground_Mid,
-            underground_Back,
+
+
             Length
         }
 

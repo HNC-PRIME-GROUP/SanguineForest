@@ -129,6 +129,8 @@ namespace Sanguine_Forest
 
             //}
 
+            // Previous Logic /2 screenHeight
+
             //if (cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) < rightBottomBorder.Y &&
             //    cameraTarget.GetPosition().Y + screenSize.Y / (2 * zoom) > leftUpperBorder.Y)
             //{
@@ -141,10 +143,12 @@ namespace Sanguine_Forest
 
             //}
 
+            // Updated Logic /3 ScreenHeignt
+
             if (cameraTarget != null)
             {
-                float targetX = -cameraTarget.GetPosition().X + screenSize.X / (3 * zoom);
-                float targetY = -cameraTarget.GetPosition().Y + (2 * screenSize.Y / 3) / zoom;
+                float targetX = -cameraTarget.GetPosition().X + screenSize.X / (2 * zoom);
+                float targetY = -cameraTarget.GetPosition().Y + (2 * screenSize.Y / 2.6f) / zoom;
 
                 if (targetX + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
                     targetX + screenSize.X / (2 * zoom) > leftUpperBorder.X)

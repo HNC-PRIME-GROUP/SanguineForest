@@ -90,12 +90,14 @@ namespace Sanguine_Forest
 
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
-            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Alberto" + ".json");
+            //_currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Alberto" + ".json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Level_Boss" + ".json");
+
 
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
-            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -1800), new Vector2(2200, 1675), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
             //_camera.SetZoom(1f);
 

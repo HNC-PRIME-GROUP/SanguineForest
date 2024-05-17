@@ -1,0 +1,493 @@
+{
+
+  "characterPosition": "0, -0",
+  "comment": "Simple platforms",
+  "simplePlatforms": [
+    {
+      "comment": "Sky Edge", // Top Edge
+      "position": "-6000, -1400",
+      "rotation": "0",
+      "platformSize": "200000, 400"
+    },
+    {
+      "comment": "1",
+      "position": "-1300, -1200",
+      "rotation": "0",
+      "platformSize": "300, 3700"
+    },
+
+    {
+      "comment": "2",
+      "position": "-995, 600", // Middle gap between Top and Bottom backgrounds
+      "rotation": "0",
+      "platformSize": "1900, 420"
+    },
+
+    {
+      "comment": "3",
+      "position": "-995, 100",
+      "rotation": "0",
+      "platformSize": "1700, 200"
+    },
+
+    {
+      "comment": "4",
+      "position": "1000, -500",
+      "rotation": "0",
+      "platformSize": "200, 1600"
+    },
+
+    {
+      "comment": "5",
+      "position": "-600, -400",
+      "rotation": "0",
+      "platformSize": "1400, 200"
+    },
+
+    {
+      "comment": "6",
+      "position": "-600, -1200",
+      "rotation": "0",
+      "platformSize": "200, 600"
+    },
+
+    {
+      "comment": "7",
+      "position": "1500, 600",
+      "rotation": "0",
+      "platformSize": "700, 420"
+    },
+
+    {
+      "comment": "8",
+      "position": "2400, 600",
+      "rotation": "0",
+      "platformSize": "700, 420"
+    },
+
+    {
+      "comment": "9",
+      "position": "3095, 200",
+      "rotation": "0",
+      "platformSize": "900, 620"
+    },
+
+    {
+      "comment": "10",
+      "position": "2100, -1200",
+      "rotation": "0",
+      "platformSize": "400, 1500"
+    },
+
+    {
+      "comment": "11",
+      "position": "3100, -600",
+      "rotation": "0",
+      "platformSize": "700, 200"
+    },
+
+    {
+      "comment": "12",
+      "position": "3795, -600",
+      "rotation": "0",
+      "platformSize": "200, 810"
+    },
+
+    {
+      "comment": "20",
+      "position": "5000, -1200",
+      "rotation": "0",
+      "platformSize": "400, 1500"
+    },
+
+    {
+      "comment": "21",
+      "position": "4200, 600",
+      "rotation": "0",
+      "platformSize": "2000, 420"
+    },
+
+    {
+      "comment": "22",
+      "position": "6400, 550",
+      "rotation": "0",
+      "platformSize": "500, 570"
+    },
+
+    {
+      "comment": "23",
+      "position": "7000, 0",
+      "rotation": "0",
+      "platformSize": "500, 300"
+    },
+
+    {
+      "comment": "24",
+      "position": "7700, -800",
+      "rotation": "0",
+      "platformSize": "300, 1200"
+    },
+
+    {
+      "comment": "25",
+      "position": "6400, -300",
+      "rotation": "0",
+      "platformSize": "300, 100"
+    },
+
+    {
+      "comment": "26",
+      "position": "5600, -300",
+      "rotation": "0",
+      "platformSize": "300, 100"
+    },
+
+    {
+      "comment": "26",
+      "position": "6000, -800",
+      "rotation": "0",
+      "platformSize": "1500, 100"
+    },
+
+    {
+      "comment": "27",
+      "position": "9900, -800",
+      "rotation": "0",
+      "platformSize": "400, 1200"
+    },
+
+    {
+      "comment": "28",
+      "position": "11200, -1200",
+      "rotation": "0",
+      "platformSize": "4000, 900"
+    },
+
+    {
+      "comment": "29",
+      "position": "11200, 0",
+      "rotation": "0",
+      "platformSize": "4000, 900"
+    },
+
+
+
+
+
+
+    {
+      "comment": "26",
+      "position": "8100, 600",
+      "rotation": "0",
+      "platformSize": "6000, 100"
+    },
+
+
+
+
+
+
+    {
+      "comment": "bottom edge platform", //Bottom Edge platform HELL
+      "position": "-10000, 2250",
+      "rotation": "0",
+      "platformSize": "20000, 400"
+    }
+
+  ],
+  "comment02": "platform that change their position slightly after death if risk level is high",
+  "moveablPlatforms": [
+
+    //{
+    //    "position": "0, -300",
+    //    "rotation": "0",
+    //    "platformSize": "100,100",
+    //    "maxShift": "50,50"
+    //}
+
+  ],
+  "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
+  "fallingPlatforms": [
+
+
+    {
+      "comment": "1",
+      "position": "2700, 200",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "2",
+      "position": "2700, -200",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "3"
+    },
+
+    {
+      "comment": "3",
+      "position": "2700, -600",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "3"
+    },
+
+    {
+      "comment": "4",
+      "position": "6600, 200",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "3"
+    },
+
+    {
+      "comment": "5",
+      "position": "7100, -300",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "3"
+    },
+
+    {
+      "comment": "6",
+      "position": "6100, -300",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "3"
+    },
+
+    {
+      "comment": "7",
+      "position": "5700, -600",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "3"
+    },
+
+    {
+      "comment": "8",
+      "position": "7520, -750",
+      "rotation": "0",
+      "platformSize": "150, 100",
+      "TimeToFall": "3"
+    },
+
+    {
+      "comment": "9",
+      "position": "8300, 400",
+      "rotation": "0",
+      "platformSize": "600, 100",
+      "TimeToFall": "5"
+    },
+
+    {
+      "comment": "10",
+      "position": "9100, 400",
+      "rotation": "0",
+      "platformSize": "600, 100",
+      "TimeToFall": "5"
+    },
+
+    {
+      "comment": "11",
+      "position": "9550, -300",
+      "rotation": "0",
+      "platformSize": "100, 300",
+      "TimeToFall": "5"
+    },
+
+    {
+      "comment": "12",
+      "position": "9550, -750",
+      "rotation": "0",
+      "platformSize": "100, 300",
+      "TimeToFall": "5"
+    },
+
+    {
+      "comment": "12",
+      "position": "10450, 0",
+      "rotation": "0",
+      "platformSize": "200, 100",
+      "TimeToFall": "5"
+    },
+
+    {
+      "comment": "13",
+      "position": "10850, 0",
+      "rotation": "0",
+      "platformSize": "200, 100",
+      "TimeToFall": "5"
+    }
+
+
+
+    //{
+    //  "comment": "10",
+    //  "position": "8100, 600",
+    //  "rotation": "0",
+    //  "platformSize": "6000, 100",
+    //  "TimeToFall": "5"
+    //}
+
+    //{
+    //  "Position": "800,-600",
+    //  "Rotation": "0",
+    //  "PlatformSize": "200,200",
+    //  "TimeToFall": "1"
+    //}
+
+  ],
+  "comment04": "dangerous place in any case (pites, water, thorns)",
+  "dangerPlaces": [],
+
+
+  "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "decors": [
+
+    {
+      "Position": "0,40",
+      "Rotation": "0.5",
+      "GrassType": "Flower"
+    },
+    {
+      "Position": "200,40",
+      "Rotation": "0",
+      "GrassType": "Grass4"
+    },
+    {
+      "Position": "100,40",
+      "Rotation": "0",
+      "GrassType": "Grass2"
+    },
+    {
+      "Position": "-140,80",
+      "Rotation": "0",
+      "GrassType": "Flower"
+    },
+    {
+      "position": "-50, -300",
+      "rotation": "-0.5",
+      "GrassType": "Grass3"
+    },
+    {
+      "position": "-50, -320",
+      "rotation": "0.5",
+      "GrassType": "Grass2"
+    }
+
+  ],
+
+  "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "patchDecors": [
+
+
+    //{
+    //  "Position": "250, 400",
+    //  "PatchType": "Sprites/Patch"
+    //},
+    //{
+    //  "Position": "-800, 400",
+    //  "PatchType": "Sprites/Patch"
+    //}
+
+  ],
+
+
+
+  "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
+  "obstaclesData1": [
+
+  ],
+  "obstaclesData2": [
+
+    //{
+    //  "Position": "-300,100",
+    //  "Rotation": "0",
+    //  "slimeType": "Brown",
+    //  "finPosition": "-600,-200",
+    //  "Speed": "5",
+    //  "Size": "200,200"
+    //}
+
+  ],
+  "obstaclesData3": [],
+  "comment07": "Thorns - danger polaces",
+  "thorns": [
+
+    //{
+    //  "Position": "-500,-800",
+    //  "Rotation": "0",
+    //  "ThornsSize": "200,500"
+    //},
+    //{
+    //  "Position": "500,200",
+    //  "Rotation": "0",
+    //  "ThornsSize": "200,200"
+    //}
+
+  ],
+
+
+  "comment 07 ": "Data about cutscenes",
+  "cutSceneDialogues": [
+
+
+
+    //{
+    //  "Text": "Right hole will kill you!",
+    //  "Position": "-100, 180"
+    //},
+    //{
+    //  "Text": "Left hole will kill you more!",
+    //  "Position": "-100, 180"
+    //},
+    //{
+    //  "Text": "What should I do then?",
+    //  "Position": "-400, 160"
+    //},
+    //{
+    //  "Text": "Jump head first!",
+    //  "Position": "-100, 160"
+    //},
+    //{
+    //  "Text": "Fuck yeah!",
+    //  "Position": "-400, 180"
+    //},
+    //{
+    //  "Text": "I WANT MORE! \nMOOOOREEEEE!!!!",
+    //  "Position": "-400, 180"
+    //}
+
+
+  ],
+
+  "isCutScene": "true",
+  "cutSceneObjects": [
+
+
+    //{
+    //  "Position": "-100, 240",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Pink"
+    //}
+    //,
+    //{
+    //  "Position": "400,-20",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Green"
+    //},
+    //{
+    //  "Position": "500,-20",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Blue"
+    //}
+
+
+  ]
+}

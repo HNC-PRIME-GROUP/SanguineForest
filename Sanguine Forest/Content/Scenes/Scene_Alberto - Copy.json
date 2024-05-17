@@ -4,16 +4,24 @@
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
-      "comment": "First platform",
-      "position": "-500, 400",
+      "comment": "First platform - Middle edge ",
+      "position": "-500, 355",
       "rotation": "0",
-      "platformSize": "800,400"
+      "platformSize": "800,420"
     },
+
+    {
+      "comment": "First platform - Middle edge ",
+      "position": "-8600, 355",
+      "rotation": "0",
+      "platformSize": "8000,420"
+    },
+
     {
       "comment": "First platform",
-      "position": "350, 400",
+      "position": "350, 355",
       "rotation": "0",
-      "platformSize": "8000,400"
+      "platformSize": "8000,420"
     },
 
 
@@ -36,8 +44,8 @@
 
 
     {
-      "comment": "3 platform",
-      "position": "0, 1880",
+      "comment": "bottom edge platform",
+      "position": "-10000, 1950",
       "rotation": "0",
       "platformSize": "19000, 400"
     },
@@ -125,6 +133,21 @@
 
   ],
 
+  "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "patchDecors": [
+    {
+      "Position": "250, 400",
+      "PatchType": "Sprites/Patch"
+    },
+    {
+      "Position": "-800, 400",
+      "PatchType": "Sprites/Patch"
+    }
+
+  ],
+
+
+
   "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
   "obstaclesData1": [
 
@@ -163,29 +186,29 @@
   "cutSceneDialogues": [
 
     {
-      "Text": "How you doing bru?!",
-      "Position": "300, -60"
+      "Text": "Right hole will kill you!",
+      "Position": "-100, 180"
     },
     {
-      "Text": "Wanna smoke some green?!",
-      "Position": "300, -60"
+      "Text": "Left hole will kill you more!",
+      "Position": "-100, 180"
     },
     {
-      "Text": "Sure I am fucking loosing \nmy mind with this texts",
-      "Position": "0, -80"
+      "Text": "What should I do then?",
+      "Position": "-400, 160"
     },
     {
-      "Text": "There you go have some bruh",
-      "Position": "300, -60"
+      "Text": "Jump head first!",
+      "Position": "-100, 160"
     },
     {
       "Text": "Fuck yeah!",
-      "Position": "0, -80"
+      "Position": "-400, 180"
     },
-    {
-      "Text": "I WANT MORE! \nMOOOOREEEEE!!!!",
-      "Position": "0, -80"
-    }
+    //{
+    //  "Text": "I WANT MORE! \nMOOOOREEEEE!!!!",
+    //  "Position": "-400, 180"
+    //}
 
 
   ],
@@ -193,7 +216,7 @@
   "isCutScene": "true",
   "cutSceneObjects": [
     {
-      "Position": "300,290",
+      "Position": "-100, 240",
       "Rotation": 0.0,
       "Scale": 1.0,
       "NPCType": "Pink"

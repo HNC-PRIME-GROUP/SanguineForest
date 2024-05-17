@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sanguine_Forest.Scripts.Environment;
 using Sanguine_Forest.Scripts.Environment.Obstacle;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using static Sanguine_Forest.Decor;
 
 namespace Sanguine_Forest
 {
@@ -34,6 +36,8 @@ namespace Sanguine_Forest
         
         //Decor
         public List<DecorGrassData> decors; //Grass
+        public List<PatchDecorData> patchDecors; //Patch
+
 
         //Cutscene mode
         public bool isCutScene;

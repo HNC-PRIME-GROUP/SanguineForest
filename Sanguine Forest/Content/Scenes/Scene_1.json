@@ -1,5 +1,5 @@
 {
-  "characterPosition": "0, 0",
+  "characterPosition": "6370,-380",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -41,7 +41,7 @@
       "comment": "base floor",
       "position": "2600,450",
       "rotation": "0",
-      "platformSize": "2800,192"
+      "platformSize": "6820,192"
     },
 
     {
@@ -565,7 +565,13 @@
     {
       "Position": "2850,400",
       "Rotation": "0",
-      "ThornsSize": "2600,100"
+      "ThornsSize": "6300,100"
+    },
+
+    {
+      "Position": "6970,-1600",
+      "Rotation": "0",
+      "ThornsSize": "100,900"
     }
   ],
 

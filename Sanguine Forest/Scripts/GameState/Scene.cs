@@ -44,6 +44,9 @@ namespace Sanguine_Forest
         public List<CutSceneObjectData> cutSceneObjects;
         public List<CutSceneDialogue> cutSceneDialogues;
 
+        //Level end
+        public LevelTriggerData levelTrigger;
+
 
 
 

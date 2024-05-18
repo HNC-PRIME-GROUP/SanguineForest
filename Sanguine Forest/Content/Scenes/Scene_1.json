@@ -572,6 +572,42 @@
       "Position": "6970,-1600",
       "Rotation": "0",
       "ThornsSize": "100,900"
+    },
+
+    {
+      "Position": "8380,200",
+      "Rotation": "0",
+      "ThornsSize": "500,100"
+    },
+
+    {
+      "Position": "7980,-70",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "9020,-70",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "8750,-1300",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "9010,-1560",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "8850, -2070",
+      "Rotation": "0",
+      "ThornsSize": "3000,100"
     }
   ],
 

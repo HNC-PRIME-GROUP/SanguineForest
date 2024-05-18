@@ -59,7 +59,7 @@ namespace Sanguine_Forest
                 ParallaxBackground background = new ParallaxBackground(position, 0, content.Load<Texture2D>(texture), layer, speedX, speedY, camera2);
                 background.spriteModule.SetDrawRectangle(new Rectangle(new Vector2(_camera.position.X, _camera.position.Y-100).ToPoint(), new Vector2(_screenWidth,_screenHeight+200).ToPoint()));
                 backgrounds.Add(background);
-                position.X += _screenWidth;  // Position each subsequent background immediately to the right of the last
+                position.X += _screenWidth ;  // Position each subsequent background immediately to the right of the last
             }
 
             layerBackgrounds[layer] = backgrounds;
@@ -92,8 +92,8 @@ namespace Sanguine_Forest
                     //// Set new position with parallax effect on Y-axis
                     //background.SetPosition(new Vector2(background.GetPosition().X, -_screenHeight / 2 - parallaxEffectY));
 
-                    float currentRightEdge = background.GetPosition().X + _screenWidth;
-                    float currentLeftEdge = background.GetPosition().X;
+                    float currentRightEdge = background.GetPosition().X + _screenWidth - 1;
+                    float currentLeftEdge = background.GetPosition().X +1;
 
                     if (currentRightEdge > maxRight)
                     {
@@ -112,13 +112,13 @@ namespace Sanguine_Forest
                     // Reposition to the right if the background has moved out of the visible area on the left
                     if (background.GetPosition().X + _screenWidth * _camera.zoom < -_camera.position.X)
                     {
-                        background.SetPosition(new Vector2(maxRight , background.GetPosition().Y));
+                        background.SetPosition(new Vector2(maxRight -1, background.GetPosition().Y));
                         //Debug.WriteLine($"Repositioning from {originalX} to {background.GetPosition().X} (right loop)");
                     }
                     // Reposition to the left if the background has moved out of the visible area on the right
                     else if (background.GetPosition().X > -_camera.position.X + _screenWidth * _camera.zoom)
                     {
-                        background.SetPosition(new Vector2(minLeft - _screenWidth * _camera.zoom, background.GetPosition().Y));
+                        background.SetPosition(new Vector2(minLeft - _screenWidth * _camera.zoom + 1, background.GetPosition().Y));
                         //Debug.WriteLine($"Repositioning from {originalX} to {background.GetPosition().X} (left loop)");
                     }
                     

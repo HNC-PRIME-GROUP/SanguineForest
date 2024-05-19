@@ -35,9 +35,9 @@ namespace Sanguine_Forest
             // Define the textures and speeds for each layer
             var layerConfigurations = new Dictionary<Extentions.SpriteLayer, (string[] Textures, float SpeedX, float SpeedY)>
             {
-                { Extentions.SpriteLayer.background_Fore, (new[] { "Sprites/Background/Background_day4A", "Sprites/Background/Background_day4D", "Sprites/Background/Background_day4A" },     0.7f, 0.1f) },
-                { Extentions.SpriteLayer.background_Fore_Mid, (new[] { "Sprites/Background/Background_day4B", "Sprites/Background/Background_day4C", "Sprites/Background/Background_day4B" }, 0.5f, 0.05f) },
-                { Extentions.SpriteLayer.background_Mid, (new[] { "Sprites/Background/Background_day3", "Sprites/Background/Background_day3", "Sprites/Background/Background_day3" },         0.3f, 0.04f) },
+                { Extentions.SpriteLayer.background_Fore, (new[] { "Sprites/Background/Background_day4A", "Sprites/Background/Background_day4D", "Sprites/Background/Background_day4A" },     0.5f, 0.04f) },
+                { Extentions.SpriteLayer.background_Fore_Mid, (new[] { "Sprites/Background/Background_day4B", "Sprites/Background/Background_day4C", "Sprites/Background/Background_day4B" }, 0.4f, 0.03f) },
+                { Extentions.SpriteLayer.background_Mid, (new[] { "Sprites/Background/Background_day3", "Sprites/Background/Background_day3", "Sprites/Background/Background_day3" },         0.3f, 0.02f) },
                 { Extentions.SpriteLayer.background_Mid_Back, (new[] { "Sprites/Background/Background_day2", "Sprites/Background/Background_day2", "Sprites/Background/Background_day2" },    0.25f, 0.01f) },
                 { Extentions.SpriteLayer.background_Back, (new[] { "Sprites/Background/Background_day1", "Sprites/Background/Background_day1", "Sprites/Background/Background_day1" },        0.2f, 0.005f) },
 

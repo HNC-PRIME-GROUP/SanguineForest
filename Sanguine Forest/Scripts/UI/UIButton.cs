@@ -15,10 +15,6 @@ namespace Sanguine_Forest
         private Color _color;
         private SpriteFont _font;
 
-        private GraphicsDevice _graphicsDevice;
-        private Vector2 designResolution = new Vector2(1920, 1080);
-        private Vector2 currentResolution;
-
         // Indicate if this button is currently active
         public bool IsActive { get; set; }
 

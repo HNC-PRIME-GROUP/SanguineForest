@@ -19,7 +19,8 @@ namespace Sanguine_Forest
             StartScreen,
             Playing,
             Paused,
-            GameOver,
+            InstructionsFromStart,
+            InstructionsFromPause,
             Win,
             Transitioning,
             Stats
@@ -37,9 +38,12 @@ namespace Sanguine_Forest
         private float inputDelay = 0.5f; // 200 milliseconds delay
         private float timeSinceLastInput = 0f;
 
-        List<UIButton> startButtons, pauseButtons, loadButtons, gameOverButtons, winButtons, instructionButtons;
+        List<UIButton> startButtons, pauseButtons, instructionButtons;
 
         int activeButtonIndex = 0;
+
+        private List<string> instructionTexts;
+        private List<Vector2> instructionTextPositions;
 
 
         private ContentManager content;
@@ -56,13 +60,13 @@ namespace Sanguine_Forest
         private void LoadContent()
         {
             gameFontSmll = content.Load<SpriteFont>("Fonts/TrajanRegular"); // 24
-            gameFontLrg = content.Load<SpriteFont>("Fonts/TrajanBold"); // 30
+            gameFontLrg = content.Load<SpriteFont>("Fonts/GameFontLrg"); // 30
             titleFontSmll = content.Load<SpriteFont>("Fonts/TrajanBold"); // 80
             titleFontLrg = content.Load<SpriteFont>("Fonts/TrajanBold"); // 100
 
-            //Load Buttons
-            string newgameText = "New Game";
-            string loadgameText = "LOAD GAME";
+            // Start Screen Buttons
+            string newgameText = "NEW GAME";
+            string loadgameText = "CONTINUE";
             string instructionsText = "INSTRUCTIONS";
             string backText = "EXIT";
 
@@ -81,61 +85,60 @@ namespace Sanguine_Forest
 
             startButtons = new List<UIButton>
             {
-                 new UIButton("New Game", gameFontSmll, newgamePosition),
-                 new UIButton("LOAD GAME", gameFontSmll, loadgamePosition),
+                 new UIButton("NEW GAME", gameFontSmll, newgamePosition),
+                 new UIButton("CONTINUE", gameFontSmll, loadgamePosition),
                  new UIButton("INSTRUCTIONS", gameFontSmll, instructionsPosition),
                  new UIButton("EXIT", gameFontSmll, backPosition)
 
             };
-            //pauseButtons = new List<UIButton>
-            //{
-            //     new UIButton("RESOLUTION", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
-            //     new UIButton("BRIGHTNESS", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
-            //     new UIButton("BACK", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
 
-            //};
-            //loadButtons = new List<UIButton>
-            //{
-            //    new UIButton("800x600", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
-            //    new UIButton("1024x768", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
-            //    new UIButton("1280x720", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
-            //    new UIButton("1920x1080", gameFontSmll, RelativePosition(5, 50), GraphicsDevice),
-            //    new UIButton("BACK", gameFontSmll, RelativePosition(5, 60), GraphicsDevice),
-            //};
-            //gameOverButtons = new List<UIButton>
-            //{
-            //    new UIButton("PlAY", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
-            //    new UIButton("RESTART", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
-            //    new UIButton("OPTIONS", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
-            //    new UIButton("BACK TO TITLE SCREEN", gameFontSmll, RelativePosition(5, 50), GraphicsDevice),
-            //    new UIButton("EXIT TO DESKTOP", gameFontSmll, RelativePosition(5, 60), GraphicsDevice),
-            //};
-            //winButtons = new List<UIButton>
-            //{
-            //    new UIButton("PlAY", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
-            //    new UIButton("RESTART", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
-            //    new UIButton("OPTIONS", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
-            //    new UIButton("BACK TO TITLE SCREEN", gameFontSmll, RelativePosition(5, 50), GraphicsDevice),
-            //    new UIButton("EXIT TO DESKTOP", gameFontSmll, RelativePosition(5, 60), GraphicsDevice),
-            //};
-            //instructionButtons = new List<UIButton>
-            //{
-            //    new UIButton("PlAY", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
-            //    new UIButton("RESTART", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
-            //    new UIButton("OPTIONS", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
-            //    new UIButton("BACK TO TITLE SCREEN", gameFontSmll, RelativePosition(5, 50), GraphicsDevice),
-            //    new UIButton("EXIT TO DESKTOP", gameFontSmll, RelativePosition(5, 60), GraphicsDevice),
-            //};
+            // Pause Screen Buttons
+            string continueText = "CONTINUE";
+            string saveQuitText = "SAVE & QUIT";
+            string pauseInstructionsText = "INSTRUCTIONS";
 
-            //pauseButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
-            //loadButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
-            //gameOverButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
-            //winButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
-            //instructionButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
+            // Measure text size to position it at the center-bottom of the screen
+            Vector2 continueSize = gameFontSmll.MeasureString(continueText);
+            Vector2 saveQuitSize = gameFontSmll.MeasureString(saveQuitText);
+            Vector2 pauseInstructionsSize = gameFontSmll.MeasureString(pauseInstructionsText);
 
+            // Calculate positions
+            Vector2 continuePosition = new Vector2((graphicsDevice.Viewport.Width - continueSize.X) / 2, (graphicsDevice.Viewport.Height - continueSize.Y) / 2 - 0);
+            Vector2 saveQuitPosition = new Vector2((graphicsDevice.Viewport.Width - saveQuitSize.X) / 2, (graphicsDevice.Viewport.Height - saveQuitSize.Y) / 2 + 100);
+            Vector2 pauseInstructionsPosition = new Vector2((graphicsDevice.Viewport.Width - pauseInstructionsSize.X) / 2, (graphicsDevice.Viewport.Height - pauseInstructionsSize.Y) / 2 + 200);
+
+            pauseButtons = new List<UIButton>
+            {
+                new UIButton("CONTINUE", gameFontSmll, continuePosition),
+                new UIButton("SAVE & QUIT", gameFontSmll, saveQuitPosition),
+                new UIButton("INSTRUCTIONS", gameFontSmll, pauseInstructionsPosition),
+            };
+
+
+            // Instruction Screen Buttons
+            string instructionBackText = "BACK";
+
+            // Measure text size to position it at the center-bottom of the screen
+            Vector2 instructionBackSize = gameFontSmll.MeasureString(instructionBackText);
+
+            // Calculate position
+            Vector2 instructionBackPosition = new Vector2((graphicsDevice.Viewport.Width - instructionBackSize.X) / 2, (graphicsDevice.Viewport.Height -  100));
+
+            instructionButtons = new List<UIButton>
+            {
+                new UIButton("BACK", gameFontSmll, instructionBackPosition)
+            };
+
+            pauseButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
+            instructionButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
             startButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
 
+
+            SetupInstructionScreen();
+
+
         }
+
 
 
         public void UpdateMe(GameTime gameTime,KeyboardState prev, KeyboardState curr)
@@ -150,30 +153,43 @@ namespace Sanguine_Forest
                     HandlePlayingInput(prev, curr);
                     break;
                 case GameState.Paused:
-                    HandlePausedInput(prev, curr);
+                    HandlePauseScreenInput(gameTime, prev, curr); 
                     break;
-                case GameState.Win:
-                    HandleWinInput(prev, curr);
+                case GameState.InstructionsFromStart:
+                    HandleInstructionScreenInputFromStart(gameTime, prev, curr);
                     break;
-                case GameState.GameOver:
-                    HandleGameOverInput(prev, curr);
+                case GameState.InstructionsFromPause:
+                    HandleInstructionScreenInputFromPause(gameTime, prev, curr);
                     break;
-                case GameState.Transitioning:
-                    HandleTransitioningInput(prev, curr);
+
+            }
+        }
+
+
+
+        public void DrawMe()
+        {
+            switch (CurrentGameState)
+            {
+                case GameState.StartScreen:
+                    DrawStartScreen(spriteBatch);
                     break;
-                case GameState.Stats:
-                    HandleStatsInput(prev, curr);
+                case GameState.Paused:
+                    DrawPauseScreen(spriteBatch);
                     break;
+                case GameState.InstructionsFromStart:
+                    DrawInstructionScreenFromStart(spriteBatch);
+                    break;
+                case GameState.InstructionsFromPause:
+                    DrawInstructionScreenFromPause(spriteBatch);
+                    break;
+
             }
         }
 
         private void HandleStartScreenInput(GameTime gameTime, KeyboardState prev, KeyboardState curr)
         {
-            //if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-            //    CurrentGameState = GameState.Playing;
 
-            //if (curr.IsKeyDown(Keys.B) && prev.IsKeyUp(Keys.B))
-            //    RequestExit?.Invoke(); //  exit the game
 
             timeSinceLastInput += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastInput > inputDelay)
@@ -195,24 +211,24 @@ namespace Sanguine_Forest
             }
             if (curr.IsKeyDown(Keys.Enter) && prev.IsKeyUp(Keys.Enter))
             {
-                if (startButtons[activeButtonIndex].Txt == "New Game")
+                if (startButtons[activeButtonIndex].Txt == "NEW GAME")
                 {
                     ResetButtons(startButtons);
+
                     CurrentGameState = GameState.Playing;
                 }
-                else if (startButtons[activeButtonIndex].Txt == "LOAD GAME")
+                else if (startButtons[activeButtonIndex].Txt == "CONTINUE")
                 {
                     // Restart game logic
                     //  Restart();
                     ResetButtons(startButtons);
-                    //CurrentGameState = GameState.LoadGame;
                 }
                 else if (startButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
                 {
                     // Restart game logic
                     //  Restart();
                     ResetButtons(startButtons);
-                    //CurrentGameState = GameState.LoadGame;
+                    CurrentGameState = GameState.InstructionsFromStart;
                 }
 
                 else if (startButtons[activeButtonIndex].Txt == "EXIT")
@@ -225,6 +241,176 @@ namespace Sanguine_Forest
             {
                 button.Update();
             }
+        }
+
+        private void HandlePauseScreenInput(GameTime gameTime, KeyboardState prev, KeyboardState curr)
+        {
+            timeSinceLastInput += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeSinceLastInput > inputDelay)
+            {
+                if (curr.IsKeyDown(Keys.Down) && prev.IsKeyUp(Keys.Down))
+                {
+                    pauseButtons[activeButtonIndex].IsActive = false;
+                    activeButtonIndex = (activeButtonIndex + 1) % pauseButtons.Count;
+                    pauseButtons[activeButtonIndex].IsActive = true;
+                    timeSinceLastInput = 0f;
+                }
+                else if (curr.IsKeyDown(Keys.Up) && prev.IsKeyUp(Keys.Up))
+                {
+                    pauseButtons[activeButtonIndex].IsActive = false;
+                    activeButtonIndex = (activeButtonIndex - 1 + pauseButtons.Count) % pauseButtons.Count;
+                    pauseButtons[activeButtonIndex].IsActive = true;
+                    timeSinceLastInput = 0f;
+                }
+            }
+            if (curr.IsKeyDown(Keys.Enter) && prev.IsKeyUp(Keys.Enter))
+            {
+                if (pauseButtons[activeButtonIndex].Txt == "CONTINUE")
+                {
+                    ResetButtons(pauseButtons);
+                    CurrentGameState = GameState.Playing;
+                }
+                else if (pauseButtons[activeButtonIndex].Txt == "SAVE & QUIT")
+                {
+                    // Save and quit logic
+                    ResetButtons(pauseButtons);
+                    CurrentGameState = GameState.StartScreen;
+                }
+                else if (pauseButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
+                {
+                    ResetButtons(pauseButtons);
+                    CurrentGameState = GameState.InstructionsFromPause;
+                }
+
+            }
+            foreach (var button in pauseButtons)
+            {
+                button.Update();
+            }
+        }
+
+
+        private void HandleInstructionScreenInputFromStart(GameTime gameTime, KeyboardState prev, KeyboardState curr)
+        {
+            timeSinceLastInput += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeSinceLastInput > inputDelay)
+            {
+                if (curr.IsKeyDown(Keys.Enter) && prev.IsKeyUp(Keys.Enter))
+                {
+                    if (instructionButtons[0].Txt == "BACK")
+                    {
+                        ResetButtons(instructionButtons);
+                        CurrentGameState = GameState.StartScreen;
+                    }
+                }
+            }
+            foreach (var button in instructionButtons)
+            {
+                button.Update();
+            }
+        }
+        private void HandleInstructionScreenInputFromPause(GameTime gameTime, KeyboardState prev, KeyboardState curr)
+        {
+            timeSinceLastInput += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeSinceLastInput > inputDelay)
+            {
+                if (curr.IsKeyDown(Keys.Enter) && prev.IsKeyUp(Keys.Enter))
+                {
+                    if (instructionButtons[0].Txt == "BACK")
+                    {
+                        ResetButtons(instructionButtons);
+                        CurrentGameState = GameState.Paused;
+                    }
+                }
+            }
+            foreach (var button in instructionButtons)
+            {
+                button.Update();
+            }
+        }
+
+
+        private void HandlePlayingInput(KeyboardState prev, KeyboardState curr)
+        {
+            if (curr.IsKeyDown(Keys.P) && prev.IsKeyUp(Keys.P))
+            {
+
+                CurrentGameState = GameState.Paused;
+
+            }
+        }
+
+
+        private void DrawInstructionsScreen(string screenTitle)
+        {
+            Vector2 size = titleFontLrg.MeasureString(screenTitle);
+            Vector2 position = new Vector2((graphicsDevice.Viewport.Width - size.X) / 2, 50);  // Top center of the screen
+            spriteBatch.DrawString(titleFontLrg, screenTitle, position, Color.White);
+        }
+
+        private void DrawTitleScreen(string screenTitle)
+        {
+            Vector2 size = titleFontLrg.MeasureString(screenTitle);
+            Vector2 position = new Vector2((graphicsDevice.Viewport.Width - size.X) / 2, 200);  // Top center of the screen
+            spriteBatch.DrawString(titleFontLrg, screenTitle, position, Color.White);
+        }
+
+
+
+        private void DrawStartScreen(SpriteBatch sb)
+        {
+            DrawTitleScreen("Sanguine Forest");
+
+            foreach (var button in startButtons)
+            {
+                button.Draw(sb);
+            }
+
+            //DrawInteractionTextsStartScreen();
+
+        }
+
+        private void DrawPauseScreen(SpriteBatch sb)
+        {
+            DrawTitleScreen("Paused");
+
+            foreach (var button in pauseButtons)
+            {
+                button.Draw(sb);
+            }
+        }
+
+        private void DrawInstructionScreenFromStart(SpriteBatch sb)
+        {
+            DrawInstructionsScreen("Instructions");
+
+            for (int i = 0; i < instructionTexts.Count; i++)
+            {
+                sb.DrawString(gameFontLrg, instructionTexts[i], instructionTextPositions[i], Color.White);
+            }
+
+            foreach (var button in instructionButtons)
+            {
+                button.Draw(sb);
+            }
+
+        }
+
+        private void DrawInstructionScreenFromPause(SpriteBatch sb)
+        {
+
+            DrawInstructionsScreen("Instructions");
+
+            for (int i = 0; i < instructionTexts.Count; i++)
+            {
+                sb.DrawString(gameFontLrg, instructionTexts[i], instructionTextPositions[i], Color.White);
+            }
+
+            foreach (var button in instructionButtons)
+            {
+                button.Draw(sb);
+            }
+
         }
 
         private void ResetButtons(List<UIButton> btns)
@@ -241,150 +427,47 @@ namespace Sanguine_Forest
             btns[activeButtonIndex].IsActive = true;
         }
 
-        private void HandlePlayingInput(KeyboardState prev, KeyboardState curr)
+        private void SetupInstructionScreen()
         {
-            if (curr.IsKeyDown(Keys.P))
-                CurrentGameState = GameState.Paused;
+            instructionTexts = new List<string>
+    {
+        "Movement Controls:",
+        " - Use A and D keys to move left and right.",
+        " - Use W key to jump.",
+        "",
 
-        }
+        "Wall Clinging and Jumping:",
+        " - Jump towards a wall to cling onto it.",
+        " - Press W to jump off the wall. Wall jumps have more strength.",
+        "",
 
-        private void HandlePausedInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.Playing;
-            if (curr.IsKeyDown(Keys.B) && prev.IsKeyUp(Keys.B))
-                CurrentGameState = GameState.StartScreen;
-        }
+        "Challenges and Consequences:",
+        " - Accepting challenges during levels (involving alcohol or drugs) will affect gameplay.",
+        " - Higher risk levels introduce more obstacles.",
+        "",
 
-        private void HandleWinInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.Stats;
-        }
+        "Obstacles:",
+        " - Static platforms: solid surfaces to stand on.",
+        " - Disappearing platforms: these appear and disappear periodically.",
+        " - Thorns: kill you on hit.",
+        "",
+   
+        "Enemies:",
+        " - Green slimes: basic enemies that kill you on hit.",
+        " - Brown slimes: appear if alcohol consumption is high, they are faster and more challenging."
+    };
 
-        private void HandleGameOverInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.Stats;
-        }
-
-        private void HandleTransitioningInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.Playing;
-        }
-
-        private void HandleStatsInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.StartScreen;
-            if (curr.IsKeyDown(Keys.B) && prev.IsKeyUp(Keys.B))
-                RequestExit();
-        }
-
-        public void DrawMe()
-        {
-            switch (CurrentGameState)
+            // Calculate positions for the instruction text
+            instructionTextPositions = new List<Vector2>();
+            float yOffset = 200; // Start position for the first line of text
+            foreach (var text in instructionTexts)
             {
-                case GameState.StartScreen:
-                    DrawStartScreen(spriteBatch);
-                    break;
-                case GameState.Playing:
-                    DrawPlayingScreen();
-                    break;
-                case GameState.Paused:
-                    DrawPausedScreen();
-                    break;
-                case GameState.Win:
-                    DrawWinScreen();
-                    break;
-                case GameState.GameOver:
-                    DrawGameOverScreen();
-                    break;
-                case GameState.Transitioning:
-                    DrawTransitionScreen();
-                    break;
-                case GameState.Stats:
-                    DrawStatsScreen();
-                    break;
+                instructionTextPositions.Add(new Vector2(300, yOffset));
+                yOffset += 35; // Line spacing
             }
         }
 
-        private void DrawScreen(string screenTitle)
-        {
-            Vector2 size = gameFontLrg.MeasureString(screenTitle);
-            Vector2 position = new Vector2((graphicsDevice.Viewport.Width - size.X) / 2, 100);  // Top center of the screen
-            spriteBatch.DrawString(gameFontLrg, screenTitle, position, Color.White);
-        }
-
-        private void DrawTitleScreen(string screenTitle)
-        {
-            Vector2 size = titleFontLrg.MeasureString(screenTitle);
-            Vector2 position = new Vector2((graphicsDevice.Viewport.Width - size.X) / 2, 200);  // Top center of the screen
-            spriteBatch.DrawString(titleFontLrg, screenTitle, position, Color.White);
-        }
-
-        private void DrawInteractionTexts()
-        {
-            string okText = "Press A - OK";
-            string backText = "Press B - Back";
-
-            // Measure text size to position it at the center-bottom of the screen
-            Vector2 okSize = gameFontSmll.MeasureString(okText);
-            Vector2 backSize = gameFontSmll.MeasureString(backText);
-
-            // Calculate positions
-            Vector2 okPosition = new Vector2((graphicsDevice.Viewport.Width - okSize.X) / 2, graphicsDevice.Viewport.Height - okSize.Y - 50);
-            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, graphicsDevice.Viewport.Height - backSize.Y - 10);
-
-            // Draw text
-            spriteBatch.DrawString(gameFontSmll, okText, okPosition, Color.White);
-            spriteBatch.DrawString(gameFontSmll, backText, backPosition, Color.White);
-        }
-
-        private void DrawStartScreen(SpriteBatch sb)
-        {
-            DrawTitleScreen("Sanguine Forest");
-
-            foreach (var button in startButtons)
-            {
-                button.Draw(sb);
-            }
-
-            //DrawInteractionTextsStartScreen();
-
-        }
-
-        private void DrawPlayingScreen()
-        {
-            DrawScreen("Playing Screen");
-        }
-
-        private void DrawPausedScreen()
-        {
-            DrawScreen("Paused Screen");
-            DrawInteractionTexts();
-        }
-
-        private void DrawWinScreen()
-        {
-            DrawScreen("Win Screen");
-        }
-
-        private void DrawGameOverScreen()
-        {
-            DrawScreen("Game Over Screen");
-        }
-
-        private void DrawTransitionScreen()
-        {
-            DrawScreen("Transitioning Screen");
-        }
-
-        private void DrawStatsScreen()
-        {
-            DrawScreen("Stats Screen");
-        }
     }
+
 
 }

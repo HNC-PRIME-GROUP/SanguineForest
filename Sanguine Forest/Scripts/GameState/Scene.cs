@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Extention;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sanguine_Forest.Scripts.Environment;
@@ -6,6 +7,7 @@ using Sanguine_Forest.Scripts.Environment.Obstacle;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using static Sanguine_Forest.Decor;
+using static Sanguine_Forest.ParallaxManager;
 
 namespace Sanguine_Forest
 {
@@ -44,6 +46,8 @@ namespace Sanguine_Forest
         public List<CutSceneObjectData> cutSceneObjects;
         public List<CutSceneDialogue> cutSceneDialogues;
 
+        public Dictionary<Extentions.SpriteLayer, LayerPositionData> ParallaxLayerPositions { get; set; }
+
 
 
 
@@ -52,7 +56,7 @@ namespace Sanguine_Forest
 
         public Scene()
         {
-
+            ParallaxLayerPositions = new Dictionary<Extentions.SpriteLayer, LayerPositionData>();
         }
 
 

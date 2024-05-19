@@ -114,7 +114,7 @@ namespace Sanguine_Forest
             //Set decor and parallaxing
             //Load Background
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, _camera);
+            _parallaxManager = new ParallaxManager(Content, _camera, _currentScene);
 
             // Initialize UI manager. Create an Exit method for UIManager
             _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
@@ -158,17 +158,11 @@ namespace Sanguine_Forest
                 case UIManager.GameState.Paused:
                     _environmentManager.UpdateMe(); //Environment update
                     break;
-                case UIManager.GameState.GameOver:
+                case UIManager.GameState.InstructionsFromStart:
                     // freeze the game or setup for restart
                     break;
-                case UIManager.GameState.Win:
-
-                    break;
-                case UIManager.GameState.Stats:
-
-                    break;
-                case UIManager.GameState.Transitioning:
-
+                case UIManager.GameState.InstructionsFromPause:
+                    // freeze the game or setup for restart
                     break;
             }
 
@@ -179,7 +173,7 @@ namespace Sanguine_Forest
 
                            
             //Parallax            
-            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocityX(), _character.GetVelocityY()));
 
 
            
@@ -277,7 +271,7 @@ namespace Sanguine_Forest
             {
                 _character.UpdateMe(prevState, currState);
             }
-            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocityX(), _character.GetVelocityY()));
 
         }
 

@@ -1,14 +1,14 @@
 {
 
-  "characterPosition": "11200, 0",
+  "characterPosition": "0, -0",
   "comment": "Simple platforms",
   "simplePlatforms": [
-    {
-      "comment": "Sky Edge", // Top Edge
-      "position": "-6000, -1400",
-      "rotation": "0",
-      "platformSize": "200000, 400"
-    },
+    //{
+    //  "comment": "Sky Edge", // Top Edge
+    //  "position": "-6000, -1400",
+    //  "rotation": "0",
+    //  "platformSize": "200000, 400"
+    //},
     {
       "comment": "1",
       "position": "-1300, -1200",
@@ -222,8 +222,8 @@
       "position": "15600, -450",
       "rotation": "0",
       "platformSize": "400, 200"
-    },  
-    
+    },
+
     {
       "comment": "38",
       "position": "15600, -450",
@@ -290,7 +290,7 @@
 
     {
       "comment": "1",
-      "position": "2700, 200",
+      "position": "2750, 200",
       "rotation": "0",
       "platformSize": "100, 100",
       "TimeToFall": "2"
@@ -298,7 +298,7 @@
 
     {
       "comment": "2",
-      "position": "2700, -200",
+      "position": "2750, -200",
       "rotation": "0",
       "platformSize": "100, 100",
       "TimeToFall": "3"
@@ -306,7 +306,7 @@
 
     {
       "comment": "3",
-      "position": "2700, -600",
+      "position": "2750, -600",
       "rotation": "0",
       "platformSize": "100, 100",
       "TimeToFall": "3"
@@ -322,7 +322,7 @@
 
     {
       "comment": "5",
-      "position": "7100, -300",
+      "position": "7090, -300",
       "rotation": "0",
       "platformSize": "100, 100",
       "TimeToFall": "3"
@@ -422,8 +422,7 @@
       "rotation": "0",
       "platformSize": "100, 500",
       "TimeToFall": "5"
-      }
-      ,
+    },
 
     {
       "comment": "17",
@@ -450,8 +449,7 @@
     //}
 
   ],
-  "comment04": "dangerous place in any case (pites, water, thorns)",
-  "dangerPlaces": [],
+
 
 
   "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
@@ -490,7 +488,7 @@
 
   ],
 
-  "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "comment05.0": "Patches when going to cave",
   "patchDecors": [
 
 
@@ -510,6 +508,46 @@
   "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
   "obstaclesData1": [
 
+    {
+      "Position": "11850, 150",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "13050,140",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "13500, -150",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "13900,-140",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "14790, -525",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "14810, -1000",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "15260, -1000",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "15270, -500",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "15690, -525",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "15710, -1000",
+      "Speed": "2",
+      "Size": "200,200"
+    }
   ],
   "obstaclesData2": [
 
@@ -523,21 +561,87 @@
     //}
 
   ],
+
   "obstaclesData3": [],
   "comment07": "Thorns - danger polaces",
   "thorns": [
 
-    //{
-    //  "Position": "-500,-800",
-    //  "Rotation": "0",
-    //  "ThornsSize": "200,500"
-    //},
-    //{
-    //  "Position": "500,200",
-    //  "Rotation": "0",
-    //  "ThornsSize": "200,200"
-    //}
+    {
+      "comment": "1",
+      "Position": "900, 630",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
 
+    {
+      "comment": "2",
+      "Position": "775,-370",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "comment": "3",
+      "Position": "1150, 640",
+      "Rotation": "0",
+      "ThornsSize": "400,200"
+    },
+
+    {
+      "comment": "4",
+      "Position": "2175, 645",
+      "Rotation": "0",
+      "ThornsSize": "200,200"
+    },
+
+    {
+      "comment": "5",
+      "Position": "3970, 645",
+      "Rotation": "0",
+      "ThornsSize": "200,200"
+    },
+
+    {
+      "comment": "6",
+      "Position": "6170, 640",
+      "Rotation": "0",
+      "ThornsSize": "400,200"
+    },
+
+    {
+      "comment": "7",
+      "Position": "6900, 570",
+      "Rotation": "0",
+      "ThornsSize": "1000,200"
+    },
+
+    {
+      "comment": "8",
+      "Position": "7500, 500",
+      "Rotation": "0",
+      "ThornsSize": "2000,200"
+    },
+
+    {
+      "comment": "9",
+      "Position": "9500, 500",
+      "Rotation": "0",
+      "ThornsSize": "800,200"
+    },
+
+    {
+      "comment": "10",
+      "Position": "10250, 150",
+      "Rotation": "0",
+      "ThornsSize": "1000,600"
+    },
+
+    {
+      "comment": "11",
+      "Position": "13200, 250",
+      "Rotation": "0",
+      "ThornsSize": "10000,600"
+    }
   ],
 
 
@@ -599,5 +703,19 @@
     //}
 
 
-  ]
+  ],
+
+  "parallaxLayerPositions": {
+
+    "background_Fore": { "initialPosition": "-200, -205" },
+    "background_Fore_Mid": { "initialPosition": "-200, -425" },
+    "background_Mid": { "initialPosition": "-200, -600" },
+    "background_Mid_Back": { "initialPosition": "-200, -800" },
+    "background_Back": { "initialPosition": "-200, -1200" },
+
+    "underground_Back": { "initialPosition": "-200, 1100" },
+    "underground_Mid": { "initialPosition": "-200, 1200" },
+    "underground_Fore": { "initialPosition": "-200,1300" }
+
+  }
 }

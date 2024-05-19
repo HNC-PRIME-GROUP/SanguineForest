@@ -546,10 +546,16 @@ namespace Sanguine_Forest
         //    _feetCollision.SetScale(scale);
         //}
 
-        public float GetVelocity()
+        public float GetVelocityX()
         {
             return _velocity.X;
         }
+
+        public float GetVelocityY()
+        {
+            return _velocity.Y;
+        }
+
 
         public CharState GetCharacterState()
         {

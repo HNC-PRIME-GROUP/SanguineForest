@@ -97,7 +97,7 @@ namespace Sanguine_Forest
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
-            _camera = new Camera(_currentScene.characterPosition, new Vector2(-20000, -1800), new Vector2(2200, 1675), new Vector2(1920, 1080));
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-20000, -2200), new Vector2(2200, 1900), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
             //_camera.SetZoom(1f);
 
@@ -107,8 +107,7 @@ namespace Sanguine_Forest
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, _camera);
-
+            _parallaxManager = new ParallaxManager(Content, _camera, _currentScene);
             //Debug camera
             DebugManager.Camera = _camera;
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
@@ -140,7 +139,7 @@ namespace Sanguine_Forest
             switch (_uiManager.CurrentGameState)
             {
                 case UIManager.GameState.StartScreen:
-                    _parallaxManager.UpdateMe(new Vector2(15, 0));
+                    _parallaxManager.UpdateMe(new Vector2(5, 0));
                     break;
                 case UIManager.GameState.Playing:
                     UpdatePlaying(gameTime);
@@ -148,18 +147,13 @@ namespace Sanguine_Forest
                 case UIManager.GameState.Paused:
                     _environmentManager.UpdateMe();
                     break;
-                case UIManager.GameState.GameOver:
+                case UIManager.GameState.InstructionsFromStart:
                     // freeze the game or setup for restart
                     break;
-                case UIManager.GameState.Win:
-                    
-                    break;
-                case UIManager.GameState.Stats:
+                case UIManager.GameState.InstructionsFromPause:
 
                     break;
-                case UIManager.GameState.Transitioning:
 
-                    break;
             }
 
             //Debug observer (flying cam without character)
@@ -200,7 +194,7 @@ namespace Sanguine_Forest
             {
                 _character.UpdateMe(prevState, currState);
             }
-            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocityX(), _character.GetVelocityY()));
 
 
             // Update cutscene
@@ -277,8 +271,37 @@ namespace Sanguine_Forest
                 _spriteBatch.End();
             }
 
+            else if (_uiManager.CurrentGameState == UIManager.GameState.InstructionsFromStart)
+            {
+
+                // Begin a new sprite batch without any camera transformations
+                _spriteBatch.Begin();
+
+                // Draw semi-transparent overlay over the whole screen
+                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+
+                _uiManager.DrawMe();
+
+                _spriteBatch.End();
+            }
+
+            else if (_uiManager.CurrentGameState == UIManager.GameState.InstructionsFromPause)
+            {
+
+                // Begin a new sprite batch without any camera transformations
+                _spriteBatch.Begin();
+
+                // Draw semi-transparent overlay over the whole screen
+                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+
+                _uiManager.DrawMe();
+
+                _spriteBatch.End();
+            }
+
             base.Draw(gameTime);
         }
+
 
     }
 }

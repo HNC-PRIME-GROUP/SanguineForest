@@ -97,7 +97,7 @@ namespace Sanguine_Forest
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
-            _camera = new Camera(_currentScene.characterPosition, new Vector2(-20000, -1800), new Vector2(2200, 1675), new Vector2(1920, 1080));
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-20000, -2200), new Vector2(2200, 1900), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
             //_camera.SetZoom(1f);
 
@@ -107,8 +107,7 @@ namespace Sanguine_Forest
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, _camera);
-
+            _parallaxManager = new ParallaxManager(Content, _camera, _currentScene);
             //Debug camera
             DebugManager.Camera = _camera;
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
@@ -140,7 +139,7 @@ namespace Sanguine_Forest
             switch (_uiManager.CurrentGameState)
             {
                 case UIManager.GameState.StartScreen:
-                    _parallaxManager.UpdateMe(new Vector2(15, 0));
+                    _parallaxManager.UpdateMe(new Vector2(5, 0));
                     break;
                 case UIManager.GameState.Playing:
                     UpdatePlaying(gameTime);
@@ -200,7 +199,7 @@ namespace Sanguine_Forest
             {
                 _character.UpdateMe(prevState, currState);
             }
-            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocityX(), _character.GetVelocityY()));
 
 
             // Update cutscene

@@ -285,6 +285,15 @@ namespace Sanguine_Forest
             }
         }
 
+        public float GetVelocityX()
+        {
+            return _velocity.X;
+        }
+
+        public float GetVelocityY()
+        {
+            return _velocity.Y;
+        }
 
     }
 }

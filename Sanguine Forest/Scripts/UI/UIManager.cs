@@ -89,42 +89,29 @@ namespace Sanguine_Forest
             };
             //pauseButtons = new List<UIButton>
             //{
-            //     new UIButton("RESOLUTION", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
-            //     new UIButton("BRIGHTNESS", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
-            //     new UIButton("BACK", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
+            //     new UIButton("CONTINUE", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
+            //     new UIButton("SAVE & QUIT", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
+            //    new UIButton("OPTIONS", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
+            //     new UIButton("INSTRUCTIONS", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
+            //};
 
-            //};
-            //loadButtons = new List<UIButton>
-            //{
-            //    new UIButton("800x600", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
-            //    new UIButton("1024x768", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
-            //    new UIButton("1280x720", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
-            //    new UIButton("1920x1080", gameFontSmll, RelativePosition(5, 50), GraphicsDevice),
-            //    new UIButton("BACK", gameFontSmll, RelativePosition(5, 60), GraphicsDevice),
-            //};
             //gameOverButtons = new List<UIButton>
             //{
-            //    new UIButton("PlAY", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
             //    new UIButton("RESTART", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
             //    new UIButton("OPTIONS", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
             //    new UIButton("BACK TO TITLE SCREEN", gameFontSmll, RelativePosition(5, 50), GraphicsDevice),
             //    new UIButton("EXIT TO DESKTOP", gameFontSmll, RelativePosition(5, 60), GraphicsDevice),
             //};
-            //winButtons = new List<UIButton>
+
+            //loadScreenButtons = new List<UIButton>
             //{
-            //    new UIButton("PlAY", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
-            //    new UIButton("RESTART", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
-            //    new UIButton("OPTIONS", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
-            //    new UIButton("BACK TO TITLE SCREEN", gameFontSmll, RelativePosition(5, 50), GraphicsDevice),
-            //    new UIButton("EXIT TO DESKTOP", gameFontSmll, RelativePosition(5, 60), GraphicsDevice),
+            //    new UIButton("CONTINUE", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
+            //    new UIButton("BACK", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
             //};
+
             //instructionButtons = new List<UIButton>
             //{
-            //    new UIButton("PlAY", gameFontSmll, RelativePosition(5, 20), GraphicsDevice),
-            //    new UIButton("RESTART", gameFontSmll, RelativePosition(5, 30), GraphicsDevice),
-            //    new UIButton("OPTIONS", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
-            //    new UIButton("BACK TO TITLE SCREEN", gameFontSmll, RelativePosition(5, 50), GraphicsDevice),
-            //    new UIButton("EXIT TO DESKTOP", gameFontSmll, RelativePosition(5, 60), GraphicsDevice),
+            //    new UIButton("BACK", gameFontSmll, RelativePosition(5, 40), GraphicsDevice),
             //};
 
             //pauseButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
@@ -146,34 +133,30 @@ namespace Sanguine_Forest
                 case GameState.StartScreen:
                     HandleStartScreenInput(gameTime, prev, curr);
                     break;
-                case GameState.Playing:
-                    HandlePlayingInput(prev, curr);
-                    break;
-                case GameState.Paused:
-                    HandlePausedInput(prev, curr);
-                    break;
-                case GameState.Win:
-                    HandleWinInput(prev, curr);
-                    break;
-                case GameState.GameOver:
-                    HandleGameOverInput(prev, curr);
-                    break;
-                case GameState.Transitioning:
-                    HandleTransitioningInput(prev, curr);
-                    break;
-                case GameState.Stats:
-                    HandleStatsInput(prev, curr);
-                    break;
+                //case GameState.Playing:
+                //    HandlePlayingInput(prev, curr);
+                //    break;
+                //case GameState.Paused:
+                //    HandlePausedInput(prev, curr);
+                //    break;
+                //case GameState.Win:
+                //    HandleWinInput(prev, curr);
+                //    break;
+                //case GameState.GameOver:
+                //    HandleGameOverInput(prev, curr);
+                //    break;
+                //case GameState.Transitioning:
+                //    HandleTransitioningInput(prev, curr);
+                //    break;
+                //case GameState.Stats:
+                //    HandleStatsInput(prev, curr);
+                //    break;
             }
         }
 
         private void HandleStartScreenInput(GameTime gameTime, KeyboardState prev, KeyboardState curr)
         {
-            //if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-            //    CurrentGameState = GameState.Playing;
 
-            //if (curr.IsKeyDown(Keys.B) && prev.IsKeyUp(Keys.B))
-            //    RequestExit?.Invoke(); //  exit the game
 
             timeSinceLastInput += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastInput > inputDelay)
@@ -239,47 +222,6 @@ namespace Sanguine_Forest
 
             // Activate the first button
             btns[activeButtonIndex].IsActive = true;
-        }
-
-        private void HandlePlayingInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.P))
-                CurrentGameState = GameState.Paused;
-
-        }
-
-        private void HandlePausedInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.Playing;
-            if (curr.IsKeyDown(Keys.B) && prev.IsKeyUp(Keys.B))
-                CurrentGameState = GameState.StartScreen;
-        }
-
-        private void HandleWinInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.Stats;
-        }
-
-        private void HandleGameOverInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.Stats;
-        }
-
-        private void HandleTransitioningInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.Playing;
-        }
-
-        private void HandleStatsInput(KeyboardState prev, KeyboardState curr)
-        {
-            if (curr.IsKeyDown(Keys.A) && prev.IsKeyUp(Keys.A))
-                CurrentGameState = GameState.StartScreen;
-            if (curr.IsKeyDown(Keys.B) && prev.IsKeyUp(Keys.B))
-                RequestExit();
         }
 
         public void DrawMe()

@@ -1,5 +1,5 @@
 {
-  "characterPosition": "6370,-380",
+  "characterPosition": "9050,-700",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -608,7 +608,122 @@
       "Position": "8850, -2070",
       "Rotation": "0",
       "ThornsSize": "3000,100"
+    },
+
+    {
+      "Position": "10970, -1400",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "11890, -1420",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "10970, -1080",
+      "Rotation": "0",
+      "ThornsSize": "1000,100"
+    },
+
+    {
+      "Position": "11870, -1080",
+      "Rotation": "0",
+      "ThornsSize": "1000,100"
+    },
+
+    {
+      "Position": "10970, -970",
+      "Rotation": "0",
+      "ThornsSize": "1900,100"
+    },
+
+    {
+      "Position": "12570, -540",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "12070, -540",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "11670, -540",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "10970, -760",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "10770,880",
+      "Rotation": "0",
+      "ThornsSize": "700,100"
+    },
+
+    {
+      "Position": "10710,-100",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "11410,150",
+      "Rotation": "0",
+      "ThornsSize": "100,800"
+    },
+
+    {
+      "Position": "11710,150",
+      "Rotation": "0",
+      "ThornsSize": "900,100"
+    },
+
+    {
+      "Position": "11710,600",
+      "Rotation": "0",
+      "ThornsSize": "900,100"
+    },
+
+    {
+      "Position": "12490,150",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "13040,-200",
+      "Rotation": "0",
+      "ThornsSize": "100,1100"
+    },
+
+    {
+      "Position": "9850,-1500",
+      "Rotation": "0",
+      "ThornsSize": "100,2100"
+    },
+
+    {
+      "Position": "9350,-570",
+      "Rotation": "0",
+      "ThornsSize": "100,2100"
+    },
+
+    {
+      "Position": "9350,-570",
+      "Rotation": "0",
+      "ThornsSize": "100,2100"
     }
+
   ],
 
   "moveablPlatforms": [

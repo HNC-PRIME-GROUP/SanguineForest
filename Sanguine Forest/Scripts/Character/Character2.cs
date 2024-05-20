@@ -46,8 +46,8 @@ namespace Sanguine_Forest
         public CharState _currentState;
 
         //Movement
-        private float _speed = 9f;
-        private float _jumpHigh = 25f;
+        private float _speed = 9.5f;
+        private float _jumpHigh = 24f;
         private float walkSpeed = 3f; // Set a fixed walk speed
         private Vector2 _velocity = Vector2.Zero;
         private float _gravityRate = 0.3f;
@@ -289,12 +289,12 @@ namespace Sanguine_Forest
             if (curr.IsKeyDown(Keys.A))
             {
                 _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
-                _velocity.X = -(_speed * 2 / 3);
+                _velocity.X = -_speed;
             }
             if (curr.IsKeyDown(Keys.D))
             {
                 _SpriteModule.SetSpriteEffects(SpriteEffects.None);
-                _velocity.X = (_speed * 2 / 3);
+                _velocity.X = _speed;
             }
 
         }

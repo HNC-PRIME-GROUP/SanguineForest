@@ -1,6 +1,8 @@
 {
 
   "characterPosition": "-200, -150",
+  "LeftUpperBound": "-100000,-100000",
+  "RightBottomBound": "210000,100000",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -171,84 +173,91 @@
 
   ],
 
-
   "comment 07 ": "Data about cutscenes",
   "cutSceneDialogues": [
     //"\\n",
     {
-      "Text": "Jake!",
-      "Position": "80, 200"
+      "Text": "Lily!",
+      "Position": "150, 200"
     },
     {
       "Text": "There you are.",
-      "Position": "-0, 200"
-    },
-    {
-      "Text": "Everything good?",
-      "Position": "-0, 200"
-    },
-
-
-    {
-      "Text": "Oh, hey, Alex.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "Yeah, just... thinking about some things.",
-      "Position": "300, 160"
-    },
-
-
-    {
-      "Text": "Like what?",
-      "Position": "50, 200"
-    },
-    {
-      "Text": "Last night...",
-      "Position": "300, 160"
-    },
-
-
-    {
-      "Text": "I had way too much to drink.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "I thought it would make everything more fun, ",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "but... I barely remember what happened.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "What's the point of all this if I can't even enjoy it?",
-      "Position": "300, 160"
-    },
-
-    {
-      "Text": "I get it, Jake.",
       "Position": "20, 200"
     },
     {
-      "Text": " Sometimes, we think those things will make everything better,",
-      "Position": "-270, 180"
+      "Text": "Everything okay?",
+      "Position": "20, 200"
     },
     {
-      "Text": "but they can take away more than they give.",
-      "Position": "-270, 180"
+      "Text": "Hey, Alex. Just... soaking it all in.",
+      "Position": "300, 160"
+    },
+
+    {
+      "Text": "This forest is something else.",
+      "Position": "300, 160"
     },
     {
-      "Text": "Yeah.",
-      "Position": "300, 180"
+      "Text": "Yeah, it is.",
+      "Position": "20, 200"
     },
     {
-      "Text": "Maybe it's time I start thinking differently.",
-      "Position": "300, 180"
+      "Text": "You've been quiet though.",
+      "Position": "-200, 200"
     },
     {
-      "Text": "Thanks, Alex.",
-      "Position": "300, 180"
+      "Text": "What's up?",
+      "Position": "20, 200"
+    },
+    {
+      "Text": "I've been thinking about last night.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "We had a lot to drink. It was fun, but...",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "I feel like I'm missing out...",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "non really experiencing this place,",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "you know?",
+      "Position": "300, 160"
+    },
+
+
+    {
+      "Text": "I know what you mean.",
+      "Position": "-200, 200"
+    },
+    {
+      "Text": "Sometimes, we use those things to escape,",
+      "Position": "-250, 200"
+    },
+    {
+      "Text": "but we end up missing the real moments.",
+      "Position": "-250, 200"
+    },
+    {
+      "Text": "Exactly.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "Maybe next time,",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "I'll just enjoy the forest for what it is.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "Thanks for listening, Alex.",
+      "Position": "300, 160"
     }
 
 
@@ -263,20 +272,21 @@
     //  "Scale": 1.0,
     //  "NPCType": "Pink"
     //}
-
     //,
-    //{
-    //  "Position": "400,-240",
-    //  "Rotation": 0.0,
-    //  "Scale": 1.0,
-    //  "NPCType": "Green"
-    //},
 
     {
       "Position": "300,240",
       "Rotation": 0.0,
       "Scale": 1.0,
-      "NPCType": "Blue"
+      "NPCType": "Green"
     }
+
+    //{
+    //  "Position": "500,-240",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Blue"
+    //}
+
   ]
 }

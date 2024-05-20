@@ -70,6 +70,11 @@ namespace Sanguine_Forest
             return platformPhysic;
         }
 
+        public void DeleteMe()
+        {
+            PhysicManager.RemoveObject(platformPhysic);
+        }
+
     }
 
     internal struct PlatformData

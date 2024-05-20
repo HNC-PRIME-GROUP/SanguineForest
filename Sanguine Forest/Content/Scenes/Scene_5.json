@@ -1,0 +1,986 @@
+{
+  "characterPosition": "0, 0",
+
+  "LeftUpperBound": "-100000,-10000",
+  "RightBottomBound": "22000,100000",
+
+  "comment": "Simple platforms",
+  "simplePlatforms": [
+    {
+      "comment": "First floor",
+      "position": "-100,100",
+      "rotation": "0",
+      "platformSize": "1000,192"
+    },
+
+    {
+      "comment": "base floor",
+      "position": "-100,170",
+      "rotation": "0",
+      "platformSize": "2000,100"
+    },
+
+    {
+      "comment": "First platform",
+      "position": "1150,-50",
+      "rotation": "0",
+      "platformSize": "250,350"
+    },
+
+    {
+      "comment": "Second floor",
+      "position": "1650,100",
+      "rotation": "0",
+      "platformSize": "1000,192"
+    },
+
+    {
+      "comment": "First Wall",
+      "position": "2600,-300",
+      "rotation": "0",
+      "platformSize": "200,750"
+    },
+
+    {
+      "comment": "base floor",
+      "position": "2600,450",
+      "rotation": "0",
+      "platformSize": "6820,192"
+    },
+
+    {
+      "comment": "Second Wall",
+      "position": "2200,-800",
+      "rotation": "0",
+      "platformSize": "200,650"
+    },
+
+    {
+      "comment": "Decor Wall1",
+      "position": "2100,-1400",
+      "rotation": "0",
+      "platformSize": "500,650"
+    },
+
+    {
+      "comment": "Third Floor",
+      "position": "2600,-300",
+      "rotation": "0",
+      "platformSize": "700,200"
+    },
+    {
+      "comment": "Second Platform",
+      "position": "3660,0",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "Third Platform",
+      "position": "4300,-180",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "Forth Floor",
+      "position": "5040,-180",
+      "rotation": "0",
+      "platformSize": "1050,200"
+    },
+    {
+      "comment": "Decor Wall2",
+      "position": "5250,-10",
+      "rotation": "0",
+      "platformSize": "200,500"
+    },
+
+    {
+      "comment": "Forth Platform",
+      "position": "6370,-280",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "Third Wall",
+      "position": "7000,-1600",
+      "rotation": "0",
+      "platformSize": "450,1100"
+    },
+
+    {
+      "comment": "5th Platform",
+      "position": "6980,120",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "5th Floor",
+      "position": "7550,-100",
+      "rotation": "0",
+      "platformSize": "500,1000"
+    },
+
+    {
+      "comment": "6th Platform",
+      "position": "8450,100",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "Forth Wall",
+      "position": "8450,-2000",
+      "rotation": "0",
+      "platformSize": "400,1700"
+    },
+
+    {
+      "comment": "5th Wall",
+      "position": "9050,-600",
+      "rotation": "0",
+      "platformSize": "400,3100"
+    },
+
+    {
+      "comment": "6th Wall",
+      "position": "9050,-1600",
+      "rotation": "0",
+      "platformSize": "400,600"
+    },
+
+    {
+      "comment": "First Roof",
+      "position": "8450,-2100",
+      "rotation": "0",
+      "platformSize": "5050,100"
+    },
+
+    {
+      "comment": "6th Floor",
+      "position": "9050,-1600",
+      "rotation": "0",
+      "platformSize": "2000,200"
+    },
+
+    {
+      "comment": "7th Wall",
+      "position": "9880,-1600",
+      "rotation": "0",
+      "platformSize": "900,2720"
+    },
+
+    {
+      "comment": "7th Platform",
+      "position": "11350,-1350",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "8th Wall",
+      "position": "10680,-1600",
+      "rotation": "0",
+      "platformSize": "400,1400"
+    },
+
+    {
+      "comment": "7th Floor",
+      "position": "11030,-1010",
+      "rotation": "0",
+      "platformSize": "1050,200"
+    },
+
+    {
+      "comment": "9th Wall",
+      "position": "11930,-1400",
+      "rotation": "0",
+      "platformSize": "200,600"
+    },
+
+    {
+      "comment": "8th Floor",
+      "position": "11930,-1210",
+      "rotation": "0",
+      "platformSize": "600,400"
+    },
+
+    {
+      "comment": "9th Floor",
+      "position": "12480,-1020",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "10th Wall",
+      "position": "13100,-2100",
+      "rotation": "0",
+      "platformSize": "100,3040"
+    },
+
+    {
+      "comment": "10th Floor",
+      "position": "11350,-500",
+      "rotation": "0",
+      "platformSize": "1800,200"
+    },
+
+    {
+      "comment": "11th Floor",
+      "position": "9880,930",
+      "rotation": "0",
+      "platformSize": "2000,200"
+    },
+
+    {
+      "comment": "12th Floor",
+      "position": "11450,80",
+      "rotation": "0",
+      "platformSize": "300,900"
+    },
+
+    {
+      "comment": "13th Floor",
+      "position": "11750,205",
+      "rotation": "0",
+      "platformSize": "850,540"
+    },
+
+    {
+      "comment": "8th Platform",
+      "position": "12050,10",
+      "rotation": "0",
+      "platformSize": "200,250"
+    },
+
+    {
+      "comment": "14th Floor",
+      "position": "12450,930",
+      "rotation": "0",
+      "platformSize": "800,200"
+    },
+
+    {
+      "comment": "15th Floor",
+      "position": "9050,2200",
+      "rotation": "0",
+      "platformSize": "1000,400"
+    },
+
+    {
+      "comment": "16th Floor",
+      "position": "9450,2300",
+      "rotation": "0",
+      "platformSize": "1000,300"
+    },
+
+    {
+      "comment": "17th Floor",
+      "position": "9450,2400",
+      "rotation": "0",
+      "platformSize": "2300,200"
+    },
+
+    {
+      "comment": "18th Floor",
+      "position": "10750,2150",
+      "rotation": "0",
+      "platformSize": "600,300"
+    },
+
+    {
+      "comment": "11th Wall",
+      "position": "11650,1600",
+      "rotation": "0",
+      "platformSize": "600,1200"
+    },
+
+    {
+      "comment": "19th Floor",
+      "position": "10450,1700",
+      "rotation": "0",
+      "platformSize": "1000,100"
+    },
+
+    {
+      "comment": "12th Wall",
+      "position": "10450,1100",
+      "rotation": "0",
+      "platformSize": "600,700"
+    },
+
+    {
+      "comment": "20th Floor",
+      "position": "11650,2780",
+      "rotation": "0",
+      "platformSize": "2400,200"
+    },
+
+    {
+      "comment": "13th Wall",
+      "position": "12600,1100",
+      "rotation": "0",
+      "platformSize": "400,1200"
+    },
+
+    {
+      "comment": "9th Platform",
+      "position": "12600,2620",
+      "rotation": "0",
+      "platformSize": "800,200"
+    },
+
+    {
+      "comment": "10th Platform",
+      "position": "13620,2420",
+      "rotation": "0",
+      "platformSize": "400,100"
+    },
+
+    {
+      "comment": "11th Platform",
+      "position": "13000,2220",
+      "rotation": "0",
+      "platformSize": "400,100"
+    },
+
+    {
+      "comment": "14th Wall",
+      "position": "14020,1220",
+      "rotation": "0",
+      "platformSize": "600,2600"
+    },
+
+    {
+      "comment": "21st Floor",
+      "position": "13620,2020",
+      "rotation": "0",
+      "platformSize": "600,100"
+    },
+
+    {
+      "comment": "15th Wall",
+      "position": "13420,920",
+      "rotation": "0",
+      "platformSize": "300,900"
+    },
+
+    {
+      "comment": "2nd Roof",
+      "position": "13420,910",
+      "rotation": "0",
+      "platformSize": "800,100"
+    },
+
+    {
+      "comment": "16th Wall",
+      "position": "14520,910",
+      "rotation": "0",
+      "platformSize": "200,400"
+    },
+
+    {
+      "comment": "12th Platform",
+      "position": "14350,1050",
+      "rotation": "0",
+      "platformSize": "200,200"
+    },
+
+    {
+      "comment": "22nd Floor",
+      "position": "14520,910",
+      "rotation": "0",
+      "platformSize": "1000,200"
+    },
+
+    {
+      "comment": "23rd Floor",
+      "position": "14120,500",
+      "rotation": "0",
+      "platformSize": "1400,200"
+    },
+
+    {
+      "comment": "17th Wall",
+      "position": "15820,200",
+      "rotation": "0",
+      "platformSize": "200,900"
+    },
+
+    {
+      "comment": "18th Wall",
+      "position": "13950,-1300",
+      "rotation": "0",
+      "platformSize": "200,2300"
+    },
+
+    {
+      "comment": "19th Wall",
+      "position": "14400,-800",
+      "rotation": "0",
+      "platformSize": "100,1100"
+    },
+
+    {
+      "comment": "3rd Roof",
+      "position": "14120,-1400",
+      "rotation": "0",
+      "platformSize": "2000,100"
+    },
+
+    {
+      "comment": "19th Wall",
+      "position": "14400,-1400",
+      "rotation": "0",
+      "platformSize": "100,200"
+    },
+
+    {
+      "comment": "13th Platform",
+      "position": "14400,-800",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "14th Platform",
+      "position": "15000,-400",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "20th Floor",
+      "position": "14400,100",
+      "rotation": "0",
+      "platformSize": "1600,200"
+    },
+
+    {
+      "comment": "15th Platform",
+      "position": "15700,-500",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "22nd Floor",
+      "position": "14520,950",
+      "rotation": "0",
+      "platformSize": "6000,200"
+    },
+
+    {
+      "comment": "16th Platform",
+      "position": "16400,800",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "20th Wall",
+      "position": "16920,-1550",
+      "rotation": "0",
+      "platformSize": "200,2000"
+    },
+
+    {
+      "comment": "17th Platform",
+      "position": "17150,800",
+      "rotation": "0",
+      "platformSize": "400,200"
+    },
+
+    {
+      "comment": "18th Platform",
+      "position": "17650,600",
+      "rotation": "0",
+      "platformSize": "400,400"
+    },
+
+    {
+      "comment": "19th Platform",
+      "position": "16950,330",
+      "rotation": "0",
+      "platformSize": "500,100"
+    },
+
+    {
+      "comment": "21st Wall",
+      "position": "18000,-300",
+      "rotation": "0",
+      "platformSize": "200,1300"
+    },
+
+    {
+      "comment": "20th Platform",
+      "position": "17650,100",
+      "rotation": "0",
+      "platformSize": "500,100"
+    },
+
+    {
+      "comment": "21st Platform",
+      "position": "16950,-250",
+      "rotation": "0",
+      "platformSize": "500,100"
+    },
+
+    {
+      "comment": "23rd Floor",
+      "position": "17700,-400",
+      "rotation": "0",
+      "platformSize": "500,100"
+    },
+
+    {
+      "comment": "22nd Wall",
+      "position": "19000,-2000",
+      "rotation": "0",
+      "platformSize": "200,2500"
+    }
+
+  ],
+
+  "comment07": "Thorns - danger polaces",
+  "thorns": [
+
+    {
+      "Position": "920,120",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "1400,120",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "2700,-100",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "2850,400",
+      "Rotation": "0",
+      "ThornsSize": "6300,100"
+    },
+
+    {
+      "Position": "6970,-1600",
+      "Rotation": "0",
+      "ThornsSize": "100,900"
+    },
+
+    {
+      "Position": "8380,200",
+      "Rotation": "0",
+      "ThornsSize": "500,100"
+    },
+
+    {
+      "Position": "7980,-70",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "9020,-70",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "8750,-1300",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "9010,-1560",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "8850, -2070",
+      "Rotation": "0",
+      "ThornsSize": "3000,100"
+    },
+
+    {
+      "Position": "10970, -1400",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "11890, -1420",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "10970, -1080",
+      "Rotation": "0",
+      "ThornsSize": "1000,100"
+    },
+
+    {
+      "Position": "11870, -1080",
+      "Rotation": "0",
+      "ThornsSize": "1000,100"
+    },
+
+    {
+      "Position": "10970, -970",
+      "Rotation": "0",
+      "ThornsSize": "1900,100"
+    },
+
+    {
+      "Position": "12570, -540",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "12070, -540",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "11670, -540",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "10970, -760",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "10770,880",
+      "Rotation": "0",
+      "ThornsSize": "700,100"
+    },
+
+    {
+      "Position": "10710,-100",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "11410,150",
+      "Rotation": "0",
+      "ThornsSize": "100,800"
+    },
+
+    {
+      "Position": "11710,150",
+      "Rotation": "0",
+      "ThornsSize": "900,100"
+    },
+
+    {
+      "Position": "11710,600",
+      "Rotation": "0",
+      "ThornsSize": "900,100"
+    },
+
+    {
+      "Position": "12490,150",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "13040,-200",
+      "Rotation": "0",
+      "ThornsSize": "100,1100"
+    },
+
+    {
+      "Position": "9850,-1500",
+      "Rotation": "0",
+      "ThornsSize": "100,2100"
+    },
+
+    {
+      "Position": "9350,-570",
+      "Rotation": "0",
+      "ThornsSize": "100,2100"
+    },
+
+    {
+      "Position": "10470,2340",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "11270,2340",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "10470,1740",
+      "Rotation": "0",
+      "ThornsSize": "900,100"
+    },
+
+    {
+      "Position": "10470,1640",
+      "Rotation": "0",
+      "ThornsSize": "900,100"
+    },
+
+    {
+      "Position": "12130,1640",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "12570,1640",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "12230,2730",
+      "Rotation": "0",
+      "ThornsSize": "2000,100"
+    },
+
+    {
+      "Position": "12650,2230",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "12890,1640",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "13060,2270",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "13630,2470",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "13640,2070",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "13430,1730",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "13970,1830",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "13970,1260",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "13640,1030",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "15540,900",
+      "Rotation": "0",
+      "ThornsSize": "2500,100"
+    },
+
+    {
+      "Position": "14500,200",
+      "Rotation": "0",
+      "ThornsSize": "1000,100"
+    },
+
+    {
+      "Position": "14140,450",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14050,0",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14360,-300",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14360,100",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14050,-600",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "14360,-760",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14390,-1260",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14490,0",
+      "Rotation": "0",
+      "ThornsSize": "1500,100"
+    },
+
+    {
+      "Position": "14990,-300",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "15700,-400",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "15930,0",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "17160,370",
+      "Rotation": "0",
+      "ThornsSize": "300,100"
+    },
+
+    {
+      "Position": "17660,170",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "17960,-300",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "17160,-300",
+      "Rotation": "0",
+      "ThornsSize": "300,100"
+    },
+
+    {
+      "Position": "17130,-220",
+      "Rotation": "0",
+      "ThornsSize": "300,100"
+    }
+  ],
+
+  "moveablPlatforms": [
+    {
+
+    }
+  ],
+
+  "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "decors": [
+
+  ],
+
+  "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
+  "obstaclesData1": [
+
+  ],
+
+  "obstaclesData2": [
+
+  ],
+
+  "obstaclesData3": [],
+
+  "fallingPlatforms": [
+    {
+      "comment": "First Platform",
+      "position": "11050,280",
+      "rotation": "0",
+      "platformSize": "200,100",
+      "TimeToFall": "4"
+    }
+  ],
+
+  "parallaxLayerPositions": {
+
+    "background_Fore": { "initialPosition": "-200, -205" },
+    "background_Fore_Mid": { "initialPosition": "-200, -425" },
+    "background_Mid": { "initialPosition": "-200, -600" },
+    "background_Mid_Back": { "initialPosition": "-200, -800" },
+    "background_Back": { "initialPosition": "-200, -1200" },
+
+    "underground_Back": { "initialPosition": "-200, 1100" },
+    "underground_Mid": { "initialPosition": "-200, 1200" },
+    "underground_Fore": { "initialPosition": "-200,1300" }
+
+  },
+
+  "comment05.0": "Patches when going to cave",
+  "patchDecors": [
+
+  ],
+
+  "levelTrigger": {
+    "position": "200,-100",
+    "SpriteEffect": "1"
+  }
+
+}

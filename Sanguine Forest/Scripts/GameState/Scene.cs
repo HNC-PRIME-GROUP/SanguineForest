@@ -55,7 +55,7 @@ namespace Sanguine_Forest
 
         //Camera data (bounds)
         public Vector2 LeftUpperBound;
-        public Vector2 RightBotoomBound;
+        public Vector2 RightBottomBound;
 
 
         public Scene()

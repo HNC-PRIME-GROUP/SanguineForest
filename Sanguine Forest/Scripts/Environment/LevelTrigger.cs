@@ -32,7 +32,7 @@ namespace Sanguine_Forest
 
         public event EventHandler LevelEnd;
         public float EndTimer;
-        public float MaxTimer=10;
+        public float MaxTimer=4;
 
 
 

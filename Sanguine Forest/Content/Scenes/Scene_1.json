@@ -936,7 +936,23 @@
 
   "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
   "obstaclesData1": [
+    {
+      "Position": "11400,1600",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "11410,2300",
+      "Speed": "2",
+      "Size": "200,200"
+    },
 
+    {
+      "Position": "13400,2700",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "13410,1700",
+      "Speed": "2",
+      "Size": "200,200"
+    }
   ],
 
   "obstaclesData2": [

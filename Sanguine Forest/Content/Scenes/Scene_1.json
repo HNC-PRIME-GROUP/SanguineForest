@@ -1,21 +1,5 @@
 {
-  "characterPosition": "200,0",
-
-  "parallaxLayerPositions": {
-
-    "background_Fore": { "initialPosition": "-200, 205" },
-    "background_Fore_Mid": { "initialPosition": "-200, -425" },
-    "background_Mid": { "initialPosition": "-200, -600" },
-    "background_Mid_Back": { "initialPosition": "-200, -800" },
-    "background_Back": { "initialPosition": "-200, -1200" },
-
-    "underground_Back": { "initialPosition": "-200, 1100" },
-    "underground_Mid": { "initialPosition": "-200, 1200" },
-    "underground_Fore": { "initialPosition": "-200,1300" }
-
-  },
-  "LeftUpperBound": "-100000,-10000",
-  "RightBotoomBound": "100000,10000",
+  "characterPosition": "0,0",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -735,11 +719,208 @@
     },
 
     {
-      "Position": "9350,-570",
+      "Position": "10470,2340",
       "Rotation": "0",
-      "ThornsSize": "100,2100"
-    }
+      "ThornsSize": "200,100"
+    },
 
+    {
+      "Position": "11270,2340",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "10470,1740",
+      "Rotation": "0",
+      "ThornsSize": "900,100"
+    },
+
+    {
+      "Position": "10470,1640",
+      "Rotation": "0",
+      "ThornsSize": "900,100"
+    },
+
+    {
+      "Position": "12130,1640",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "12570,1640",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "12230,2730",
+      "Rotation": "0",
+      "ThornsSize": "2000,100"
+    },
+
+    {
+      "Position": "12650,2230",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "12890,1640",
+      "Rotation": "0",
+      "ThornsSize": "100,500"
+    },
+
+    {
+      "Position": "13060,2270",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "13630,2470",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "13640,2070",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "13430,1730",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "Position": "13970,1830",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "13970,1260",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "13640,1030",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "15540,900",
+      "Rotation": "0",
+      "ThornsSize": "2500,100"
+    },
+
+    {
+      "Position": "14500,200",
+      "Rotation": "0",
+      "ThornsSize": "1000,100"
+    },
+
+    {
+      "Position": "14140,450",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14050,0",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14360,-300",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14360,100",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14050,-600",
+      "Rotation": "0",
+      "ThornsSize": "100,200"
+    },
+
+    {
+      "Position": "14360,-760",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14390,-1260",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
+
+    {
+      "Position": "14490,0",
+      "Rotation": "0",
+      "ThornsSize": "1500,100"
+    },
+
+    {
+      "Position": "14990,-300",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "15700,-400",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "15930,0",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "17160,370",
+      "Rotation": "0",
+      "ThornsSize": "300,100"
+    },
+
+    {
+      "Position": "17660,170",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "Position": "17960,-300",
+      "Rotation": "0",
+      "ThornsSize": "100,1000"
+    },
+
+    {
+      "Position": "17160,-300",
+      "Rotation": "0",
+      "ThornsSize": "300,100"
+    },
+
+    {
+      "Position": "17130,-220",
+      "Rotation": "0",
+      "ThornsSize": "300,100"
+    }
   ],
 
   "moveablPlatforms": [
@@ -750,20 +931,6 @@
 
   "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "decors": [
-
-  ],
-  "comment05.0": "Patches when going to cave",
-  "patchDecors": [
-
-
-    //{
-    //  "Position": "250, 400",
-    //  "PatchType": "Sprites/Patch"
-    //},
-    //{
-    //  "Position": "-800, 400",
-    //  "PatchType": "Sprites/Patch"
-    //}
 
   ],
 
@@ -786,28 +953,6 @@
       "platformSize": "200,100",
       "TimeToFall": "4"
     }
-  ],
-
-  "parallaxLayerPositions": {
-
-    "background_Fore": { "initialPosition": "-200, -205" },
-    "background_Fore_Mid": { "initialPosition": "-200, -425" },
-    "background_Mid": { "initialPosition": "-200, -600" },
-    "background_Mid_Back": { "initialPosition": "-200, -800" },
-    "background_Back": { "initialPosition": "-200, -1200" },
-
-    "underground_Back": { "initialPosition": "-200, 1100" },
-    "underground_Mid": { "initialPosition": "-200, 1200" },
-    "underground_Fore": { "initialPosition": "-200,1300" }
-
-  },
-
-  "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
-  "patchDecors": [
-
-
   ]
-
-
 
 }

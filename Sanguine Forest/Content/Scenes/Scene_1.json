@@ -786,6 +786,26 @@
       "platformSize": "200,100",
       "TimeToFall": "4"
     }
+  ],
+
+  "parallaxLayerPositions": {
+
+    "background_Fore": { "initialPosition": "-200, -205" },
+    "background_Fore_Mid": { "initialPosition": "-200, -425" },
+    "background_Mid": { "initialPosition": "-200, -600" },
+    "background_Mid_Back": { "initialPosition": "-200, -800" },
+    "background_Back": { "initialPosition": "-200, -1200" },
+
+    "underground_Back": { "initialPosition": "-200, 1100" },
+    "underground_Mid": { "initialPosition": "-200, 1200" },
+    "underground_Fore": { "initialPosition": "-200,1300" }
+
+  },
+
+  "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "patchDecors": [
+
+
   ]
 
 

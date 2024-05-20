@@ -513,8 +513,8 @@ namespace Sanguine_Forest
             }
             else
             {
-                //isDialogueActive = false;
-                //currentDialogueIndex = 0; // Reset index for potential restart
+                isDialogueActive = false;
+                currentDialogueIndex = 0; // Reset index for potential restart
                 LevelEnd(this, EventArgs.Empty);
             }
         }

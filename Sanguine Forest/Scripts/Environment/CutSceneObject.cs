@@ -82,7 +82,7 @@ namespace Sanguine_Forest
             {
                 string pressEText = "Press E";
                 Vector2 pressETextSize = _font.MeasureString(pressEText);
-                Vector2 pressETextPosition = new Vector2(GetPosition().X, GetPosition().Y - 30); // Use GetPosition() method
+                Vector2 pressETextPosition = new Vector2(GetPosition().X, GetPosition().Y - 50); 
 
                 Rectangle backgroundRectangle = new Rectangle((int)pressETextPosition.X - 5, (int)pressETextPosition.Y - 5, (int)pressETextSize.X + 10, (int)pressETextSize.Y + 10);
                 sp.Draw(_semiTransparentTexture, backgroundRectangle, Color.Black * 0.5f);

@@ -84,10 +84,6 @@ namespace Sanguine_Forest
             semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
             semiTransparentTexture.SetData(new[] { new Color(0, 0, 0, 128) }); // Adjust alpha to increase/decrease darkness
 
-            //Audio
-            //AudioSetting
-            //AudioManager.GeneralVolume = 1.0f;
-
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
             //_currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Alberto" + ".json");
@@ -115,6 +111,12 @@ namespace Sanguine_Forest
             // Initialize UI manager. Create an Exit method for UIManager
             _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
 
+            //AudioManager.Initialize(new ListenerModule(null, Vector2.Zero)); // Assuming you have a listener in your game
+            AudioManager.LoadContent(this);
+
+            //Audio
+            //AudioSetting
+            //AudioManager.GeneralVolume = 1.0f;
 
         }
 
@@ -135,6 +137,9 @@ namespace Sanguine_Forest
             Extentions.globalTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             _uiManager.UpdateMe(gameTime, currState, prevState); // Update UI manager which will handle state transitions
+
+            // Update the audio manager
+            AudioManager.Update(gameTime);
 
             switch (_uiManager.CurrentGameState)
             {

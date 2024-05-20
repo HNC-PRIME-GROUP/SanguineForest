@@ -21,13 +21,13 @@ namespace Sanguine_Forest
             Paused,
             InstructionsFromStart,
             InstructionsFromPause,
-            Win,
-            Transitioning,
-            Stats
         }
 
         private KeyboardState keyboard;
-        public GameState CurrentGameState;
+
+        public GameState CurrentGameState { get; private set; }
+        private GameState previousGameState;
+
         private SpriteBatch spriteBatch;
         private GraphicsDevice graphicsDevice;
         private SpriteFont gameFontSmll;
@@ -143,6 +143,13 @@ namespace Sanguine_Forest
 
         public void UpdateMe(GameTime gameTime,KeyboardState prev, KeyboardState curr)
         {
+
+            if (previousGameState != CurrentGameState)
+            {
+                OnStateChanged(previousGameState, CurrentGameState);
+                previousGameState = CurrentGameState;
+            }
+
             switch (CurrentGameState)
             {
 
@@ -164,6 +171,7 @@ namespace Sanguine_Forest
 
             }
         }
+
 
 
 
@@ -464,6 +472,38 @@ namespace Sanguine_Forest
             {
                 instructionTextPositions.Add(new Vector2(300, yOffset));
                 yOffset += 35; // Line spacing
+            }
+        }
+        private void OnStateChanged(GameState oldState, GameState newState)
+        {
+            // Stop music from the previous state
+            switch (oldState)
+            {
+                case GameState.StartScreen:
+                    AudioManager.MusicTrigger(false);
+                    break;
+                case GameState.Playing:
+                    AudioManager.MusicTrigger(false);
+                    break;
+                    // Add cases for other states as needed
+            }
+
+            // Start music for the new state
+            switch (newState)
+            {
+                case GameState.StartScreen:
+                    AudioManager.PlaySong(0);
+                    AudioManager.MusicTrigger(true);
+                    break;
+                case GameState.Playing:
+                    AudioManager.PlaySong(1);
+                    AudioManager.MusicTrigger(true);
+                    break;
+                case GameState.Paused:
+                    // Paused state might keep the current song playing or stop it, depending on your design
+                    AudioManager.MusicTrigger(false);
+                    break;
+                    // Add cases for other states as needed
             }
         }
 

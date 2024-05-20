@@ -289,12 +289,12 @@ namespace Sanguine_Forest
             if (curr.IsKeyDown(Keys.A))
             {
                 _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
-                _velocity.X = -(_speed * 2 / 3);
+                _velocity.X = -_speed;
             }
             if (curr.IsKeyDown(Keys.D))
             {
                 _SpriteModule.SetSpriteEffects(SpriteEffects.None);
-                _velocity.X = (_speed * 2 / 3);
+                _velocity.X = _speed;
             }
 
         }
@@ -376,7 +376,7 @@ namespace Sanguine_Forest
 
         public void DeathUpdate()
         {
-            _animationModule.SetAnimationSpeed(0.9f);
+            _animationModule.SetAnimationSpeed(1.2f);
             _animationModule.PlayOnce("Death");
             _velocity.X = 0;
             _velocity.Y = 0;

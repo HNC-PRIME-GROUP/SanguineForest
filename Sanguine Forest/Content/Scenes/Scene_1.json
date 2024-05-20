@@ -1,5 +1,21 @@
 {
-  "characterPosition": "9050,-700",
+  "characterPosition": "200,0",
+
+  "parallaxLayerPositions": {
+
+    "background_Fore": { "initialPosition": "-200, 205" },
+    "background_Fore_Mid": { "initialPosition": "-200, -425" },
+    "background_Mid": { "initialPosition": "-200, -600" },
+    "background_Mid_Back": { "initialPosition": "-200, -800" },
+    "background_Back": { "initialPosition": "-200, -1200" },
+
+    "underground_Back": { "initialPosition": "-200, 1100" },
+    "underground_Mid": { "initialPosition": "-200, 1200" },
+    "underground_Fore": { "initialPosition": "-200,1300" }
+
+  },
+  "LeftUpperBound": "-100000,-10000",
+  "RightBotoomBound": "100000,10000",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -736,6 +752,20 @@
   "decors": [
 
   ],
+  "comment05.0": "Patches when going to cave",
+  "patchDecors": [
+
+
+    //{
+    //  "Position": "250, 400",
+    //  "PatchType": "Sprites/Patch"
+    //},
+    //{
+    //  "Position": "-800, 400",
+    //  "PatchType": "Sprites/Patch"
+    //}
+
+  ],
 
   "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
   "obstaclesData1": [
@@ -757,5 +787,7 @@
       "TimeToFall": "4"
     }
   ]
+
+
 
 }

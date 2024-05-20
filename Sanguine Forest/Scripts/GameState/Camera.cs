@@ -147,8 +147,8 @@ namespace Sanguine_Forest
 
             if (cameraTarget != null)
             {
-                float targetX = -cameraTarget.GetPosition().X + screenSize.X / (2 * zoom);
-                float targetY = -cameraTarget.GetPosition().Y + (2 * screenSize.Y / 2.6f) / zoom;
+                float targetX = -cameraTarget.GetPosition().X + screenSize.X / (2 * zoom)-100;
+                float targetY = -cameraTarget.GetPosition().Y + (screenSize.Y / 2f) / zoom;
 
                 if (targetX + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
                     targetX + screenSize.X / (2 * zoom) > leftUpperBorder.X)

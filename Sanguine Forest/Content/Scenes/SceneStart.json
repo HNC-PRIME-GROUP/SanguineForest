@@ -1,6 +1,10 @@
 {
 
   "characterPosition": "0, -200",
+
+  "LeftUppaerBound": "-10000,-10000",
+  "RightBotoomBound": "10000,10000",
+
   "comment": "Simple platforms",
   "simplePlatforms": [
     {

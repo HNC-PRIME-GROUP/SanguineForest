@@ -1,6 +1,9 @@
 {
 
   "characterPosition": "0, -0",
+
+  "LeftUpperBound": "-10000,-10000",
+  "RightBotoomBound": "10000,10000",
   "comment": "Simple platforms",
   "simplePlatforms": [
     //{
@@ -709,7 +712,7 @@
 
 
 
- 
+
 
   "parallaxLayerPositions": {
 

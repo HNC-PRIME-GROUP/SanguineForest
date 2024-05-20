@@ -273,13 +273,14 @@ namespace Sanguine_Forest
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
             //should be level 1
-            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Level_2" + ".json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "1" + ".json");
 
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
-            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));            
+            _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBotoomBound, new Vector2(1920, 1080));            
             _camera.SetCameraTarget(_character);
+            
             //_camera.SetZoom(1f);
 
             //Set the level's objects
@@ -307,7 +308,7 @@ namespace Sanguine_Forest
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
-            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
+            _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBotoomBound, new Vector2(1920, 1080));
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
             _camera.SetCameraTarget(_character);
             //_camera.SetZoom(1f);

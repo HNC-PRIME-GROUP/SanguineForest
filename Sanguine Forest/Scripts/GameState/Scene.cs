@@ -49,13 +49,13 @@ namespace Sanguine_Forest
 
         //Level end
         public LevelTriggerData levelTrigger;
+
+        //parallax data
         public Dictionary<Extentions.SpriteLayer, LayerPositionData> ParallaxLayerPositions { get; set; }
 
-
-
-
-
-
+        //Camera data (bounds)
+        public Vector2 LeftUpperBound;
+        public Vector2 RightBotoomBound;
 
 
         public Scene()

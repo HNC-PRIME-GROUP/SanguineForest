@@ -1,0 +1,145 @@
+{
+
+  "characterPosition": "0, -200",
+  "comment": "Simple platforms",
+  "simplePlatforms": [
+    {
+      "comment": "First platform",
+      "position": "-100,100",
+      "rotation": "0",
+      "platformSize": "10000,192"
+    },
+    {
+      "Position": "800,-100",
+      "Rotation": "0",
+      "PlatformSize": "200,200"
+
+    }
+  ],
+  "comment02": "platform that change their position slightly after death if risk level is high",
+  "moveablPlatforms": [
+    {
+      "position": "0, -300",
+      "rotation": "0",
+      "platformSize": "100,100",
+      "maxShift": "50,50"
+    }
+  ],
+  "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
+  "fallingPlatforms": [
+
+
+    {
+      "Position": "400,-300",
+      "Rotation": "0",
+      "PlatformSize": "200,200",
+      "TimeToFall": "4"
+    },
+    {
+      "Position": "800,-600",
+      "Rotation": "0",
+      "PlatformSize": "200,200",
+      "TimeToFall": "4"
+    }
+
+  ],
+  "comment04": "dangerous place in any case (pites, water, thorns)",
+  "dangerPlaces": [],
+  "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "decors": [
+    {
+      "Position": "0,40",
+      "Rotation": "0.5",
+      "GrassType": "Flower"
+    },
+    {
+      "Position": "200,40",
+      "Rotation": "0",
+      "GrassType": "Grass4"
+    },
+    {
+      "Position": "100,40",
+      "Rotation": "0",
+      "GrassType": "Grass2"
+    },
+    {
+      "Position": "-140,80",
+      "Rotation": "0",
+      "GrassType": "Flower"
+    },
+    {
+      "position": "-50, -300",
+      "rotation": "-0.5",
+      "GrassType": "Grass3"
+    },
+    {
+      "position": "-50, -320",
+      "rotation": "0.5",
+      "GrassType": "Grass2"
+    }
+
+  ],
+
+  "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
+  "obstaclesData1": [
+
+  ],
+  "obstaclesData2": [
+    {
+      "Position": "-300,100",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "-600,-200",
+      "Speed": "5",
+      "Size": "200,200"
+    }
+
+  ],
+  "obstaclesData3": [],
+  "comment07": "Thorns - danger polaces",
+  "thorns": [
+
+    {
+      "Position": "-500,-800",
+      "Rotation": "0",
+      "ThornsSize": "200,500"
+    },
+    {
+      "Position": "500,200",
+      "Rotation": "0",
+      "ThornsSize": "200,200"
+    }
+  ],
+  "comment 07 ": "Data about cutscenes",
+  "cutSceneString": [
+    "Bla bla bla",
+    "BloBloBLO"
+
+
+
+
+  ],
+  "isCutScene": "false",
+  "cutSceneObjects": [
+    {
+      "Position": "100,100",
+      "Rotation": "0",
+      "Scale": "1"
+    }
+
+  ],
+
+  "parallaxLayerPositions": {
+
+    "background_Fore": { "initialPosition": "-200, -205" },
+    "background_Fore_Mid": { "initialPosition": "-200, -425" },
+    "background_Mid": { "initialPosition": "-200, -600" },
+    "background_Mid_Back": { "initialPosition": "-200, -800" },
+    "background_Back": { "initialPosition": "-200, -1200" },
+
+    "underground_Back": { "initialPosition": "-200, 1100" },
+    "underground_Mid": { "initialPosition": "-200, 1200" },
+    "underground_Fore": { "initialPosition": "-200,1300" }
+
+  }
+}

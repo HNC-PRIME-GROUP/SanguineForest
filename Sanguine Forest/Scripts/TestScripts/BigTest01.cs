@@ -40,7 +40,7 @@ namespace Sanguine_Forest
         private KeyboardState prevState;
 
         //UI manager and UI assets
-        private UIManager _uiManager;
+        public UIManager _uiManager;
         Texture2D semiTransparentTexture;
 
         //Debug tools
@@ -95,6 +95,7 @@ namespace Sanguine_Forest
 
             //_camera.SetZoom(1f);
 
+            _currentScene = FileLoader.LoadFromJson<Scene>( FileLoader.RootFolder+ "/Scenes/SceneStart.json");
             //Set decor and parallaxing
             _parallaxManager = new ParallaxManager(Content, _camera, _currentScene);
 
@@ -108,6 +109,9 @@ namespace Sanguine_Forest
             semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
             semiTransparentTexture.SetData(new[] { new Color(0, 0, 0, 128) }); // Adjust alpha to increase/decrease darkness
 
+
+            //AudioManager.Initialize(new ListenerModule(null, Vector2.Zero)); // Assuming you have a listener in your game
+            AudioManager.LoadContent(this);
             //Debug camera
             DebugManager.Camera = _camera;
 
@@ -285,7 +289,8 @@ namespace Sanguine_Forest
             _environmentManager.LevelEndTrigger += NextLevel;
 
             //gamestate update
-            _uiManager.CurrentGameState = UIManager.GameState.Playing;
+            _uiManager.SetGameState(UIManager.GameState.Playing);
+            //_uiManager.CurrentGameState = UIManager.GameState.Playing;
 
         }
         /// <summary>
@@ -314,7 +319,8 @@ namespace Sanguine_Forest
             _environmentManager.LevelEndTrigger += NextLevel;
 
             //Update the game state
-            _uiManager.CurrentGameState= UIManager.GameState.Playing;
+            _uiManager.SetGameState(UIManager.GameState.Playing);
+            //_uiManager.CurrentGameState= UIManager.GameState.Playing;
         }
 
         /// <summary>

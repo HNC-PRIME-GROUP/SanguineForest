@@ -705,11 +705,11 @@
   "levelTrigger": {
     "position": "100,-200",
     "SpriteEffect": "1"
-  }
+  },
 
 
 
-  ],
+ 
 
   "parallaxLayerPositions": {
 

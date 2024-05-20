@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Sanguine_Forest
 {
-    internal class UIManager
+    public class UIManager
     {
 
         public event Action RequestExit;
@@ -26,7 +26,7 @@ namespace Sanguine_Forest
         private KeyboardState keyboard;
 
         public GameState CurrentGameState { get; private set; }
-        private GameState previousGameState;
+        public GameState previousGameState;
 
         private SpriteBatch spriteBatch;
         private GraphicsDevice graphicsDevice;
@@ -516,6 +516,13 @@ namespace Sanguine_Forest
                     break;
                     // Add cases for other states as needed
             }
+        }
+
+        public void SetGameState(GameState newState)
+        {
+            previousGameState = CurrentGameState;
+            CurrentGameState = newState;
+            
         }
 
     }

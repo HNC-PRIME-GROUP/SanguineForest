@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -56,7 +57,9 @@ namespace Sanguine_Forest
         private Vector2 targetPosition;
         private CutSceneObject nearestNPC;
 
-
+        //Audio
+        public AudioSourceModule AudioSourceModule;
+        private List<SoundEffectInstance> dialogueSounds;
         private Random _rng;
 
         public EnvironmentManager(ContentManager content, PlayerState playerState, Texture2D semiTransparentTexture)
@@ -67,6 +70,27 @@ namespace Sanguine_Forest
             _rng = new Random();
 
             font = content.Load<SpriteFont>("Fonts/TitleFontSmll");
+
+            // Initialize dialogue sounds
+            dialogueSounds = new List<SoundEffectInstance>
+        {
+            content.Load<SoundEffect>("Sounds/Dialogue_1").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_3").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_4").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_5").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_6").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_7").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_8").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_9").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_10").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_11").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_12").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_13").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_14").CreateInstance()
+
+        };
+
+
 
         }
 
@@ -509,6 +533,14 @@ namespace Sanguine_Forest
                 var dialogue = cutSceneDialogues[currentDialogueIndex];
                 var cutSceneObject = cutSceneObjects[currentDialogueIndex % cutSceneObjects.Count];
                 cutSceneObject.SetCutsceneText(dialogue.Text, dialogue.Position);
+
+                // Play the corresponding dialogue sound
+                if (dialogueSounds.Count > 0)
+                {
+                    int soundIndex = currentDialogueIndex % dialogueSounds.Count;
+                    dialogueSounds[soundIndex].Play();
+                }
+
                 currentDialogueIndex++;
             }
             else

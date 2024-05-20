@@ -46,7 +46,6 @@ namespace Sanguine_Forest
         private bool isObserverWork = false;
 
         private UIManager _uiManager;
-
         Texture2D semiTransparentTexture;
 
         public AlbertoTestGame()

@@ -39,8 +39,6 @@ namespace Sanguine_Forest
         private KeyboardState currState;
         private KeyboardState prevState;
 
-        private InputManager _inputManager;
-
         //UI manager and UI assets
         private UIManager _uiManager;
         Texture2D semiTransparentTexture;
@@ -64,8 +62,6 @@ namespace Sanguine_Forest
 
         protected override void Initialize()
         {
-            _inputManager = new InputManager();
-
             FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
 
 
@@ -87,11 +83,6 @@ namespace Sanguine_Forest
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
             DebugManager.isWorking = true;
 
-
-
-            //Audio
-            //AudioSetting
-            //AudioManager.GeneralVolume = 1.0f;
 
 
             //Load player state and scene
@@ -127,6 +118,15 @@ namespace Sanguine_Forest
             //Debug camera
             DebugManager.Camera = _camera;
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
+
+
+            //Audio
+            //AudioSetting
+            //AudioManager.GeneralVolume = 1.0f;
+
+            //Load Audio
+            //AudioManager.Initialize(new ListenerModule(null, Vector2.Zero)); // Assuming you have a listener in your game
+            AudioManager.LoadContent(this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -147,6 +147,9 @@ namespace Sanguine_Forest
             //UI manager update
             _uiManager.UpdateMe(gameTime, currState, prevState); // Update UI manager which will handle state transitions
 
+            // Update the audio manager
+            AudioManager.Update(gameTime);
+
             switch (_uiManager.CurrentGameState)
             {
                 case UIManager.GameState.StartScreen:
@@ -165,19 +168,6 @@ namespace Sanguine_Forest
                     // freeze the game or setup for restart
                     break;
             }
-
-
-
-            ////camera
-            _camera.UpdateMe();
-
-                           
-            //Parallax            
-            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocityX(), _character.GetVelocityY()));
-
-
-           
-
 
 
 

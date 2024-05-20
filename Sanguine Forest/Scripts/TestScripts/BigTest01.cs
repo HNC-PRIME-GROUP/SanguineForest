@@ -71,8 +71,6 @@ namespace Sanguine_Forest
         protected override void LoadContent()
         {
 
-
-
             //graphic installing
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -85,31 +83,26 @@ namespace Sanguine_Forest
 
 
 
-            //Load player state and scene
-            _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
-            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Level_2" + ".json");
-            
-            //Set character and camera
-            _character = new Character2(_currentScene.characterPosition, 0, Content);
+
+            //Audio
+            //AudioSetting
+            //AudioManager.GeneralVolume = 1.0f;
+
             //_character.SetCharacterScale(0.3f);
-            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -20000), new Vector2(10000, 20000), new Vector2(1920, 1080));
-            _camera.SetCameraTarget(_character);
+            _debugObserver = new DebugObserver(Vector2.Zero, 0);
+            _camera = new Camera(_debugObserver.GetPosition(), new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));            
+            _camera.SetCameraTarget(_debugObserver);
+
             //_camera.SetZoom(1f);
 
-            //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content,_playerState, semiTransparentTexture);
-            _environmentManager.Initialise(_currentScene);
-            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
-
-
-            //Set decor and parallaxing
-            //Load Background
             //Set decor and parallaxing
             _parallaxManager = new ParallaxManager(Content, _camera, _currentScene);
 
             // Initialize UI manager. Create an Exit method for UIManager
             _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
             _uiManager.RequestExit += Exit;
+            _uiManager.NewGameEvent += NewGameLoad;
+            _uiManager.LoadGameEvent += LoadGame;
 
             // Create a 1x1 pixel texture and set it to a semi-transparent color
             semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
@@ -117,16 +110,8 @@ namespace Sanguine_Forest
 
             //Debug camera
             DebugManager.Camera = _camera;
-            _debugObserver = new DebugObserver(_character.GetPosition(), 0);
 
 
-            //Audio
-            //AudioSetting
-            //AudioManager.GeneralVolume = 1.0f;
-
-            //Load Audio
-            //AudioManager.Initialize(new ListenerModule(null, Vector2.Zero)); // Assuming you have a listener in your game
-            AudioManager.LoadContent(this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -169,6 +154,12 @@ namespace Sanguine_Forest
                     break;
             }
 
+
+            ////camera
+            _camera.UpdateMe();
+                           
+            //Parallax            
+            _parallaxManager.UpdateMe(new Vector2(_debugObserver.GetVelocity(), 0));
 
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -262,6 +253,82 @@ namespace Sanguine_Forest
                 _character.UpdateMe(prevState, currState);
             }
             _parallaxManager.UpdateMe(new Vector2(_character.GetVelocityX(), _character.GetVelocityY()));
+
+        }
+
+
+        //load, next level and new game methods
+
+        /// <summary>
+        /// Load game from default states
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void NewGameLoad(object sender, EventArgs e)
+        {
+            //Load player state and scene
+            _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
+            //should be level 1
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Level_2" + ".json");
+
+            //Set character and camera
+            _character = new Character2(_currentScene.characterPosition, 0, Content);
+            //_character.SetCharacterScale(0.3f);
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));            
+            _camera.SetCameraTarget(_character);
+            //_camera.SetZoom(1f);
+
+            //Set the level's objects
+            _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+            _environmentManager.Initialise(_currentScene);
+            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
+            _environmentManager.LevelEndTrigger += NextLevel;
+
+            //gamestate update
+            _uiManager.CurrentGameState = UIManager.GameState.Playing;
+
+        }
+        /// <summary>
+        /// Load game from saves state
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void LoadGame(object sender, EventArgs e)
+        {
+            //Load player state and scene
+            _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/SavedState.json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
+
+            //Set character and camera
+            _character = new Character2(_currentScene.characterPosition, 0, Content);
+            //_character.SetCharacterScale(0.3f);
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
+            _debugObserver = new DebugObserver(_character.GetPosition(), 0);
+            _camera.SetCameraTarget(_character);
+            //_camera.SetZoom(1f);
+
+            //Set the level's objects
+            _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+            _environmentManager.Initialise(_currentScene);
+            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
+            _environmentManager.LevelEndTrigger += NextLevel;
+
+            //Update the game state
+            _uiManager.CurrentGameState= UIManager.GameState.Playing;
+        }
+
+        /// <summary>
+        /// Next level loading
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void NextLevel(object sender, EventArgs e)
+        {
+            _playerState.lvlCounter++;
+            _environmentManager.LevelEndTrigger -= NextLevel;
+            FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState");
+            FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState");
+            LoadGame(sender, e);
 
         }
 

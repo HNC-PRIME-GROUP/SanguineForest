@@ -678,7 +678,7 @@
 
   ],
 
-  "isCutScene": "true",
+  "isCutScene": "false",
   "cutSceneObjects": [
 
 
@@ -701,6 +701,12 @@
     //  "Scale": 1.0,
     //  "NPCType": "Blue"
     //}
+  ],
+  "levelTrigger": {
+    "position": "100,-200",
+    "SpriteEffect": "1"
+  }
+
 
 
   ],
@@ -718,4 +724,5 @@
     "underground_Fore": { "initialPosition": "-200,1300" }
 
   }
+
 }

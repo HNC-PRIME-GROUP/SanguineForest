@@ -32,5 +32,13 @@ namespace Sanguine_Forest
 
         }
 
+        /// <summary>
+        /// Fake for game start
+        /// </summary>
+        public float GetVelocity()
+        {
+            return 0;
+        }
+
     }
 }

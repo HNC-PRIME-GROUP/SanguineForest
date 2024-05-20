@@ -26,6 +26,10 @@ namespace Sanguine_Forest
             return JsonConvert.DeserializeObject<T>(json);
         }
 
+        public static void DeleteFile(string filePath)
+        {
+            File.Delete(filePath);
+        }
 
     }
 }

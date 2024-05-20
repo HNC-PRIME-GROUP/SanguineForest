@@ -19,15 +19,23 @@ namespace Sanguine_Forest
         // Player state
         private PlayerState playerState;
 
+        //Platforms
         public List<Platform> platforms;
         private List<MoveblePlatform> movebles;
         private List<FallingPlatform> fallingPlatforms;
+        //Obstacles
         public List<Thorns> thorns;
         public List<Obstacle> obstacles1;
         public List<Obstacle> obstacles2;
         public List<Obstacle> obstacles3;
+        //Decor
         public List<Decor> grassDecor;
         public List<PatchDecor> patchDecors;
+        //Level end trigger
+        public LevelTrigger trigger;
+
+        //Level end trigger
+        public event EventHandler LevelEndTrigger;
 
 
         // Cutscene option
@@ -191,6 +199,14 @@ namespace Sanguine_Forest
                     cutSceneObjects.Add(new CutSceneObject(data.Position, data.Rotation, content, data.NPCType, font, semiTransparentTexture));
                 }
             }
+
+            //initialise the level end trigger
+            if (!scene.isCutScene)
+            {
+             
+                trigger = new LevelTrigger(scene.levelTrigger.position, content, (SpriteEffects)scene.levelTrigger.SpriteEffect);
+                trigger.LevelEnd += LevelEnd;
+            }
         }
 
         private string[,] CreateTileMap(Vector2 platformSize)
@@ -243,6 +259,9 @@ namespace Sanguine_Forest
             // Update decors
             foreach (var decor in grassDecor) { decor.UpdateMe(); }
 
+            //Update level triger
+            if (!isCutScene) {trigger.UpdateMe();}
+
 
             // Update patch decors
             foreach (var decor in patchDecors) { decor.UpdateMe(); }
@@ -278,6 +297,10 @@ namespace Sanguine_Forest
 
             // Draw patch decors
             foreach (var patchdecor in patchDecors) { patchdecor.DrawMe(spriteBatch); }
+
+
+            //Draw trigger
+            if (!isCutScene) {trigger.DrawMe(spriteBatch);}
 
 
             if (isCutScene)
@@ -442,6 +465,12 @@ namespace Sanguine_Forest
                     }
                 }
             }
+        }
+
+        //Level end triggers
+        public void LevelEnd(object sender, EventArgs e)
+        {
+            LevelEndTrigger?.Invoke(sender, e);
         }
 
     }

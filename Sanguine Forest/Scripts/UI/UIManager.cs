@@ -48,6 +48,10 @@ namespace Sanguine_Forest
 
         private ContentManager content;
 
+        //events for start game and load game
+        public event EventHandler NewGameEvent;
+        public event EventHandler LoadGameEvent;
+
 
         public UIManager(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, ContentManager content)
         {
@@ -223,13 +227,20 @@ namespace Sanguine_Forest
                 {
                     ResetButtons(startButtons);
 
-                    CurrentGameState = GameState.Playing;
+                    NewGameEvent?.Invoke(this, EventArgs.Empty);
+                    //CurrentGameState = GameState.Playing;
+                    
+
                 }
                 else if (startButtons[activeButtonIndex].Txt == "CONTINUE")
                 {
                     // Restart game logic
                     //  Restart();
                     ResetButtons(startButtons);
+
+                    LoadGameEvent?.Invoke(this, EventArgs.Empty);
+                    //CurrentGameState = GameState.LoadGame;
+
                 }
                 else if (startButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
                 {

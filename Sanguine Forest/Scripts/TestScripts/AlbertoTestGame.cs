@@ -46,7 +46,6 @@ namespace Sanguine_Forest
         private bool isObserverWork = false;
 
         private UIManager _uiManager;
-
         Texture2D semiTransparentTexture;
 
         public AlbertoTestGame()
@@ -84,10 +83,6 @@ namespace Sanguine_Forest
             semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
             semiTransparentTexture.SetData(new[] { new Color(0, 0, 0, 128) }); // Adjust alpha to increase/decrease darkness
 
-            //Audio
-            //AudioSetting
-            //AudioManager.GeneralVolume = 1.0f;
-
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
             //_currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "Alberto" + ".json");
@@ -97,7 +92,7 @@ namespace Sanguine_Forest
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
-            _camera = new Camera(_currentScene.characterPosition, new Vector2(-10000, -1800), new Vector2(2200, 1675), new Vector2(1920, 1080));
+            _camera = new Camera(_currentScene.characterPosition, new Vector2(-20000, -2200), new Vector2(2200, 1900), new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
             //_camera.SetZoom(1f);
 
@@ -107,8 +102,7 @@ namespace Sanguine_Forest
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, _camera);
-
+            _parallaxManager = new ParallaxManager(Content, _camera, _currentScene);
             //Debug camera
             DebugManager.Camera = _camera;
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
@@ -116,6 +110,12 @@ namespace Sanguine_Forest
             // Initialize UI manager. Create an Exit method for UIManager
             _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
 
+            //AudioManager.Initialize(new ListenerModule(null, Vector2.Zero)); // Assuming you have a listener in your game
+            AudioManager.LoadContent(this);
+
+            //Audio
+            //AudioSetting
+            //AudioManager.GeneralVolume = 1.0f;
 
         }
 
@@ -137,10 +137,13 @@ namespace Sanguine_Forest
 
             _uiManager.UpdateMe(gameTime, currState, prevState); // Update UI manager which will handle state transitions
 
+            // Update the audio manager
+            AudioManager.Update(gameTime);
+
             switch (_uiManager.CurrentGameState)
             {
                 case UIManager.GameState.StartScreen:
-                    _parallaxManager.UpdateMe(new Vector2(15, 0));
+                    _parallaxManager.UpdateMe(new Vector2(5, 0));
                     break;
                 case UIManager.GameState.Playing:
                     UpdatePlaying(gameTime);
@@ -148,18 +151,13 @@ namespace Sanguine_Forest
                 case UIManager.GameState.Paused:
                     _environmentManager.UpdateMe();
                     break;
-                case UIManager.GameState.GameOver:
+                case UIManager.GameState.InstructionsFromStart:
                     // freeze the game or setup for restart
                     break;
-                case UIManager.GameState.Win:
-                    
-                    break;
-                case UIManager.GameState.Stats:
+                case UIManager.GameState.InstructionsFromPause:
 
                     break;
-                case UIManager.GameState.Transitioning:
 
-                    break;
             }
 
             //Debug observer (flying cam without character)
@@ -200,7 +198,7 @@ namespace Sanguine_Forest
             {
                 _character.UpdateMe(prevState, currState);
             }
-            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocityX(), _character.GetVelocityY()));
 
 
             // Update cutscene
@@ -277,8 +275,37 @@ namespace Sanguine_Forest
                 _spriteBatch.End();
             }
 
+            else if (_uiManager.CurrentGameState == UIManager.GameState.InstructionsFromStart)
+            {
+
+                // Begin a new sprite batch without any camera transformations
+                _spriteBatch.Begin();
+
+                // Draw semi-transparent overlay over the whole screen
+                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+
+                _uiManager.DrawMe();
+
+                _spriteBatch.End();
+            }
+
+            else if (_uiManager.CurrentGameState == UIManager.GameState.InstructionsFromPause)
+            {
+
+                // Begin a new sprite batch without any camera transformations
+                _spriteBatch.Begin();
+
+                // Draw semi-transparent overlay over the whole screen
+                _spriteBatch.Draw(semiTransparentTexture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+
+                _uiManager.DrawMe();
+
+                _spriteBatch.End();
+            }
+
             base.Draw(gameTime);
         }
+
 
     }
 }

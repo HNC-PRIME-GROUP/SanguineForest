@@ -129,6 +129,24 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/TrajanRegular.spritefont
 
+#begin Sounds/Music/04-Meydan-Surreal-Forest(chosic.com).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Music/04-Meydan-Surreal-Forest(chosic.com).mp3
+
+#begin Sounds/Music/Anonymous420_-_08_-_O_X_L2_X_-_O_R1(chosic.com).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Music/Anonymous420_-_08_-_O_X_L2_X_-_O_R1(chosic.com).mp3
+
+#begin Sounds/Music/Lurking-Evil(chosic.com).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Music/Lurking-Evil(chosic.com).mp3
+
 #begin Sounds/Sound_Char_Climb.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

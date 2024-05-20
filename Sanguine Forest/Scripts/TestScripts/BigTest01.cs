@@ -39,8 +39,6 @@ namespace Sanguine_Forest
         private KeyboardState currState;
         private KeyboardState prevState;
 
-        private InputManager _inputManager;
-
         //UI manager and UI assets
         private UIManager _uiManager;
         Texture2D semiTransparentTexture;
@@ -64,8 +62,6 @@ namespace Sanguine_Forest
 
         protected override void Initialize()
         {
-            _inputManager = new InputManager();
-
             FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
 
 
@@ -87,6 +83,7 @@ namespace Sanguine_Forest
 
 
 
+
             //Audio
             //AudioSetting
             //AudioManager.GeneralVolume = 1.0f;
@@ -95,10 +92,11 @@ namespace Sanguine_Forest
             _debugObserver = new DebugObserver(Vector2.Zero, 0);
             _camera = new Camera(_debugObserver.GetPosition(), new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));            
             _camera.SetCameraTarget(_debugObserver);
+
             //_camera.SetZoom(1f);
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, _camera);
+            _parallaxManager = new ParallaxManager(Content, _camera, _currentScene);
 
             // Initialize UI manager. Create an Exit method for UIManager
             _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
@@ -112,6 +110,7 @@ namespace Sanguine_Forest
 
             //Debug camera
             DebugManager.Camera = _camera;
+
 
         }
 
@@ -133,6 +132,9 @@ namespace Sanguine_Forest
             //UI manager update
             _uiManager.UpdateMe(gameTime, currState, prevState); // Update UI manager which will handle state transitions
 
+            // Update the audio manager
+            AudioManager.Update(gameTime);
+
             switch (_uiManager.CurrentGameState)
             {
                 case UIManager.GameState.StartScreen:
@@ -144,25 +146,21 @@ namespace Sanguine_Forest
                 case UIManager.GameState.Paused:
                     _environmentManager.UpdateMe(); //Environment update
                     break;
-                case UIManager.GameState.GameOver:
+                case UIManager.GameState.InstructionsFromStart:
                     // freeze the game or setup for restart
                     break;
-                case UIManager.GameState.Win:
-
-                    break;
-                case UIManager.GameState.Stats:
-
-                    break;
-                case UIManager.GameState.Transitioning:
-
+                case UIManager.GameState.InstructionsFromPause:
+                    // freeze the game or setup for restart
                     break;
             }
+
 
             ////camera
             _camera.UpdateMe();
                            
             //Parallax            
             _parallaxManager.UpdateMe(new Vector2(_debugObserver.GetVelocity(), 0));
+
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -254,7 +252,7 @@ namespace Sanguine_Forest
             {
                 _character.UpdateMe(prevState, currState);
             }
-            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocity(), 0));
+            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocityX(), _character.GetVelocityY()));
 
         }
 

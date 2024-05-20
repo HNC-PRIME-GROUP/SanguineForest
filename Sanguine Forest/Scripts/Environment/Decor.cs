@@ -32,7 +32,7 @@ namespace Sanguine_Forest
             _animationModule = new AnimationModule(this, Vector2.Zero, spriteSheet, _spriteModule);
             _spriteModule.AnimtaionInitialise(_animationModule);
             this.grassType = grassType;
-            _animationModule.SetAnimationSpeed(0.8f);
+            _animationModule.SetAnimationSpeed(0.2f);
             _spriteModule.SetDrawRectangle(new Rectangle(GetPosition().ToPoint(), new Vector2(78, 78).ToPoint()));
 
         }

@@ -155,7 +155,7 @@ namespace Sanguine_Forest
                 float platformEndX = platformStartX + platformWidth;
 
                 // Adjust density factor to control the amount of decor
-                float densityFactor = 0.001f; // Lower values increase density
+                float densityFactor = 0.09f; // Lower values increase density
 
                 while (true)
                 {

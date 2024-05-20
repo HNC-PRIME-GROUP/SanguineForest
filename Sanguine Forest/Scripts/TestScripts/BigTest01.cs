@@ -104,6 +104,7 @@ namespace Sanguine_Forest
             _uiManager.RequestExit += Exit;
             _uiManager.NewGameEvent += NewGameLoad;
             _uiManager.LoadGameEvent += LoadGame;
+            _uiManager.SaveGame += SaveGame;
 
             // Create a 1x1 pixel texture and set it to a semi-transparent color
             semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
@@ -277,6 +278,8 @@ namespace Sanguine_Forest
         {
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
+            FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState.json");
+            FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
             //should be level 1
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "0" + ".json");
 
@@ -346,6 +349,13 @@ namespace Sanguine_Forest
             LoadGame(sender, e);
 
         }
+
+        public void SaveGame(object sender, EventArgs eventArgs)
+        {
+            FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState.json");
+            FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
+        }
+           
 
     }
 }

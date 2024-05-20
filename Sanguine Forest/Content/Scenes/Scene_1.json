@@ -706,7 +706,7 @@
     //}
   ],
   "levelTrigger": {
-    "position": "100,-200",
+    "position": "300,100",
     "SpriteEffect": "1"
   },
 

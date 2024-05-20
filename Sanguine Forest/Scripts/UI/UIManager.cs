@@ -52,6 +52,10 @@ namespace Sanguine_Forest
         public event EventHandler NewGameEvent;
         public event EventHandler LoadGameEvent;
 
+        //Save and quit event
+        public event EventHandler SaveGame;
+
+
 
         public UIManager(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, ContentManager content)
         {
@@ -293,6 +297,7 @@ namespace Sanguine_Forest
                 {
                     // Save and quit logic
                     ResetButtons(pauseButtons);
+                    SaveGame?.Invoke(this, EventArgs.Empty);
                     CurrentGameState = GameState.StartScreen;
                 }
                 else if (pauseButtons[activeButtonIndex].Txt == "INSTRUCTIONS")

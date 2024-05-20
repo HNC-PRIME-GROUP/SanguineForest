@@ -20,6 +20,7 @@
     <None Remove="Content\Background\Lake_Segment_2.png" />
     <None Remove="Content\Background\wall_concrete.png" />
     <None Remove="Content\Fonts\Trajan Pro Regular.spritefont" />
+    <None Remove="Content\Sounds\Char_Run.wav" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />

@@ -129,6 +129,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/TrajanRegular.spritefont
 
+#begin Sounds/Char_Death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Char_Death.wav
+
+#begin Sounds/Char_Jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Char_Jump.wav
+
 #begin Sounds/Char_Run.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

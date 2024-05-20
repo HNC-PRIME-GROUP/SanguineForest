@@ -18,7 +18,7 @@ namespace Sanguine_Forest
         public static float SongPitch
         {
             get => songPitch;
-            set { songPitch = Math.Clamp(value, -1, 1); }  // Note: Song pitch range is different from SoundEffect
+            set { songPitch = Math.Clamp(value, -1, 2); }  // Note: Song pitch range is different from SoundEffect
         }
         private static bool isMusicPlay;
 
@@ -58,7 +58,7 @@ namespace Sanguine_Forest
         public static void LoadContent(Game game)
         {
             //AddSoundEffect("jump", game.Content.Load<SoundEffect>("Sounds/jump"));
-            AddSoundEffect("walk", game.Content.Load<SoundEffect>("Sounds/Char_Run"));
+            AddSoundEffect("Run", game.Content.Load<SoundEffect>("Sounds/Char_Run"));
             //AddSoundEffect("death", game.Content.Load<SoundEffect>("Sounds/death"));
             //AddSoundEffect("dialogue", game.Content.Load<SoundEffect>("Sounds/dialogue"));
             //AddSoundEffect("slime", game.Content.Load<SoundEffect>("Sounds/slime"));

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sanguine_Forest.Scripts.Environment.Obstacle;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Sanguine_Forest
 {
@@ -63,7 +64,11 @@ namespace Sanguine_Forest
 
         private Vector2 _targetPosition;
         private bool isWalkingToTarget;
+        private bool isJumping = false; // Track if the character is jumping
 
+        //Audio
+        public AudioSourceModule AudioSourceModule;
+        public Dictionary<string, SoundEffectInstance> sounds;
 
 
         public Character2(Vector2 position, float rotation, ContentManager content) : base(position, rotation)
@@ -87,11 +92,16 @@ namespace Sanguine_Forest
                 { "Death", new AnimationSequence(new Vector2(0, 2100), 2) }
             };
 
-
             _spriteSheetData = new SpriteSheetData(new Rectangle(0, 0, 700, 700), _animations);
-
             _animationModule = new AnimationModule(this, Vector2.Zero, _spriteSheetData, _SpriteModule);
             _SpriteModule.AnimtaionInitialise(_animationModule);
+
+            //Setting audio Audio
+            sounds = new Dictionary<string, SoundEffectInstance>();
+            sounds.Add("Run", content.Load<SoundEffect>("Sounds/Char_Run").CreateInstance());
+            sounds.Add("Jump", content.Load<SoundEffect>("Sounds/Char_Jump").CreateInstance());
+            sounds.Add("Death", content.Load<SoundEffect>("Sounds/Char_Death").CreateInstance());
+            AudioSourceModule = new AudioSourceModule(this, Vector2.Zero, sounds);
 
             //Collisions
             // _characterCollision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
@@ -113,7 +123,7 @@ namespace Sanguine_Forest
 
         public void UpdateMe(KeyboardState prev, KeyboardState curr)
         {
-
+            AudioSourceModule.UpdateMe();
             _animationModule.UpdateMe();
             _SpriteModule.UpdateMe();
             //_characterCollision.UpdateMe();
@@ -167,6 +177,7 @@ namespace Sanguine_Forest
         #region State updates
         private void WalkToTargetUpdate()
         {
+            AudioSourceModule.PlaySoundOnce("Run", 1f);
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Run");
 
@@ -187,6 +198,7 @@ namespace Sanguine_Forest
                 position = _targetPosition;
                 isWalkingToTarget = false;
                 _currentState = CharState.idle;
+                AudioSourceModule.StopSound("Run");
                 _velocity = Vector2.Zero;
 
                 // Face towards the NPC after reaching the target
@@ -195,8 +207,7 @@ namespace Sanguine_Forest
                 // Debug log for reaching the target
                 Debug.WriteLine($"Reached target position: {_targetPosition}");
 
-                // Ensure the character is idle
-                //_animationModule.Play("Idle");
+
             }
         }
 
@@ -220,6 +231,7 @@ namespace Sanguine_Forest
             //transition to fall or jump
             if (_velocity.Y < 0)
             {
+                isJumping = true; // Set jumping state
                 _currentState = CharState.jump;
                 return;
             }
@@ -238,10 +250,13 @@ namespace Sanguine_Forest
 
         public void WalkUpdate(KeyboardState prev, KeyboardState curr)
         {
+            AudioSourceModule.PlaySoundOnce("Run");
+
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Run");
-            if (curr.IsKeyDown(Keys.W))
+            if (curr.IsKeyDown(Keys.W) && prev.IsKeyUp(Keys.W))
             {
+                isJumping = true; // Set jumping state
                 _velocity.Y = -_jumpHigh;
                 _currentState = CharState.jump;
                 return;
@@ -252,6 +267,7 @@ namespace Sanguine_Forest
             {
                 _velocity.X = 0;
                 _currentState = CharState.idle;
+                AudioSourceModule.StopSound("Run");
                 return;
             }
             if (prev.IsKeyDown(Keys.A))
@@ -284,6 +300,12 @@ namespace Sanguine_Forest
 
         public void JumpUpdate(KeyboardState prev, KeyboardState curr)
         {
+            if (isJumping)
+            {
+                AudioSourceModule.PlaySoundOnce("Jump");
+                isJumping = false;
+            }
+
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.PlayOnce("Jump");
             if (curr.IsKeyDown(Keys.A))
@@ -296,6 +318,15 @@ namespace Sanguine_Forest
                 _SpriteModule.SetSpriteEffects(SpriteEffects.None);
                 _velocity.X = _speed;
             }
+
+            if (curr.GetPressedKeys().Length == 0)
+            {
+                AudioSourceModule.StopSound("Run");
+                AudioSourceModule.StopSound("Jump");
+                return;
+            }
+
+
 
         }
 
@@ -341,6 +372,12 @@ namespace Sanguine_Forest
 
         public void WallJumpUpdate(KeyboardState prev, KeyboardState curr)
         {
+            if (isJumping)
+            {
+                AudioSourceModule.PlaySoundOnce("Jump");
+                isJumping = false;
+            }
+
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.PlayOnce("Jump");
             if (_velocity.Y > 0)
@@ -355,6 +392,13 @@ namespace Sanguine_Forest
                     _SpriteModule.SetSpriteEffects(SpriteEffects.None);
                     _velocity.X = (_speed * 2 / 3);
                 }
+            }
+
+            if (curr.GetPressedKeys().Length == 0)
+            {
+                AudioSourceModule.StopSound("Run");
+                AudioSourceModule.StopSound("Jump");
+                return;
             }
         }
 
@@ -376,6 +420,7 @@ namespace Sanguine_Forest
 
         public void DeathUpdate()
         {
+            AudioSourceModule.PlaySoundOnce("Death");
             _animationModule.SetAnimationSpeed(1.2f);
             _animationModule.PlayOnce("Death");
             _velocity.X = 0;

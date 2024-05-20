@@ -58,7 +58,7 @@ namespace Sanguine_Forest
         public static void LoadContent(Game game)
         {
             //AddSoundEffect("jump", game.Content.Load<SoundEffect>("Sounds/jump"));
-            //AddSoundEffect("walk", game.Content.Load<SoundEffect>("Sounds/walk"));
+            AddSoundEffect("walk", game.Content.Load<SoundEffect>("Sounds/Char_Run"));
             //AddSoundEffect("death", game.Content.Load<SoundEffect>("Sounds/death"));
             //AddSoundEffect("dialogue", game.Content.Load<SoundEffect>("Sounds/dialogue"));
             //AddSoundEffect("slime", game.Content.Load<SoundEffect>("Sounds/slime"));

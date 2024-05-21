@@ -26,14 +26,16 @@ namespace Sanguine_Forest
         public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, float layer, float parallaxSpeed,  ref Camera target)
             : base(position, rotation)
         {
-            spriteModule = new SpriteModule(this, Vector2.Zero, texture, (Extentions.SpriteLayer)layer);
-            spriteModuleLeft = new SpriteModule(this, new Vector2(-texture.Width, 0), texture, (Extentions.SpriteLayer)layer);
-            spriteModuleRight = new SpriteModule(this, new Vector2(texture.Width,0),texture, (Extentions.SpriteLayer)layer);
+
+            spriteModule = new SpriteModule(this, new Vector2(texture.Width,0), texture, (Extentions.SpriteLayer)layer);
+            spriteModuleLeft = new SpriteModule(this, new Vector2(0, 0), texture, (Extentions.SpriteLayer)layer);
+            spriteModuleRight = new SpriteModule(this, new Vector2(texture.Width*2,0),texture, (Extentions.SpriteLayer)layer);
+
             //spriteModule.SetPosition(new Vector2(-texture.Width,0));
             this.target = target;
             //this.position = position;
             //this.position = new Vector2(target.position.X,target.position.Y);
-            this.position = Vector2.Zero;
+            this.position = position;
             this.parallaxSpeed = parallaxSpeed;
 
         }
@@ -52,14 +54,14 @@ namespace Sanguine_Forest
             }
             shift += (curPos - prevPos) * parallaxSpeed * Extention.Extentions.globalTime;
             position.X += (curPos - prevPos) * parallaxSpeed*Extention.Extentions.globalTime;
-            if(shift>spriteModule.GetTexture().Width)
+            if(shift>spriteModule.GetTexture().Width-parallaxSpeed)
             {
-                position.X -= shift ;
+                position.X -= shift+ parallaxSpeed;
                 shift = 0;
             }
-            if(shift<-spriteModule.GetTexture().Width)
+            if(shift<-spriteModule.GetTexture().Width+ parallaxSpeed)
             {
-                position.X -= shift ;
+                position.X -= shift- parallaxSpeed;
                 shift = 0;
             }
 
@@ -72,7 +74,7 @@ namespace Sanguine_Forest
             spriteModuleLeft.DrawMe(spriteBatch);
             spriteModuleRight.DrawMe(spriteBatch);
             
-            DebugManager.DebugRectangle(spriteModuleLeft.GetDrawRectangle());
+            //DebugManager.DebugRectangle(spriteModuleLeft.GetDrawRectangle());
         }
 
     }

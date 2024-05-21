@@ -247,6 +247,28 @@ namespace Sanguine_Forest
 
                 _spriteBatch.End();
             }
+            else if (_uiManager.CurrentGameState == UIManager.GameState.InstructionsFromStart)
+            {
+                GraphicsDevice.Clear(Color.Black);
+
+                // Begin a new sprite batch without any camera transformations
+                _spriteBatch.Begin();
+
+                _uiManager.DrawMe();
+
+                _spriteBatch.End();
+            }
+            else if (_uiManager.CurrentGameState == UIManager.GameState.InstructionsFromPause)
+            {
+                GraphicsDevice.Clear(Color.Black);
+
+                // Begin a new sprite batch without any camera transformations
+                _spriteBatch.Begin();
+
+                _uiManager.DrawMe();
+
+                _spriteBatch.End();
+            }
 
             base.Draw(gameTime);
             //debug sprite batch

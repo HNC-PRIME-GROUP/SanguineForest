@@ -20,25 +20,25 @@ namespace Sanguine_Forest
         private List<ParallaxBackground> backgrounds;
 
 
-        public ParallaxManager(ContentManager content, Camera target)
+        public ParallaxManager(ContentManager content, ref Camera target)
         {
             this.target = target;
             backgrounds = new List<ParallaxBackground>()
             {
                 new ParallaxBackground(target.position, 0,content.Load<Texture2D>("Sprites/Background/background_day1"),
-                0.1f,0,target),
-                new ParallaxBackground(target.position, 0, content.Load<Texture2D>("Sprites/Background/background_day2"), 
-                0.2f, 10,target),
+                7f,0,ref target),
+                new ParallaxBackground(target.position, 0, content.Load<Texture2D>("Sprites/Background/background_day2"),
+                6f, 10,ref target),
                 new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day3"),
-                0.3f,20, target),
+                5f,20,ref target),
                 new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4A"),
-                0.4f,40,target),
+                4f,40,ref target),
                 new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4B"),
-                0.5f,50,target),
+                3f,50,ref target),
                 new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4C"),
-                0.6f,60,target),
+                2f,60,ref target),
                 new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4D"),
-                0.7f,70,target)
+                1f,70,ref target)
 
             };
 
@@ -47,11 +47,11 @@ namespace Sanguine_Forest
        
 
  
-        public void UpdateMe()
+        public void UpdateMe(Camera target)
         {
             for(int i =0;i<backgrounds.Count;i++)
             {
-                backgrounds[i].UpdateMe();
+                backgrounds[i].UpdateMe(target);
             }
         
         }

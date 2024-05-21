@@ -147,7 +147,7 @@ namespace Sanguine_Forest
             }
 
             //Parallax            
-            _parallaxManager.UpdateMe();
+            _parallaxManager.UpdateMe(_camera);
 
 
             //Debug observer (flying cam without character)

@@ -97,7 +97,7 @@ namespace Sanguine_Forest
 
             _currentScene = FileLoader.LoadFromJson<Scene>( FileLoader.RootFolder+ "/Scenes/SceneStart.json");
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, _camera);
+            _parallaxManager = new ParallaxManager(Content, ref _camera);
 
             // Initialize UI manager. Create an Exit method for UIManager
             _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
@@ -143,7 +143,7 @@ namespace Sanguine_Forest
             switch (_uiManager.CurrentGameState)
             {
                 case UIManager.GameState.StartScreen:
-                    _parallaxManager.UpdateMe(); //parallax update
+                    _parallaxManager.UpdateMe(_camera); //parallax update
                     break;
                 case UIManager.GameState.Playing:
                     UpdatePlaying(gameTime);
@@ -164,7 +164,7 @@ namespace Sanguine_Forest
             _camera.UpdateMe();
                            
             //Parallax            
-            _parallaxManager.UpdateMe();
+            //_parallaxManager.UpdateMe(_camera);
 
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -190,7 +190,7 @@ namespace Sanguine_Forest
 
                 _environmentManager.DrawMe(_spriteBatch, _character.GetPosition());
                 _character.DrawMe(_spriteBatch);
-               // _parallaxManager.DrawMe(_spriteBatch);
+                //_parallaxManager.DrawMe(_spriteBatch);
 
 
                 // Debug test
@@ -262,7 +262,7 @@ namespace Sanguine_Forest
             {
                 _character.UpdateMe(prevState, currState);
             }
-            _parallaxManager.UpdateMe();
+            _parallaxManager.UpdateMe(_camera);
 
             // Update cutscene
             _environmentManager.UpdateCutscene(gameTime, currState, prevState, _character);

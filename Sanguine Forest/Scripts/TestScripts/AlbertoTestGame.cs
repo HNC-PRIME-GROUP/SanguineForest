@@ -102,7 +102,7 @@ namespace Sanguine_Forest
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
 
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, _camera);
+            _parallaxManager = new ParallaxManager(Content,ref _camera);
             //Debug camera
             DebugManager.Camera = _camera;
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
@@ -143,7 +143,7 @@ namespace Sanguine_Forest
             switch (_uiManager.CurrentGameState)
             {
                 case UIManager.GameState.StartScreen:
-                    _parallaxManager.UpdateMe();
+                    _parallaxManager.UpdateMe(_camera);
                     break;
                 case UIManager.GameState.Playing:
                     UpdatePlaying(gameTime);
@@ -198,7 +198,7 @@ namespace Sanguine_Forest
             {
                 _character.UpdateMe(prevState, currState);
             }
-            _parallaxManager.UpdateMe();
+            _parallaxManager.UpdateMe(_camera);
 
 
             // Update cutscene

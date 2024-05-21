@@ -23,28 +23,43 @@ namespace Sanguine_Forest
         private Camera target;
 
 
-        public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, float layer, float parallaxSpeed, Camera target)
+        public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, float layer, float parallaxSpeed,  ref Camera target)
             : base(position, rotation)
         {
             spriteModule = new SpriteModule(this, Vector2.Zero, texture, (Extentions.SpriteLayer)layer);
-            spriteModuleLeft = new SpriteModule(this, new Vector2(-texture.Width, 0),texture, (Extentions.SpriteLayer)layer);
-            spriteModuleRight = new SpriteModule(this, new Vector2(texture.Width*2,0),texture, (Extentions.SpriteLayer)layer);
-
+            spriteModuleLeft = new SpriteModule(this, new Vector2(0, 0), texture, (Extentions.SpriteLayer)layer);
+            spriteModuleRight = new SpriteModule(this, new Vector2(texture.Width,0),texture, (Extentions.SpriteLayer)layer);
+            //spriteModule.SetPosition(new Vector2(-texture.Width,0));
             this.target = target;
-            position = new Vector2(target.position.X-texture.Width/2-100,target.position.Y-texture.Height/2);
+            //this.position = position;
+            //this.position = new Vector2(target.position.X,target.position.Y);
+            this.position = Vector2.Zero;
+            this.parallaxSpeed = parallaxSpeed;
 
         }
 
-        public void UpdateMe()
+        public void UpdateMe(Camera target)
         {
             curPos = target.position.X;
 
             spriteModule.UpdateMe();
+            spriteModuleLeft.UpdateMe();
+            //spriteModuleLeft.SetDrawRectangle(new Rectangle(new Point(-spriteModuleLeft.GetTexture().Width, 0), spriteModuleLeft.GetDrawRectangle().Size));
+            spriteModuleRight.UpdateMe();
+            if(curPos!=prevPos)
+            {
+
+            }
             shift += (curPos - prevPos) * parallaxSpeed * Extention.Extentions.globalTime;
             position.X += (curPos - prevPos) * parallaxSpeed*Extention.Extentions.globalTime;
-            if(shift>spriteModule.GetTexture().Width/2)
+            if(shift>spriteModule.GetTexture().Width)
             {
-                position.X = shift * 2;
+                position.X -= shift ;
+                shift = 0;
+            }
+            if(shift<-spriteModule.GetTexture().Width)
+            {
+                position.X -= shift ;
                 shift = 0;
             }
 
@@ -53,7 +68,11 @@ namespace Sanguine_Forest
 
         public void DrawMe(SpriteBatch spriteBatch)
         {
-            spriteModule.DrawMe(spriteBatch);
+            //spriteModule.DrawMe(spriteBatch);
+            spriteModuleLeft.DrawMe(spriteBatch);
+            //spriteModuleRight.DrawMe(spriteBatch);
+            
+            DebugManager.DebugRectangle(spriteModuleLeft.GetDrawRectangle());
         }
 
     }

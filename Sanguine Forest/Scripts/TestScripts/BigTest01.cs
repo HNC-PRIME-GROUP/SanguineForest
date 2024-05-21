@@ -167,8 +167,8 @@ namespace Sanguine_Forest
             //_parallaxManager.UpdateMe(_camera);
 
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //    Exit();
 
             //save prev state
             prevState = currState;
@@ -288,19 +288,23 @@ namespace Sanguine_Forest
 
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
+            _character.savePosMoment += _playerState.SavePos;
             //_character.SetCharacterScale(0.3f);
             _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBottomBound, new Vector2(1920, 1080));            
             _camera.SetCameraTarget(_character);
-            
+
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+            if (_environmentManager is null)
+            {
+                _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+            }
             _environmentManager.Initialise(_currentScene);
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
             _environmentManager.LevelEndTrigger += NextLevel;
 
-            //gamestate update
+            //game state update
             _uiManager.SetGameState(UIManager.GameState.Playing);
             //_uiManager.CurrentGameState = UIManager.GameState.Playing;
 
@@ -317,7 +321,8 @@ namespace Sanguine_Forest
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
 
             //Set character and camera
-            _character = new Character2(_currentScene.characterPosition, 0, Content);
+            _character = new Character2(_playerState.savePoint, 0, Content);
+            _character.savePosMoment += _playerState.SavePos;
             //_character.SetCharacterScale(0.3f);
             _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBottomBound, new Vector2(1920, 1080));
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Sanguine_Forest
 {
@@ -14,5 +15,13 @@ namespace Sanguine_Forest
 
         //current level
         public int lvlCounter;
+
+        //current save point
+        public Vector2 savePoint;
+
+        public void SavePos(object sender, SaveCharacterDataArgs e)
+        {
+            savePoint = e.savePoint;
+        }
     }
 }

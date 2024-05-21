@@ -356,7 +356,7 @@ namespace Sanguine_Forest
 
         private void HandlePlayingInput(KeyboardState prev, KeyboardState curr)
         {
-            if (curr.IsKeyDown(Keys.P) && prev.IsKeyUp(Keys.P))
+            if (curr.IsKeyDown(Keys.Escape) && prev.IsKeyUp(Keys.Escape))
             {
 
                 CurrentGameState = GameState.Paused;

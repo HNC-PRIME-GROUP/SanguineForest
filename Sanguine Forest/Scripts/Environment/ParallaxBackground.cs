@@ -54,14 +54,14 @@ namespace Sanguine_Forest
             }
             shift += (curPos - prevPos) * parallaxSpeed * Extention.Extentions.globalTime;
             position.X += (curPos - prevPos) * parallaxSpeed*Extention.Extentions.globalTime;
-            if(shift>spriteModule.GetTexture().Width-parallaxSpeed)
+            if(shift>spriteModule.GetTexture().Width-50)
             {
-                position.X -= shift+ parallaxSpeed;
+                position.X -= shift+ 50;
                 shift = 0;
             }
-            if(shift<-spriteModule.GetTexture().Width+ parallaxSpeed)
+            if(shift<-spriteModule.GetTexture().Width+ 50)
             {
-                position.X -= shift- parallaxSpeed;
+                position.X -= shift- 50;
                 shift = 0;
             }
 

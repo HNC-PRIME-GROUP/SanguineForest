@@ -88,10 +88,10 @@ namespace Sanguine_Forest
             //AudioSetting
             //AudioManager.GeneralVolume = 1.0f;
 
-            //_character.SetCharacterScale(0.3f);
-            _debugObserver = new DebugObserver(Vector2.Zero, 0);
-            _camera = new Camera(_debugObserver.GetPosition(), new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
-            _camera.SetCameraTarget(_debugObserver);
+            ////_character.SetCharacterScale(0.3f);
+            //_debugObserver = new DebugObserver(Vector2.Zero, 0);
+            //_camera = new Camera(_debugObserver.GetPosition(), new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
+            //_camera.SetCameraTarget(_debugObserver);
 
             //_camera.SetZoom(1f);
 

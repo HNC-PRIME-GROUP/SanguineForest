@@ -1,9 +1,9 @@
 {
 
-  "characterPosition": "0, -0",
+  "characterPosition": "17000, -500",
 
-  "LeftUpperBound": "-100000,-100000",
-  "RightBottomBound": "100000,100000",
+  "LeftUpperBound": "-18000,-100000",
+  "RightBottomBound": "17000,100000",
   "comment": "Simple platforms",
   "simplePlatforms": [
     //{
@@ -12,12 +12,12 @@
     //  "rotation": "0",
     //  "platformSize": "200000, 400"
     //},
-    {
-      "comment": "1",
-      "position": "-1300, -1200",
-      "rotation": "0",
-      "platformSize": "300, 3700"
-    },
+    //{
+    //  "comment": "1",
+    //  "position": "-1300, -1200",
+    //  "rotation": "0",
+    //  "platformSize": "300, 3700"
+    //},
 
     {
       "comment": "2",
@@ -536,10 +536,10 @@
       "Size": "200,200"
     },
     {
-      "Position": "15260, -1000",
+      "Position": "15255, -1000",
       "Rotation": "0",
       "slimeType": "Brown",
-      "finPosition": "15270, -500",
+      "finPosition": "15275, -525",
       "Speed": "2",
       "Size": "200,200"
     },

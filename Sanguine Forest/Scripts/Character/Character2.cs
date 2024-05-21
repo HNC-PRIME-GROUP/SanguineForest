@@ -312,6 +312,8 @@ namespace Sanguine_Forest
 
         public void JumpUpdate(KeyboardState prev, KeyboardState curr)
         {
+            AudioSourceModule.StopSound("Run");
+
             if (isJumping)
             {
                 AudioSourceModule.PlaySoundOnce("Jump");

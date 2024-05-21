@@ -232,7 +232,6 @@ namespace Sanguine_Forest
                     ResetButtons(startButtons);
 
                     NewGameEvent?.Invoke(this, EventArgs.Empty);
-                    //CurrentGameState = GameState.Playing;
                     
 
                 }
@@ -243,13 +242,11 @@ namespace Sanguine_Forest
                     ResetButtons(startButtons);
 
                     LoadGameEvent?.Invoke(this, EventArgs.Empty);
-                    //CurrentGameState = GameState.LoadGame;
 
                 }
                 else if (startButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
                 {
-                    // Restart game logic
-                    //  Restart();
+
                     ResetButtons(startButtons);
                     CurrentGameState = GameState.InstructionsFromStart;
                 }
@@ -390,7 +387,6 @@ namespace Sanguine_Forest
                 button.Draw(sb);
             }
 
-            //DrawInteractionTextsStartScreen();
 
         }
 
@@ -501,25 +497,23 @@ namespace Sanguine_Forest
                 case GameState.Playing:
                     AudioManager.MusicTrigger(false);
                     break;
-                    // Add cases for other states as needed
             }
 
             // Start music for the new state
             switch (newState)
             {
                 case GameState.StartScreen:
-                    //AudioManager.PlaySong(0);
-                    //AudioManager.MusicTrigger(true);
+                    AudioManager.PlaySong(0);
+                    AudioManager.MusicTrigger(true);
                     break;
                 case GameState.Playing:
-                    //AudioManager.PlaySong(1);
-                    //AudioManager.MusicTrigger(true);
+                    AudioManager.PlaySong(1);
+                    AudioManager.MusicTrigger(true);
                     break;
                 case GameState.Paused:
                     // Paused state might keep the current song playing or stop it, depending on your design
                     AudioManager.MusicTrigger(false);
                     break;
-                    // Add cases for other states as needed
             }
         }
 

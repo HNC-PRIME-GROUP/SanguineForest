@@ -71,11 +71,19 @@ namespace Sanguine_Forest
         public Dictionary<string, SoundEffectInstance> sounds;
 
 
+        //checkpoints
+        public Vector2 SavePoint;
+
+        public delegate void CharacterSaveEvent(Character2 sender, SaveCharacterDataArgs e);
+
+        public event CharacterSaveEvent savePosMoment;
+
         public Character2(Vector2 position, float rotation, ContentManager content) : base(position, rotation)
         {
 
             //Save start pos
             startPos = position;
+            SavePoint = startPos;
 
             //Animation and graphic
             _SpriteModule = new SpriteModule(this, Vector2.Zero, content.Load<Texture2D>("Sprites/Sprites_Character_v1"),
@@ -232,6 +240,8 @@ namespace Sanguine_Forest
             if (_velocity.Y < 0)
             {
                 isJumping = true; // Set jumping state
+                SavePoint = position;
+                savePosMoment?.Invoke(this, new SaveCharacterDataArgs(SavePoint));
                 _currentState = CharState.jump;
                 return;
             }
@@ -258,6 +268,8 @@ namespace Sanguine_Forest
             {
                 isJumping = true; // Set jumping state
                 _velocity.Y = -_jumpHigh;
+                SavePoint = position;
+                savePosMoment?.Invoke(this, new SaveCharacterDataArgs(SavePoint));
                 _currentState = CharState.jump;
                 return;
 
@@ -434,7 +446,7 @@ namespace Sanguine_Forest
         public void CharacterRestore(object obj, EventArgs e)
         {
             _currentState = CharState.jump;
-            position = startPos;
+            position = SavePoint ;
             _animationModule.AnimationEnd -= CharacterRestore;
         }
 
@@ -616,5 +628,14 @@ namespace Sanguine_Forest
             Debug.WriteLine($"Set target position: {targetPosition}");
         }
 
+    }
+
+    public class SaveCharacterDataArgs : EventArgs
+    {
+        public SaveCharacterDataArgs(Vector2 pos)
+        {
+            savePoint = pos;
+        }
+        public Vector2 savePoint;
     }
 }

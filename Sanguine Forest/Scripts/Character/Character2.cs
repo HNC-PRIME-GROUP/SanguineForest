@@ -239,9 +239,7 @@ namespace Sanguine_Forest
             //transition to fall or jump
             if (_velocity.Y < 0)
             {
-                isJumping = true; // Set jumping state
-                SavePoint = position;
-                savePosMoment?.Invoke(this, new SaveCharacterDataArgs(SavePoint));
+                isJumping = true; // Set jumping state              
                 _currentState = CharState.jump;
                 return;
             }
@@ -267,9 +265,7 @@ namespace Sanguine_Forest
             if (curr.IsKeyDown(Keys.W) && prev.IsKeyUp(Keys.W))
             {
                 isJumping = true; // Set jumping state
-                _velocity.Y = -_jumpHigh;
-                SavePoint = position;
-                savePosMoment?.Invoke(this, new SaveCharacterDataArgs(SavePoint));
+                _velocity.Y = -_jumpHigh;               
                 _currentState = CharState.jump;
                 return;
 
@@ -433,7 +429,7 @@ namespace Sanguine_Forest
         public void DeathUpdate()
         {
             AudioSourceModule.PlaySoundOnce("Death");
-            _animationModule.SetAnimationSpeed(1.2f);
+            _animationModule.SetAnimationSpeed(0.6f);
             _animationModule.PlayOnce("Death");
             _velocity.X = 0;
             _velocity.Y = 0;
@@ -482,6 +478,12 @@ namespace Sanguine_Forest
                     _gravityEffect = 0f;
                     _velocity.Y = 0f;
                     position.Y = collision.GetCollidedPhysicModule().GetPhysicRectangle().Top - _feetCollision.GetShiftPosition().Y;
+                    if(platform is not FallingPlatform&& platform is not MoveblePlatform )
+                    {
+                        SavePoint = new Vector2(position.X, position.Y);
+                        savePosMoment?.Invoke(this, new SaveCharacterDataArgs(SavePoint));
+
+                    }
                     return;
                 }
 

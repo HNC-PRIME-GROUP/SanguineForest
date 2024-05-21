@@ -51,6 +51,7 @@ namespace Sanguine_Forest
         {
             Console.WriteLine($"Setting Position");
             this.position = position;
+            
         }
 
         public float GetRotation()

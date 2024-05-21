@@ -1,5 +1,6 @@
 ﻿using Extention;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Diagnostics;
@@ -9,44 +10,69 @@ namespace Sanguine_Forest
     internal class ParallaxBackground : GameObject
     {
         public SpriteModule spriteModule;
-        public float ParallaxSpeed { get; private set; }
-        public float ParallaxSpeedX { get; set; } // Existing property for horizontal speed
-        public float ParallaxSpeedY { get; set; } // New property for vertical speed
+        public SpriteModule spriteModuleLeft;
+        public SpriteModule spriteModuleRight;
+
+        //parallax movement
+        float curPos;
+        float prevPos;
+        private float parallaxSpeed;
+
+        private float shift; 
+
+        private Camera target;
 
 
-        public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, Extentions.SpriteLayer layer, float parallaxSpeedX, float parallaxSpeedY)
+        public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, float layer, float parallaxSpeed,  ref Camera target)
             : base(position, rotation)
         {
-            this.spriteModule = new SpriteModule(this, Vector2.Zero, texture, layer);
-            this.ParallaxSpeedX = parallaxSpeedX;
-            this.ParallaxSpeedY = parallaxSpeedY;
+            spriteModule = new SpriteModule(this, Vector2.Zero, texture, (Extentions.SpriteLayer)layer);
+            spriteModuleLeft = new SpriteModule(this, new Vector2(0, 0), texture, (Extentions.SpriteLayer)layer);
+            spriteModuleRight = new SpriteModule(this, new Vector2(texture.Width,0),texture, (Extentions.SpriteLayer)layer);
+            //spriteModule.SetPosition(new Vector2(-texture.Width,0));
+            this.target = target;
+            //this.position = position;
+            //this.position = new Vector2(target.position.X,target.position.Y);
+            this.position = Vector2.Zero;
+            this.parallaxSpeed = parallaxSpeed;
 
         }
 
-        public void UpdateMe(Vector2 cameraMovement)
+        public void UpdateMe(Camera target)
         {
+            curPos = target.position.X;
+
             spriteModule.UpdateMe();
+            spriteModuleLeft.UpdateMe();
+            //spriteModuleLeft.SetDrawRectangle(new Rectangle(new Point(-spriteModuleLeft.GetTexture().Width, 0), spriteModuleLeft.GetDrawRectangle().Size));
+            spriteModuleRight.UpdateMe();
+            if(curPos!=prevPos)
+            {
 
-            //Debug.WriteLine($"Before Update - Position: {GetPosition()}");
+            }
+            shift += (curPos - prevPos) * parallaxSpeed * Extention.Extentions.globalTime;
+            position.X += (curPos - prevPos) * parallaxSpeed*Extention.Extentions.globalTime;
+            if(shift>spriteModule.GetTexture().Width)
+            {
+                position.X -= shift ;
+                shift = 0;
+            }
+            if(shift<-spriteModule.GetTexture().Width)
+            {
+                position.X -= shift ;
+                shift = 0;
+            }
 
-            // Adjust the background's position based on its parallax speed
-            //Vector2 adjustedMovement = new Vector2((cameraMovement * -ParallaxSpeedX * 0.2f).X, 0); //cameraMovement * -ParallaxSpeedX * 0.2f;
-            Vector2 adjustedMovement = new Vector2(cameraMovement.X * -ParallaxSpeedX * 0.4f, cameraMovement.Y * -ParallaxSpeedY * 0.7f);
-            Vector2 newPosition = GetPosition() + adjustedMovement;
-
-            // Round positions to the nearest whole number
-            newPosition.X = (float)Math.Round(newPosition.X);
-            newPosition.Y = (float)Math.Round(newPosition.Y);
-
-            // Set the new position
-            SetPosition(newPosition);
-
-            //Debug.WriteLine($"After Update - Position: {GetPosition()}");
+            prevPos = curPos;
         }
 
         public void DrawMe(SpriteBatch spriteBatch)
         {
-            spriteModule.DrawMe(spriteBatch);
+            //spriteModule.DrawMe(spriteBatch);
+            spriteModuleLeft.DrawMe(spriteBatch);
+            //spriteModuleRight.DrawMe(spriteBatch);
+            
+            DebugManager.DebugRectangle(spriteModuleLeft.GetDrawRectangle());
         }
 
     }

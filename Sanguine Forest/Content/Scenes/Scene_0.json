@@ -7,9 +7,9 @@
   "simplePlatforms": [
     {
       "comment": "First platform - Middle edge ",
-      "position": "-500, 355",
+      "position": "-5000, 355",
       "rotation": "0",
-      "platformSize": "1600,420"
+      "platformSize": "10000,420"
     }
 
 

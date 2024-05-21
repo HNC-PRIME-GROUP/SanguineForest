@@ -25,20 +25,20 @@ namespace Sanguine_Forest
             this.target = target;
             backgrounds = new List<ParallaxBackground>()
             {
-                new ParallaxBackground(target.position, 0,content.Load<Texture2D>("Sprites/Background/background_day1"),
+                new ParallaxBackground(new Vector2(target.position.X - 2880,0), 0,content.Load<Texture2D>("Sprites/Background/background_day1"),
                 7f,0,ref target),
-                new ParallaxBackground(target.position, 0, content.Load<Texture2D>("Sprites/Background/background_day2"),
-                6f, 10,ref target),
-                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day3"),
-                5f,20,ref target),
-                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4A"),
-                4f,40,ref target),
-                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4B"),
-                3f,50,ref target),
-                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4C"),
-                2f,60,ref target),
-                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4D"),
-                1f,70,ref target)
+                new ParallaxBackground(new Vector2(target.position.X - 2880,0), 0, content.Load<Texture2D>("Sprites/Background/background_day2"),
+                6f, 5,ref target),
+                new ParallaxBackground(new Vector2(target.position.X - 2880,0),0,content.Load<Texture2D>("Sprites/Background/background_day3"),
+                5f,7,ref target),
+                new ParallaxBackground(new Vector2(target.position.X - 2880, 0),0,content.Load<Texture2D>("Sprites/Background/background_day4A"),
+                4f,12,ref target),
+                new ParallaxBackground(new Vector2(target.position.X - 2880, 0),0,content.Load<Texture2D>("Sprites/Background/background_day4B"),
+                3f,14,ref target),
+                new ParallaxBackground(new Vector2(target.position.X - 2880, 0),0,content.Load<Texture2D>("Sprites/Background/background_day4C"),
+                2f,16,ref target),
+                new ParallaxBackground(new Vector2(target.position.X - 2880, 0),0,content.Load<Texture2D>("Sprites/Background/background_day4D"),
+                1f,18,ref target)
 
             };
 

@@ -121,6 +121,11 @@ namespace Sanguine_Forest
                 character.Death();
             }
         }
+
+        public void DeleteMe()
+        {
+            PhysicManager.RemoveObject(physicModule);
+        }
     }
 
     public struct ObstacleData

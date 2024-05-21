@@ -53,8 +53,8 @@ namespace Sanguine_Forest.Scripts.Environment.Obstacle
                     new Rectangle(0, 0, (int)tileSize.Y, (int)tileSize.X));
 
 
-                _physicModule = new PhysicModule(this, new Vector2(0, 0), new Vector2((int)Math.Round(thornsSize.X / tileSize.Y) * tileSize.Y ,
-                    (int)Math.Round(thornsSize.Y / tileSize.X) * tileSize.X));
+                _physicModule = new PhysicModule(this, new Vector2(0, 20), new Vector2((int)Math.Round(thornsSize.X / tileSize.Y) * tileSize.Y ,
+                    (int)Math.Round(thornsSize.Y / tileSize.X) * tileSize.X - 40));
             
             
         }
@@ -76,9 +76,13 @@ namespace Sanguine_Forest.Scripts.Environment.Obstacle
         public void DrawMe(SpriteBatch sp)
         {
             _spriteModule.DrawMe(sp);
-            //DebugManager.DebugRectangle(_physicModule.GetPhysicRectangle());
+            DebugManager.DebugRectangle(_physicModule.GetPhysicRectangle());
         }
 
+        public void DeleteMe()
+        {
+            PhysicManager.RemoveObject(_physicModule);
+        }
 
     }
 

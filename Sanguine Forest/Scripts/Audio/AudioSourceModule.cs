@@ -13,18 +13,34 @@ namespace Sanguine_Forest
             soundEffects = dictionary;
         }
 
-        public void PlaySoundOnce(string soundName)
+        public void PlaySoundOnce(string soundName, float volume = 1.0f)
         {
             if (soundEffects.ContainsKey(soundName))
             {
-                AudioManager.PlaySound(soundEffects[soundName]);
+                var soundInstance = soundEffects[soundName];
+                soundInstance.Volume = volume;
+                AudioManager.PlaySound(soundInstance);
             }
         }
 
-        public void PlayPositionalSound(string soundName, Vector2 position)
+        public void StopSound(string soundName)
         {
             if (soundEffects.ContainsKey(soundName))
             {
+                var soundInstance = soundEffects[soundName];
+                if (soundInstance.State == SoundState.Playing)
+                {
+                    soundInstance.Stop();
+                }
+            }
+        }
+
+        public void PlayPositionalSound(string soundName, Vector2 position, float volume = 1.0f)
+        {
+            if (soundEffects.ContainsKey(soundName))
+            {
+                var soundInstance = soundEffects[soundName];
+                soundInstance.Volume = volume;
                 AudioManager.PlayPositionalSound(soundName, position);
             }
         }

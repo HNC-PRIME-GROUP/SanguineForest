@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -56,7 +57,9 @@ namespace Sanguine_Forest
         private Vector2 targetPosition;
         private CutSceneObject nearestNPC;
 
-
+        //Audio
+        public AudioSourceModule AudioSourceModule;
+        private List<SoundEffectInstance> dialogueSounds;
         private Random _rng;
 
         public EnvironmentManager(ContentManager content, PlayerState playerState, Texture2D semiTransparentTexture)
@@ -68,11 +71,42 @@ namespace Sanguine_Forest
 
             font = content.Load<SpriteFont>("Fonts/TitleFontSmll");
 
+            // Initialize dialogue sounds
+            dialogueSounds = new List<SoundEffectInstance>
+        {
+            content.Load<SoundEffect>("Sounds/Dialogue_1").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_3").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_4").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_5").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_6").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_7").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_8").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_9").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_10").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_11").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_12").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_13").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_14").CreateInstance()
+
+        };
+
+
+
         }
 
         // Initialize all platforms and other environment from the scene
         public void Initialise(Scene scene)
         {
+            if (platforms != null)
+            {
+                if (platforms.Count > 0)
+                {
+                    for (int i = 0; i < platforms.Count; i++)
+                    {
+                        platforms[i].DeleteMe();
+                    }
+                }
+            }
             platforms = new List<Platform>();
 
             // Tiles for platforms
@@ -95,6 +129,16 @@ namespace Sanguine_Forest
                 platforms.Add(new Platform(platform.position, platform.rotation, platform.platformSize, content, tileDictionary, tileMap));
             }
 
+            if(movebles!=null)
+            {
+                if (platforms.Count > 0)
+                {
+                    for (int i = 0; i < movebles.Count; i++)
+                    {
+                        movebles[i].DeleteMe();
+                    }
+                }
+            }
             movebles = new List<MoveblePlatform>();
             foreach (var platform in scene.moveablPlatforms)
             {
@@ -102,12 +146,33 @@ namespace Sanguine_Forest
                 movebles.Add(new MoveblePlatform(platform.position, platform.rotation, platform.platformSize, content, tileDictionary, tileMap, platform.maxShift));
             }
 
+            if (thorns != null)
+            {
+                if (thorns.Count>0)
+                {
+                    for(int i =0;i<thorns.Count;i++)
+                    {
+                        thorns[i].DeleteMe();
+                    }
+                }
+
+            }
             thorns = new List<Thorns>();
             foreach (var thorn in scene.thorns)
             {
                 thorns.Add(new Thorns(thorn.Position, thorn.Rotation, content, thorn.ThornsSize));
             }
 
+            if(fallingPlatforms != null)
+            {
+                if(fallingPlatforms.Count>0)
+                {
+                    for(int i =0; i<fallingPlatforms.Count;i++)
+                    {
+                        fallingPlatforms[i].DeleteMe();
+                    }
+                }
+            }
             fallingPlatforms = new List<FallingPlatform>();
             foreach (var platform in scene.fallingPlatforms)
             {
@@ -115,18 +180,46 @@ namespace Sanguine_Forest
                 fallingPlatforms.Add(new FallingPlatform(platform.Position, platform.Rotation, platform.PlatformSize, content, tileDictionary, tileMap, platform.TimeToFall));
             }
 
+            if(obstacles1 != null)
+            {
+                if(obstacles1.Count>0)
+                {
+                    for(int i = 0; i<obstacles1.Count;i++)
+                    {
+                        obstacles1[i].DeleteMe();
+                    }
+                }
+            }
             obstacles1 = new List<Obstacle>();
             foreach (var obstacle in scene.obstaclesData1)
             {
                 obstacles1.Add(new Obstacle(obstacle.Position, obstacle.Rotation, content, obstacle.slimeType, obstacle.finPosition, obstacle.Speed, obstacle.Size));
             }
-
+            if (obstacles2 != null)
+            {
+                if (obstacles2.Count > 0)
+                {
+                    for (int i = 0; i < obstacles1.Count; i++)
+                    {
+                        obstacles2[i].DeleteMe();
+                    }
+                }
+            }
             obstacles2 = new List<Obstacle>();
             foreach (var obstacle in scene.obstaclesData2)
             {
                 obstacles2.Add(new Obstacle(obstacle.Position, obstacle.Rotation, content, obstacle.slimeType, obstacle.finPosition, obstacle.Speed, obstacle.Size));
             }
-
+            if (obstacles3 != null)
+            {
+                if (obstacles3.Count > 0)
+                {
+                    for (int i = 0; i < obstacles1.Count; i++)
+                    {
+                        obstacles3[i].DeleteMe();
+                    }
+                }
+            }
             obstacles3 = new List<Obstacle>();
             foreach (var obstacle in scene.obstaclesData3)
             {
@@ -187,8 +280,10 @@ namespace Sanguine_Forest
             }
 
             // Initialize Cutscene
+            currentDialogueIndex = 0;
             cutSceneObjects = new List<CutSceneObject>();
             isCutScene = scene.isCutScene;
+            cutSceneDialogues = new List<CutSceneDialogue>();
             cutSceneDialogues = scene.cutSceneDialogues ?? new List<CutSceneDialogue>();
 
             if (scene.isCutScene)
@@ -246,7 +341,8 @@ namespace Sanguine_Forest
         public void UpdateMe()
         {
             // Update all platforms
-            foreach (var platform in platforms) { platform.UpdateMe(); }
+            //foreach (var platform in platforms) { platform.UpdateMe(); }
+            for(int i =0; i<platforms.Count; i++) { platforms[i].UpdateMe(); }
             foreach (var moveble in movebles) { moveble.UpdateMe(); }
             foreach (var thorn in thorns) { thorn.UpdateMe(); }
             foreach (var platform in fallingPlatforms) { platform.UpdateMe(); }
@@ -437,12 +533,21 @@ namespace Sanguine_Forest
                 var dialogue = cutSceneDialogues[currentDialogueIndex];
                 var cutSceneObject = cutSceneObjects[currentDialogueIndex % cutSceneObjects.Count];
                 cutSceneObject.SetCutsceneText(dialogue.Text, dialogue.Position);
+
+                // Play the corresponding dialogue sound
+                if (dialogueSounds.Count > 0)
+                {
+                    int soundIndex = currentDialogueIndex % dialogueSounds.Count;
+                    dialogueSounds[soundIndex].Play();
+                }
+
                 currentDialogueIndex++;
             }
             else
             {
                 isDialogueActive = false;
                 currentDialogueIndex = 0; // Reset index for potential restart
+                LevelEnd(this, EventArgs.Empty);
             }
         }
 

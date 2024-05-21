@@ -1,6 +1,8 @@
 {
 
   "characterPosition": "-200, -150",
+  "LeftUpperBound": "-100000,-100000",
+  "RightBottomBound": "210000,100000",
   "comment": "Simple platforms",
   "simplePlatforms": [
     {
@@ -171,91 +173,111 @@
 
   ],
 
+
   "comment 07 ": "Data about cutscenes",
   "cutSceneDialogues": [
     //"\\n",
     {
-      "Text": "Lily!",
+      "Text": "We made it, guys.",
+      "Position": "0, 200"
+    },
+    {
+      "Text": "Together,",
+      "Position": "50, 200"
+    },
+    {
+      "Text": "we got through it all.",
+      "Position": "0, 200"
+    },
+
+
+
+    {
+      "Text": "Yeah!",
+      "Position": "300, 180"
+    },
+
+    {
+      "Text": "and we learned a lot.",
+      "Position": "250, 180"
+    },
+    {
+      "Text": "About ourselves, and each other.",
+      "Position": "250, 180"
+    },
+
+
+
+    {
+      "Text": "I've realized that",
+      "Position": "450, 160"
+    },
+    {
+      "Text": "there's so much more to enjoy",
+      "Position": "400, 160"
+    },
+    {
+      "Text": "without losing ourselves",
+      "Position": "400, 160"
+    },
+
+    {
+      "Text": "in drinks or anything else.",
+      "Position": "400, 160"
+    },
+
+
+    {
+      "Text": "Same here.",
+      "Position": "600, 140"
+    },
+    {
+      "Text": "It's been a journey,",
+      "Position": "620, 140"
+    },
+    {
+      "Text": "and I've seen how our choices ",
+      "Position": "600, 140"
+    },
+    {
+      "Text": "shape our experiences.",
+      "Position": "650, 140"
+    },
+
+
+    {
+      "Text": "Exactly.",
       "Position": "150, 200"
     },
     {
-      "Text": "There you are.",
-      "Position": "20, 200"
+      "Text": "We don't need anything else",
+      "Position": "0, 200"
     },
     {
-      "Text": "Everything okay?",
-      "Position": "20, 200"
+      "Text": " to make this journey worthwhile.",
+      "Position": "-50, 200"
     },
     {
-      "Text": "Hey, Alex. Just... soaking it all in.",
-      "Position": "300, 160"
-    },
-
-    {
-      "Text": "This forest is something else.",
-      "Position": "300, 160"
+      "Text": "We've got each other,",
+      "Position": "0, 200"
     },
     {
-      "Text": "Yeah, it is.",
-      "Position": "20, 200"
-    },
-    {
-      "Text": "You've been quiet though.",
-      "Position": "-200, 200"
-    },
-    {
-      "Text": "What's up?",
-      "Position": "20, 200"
-    },
-    {
-      "Text": "I've been thinking about last night.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "We had a lot to drink. It was fun, but...",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "I feel like I'm missing out...",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "non really experiencing this place,",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "you know?",
-      "Position": "300, 160"
+      "Text": "and that's enough.",
+      "Position": "0, 200"
     },
 
 
     {
-      "Text": "I know what you mean.",
-      "Position": "-200, 200"
+      "Text": "Here's",
+      "Position": "300, 180"
     },
     {
-      "Text": "Sometimes, we use those things to escape,",
-      "Position": "-250, 200"
+      "Text": "to making better choices,",
+      "Position": "300, 180"
     },
     {
-      "Text": "but we end up missing the real moments.",
-      "Position": "-250, 200"
-    },
-    {
-      "Text": "Exactly.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "Maybe next time,",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "I'll just enjoy the forest for what it is.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "Thanks for listening, Alex.",
-      "Position": "300, 160"
+      "Text": "and truly enjoying every moment.",
+      "Position": "300, 180"
     }
 
 
@@ -263,28 +285,24 @@
 
   "isCutScene": "true",
   "cutSceneObjects": [
-
-    //{
-    //  "Position": "300,240",
-    //  "Rotation": 0.0,
-    //  "Scale": 1.0,
-    //  "NPCType": "Pink"
-    //}
-    //,
-
     {
       "Position": "300,240",
       "Rotation": 0.0,
       "Scale": 1.0,
+      "NPCType": "Pink"
+    },
+    {
+      "Position": "450,240",
+      "Rotation": 0.0,
+      "Scale": 1.0,
       "NPCType": "Green"
+    },
+
+    {
+      "Position": "600,240",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Blue"
     }
-
-    //{
-    //  "Position": "500,-240",
-    //  "Rotation": 0.0,
-    //  "Scale": 1.0,
-    //  "NPCType": "Blue"
-    //}
-
   ]
 }

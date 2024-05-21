@@ -52,6 +52,10 @@ namespace Sanguine_Forest
         public event EventHandler NewGameEvent;
         public event EventHandler LoadGameEvent;
 
+        //Save and quit event
+        public event EventHandler SaveGame;
+
+
 
         public UIManager(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, ContentManager content)
         {
@@ -293,6 +297,7 @@ namespace Sanguine_Forest
                 {
                     // Save and quit logic
                     ResetButtons(pauseButtons);
+                    SaveGame?.Invoke(this, EventArgs.Empty);
                     CurrentGameState = GameState.StartScreen;
                 }
                 else if (pauseButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
@@ -503,12 +508,12 @@ namespace Sanguine_Forest
             switch (newState)
             {
                 case GameState.StartScreen:
-                    AudioManager.PlaySong(0);
-                    AudioManager.MusicTrigger(true);
+                    //AudioManager.PlaySong(0);
+                    //AudioManager.MusicTrigger(true);
                     break;
                 case GameState.Playing:
-                    AudioManager.PlaySong(1);
-                    AudioManager.MusicTrigger(true);
+                    //AudioManager.PlaySong(1);
+                    //AudioManager.MusicTrigger(true);
                     break;
                 case GameState.Paused:
                     // Paused state might keep the current song playing or stop it, depending on your design

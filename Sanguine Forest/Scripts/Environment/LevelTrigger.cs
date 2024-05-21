@@ -99,6 +99,11 @@ namespace Sanguine_Forest
             }
 
         }
+
+        public void DeleteMe()
+        {
+            PhysicManager.RemoveObject(PhysicModule);
+        }
     }
 
     public struct LevelTriggerData

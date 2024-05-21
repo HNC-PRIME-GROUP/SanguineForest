@@ -104,6 +104,7 @@ namespace Sanguine_Forest
             _uiManager.RequestExit += Exit;
             _uiManager.NewGameEvent += NewGameLoad;
             _uiManager.LoadGameEvent += LoadGame;
+            _uiManager.SaveGame += SaveGame;
 
             // Create a 1x1 pixel texture and set it to a semi-transparent color
             semiTransparentTexture = new Texture2D(GraphicsDevice, 1, 1);
@@ -248,6 +249,8 @@ namespace Sanguine_Forest
             }
 
             base.Draw(gameTime);
+            //debug sprite batch
+           
         }
 
         private void UpdatePlaying(GameTime gameTime)
@@ -260,6 +263,9 @@ namespace Sanguine_Forest
                 _character.UpdateMe(prevState, currState);
             }
             _parallaxManager.UpdateMe();
+
+            // Update cutscene
+            _environmentManager.UpdateCutscene(gameTime, currState, prevState, _character);
 
         }
 
@@ -275,13 +281,15 @@ namespace Sanguine_Forest
         {
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/DefaultState.json");
+            FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState.json");
+            FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
             //should be level 1
-            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "1" + ".json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "0" + ".json");
 
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
-            _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBotoomBound, new Vector2(1920, 1080));            
+            _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBottomBound, new Vector2(1920, 1080));            
             _camera.SetCameraTarget(_character);
             
             //_camera.SetZoom(1f);
@@ -311,13 +319,16 @@ namespace Sanguine_Forest
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             //_character.SetCharacterScale(0.3f);
-            _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBotoomBound, new Vector2(1920, 1080));
+            _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBottomBound, new Vector2(1920, 1080));
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
             _camera.SetCameraTarget(_character);
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+            if (_environmentManager is null)
+            {
+                _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+            }
             _environmentManager.Initialise(_currentScene);
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
             _environmentManager.LevelEndTrigger += NextLevel;
@@ -336,11 +347,18 @@ namespace Sanguine_Forest
         {
             _playerState.lvlCounter++;
             _environmentManager.LevelEndTrigger -= NextLevel;
-            FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState");
-            FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState");
+            FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState.json");
+            FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
             LoadGame(sender, e);
 
         }
+
+        public void SaveGame(object sender, EventArgs eventArgs)
+        {
+            FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState.json");
+            FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
+        }
+           
 
     }
 }

@@ -1,82 +1,53 @@
 {
 
-  "characterPosition": "0, -200",
+  "characterPosition": "0, -150",
   "comment": "Simple platforms",
+  "LeftUpperBound": "-100000,-100000",
+  "RightBottomBound": "210000,100000",
   "simplePlatforms": [
     {
-      "comment": "First platform",
-      "position": "-100,100",
+      "comment": "First platform - Middle edge ",
+      "position": "-500, 355",
       "rotation": "0",
-      "platformSize": "10000,192"
-    },
-    {
-      "Position": "800,-100",
-      "Rotation": "0",
-      "PlatformSize": "200,200"
-
+      "platformSize": "1600,420"
     }
+
+
+
+    //{
+    //  "comment": "3 platform",
+    //  "position": "0, 1880",
+    //  "rotation": "0",
+    //  "platformSize": "19000, 400"
+    //}
+
+
   ],
   "comment02": "platform that change their position slightly after death if risk level is high",
   "moveablPlatforms": [
-    {
-      "position": "0, -300",
-      "rotation": "0",
-      "platformSize": "100,100",
-      "maxShift": "50,50"
-    }
+
+
+
   ],
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
   "fallingPlatforms": [
 
 
-    {
-      "Position": "400,-300",
-      "Rotation": "0",
-      "PlatformSize": "200,200",
-      "TimeToFall": "4"
-    },
-    {
-      "Position": "800,-600",
-      "Rotation": "0",
-      "PlatformSize": "200,200",
-      "TimeToFall": "4"
-    }
 
   ],
   "comment04": "dangerous place in any case (pites, water, thorns)",
   "dangerPlaces": [],
+
+
   "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "decors": [
-    {
-      "Position": "0,40",
-      "Rotation": "0.5",
-      "GrassType": "Flower"
-    },
-    {
-      "Position": "200,40",
-      "Rotation": "0",
-      "GrassType": "Grass4"
-    },
-    {
-      "Position": "100,40",
-      "Rotation": "0",
-      "GrassType": "Grass2"
-    },
-    {
-      "Position": "-140,80",
-      "Rotation": "0",
-      "GrassType": "Flower"
-    },
-    {
-      "position": "-50, -300",
-      "rotation": "-0.5",
-      "GrassType": "Grass3"
-    },
-    {
-      "position": "-50, -320",
-      "rotation": "0.5",
-      "GrassType": "Grass2"
-    }
+
+
+  ],
+
+  "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "patchDecors": [
+
 
   ],
 
@@ -85,46 +56,130 @@
 
   ],
   "obstaclesData2": [
-    {
-      "Position": "-300,100",
-      "Rotation": "0",
-      "slimeType": "Brown",
-      "finPosition": "-600,-200",
-      "Speed": "5",
-      "Size": "200,200"
-    }
+
+
 
   ],
   "obstaclesData3": [],
   "comment07": "Thorns - danger polaces",
   "thorns": [
 
+
+
+  ],
+
+  "comment 07 ": "Data about cutscenes",
+  "cutSceneDialogues": [
+    //"\\n",
     {
-      "Position": "-500,-800",
-      "Rotation": "0",
-      "ThornsSize": "200,500"
+      "Text": "Alright!",
+      "Position": "150, 200"
     },
     {
-      "Position": "500,200",
-      "Rotation": "0",
-      "ThornsSize": "200,200"
+      "Text": "everyone ready for this?",
+      "Position": "0, 200"
+    },
+    {
+      "Text": "Sanguiene Forest awaits!",
+      "Position": "0, 200"
+    },
+
+
+
+    {
+      "Text": "Absolutely!",
+      "Position": "300, 180"
+    },
+
+    {
+      "Text": "his place is gonna be amazing.",
+      "Position": "300, 180"
+    },
+    {
+      "Text": "Just remember,",
+      "Position": "300, 180"
+    },
+    {
+      "Text": "stick together",
+      "Position": "300, 180"
+    },
+    {
+      "Text": "and watch out for each other.",
+      "Position": "300, 180"
+    },
+
+    {
+      "Text": "For sure!",
+      "Position": "450, 160"
+    },
+    {
+      "Text": "I've packed some snacks and drinks.",
+      "Position": "450, 160"
+    },
+    {
+      "Text": "Let's make this a trip to remember!",
+      "Position": "450, 160"
+    },
+
+
+    {
+      "Text": "Haha, don't worry, Alex.",
+      "Position": "600, 140"
+    },
+    {
+      "Text": "We'll be fine.",
+      "Position": "620, 140"
+    },
+    {
+      "Text": " Just a bit of fun in the forest.",
+      "Position": "600, 140"
+    },
+    {
+      "Text": "Right?",
+      "Position": "650, 140"
+    },
+
+
+    {
+      "Text": "Yeah,",
+      "Position": "150, 200"
+    },
+    {
+      "Text": "let's enjoy ourselves",
+      "Position": "0, 200"
+    },
+    {
+      "Text": "but stay safe.",
+      "Position": "0, 200"
+    },
+    {
+      "Text": " Alright, let's go!",
+      "Position": "0, 200"
     }
-  ],
-  "comment 07 ": "Data about cutscenes",
-  "cutSceneString": [
-    "Bla bla bla",
-    "BloBloBLO"
+
 
   ],
-  "isCutScene": "false",
+
+  "isCutScene": "true",
   "cutSceneObjects": [
     {
-      "Position": "100,100",
-      "Rotation": "0",
-      "Scale": "1"
+      "Position": "300,240",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Pink"
+    },
+    {
+      "Position": "450,240",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Green"
+    },
+
+    {
+      "Position": "600,240",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Blue"
     }
-
   ]
-
 }
-

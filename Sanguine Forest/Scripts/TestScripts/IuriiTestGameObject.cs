@@ -33,7 +33,7 @@ namespace Sanguine_Forest.Scripts.TestScripts
 
             //Setting graphic and animation
             _SpriteModule = new SpriteModule(this, Vector2.Zero, 
-                content.Load<Texture2D>("Sprites/Sprites_Character_v1"), Extentions.SpriteLayer.character1);
+            content.Load<Texture2D>("Sprites/Sprites_Character_v1"), Extentions.SpriteLayer.character1);
 
             animations = new Dictionary<string, AnimationSequence>();
             animations.Add("Idle", new AnimationSequence(Vector2.Zero, 3));
@@ -47,7 +47,7 @@ namespace Sanguine_Forest.Scripts.TestScripts
 
 
 
-            //Setting audio Audio
+            ////Setting audio Audio
             sounds = new Dictionary<string, SoundEffectInstance>();
             sounds.Add("Run", content.Load<SoundEffect>("Sounds/Sound_Char_Run").CreateInstance());
             sounds.Add("Jump", content.Load<SoundEffect>("Sounds/Sound_Char_Jump").CreateInstance());

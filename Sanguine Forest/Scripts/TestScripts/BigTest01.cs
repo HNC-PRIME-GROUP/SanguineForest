@@ -285,7 +285,7 @@ namespace Sanguine_Forest
             FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
             //should be level 1
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "0" + ".json");
-
+            _playerState.savePoint = _currentScene.characterPosition;
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
             _character.savePosMoment += _playerState.SavePos;
@@ -299,10 +299,13 @@ namespace Sanguine_Forest
             if (_environmentManager is null)
             {
                 _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+                _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
+                _environmentManager.LevelEndTrigger += NextLevel;
+
             }
             _environmentManager.Initialise(_currentScene);
-            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
-            _environmentManager.LevelEndTrigger += NextLevel;
+
+
 
             //game state update
             _uiManager.SetGameState(UIManager.GameState.Playing);
@@ -319,7 +322,7 @@ namespace Sanguine_Forest
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/SavedState.json");
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
-
+            _playerState.savePoint = _currentScene.characterPosition;
             //Set character and camera
             _character = new Character2(_playerState.savePoint, 0, Content);
             _character.savePosMoment += _playerState.SavePos;
@@ -333,10 +336,15 @@ namespace Sanguine_Forest
             if (_environmentManager is null)
             {
                 _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+                _environmentManager.LevelEndTrigger += NextLevel;
+                _uiManager.LoadGameEvent += LoadGame;
+
             }
             _environmentManager.Initialise(_currentScene);
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
-            _environmentManager.LevelEndTrigger += NextLevel;
+            
+
+
 
             //Update the game state
             _uiManager.SetGameState(UIManager.GameState.Playing);
@@ -351,7 +359,8 @@ namespace Sanguine_Forest
         public void NextLevel(object sender, EventArgs e)
         {
             _playerState.lvlCounter++;
-            _environmentManager.LevelEndTrigger -= NextLevel;
+            //_environmentManager.LevelEndTrigger -= NextLevel;
+            //_uiManager.LoadGameEvent -= LoadGame;
             FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState.json");
             FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
             LoadGame(sender, e);

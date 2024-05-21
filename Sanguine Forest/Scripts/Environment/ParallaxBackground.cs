@@ -27,7 +27,7 @@ namespace Sanguine_Forest
             : base(position, rotation)
         {
             spriteModule = new SpriteModule(this, Vector2.Zero, texture, (Extentions.SpriteLayer)layer);
-            spriteModuleLeft = new SpriteModule(this, new Vector2(0, 0), texture, (Extentions.SpriteLayer)layer);
+            spriteModuleLeft = new SpriteModule(this, new Vector2(-texture.Width, 0), texture, (Extentions.SpriteLayer)layer);
             spriteModuleRight = new SpriteModule(this, new Vector2(texture.Width,0),texture, (Extentions.SpriteLayer)layer);
             //spriteModule.SetPosition(new Vector2(-texture.Width,0));
             this.target = target;
@@ -48,7 +48,7 @@ namespace Sanguine_Forest
             spriteModuleRight.UpdateMe();
             if(curPos!=prevPos)
             {
-
+            
             }
             shift += (curPos - prevPos) * parallaxSpeed * Extention.Extentions.globalTime;
             position.X += (curPos - prevPos) * parallaxSpeed*Extention.Extentions.globalTime;
@@ -68,9 +68,9 @@ namespace Sanguine_Forest
 
         public void DrawMe(SpriteBatch spriteBatch)
         {
-            //spriteModule.DrawMe(spriteBatch);
+            spriteModule.DrawMe(spriteBatch);
             spriteModuleLeft.DrawMe(spriteBatch);
-            //spriteModuleRight.DrawMe(spriteBatch);
+            spriteModuleRight.DrawMe(spriteBatch);
             
             DebugManager.DebugRectangle(spriteModuleLeft.GetDrawRectangle());
         }

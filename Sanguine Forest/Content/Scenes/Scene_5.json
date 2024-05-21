@@ -1,5 +1,5 @@
 {
-  "characterPosition": "0, 0",
+  "characterPosition": "15700,-600",
 
   "LeftUpperBound": "-100000,-10000",
   "RightBottomBound": "22000,100000",
@@ -15,11 +15,11 @@
 
     {
       "comment": "base floor",
-      "position": "-100,170",
+      "position": "800,170",
       "rotation": "0",
-      "platformSize": "2000,100"
+      "platformSize": "1500,100"
     },
-
+    //slime up half
     {
       "comment": "First platform",
       "position": "1150,-50",
@@ -31,7 +31,7 @@
       "comment": "Second floor",
       "position": "1650,100",
       "rotation": "0",
-      "platformSize": "1000,192"
+      "platformSize": "950,192"
     },
 
     {
@@ -68,13 +68,14 @@
       "rotation": "0",
       "platformSize": "700,200"
     },
+    //slimes up half
     {
       "comment": "Second Platform",
       "position": "3660,0",
       "rotation": "0",
       "platformSize": "400,200"
     },
-
+    //slimes up half
     {
       "comment": "Third Platform",
       "position": "4300,-180",
@@ -94,14 +95,14 @@
       "rotation": "0",
       "platformSize": "200,500"
     },
-
+    //Slime diagonal between plats
     {
       "comment": "Forth Platform",
       "position": "6370,-280",
       "rotation": "0",
       "platformSize": "400,200"
     },
-
+    //Slime diagonal between plats
     {
       "comment": "Third Wall",
       "position": "7000,-1600",
@@ -137,6 +138,7 @@
       "platformSize": "400,1700"
     },
 
+    // Slime on top from side to side brown
     {
       "comment": "5th Wall",
       "position": "9050,-600",
@@ -221,6 +223,7 @@
       "platformSize": "100,3040"
     },
 
+    //slime on top from side to side
     {
       "comment": "10th Floor",
       "position": "11350,-500",
@@ -256,6 +259,7 @@
       "platformSize": "200,250"
     },
 
+    //slime on top side to side 9800X
     {
       "comment": "14th Floor",
       "position": "12450,930",
@@ -333,6 +337,7 @@
       "platformSize": "800,200"
     },
 
+    //slime between platformsa
     {
       "comment": "10th Platform",
       "position": "13620,2420",
@@ -458,7 +463,7 @@
       "rotation": "0",
       "platformSize": "1600,200"
     },
-
+    // slime up down between plat befote to next
     {
       "comment": "15th Platform",
       "position": "15700,-500",
@@ -944,10 +949,98 @@
   ],
 
   "obstaclesData2": [
+    {
+      "Position": "1170, -750",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "1180,50",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "3750, -700",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "3765, 0",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "4395, -900",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "4405, -200",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+
+    {
+      "Position": "7065, -500",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "6675, 0",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+
+    {
+      "Position": "8800, -1000",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "9700, -800",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+
+    {
+      "Position": "8800, -1910",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "11700, -1890",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+
+    {
+      "Position": "11500, -800",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "12900, -780",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+
+    {
+      "Position": "13400, 1520",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "13410, 2820",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "16500, -660",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "14400, -640",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "15445, -0",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "15455, -1200",
+      "Speed": "2",
+      "Size": "200,200"
+    }
+
 
   ],
 
-  "obstaclesData3": [],
+  "obstaclesData3": [
+
+  ],
 
   "fallingPlatforms": [
     {

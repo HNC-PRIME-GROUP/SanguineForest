@@ -210,6 +210,10 @@ namespace Sanguine_Forest
             this.texture = texture;   
         }
 
+        public Texture2D GetTexture()
+        {
+            return texture;
+        }
 
 
         #endregion

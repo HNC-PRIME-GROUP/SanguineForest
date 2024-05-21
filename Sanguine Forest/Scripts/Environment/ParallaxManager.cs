@@ -14,30 +14,55 @@ namespace Sanguine_Forest
         
         private int _screenWidth;
         private int _screenHeight;
-        private Camera _camera;
+        private Camera target;
+
+        //parallax backgrounds
+        private List<ParallaxBackground> backgrounds;
 
 
-        public ParallaxManager(ContentManager content, GameObject target)
+        public ParallaxManager(ContentManager content, Camera target)
         {
+            this.target = target;
+            backgrounds = new List<ParallaxBackground>()
+            {
+                new ParallaxBackground(target.position, 0,content.Load<Texture2D>("Sprites/Background/background_day1"),
+                0.1f,0,target),
+                new ParallaxBackground(target.position, 0, content.Load<Texture2D>("Sprites/Background/background_day2"), 
+                0.2f, 10,target),
+                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day3"),
+                0.3f,20, target),
+                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4A"),
+                0.4f,40,target),
+                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4B"),
+                0.5f,50,target),
+                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4C"),
+                0.6f,60,target),
+                new ParallaxBackground(target.position,0,content.Load<Texture2D>("Sprites/Background/background_day4D"),
+                0.7f,70,target)
 
-
-            for(int i=0; i<)
+            };
 
         }
 
        
 
  
-        public void UpdateMe(Vector2 deltaMovement)
+        public void UpdateMe()
         {
-
+            for(int i =0;i<backgrounds.Count;i++)
+            {
+                backgrounds[i].UpdateMe();
+            }
         
         }
 
 
         public void DrawMe(SpriteBatch spriteBatch)
         {
-           
+            for (int i = 0; i < backgrounds.Count; i++)
+            {
+                backgrounds[i].DrawMe(spriteBatch);
+            }
         }
 
         public struct LayerPositionData

@@ -97,7 +97,7 @@ namespace Sanguine_Forest
 
             _currentScene = FileLoader.LoadFromJson<Scene>( FileLoader.RootFolder+ "/Scenes/SceneStart.json");
             //Set decor and parallaxing
-            _parallaxManager = new ParallaxManager(Content, _camera, _currentScene);
+            _parallaxManager = new ParallaxManager(Content, _camera);
 
             // Initialize UI manager. Create an Exit method for UIManager
             _uiManager = new UIManager(_spriteBatch, GraphicsDevice, Content);
@@ -142,7 +142,7 @@ namespace Sanguine_Forest
             switch (_uiManager.CurrentGameState)
             {
                 case UIManager.GameState.StartScreen:
-                    _parallaxManager.UpdateMe(new Vector2(15, 0)); //parallax update
+                    _parallaxManager.UpdateMe(); //parallax update
                     break;
                 case UIManager.GameState.Playing:
                     UpdatePlaying(gameTime);
@@ -163,7 +163,7 @@ namespace Sanguine_Forest
             _camera.UpdateMe();
                            
             //Parallax            
-            _parallaxManager.UpdateMe(new Vector2(_debugObserver.GetVelocity(), 0));
+            _parallaxManager.UpdateMe();
 
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -178,6 +178,9 @@ namespace Sanguine_Forest
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront);
+            _parallaxManager.DrawMe(_spriteBatch);
+            _spriteBatch.End();
 
             if (_uiManager.CurrentGameState == UIManager.GameState.Playing)
             {
@@ -186,7 +189,7 @@ namespace Sanguine_Forest
 
                 _environmentManager.DrawMe(_spriteBatch, _character.GetPosition());
                 _character.DrawMe(_spriteBatch);
-                _parallaxManager.DrawMe(_spriteBatch);
+               // _parallaxManager.DrawMe(_spriteBatch);
 
 
                 // Debug test
@@ -209,7 +212,7 @@ namespace Sanguine_Forest
             {
                 _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetCam());
 
-                _parallaxManager.DrawMe(_spriteBatch);
+               // _parallaxManager.DrawMe(_spriteBatch);
 
                 _spriteBatch.End();
 
@@ -229,7 +232,7 @@ namespace Sanguine_Forest
 
                 _environmentManager.DrawMe(_spriteBatch, _character.GetPosition());
                 _character.DrawMe(_spriteBatch);
-                _parallaxManager.DrawMe(_spriteBatch);
+              //  _parallaxManager.DrawMe(_spriteBatch);
 
                 _spriteBatch.End();
 
@@ -256,7 +259,7 @@ namespace Sanguine_Forest
             {
                 _character.UpdateMe(prevState, currState);
             }
-            _parallaxManager.UpdateMe(new Vector2(_character.GetVelocityX(), _character.GetVelocityY()));
+            _parallaxManager.UpdateMe();
 
         }
 

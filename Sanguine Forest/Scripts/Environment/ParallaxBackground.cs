@@ -26,9 +26,11 @@ namespace Sanguine_Forest
         public ParallaxBackground(Vector2 position, float rotation, Texture2D texture, float layer, float parallaxSpeed,  ref Camera target)
             : base(position, rotation)
         {
+
             spriteModule = new SpriteModule(this, new Vector2(texture.Width,0), texture, (Extentions.SpriteLayer)layer);
             spriteModuleLeft = new SpriteModule(this, new Vector2(0, 0), texture, (Extentions.SpriteLayer)layer);
             spriteModuleRight = new SpriteModule(this, new Vector2(texture.Width*2,0),texture, (Extentions.SpriteLayer)layer);
+
             //spriteModule.SetPosition(new Vector2(-texture.Width,0));
             this.target = target;
             //this.position = position;
@@ -48,7 +50,7 @@ namespace Sanguine_Forest
             spriteModuleRight.UpdateMe();
             if(curPos!=prevPos)
             {
-
+            
             }
             shift += (curPos - prevPos) * parallaxSpeed * Extention.Extentions.globalTime;
             position.X += (curPos - prevPos) * parallaxSpeed*Extention.Extentions.globalTime;

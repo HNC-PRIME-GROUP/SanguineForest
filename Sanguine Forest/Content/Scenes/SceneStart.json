@@ -145,5 +145,14 @@
     "underground_Mid": { "initialPosition": "-200, 1200" },
     "underground_Fore": { "initialPosition": "-200,1300" }
 
-  }
+  },
+  "background_Fore": { "initialPosition": "-200, -250" },
+  "background_Fore_Mid": { "initialPosition": "-200, -450" },
+  "background_Mid": { "initialPosition": "-200, -450" },
+  "background_Mid_Back": { "initialPosition": "-200, -600" },
+  "background_Back": { "initialPosition": "-200, -800" },
+
+  "underground_Back": { "initialPosition": "-200, 1100" },
+  "underground_Mid": { "initialPosition": "-200, 1200" },
+  "underground_Fore": { "initialPosition": "-200,1300" }
 }

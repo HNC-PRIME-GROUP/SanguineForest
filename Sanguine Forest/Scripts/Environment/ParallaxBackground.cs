@@ -27,9 +27,9 @@ namespace Sanguine_Forest
             : base(position, rotation)
         {
 
-            spriteModule = new SpriteModule(this, new Vector2(texture.Width,0), texture, (Extentions.SpriteLayer)layer);
+            spriteModule = new SpriteModule(this, new Vector2(texture.Width + 1,0), texture, (Extentions.SpriteLayer)layer);
             spriteModuleLeft = new SpriteModule(this, new Vector2(0, 0), texture, (Extentions.SpriteLayer)layer);
-            spriteModuleRight = new SpriteModule(this, new Vector2(texture.Width*2,0),texture, (Extentions.SpriteLayer)layer);
+            spriteModuleRight = new SpriteModule(this, new Vector2((texture.Width*2) - 1,0),texture, (Extentions.SpriteLayer)layer);
 
             //spriteModule.SetPosition(new Vector2(-texture.Width,0));
             this.target = target;

@@ -202,7 +202,7 @@ namespace Sanguine_Forest
                 _SpriteModule.SetSpriteEffects(direction.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
 
                 // Debug log for walking to target
-                Debug.WriteLine($"Walking to target. Direction: {direction}, Velocity: {_velocity}, Target Position: {_targetPosition}");
+                //Debug.WriteLine($"Walking to target. Direction: {direction}, Velocity: {_velocity}, Target Position: {_targetPosition}");
             }
             else
             {
@@ -307,7 +307,7 @@ namespace Sanguine_Forest
             // _gravityEffect = 0f;
             //_velocity.Y = 0f;
 
-            Debug.WriteLine($"Walk Update. Position: {position}, Velocity: {_velocity}");
+            //Debug.WriteLine($"Walk Update. Position: {position}, Velocity: {_velocity}");
         }
 
         public void JumpUpdate(KeyboardState prev, KeyboardState curr)
@@ -651,7 +651,7 @@ namespace Sanguine_Forest
             this.isWalkingToTarget = true;
             this._currentState = CharState.walkToTarget;
 
-            Debug.WriteLine($"Set target position: {targetPosition}");
+            //Debug.WriteLine($"Set target position: {targetPosition}");
         }
 
 

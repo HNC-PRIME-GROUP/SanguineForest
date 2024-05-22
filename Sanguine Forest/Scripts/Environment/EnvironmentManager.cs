@@ -422,8 +422,8 @@ namespace Sanguine_Forest
             {
                 bool showPressE = !isDialogueActive && !ShowOptions && trigger.currentState == LevelTrigger.TriggerState.phase1;
                 trigger.DrawMe(spriteBatch, showPressE);
-                DebugManager.DebugString($"Trigger Position: {trigger.GetPosition()}", new Vector2(0, 60));
-                DebugManager.DebugString($"Trigger State: {trigger.currentState}", new Vector2(0, 80)); // Add this line to track the state
+                //DebugManager.DebugString($"Trigger Position: {trigger.GetPosition()}", new Vector2(0, 60));
+                //DebugManager.DebugString($"Trigger State: {trigger.currentState}", new Vector2(0, 80)); // Add this line to track the state
 
             }
 

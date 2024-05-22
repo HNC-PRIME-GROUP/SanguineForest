@@ -151,7 +151,7 @@ namespace Sanguine_Forest
                 float targetY = -cameraTarget.GetPosition().Y + (screenSize.Y / 2f) / zoom;
 
                 if (targetX + screenSize.X / (2 * zoom) < rightBottomBorder.X &&
-                    targetX + screenSize.X / (2 * zoom) > leftUpperBorder.X)
+                    targetX > leftUpperBorder.X)
                 {
                     position.X = MathHelper.Lerp(position.X, targetX, 0.04f);
                     _velocity.X = position.X - targetX;

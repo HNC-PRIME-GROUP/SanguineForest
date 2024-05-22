@@ -176,7 +176,7 @@ namespace Sanguine_Forest
             SpriteModule.SetScale(0.4f);
             SpriteModule.AnimtaionInitialise(AnimationModule);
             AnimationModule.SetAnimationSpeed(0.5f);
-            PhysicModule = new PhysicModule(this, Vector2.Zero, new Vector2(100, 100));
+            PhysicModule = new PhysicModule(this, new Vector2(100,50), new Vector2(100, 300));
 
             EndTimer = MaxTimer;
         }
@@ -219,6 +219,7 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch sp, bool showPressE)
         {
             SpriteModule.DrawMe(sp);
+            DebugManager.DebugRectangle(PhysicModule.GetPhysicRectangle());
 
         }
     

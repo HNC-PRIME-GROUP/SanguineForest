@@ -149,13 +149,11 @@ namespace Sanguine_Forest
                     UpdatePlaying(gameTime);
                     break;
                 case UIManager.GameState.Paused:
-                    _environmentManager.UpdateMe(); //Environment update
+                    //_environmentManager.UpdateMe(); 
                     break;
                 case UIManager.GameState.InstructionsFromStart:
-                    // freeze the game or setup for restart
                     break;
                 case UIManager.GameState.InstructionsFromPause:
-                    // freeze the game or setup for restart
                     break;
             }
 
@@ -330,7 +328,7 @@ namespace Sanguine_Forest
                 _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
                 _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
                 _environmentManager.LevelEndTrigger += NextLevel;
-                _environmentManager.YesOptionSelected += _environmentManager.OnYesOptionSelected; // Subscribe to the new event
+                //_environmentManager.YesOptionSelected += _environmentManager.OnYesOptionSelected; // Subscribe to the new event
             }
             _environmentManager.DialogueEnd += _character.CharacterEndDialogue;
             _environmentManager.Initialise(_currentScene);
@@ -368,8 +366,8 @@ namespace Sanguine_Forest
                 _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
                 _environmentManager.LevelEndTrigger += NextLevel;
                 _uiManager.LoadGameEvent += LoadGame;
-                _environmentManager.YesOptionSelected +=
-_environmentManager.OnYesOptionSelected;
+                //_environmentManager.YesOptionSelected +=
+                //_environmentManager.OnYesOptionSelected;
 
             }
             _environmentManager.DialogueEnd += _character.CharacterEndDialogue;

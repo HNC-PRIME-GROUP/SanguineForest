@@ -212,28 +212,31 @@ namespace Sanguine_Forest
                     }
                 }
             }
+            obstacles1 = new List<Obstacle>();
 
             if (obstacles2 != null)
             {
                 if (obstacles2.Count > 0)
                 {
-                    for (int i = 0; i < obstacles1.Count; i++)
+                    for (int i = 0; i < obstacles2.Count; i++)
                     {
                         obstacles2[i].DeleteMe();
                     }
                 }
             }
+            obstacles2=new List<Obstacle>();
 
             if (obstacles3 != null)
             {
                 if (obstacles3.Count > 0)
                 {
-                    for (int i = 0; i < obstacles1.Count; i++)
+                    for (int i = 0; i < obstacles3.Count; i++)
                     {
                         obstacles3[i].DeleteMe();
                     }
                 }
             }
+            obstacles3 = new List<Obstacle>();
 
 
             //grassDecor = new List<Decor>();
@@ -727,7 +730,7 @@ namespace Sanguine_Forest
                 else if (currentKeyboardState.IsKeyDown(Keys.N) && !previousKeyboardState.IsKeyDown(Keys.N))
                 {
                     // Handle NO option
-                    OnNoOptionSelected(this, EventArgs.Empty);
+                   // OnNoOptionSelected(this, EventArgs.Empty);
                     ShowOptions = false;
                     trigger.MoveToEnd();
                 }
@@ -806,28 +809,33 @@ namespace Sanguine_Forest
                     }
                 }
             }
+            obstacles1 = new List<Obstacle>();
 
             if (obstacles3 != null)
             {
                 if (obstacles3.Count > 0)
                 {
-                    for (int i = 0; i < obstacles1.Count; i++)
+                    for (int i = 0; i < obstacles3.Count; i++)
                     {
                         obstacles3[i].DeleteMe();
                     }
                 }
             }
+            obstacles3 = new List<Obstacle>();
+    
 
             if (obstacles2 != null)
             {
                 if (obstacles2.Count > 0)
                 {
-                    for (int i = 0; i < obstacles1.Count; i++)
+                    for (int i = 0; i < obstacles2.Count; i++)
                     {
                         obstacles2[i].DeleteMe();
                     }
                 }
             }
+            obstacles2 = new List<Obstacle>();
+
 
         }
     }

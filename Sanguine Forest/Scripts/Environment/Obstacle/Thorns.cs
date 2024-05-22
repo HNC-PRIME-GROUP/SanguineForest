@@ -53,7 +53,7 @@ namespace Sanguine_Forest.Scripts.Environment.Obstacle
                     new Rectangle(0, 0, (int)tileSize.Y, (int)tileSize.X));
 
 
-                _physicModule = new PhysicModule(this, new Vector2(0, 20), new Vector2((int)Math.Round(thornsSize.X / tileSize.Y) * tileSize.Y ,
+                _physicModule = new PhysicModule(this, new Vector2(20, 20), new Vector2((int)Math.Round(thornsSize.X / tileSize.Y) * tileSize.Y-40 ,
                     (int)Math.Round(thornsSize.Y / tileSize.X) * tileSize.X - 40));
             
             

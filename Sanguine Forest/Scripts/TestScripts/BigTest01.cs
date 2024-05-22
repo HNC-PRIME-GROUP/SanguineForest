@@ -205,8 +205,11 @@ namespace Sanguine_Forest
 
                 // Begin a new sprite batch without camera transformations for UI and Cutscene
                 _spriteBatch.Begin();
+                _environmentManager.DrawLevelDialogues(_spriteBatch, cameraTransform);
                 _environmentManager.DrawCutSceneDialogues(_spriteBatch, cameraTransform);
                 _environmentManager.DrawPressEPrompts(_spriteBatch, cameraTransform, _character.GetPosition());
+                _environmentManager.DrawLevelPressE(_spriteBatch, cameraTransform, _character.GetPosition());
+                _environmentManager.DrawOptions(_spriteBatch, cameraTransform);
                 _spriteBatch.End();
             }
             else if (_uiManager.CurrentGameState == UIManager.GameState.StartScreen)
@@ -280,7 +283,7 @@ namespace Sanguine_Forest
             // Update all game logic here when in Playing state
             _environmentManager.UpdateMe();
             _camera.UpdateMe();
-            if (!isObserverWork)
+            if (!isObserverWork && !_environmentManager.ShowOptions)
             {
                 _character.UpdateMe(prevState, currState);
             }
@@ -288,6 +291,10 @@ namespace Sanguine_Forest
 
             // Update cutscene
             _environmentManager.UpdateCutscene(gameTime, currState, prevState, _character);
+            // Update level dialogues
+            _environmentManager.UpdateLevelDialogues(gameTime, currState, prevState, _character);
+            // Handle option selection
+            _environmentManager.HandleOptionSelection(gameTime, currState, prevState);
 
         }
 
@@ -323,8 +330,9 @@ namespace Sanguine_Forest
                 _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
                 _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
                 _environmentManager.LevelEndTrigger += NextLevel;
-
+                _environmentManager.YesOptionSelected += _environmentManager.OnYesOptionSelected; // Subscribe to the new event
             }
+            _environmentManager.DialogueEnd += _character.CharacterEndDialogue;
             _environmentManager.Initialise(_currentScene);
 
 
@@ -360,8 +368,11 @@ namespace Sanguine_Forest
                 _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
                 _environmentManager.LevelEndTrigger += NextLevel;
                 _uiManager.LoadGameEvent += LoadGame;
+                _environmentManager.YesOptionSelected +=
+_environmentManager.OnYesOptionSelected;
 
             }
+            _environmentManager.DialogueEnd += _character.CharacterEndDialogue;
             _environmentManager.Initialise(_currentScene);
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
             

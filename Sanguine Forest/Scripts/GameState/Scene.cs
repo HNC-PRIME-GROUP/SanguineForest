@@ -57,6 +57,8 @@ namespace Sanguine_Forest
         public Vector2 LeftUpperBound;
         public Vector2 RightBottomBound;
 
+        public List<LevelDialogueData> LevelDialogueData { get; set; } // Add LevelDialogueData field
+
 
         public Scene()
         {

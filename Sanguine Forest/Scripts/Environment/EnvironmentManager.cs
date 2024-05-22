@@ -38,6 +38,8 @@ namespace Sanguine_Forest
         //Level end trigger
         public event EventHandler LevelEndTrigger;
         public event EventHandler YesOptionSelected; // New event
+        public event EventHandler NoOptionSelected; // New event
+
         private List<LevelDialogueData> levelDialogues; // New list for level dialogues
         public bool ShowOptions = false;
         private bool isMovingToTrigger = false;
@@ -71,6 +73,8 @@ namespace Sanguine_Forest
         //scene
         public Scene currentScene;
         public bool isYesOption;
+        public bool isNoOption;
+
 
         public EnvironmentManager(ContentManager content, PlayerState playerState, Texture2D semiTransparentTexture)
         {
@@ -101,6 +105,8 @@ namespace Sanguine_Forest
         };
 
             YesOptionSelected += OnYesOptionSelected;
+            NoOptionSelected += OnNoOptionSelected;
+
 
         }
 
@@ -109,6 +115,7 @@ namespace Sanguine_Forest
         {
             currentScene = scene;
             isYesOption = false;
+            isNoOption = false;
 
             //showOptions = false;
 
@@ -275,7 +282,6 @@ namespace Sanguine_Forest
                 }
             }
 
-            // Initialize patch decors from JSON
             patchDecors = new List<PatchDecor>();
             foreach (var patchData in scene.patchDecors)
             {
@@ -297,14 +303,6 @@ namespace Sanguine_Forest
                     cutSceneObjects.Add(new CutSceneObject(data.Position, data.Rotation, content, data.NPCType, font, semiTransparentTexture));
                 }
             }
-
-            ////initialise the level end trigger
-            //if (!scene.isCutScene)
-            //{
-
-            //    trigger = new LevelTrigger(scene.levelTrigger.position, content, (SpriteEffects)scene.levelTrigger.SpriteEffect);
-            //    trigger.LevelEnd += LevelEnd;
-            //}
 
 
             // Initialize the level end trigger
@@ -729,6 +727,7 @@ namespace Sanguine_Forest
                 else if (currentKeyboardState.IsKeyDown(Keys.N) && !previousKeyboardState.IsKeyDown(Keys.N))
                 {
                     // Handle NO option
+                    OnNoOptionSelected(this, EventArgs.Empty);
                     ShowOptions = false;
                     trigger.MoveToEnd();
                 }
@@ -795,6 +794,41 @@ namespace Sanguine_Forest
 
         }
 
-     
+        public void OnNoOptionSelected(object sender, EventArgs e)
+        {
+            if (obstacles1 != null)
+            {
+                if (obstacles1.Count > 0)
+                {
+                    for (int i = 0; i < obstacles1.Count; i++)
+                    {
+                        obstacles1[i].DeleteMe();
+                    }
+                }
+            }
+
+            if (obstacles3 != null)
+            {
+                if (obstacles3.Count > 0)
+                {
+                    for (int i = 0; i < obstacles1.Count; i++)
+                    {
+                        obstacles3[i].DeleteMe();
+                    }
+                }
+            }
+
+            if (obstacles2 != null)
+            {
+                if (obstacles2.Count > 0)
+                {
+                    for (int i = 0; i < obstacles1.Count; i++)
+                    {
+                        obstacles2[i].DeleteMe();
+                    }
+                }
+            }
+
+        }
     }
 }

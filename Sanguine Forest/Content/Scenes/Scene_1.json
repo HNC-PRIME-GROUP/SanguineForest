@@ -458,36 +458,36 @@
   "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "decors": [
 
-    {
-      "Position": "0,40",
-      "Rotation": "0.5",
-      "GrassType": "Flower"
-    },
-    {
-      "Position": "200,40",
-      "Rotation": "0",
-      "GrassType": "Grass4"
-    },
-    {
-      "Position": "100,40",
-      "Rotation": "0",
-      "GrassType": "Grass2"
-    },
-    {
-      "Position": "-140,80",
-      "Rotation": "0",
-      "GrassType": "Flower"
-    },
-    {
-      "position": "-50, -300",
-      "rotation": "-0.5",
-      "GrassType": "Grass3"
-    },
-    {
-      "position": "-50, -320",
-      "rotation": "0.5",
-      "GrassType": "Grass2"
-    }
+    //{
+    //  "Position": "0,40",
+    //  "Rotation": "0.5",
+    //  "GrassType": "Flower"
+    //},
+    //{
+    //  "Position": "200,40",
+    //  "Rotation": "0",
+    //  "GrassType": "Grass4"
+    //},
+    //{
+    //  "Position": "100,40",
+    //  "Rotation": "0",
+    //  "GrassType": "Grass2"
+    //},
+    //{
+    //  "Position": "-140,80",
+    //  "Rotation": "0",
+    //  "GrassType": "Flower"
+    //},
+    //{
+    //  "position": "-50, -300",
+    //  "rotation": "-0.5",
+    //  "GrassType": "Grass3"
+    //},
+    //{
+    //  "position": "-50, -320",
+    //  "rotation": "0.5",
+    //  "GrassType": "Grass2"
+    //}
 
   ],
 
@@ -510,6 +510,14 @@
 
   "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
   "obstaclesData1": [
+    {
+      "Position": "0, 550",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "0,550",
+      "Speed": "2",
+      "Size": "200,200"
+    },
 
     {
       "Position": "11850, 150",

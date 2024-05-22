@@ -66,6 +66,10 @@ namespace Sanguine_Forest
         private List<SoundEffectInstance> dialogueSounds;
         private Random _rng;
 
+        //scene
+        public Scene currentScene;
+        public bool isYesOption;
+
         public EnvironmentManager(ContentManager content, PlayerState playerState, Texture2D semiTransparentTexture)
         {
             this.content = content;
@@ -94,11 +98,16 @@ namespace Sanguine_Forest
 
         };
 
+            YesOptionSelected += OnYesOptionSelected;
+
         }
 
         // Initialize all platforms and other environment from the scene
         public void Initialise(Scene scene)
         {
+            currentScene = scene;
+            isYesOption = false;
+
             if (platforms != null)
             {
                 if (platforms.Count > 0)
@@ -192,11 +201,7 @@ namespace Sanguine_Forest
                     }
                 }
             }
-            obstacles1 = new List<Obstacle>();
-            foreach (var obstacle in scene.obstaclesData1)
-            {
-                obstacles1.Add(new Obstacle(obstacle.Position, obstacle.Rotation, content, obstacle.slimeType, obstacle.finPosition, obstacle.Speed, obstacle.Size));
-            }
+
             if (obstacles2 != null)
             {
                 if (obstacles2.Count > 0)
@@ -207,11 +212,7 @@ namespace Sanguine_Forest
                     }
                 }
             }
-            obstacles2 = new List<Obstacle>();
-            foreach (var obstacle in scene.obstaclesData2)
-            {
-                obstacles2.Add(new Obstacle(obstacle.Position, obstacle.Rotation, content, obstacle.slimeType, obstacle.finPosition, obstacle.Speed, obstacle.Size));
-            }
+
             if (obstacles3 != null)
             {
                 if (obstacles3.Count > 0)
@@ -222,11 +223,7 @@ namespace Sanguine_Forest
                     }
                 }
             }
-            obstacles3 = new List<Obstacle>();
-            foreach (var obstacle in scene.obstaclesData3)
-            {
-                obstacles3.Add(new Obstacle(obstacle.Position, obstacle.Rotation, content, obstacle.slimeType, obstacle.finPosition, obstacle.Speed, obstacle.Size));
-            }
+
 
             //grassDecor = new List<Decor>();
             //foreach (var platform in platforms)
@@ -305,12 +302,14 @@ namespace Sanguine_Forest
             //    trigger.LevelEnd += LevelEnd;
             //}
 
+
             // Initialize the level end trigger
             if (!scene.isCutScene)
             {
                 Vector2 startPosition = scene.levelTrigger.startPosition;
                 Vector2 endPosition = scene.levelTrigger.endPosition;
-                trigger = new LevelTrigger(startPosition, endPosition, content, (SpriteEffects)scene.levelTrigger.SpriteEffect, font, semiTransparentTexture);
+                trigger = new LevelTrigger(startPosition, endPosition, content,
+                    (SpriteEffects)scene.levelTrigger.SpriteEffect, font, semiTransparentTexture);
                 trigger.LevelEnd += LevelEnd;
                 levelDialogues = scene.LevelDialogueData; // Assign the dialogue to the level dialogue list
             }
@@ -360,9 +359,12 @@ namespace Sanguine_Forest
             foreach (var platform in fallingPlatforms) { platform.UpdateMe(); }
 
             // Update obstacles
-            foreach (var obstacle in obstacles1) { obstacle.UpdateMe(); }
-            foreach (var obstacle in obstacles2) { obstacle.UpdateMe(); }
-            foreach (var obstacle in obstacles3) { obstacle.UpdateMe(); }
+            if (isYesOption)
+            {
+                foreach (var obstacle in obstacles1) { obstacle.UpdateMe(); }
+                foreach (var obstacle in obstacles2) { obstacle.UpdateMe(); }
+                foreach (var obstacle in obstacles3) { obstacle.UpdateMe(); }
+            }
 
             // Update decors
             foreach (var decor in grassDecor) { decor.UpdateMe(); }
@@ -396,9 +398,12 @@ namespace Sanguine_Forest
             foreach (var thorn in thorns) { thorn.DrawMe(spriteBatch); }
 
             // Draw obstacles
-            foreach (var obstacle in obstacles1) { obstacle.Draw(spriteBatch); }
-            foreach (var obstacle in obstacles2) { obstacle.Draw(spriteBatch); }
-            foreach (var obstacle in obstacles3) { obstacle.Draw(spriteBatch); }
+            if (isYesOption)
+            {
+                foreach (var obstacle in obstacles1) { obstacle.Draw(spriteBatch); }
+                foreach (var obstacle in obstacles2) { obstacle.Draw(spriteBatch); }
+                foreach (var obstacle in obstacles3) { obstacle.Draw(spriteBatch); }
+            }
 
             // Draw decors
             foreach (var decor in grassDecor) { decor.DrawMe(spriteBatch); }
@@ -709,7 +714,8 @@ namespace Sanguine_Forest
             {
                 if (currentKeyboardState.IsKeyDown(Keys.Y) && !previousKeyboardState.IsKeyDown(Keys.Y))
                 {
-                    YesOptionSelected?.Invoke(this, EventArgs.Empty); // Raise the event
+                    //YesOptionSelected?.Invoke(this, EventArgs.Empty); // Raise the event
+                    OnYesOptionSelected(this, EventArgs.Empty);
                     // Handle YES option
                     showOptions = false;
                     trigger.MoveToEnd();
@@ -729,10 +735,59 @@ namespace Sanguine_Forest
             LevelEndTrigger?.Invoke(sender, e);
         }
 
+
         public void OnYesOptionSelected(object sender, EventArgs e)
         {
-            Console.WriteLine("Yes option selected!");
+            isYesOption = true;
+            if (obstacles1 != null)
+            {
+                if (obstacles1.Count > 0)
+                {
+                    for (int i = 0; i < obstacles1.Count; i++)
+                    {
+                        obstacles1[i].DeleteMe();
+                    }
+                }
+            }
+            obstacles1 = new List<Obstacle>();
+            foreach (var obstacle in currentScene.obstaclesData1)
+            {
+                obstacles1.Add(new Obstacle(obstacle.Position, obstacle.Rotation, content, obstacle.slimeType, obstacle.finPosition, obstacle.Speed, obstacle.Size));
+            }
+            if (obstacles2 != null)
+            {
+                if (obstacles2.Count > 0)
+                {
+                    for (int i = 0; i < obstacles1.Count; i++)
+                    {
+                        obstacles2[i].DeleteMe();
+                    }
+                }
+            }
+            obstacles2 = new List<Obstacle>();
+            foreach (var obstacle in currentScene.obstaclesData2)
+            {
+                obstacles2.Add(new Obstacle(obstacle.Position, obstacle.Rotation, content, obstacle.slimeType, obstacle.finPosition, obstacle.Speed, obstacle.Size));
+            }
+            if (obstacles3 != null)
+            {
+                if (obstacles3.Count > 0)
+                {
+                    for (int i = 0; i < obstacles1.Count; i++)
+                    {
+                        obstacles3[i].DeleteMe();
+                    }
+                }
+            }
+            obstacles3 = new List<Obstacle>();
+            foreach (var obstacle in currentScene.obstaclesData3)
+            {
+                obstacles3.Add(new Obstacle(obstacle.Position, obstacle.Rotation, content, obstacle.slimeType, obstacle.finPosition, obstacle.Speed, obstacle.Size));
+            }
+
+
         }
 
+     
     }
 }

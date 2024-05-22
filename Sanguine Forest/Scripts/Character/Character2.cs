@@ -466,6 +466,10 @@ namespace Sanguine_Forest
 
             if (collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
+                Platform prevPlatform = null;
+
+                
+
                 Platform platform = (Platform)collision.GetCollidedPhysicModule().GetParent();
 
                 if (collision.GetCollidedPhysicModule().GetParent() is Thorns)
@@ -484,6 +488,7 @@ namespace Sanguine_Forest
                     {
                         SavePoint = new Vector2(position.X, position.Y);
                         savePosMoment?.Invoke(this, new SaveCharacterDataArgs(SavePoint));
+                        
 
                     }
                     return;

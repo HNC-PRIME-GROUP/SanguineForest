@@ -1,6 +1,11 @@
 {
+<<<<<<< Updated upstream
   "lvlCounter": 1,
   "savePoint": "844, 30",
+=======
+  "lvlCounter": 0,
+  "savePoint": "0, 0",
+>>>>>>> Stashed changes
   "RiskLevel": 0,
   "IsAlive": true
 }

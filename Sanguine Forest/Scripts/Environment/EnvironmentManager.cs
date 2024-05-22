@@ -39,7 +39,7 @@ namespace Sanguine_Forest
         public event EventHandler LevelEndTrigger;
         public event EventHandler YesOptionSelected; // New event
         private List<LevelDialogueData> levelDialogues; // New list for level dialogues
-        private bool showOptions = false;
+        public bool ShowOptions = false;
         private bool isMovingToTrigger = false;
 
 
@@ -419,7 +419,7 @@ namespace Sanguine_Forest
             //Draw trigger
             if (!isCutScene)
             {
-                bool showPressE = !isDialogueActive && !showOptions && trigger.currentState == LevelTrigger.TriggerState.phase1;
+                bool showPressE = !isDialogueActive && !ShowOptions && trigger.currentState == LevelTrigger.TriggerState.phase1;
                 trigger.DrawMe(spriteBatch, showPressE);
                 DebugManager.DebugString($"Trigger Position: {trigger.GetPosition()}", new Vector2(0, 60));
                 DebugManager.DebugString($"Trigger State: {trigger.currentState}", new Vector2(0, 80)); // Add this line to track the state
@@ -603,7 +603,7 @@ namespace Sanguine_Forest
         {
             if (!isCutScene && !isDialogueActive)
             {
-                bool showPressE = !isDialogueActive && !showOptions && trigger.currentState == LevelTrigger.TriggerState.phase1 && Vector2.Distance(characterPosition, trigger.GetPosition()) < proximityRange;
+                bool showPressE = !isDialogueActive && !ShowOptions && trigger.currentState == LevelTrigger.TriggerState.phase1 && Vector2.Distance(characterPosition, trigger.GetPosition()) < proximityRange;
 
 
                 if (showPressE)
@@ -646,7 +646,7 @@ namespace Sanguine_Forest
             {
                 if (currentKeyboardState.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E))
                 {
-                    if (!isDialogueActive && !showOptions)
+                    if (!isDialogueActive && !ShowOptions)
                     {
                         isDialogueActive = true;
                         isMovingToTrigger = true;
@@ -661,7 +661,7 @@ namespace Sanguine_Forest
                         if (currentDialogueIndex >= levelDialogues.Count)
                         {
                             isDialogueActive = false;
-                            showOptions = true;
+                            ShowOptions = true;
                             currentDialogueIndex = 0;
                             DialogueEnd?.Invoke(this, EventArgs.Empty);
                             trigger.ShowOptions();
@@ -689,7 +689,7 @@ namespace Sanguine_Forest
 
         public void DrawOptions(SpriteBatch spriteBatch, Matrix cameraTransform)
         {
-            if (showOptions)
+            if (ShowOptions)
             {
                 string yesText = "(Y)YES\n" +
                     "(N)NO";
@@ -716,20 +716,20 @@ namespace Sanguine_Forest
 
         public void HandleOptionSelection(GameTime gameTime, KeyboardState currentKeyboardState, KeyboardState previousKeyboardState)
         {
-            if (showOptions)
+            if (ShowOptions)
             {
                 if (currentKeyboardState.IsKeyDown(Keys.Y) && !previousKeyboardState.IsKeyDown(Keys.Y))
                 {
                     //YesOptionSelected?.Invoke(this, EventArgs.Empty); // Raise the event
                     OnYesOptionSelected(this, EventArgs.Empty);
                     // Handle YES option
-                    showOptions = false;
+                    ShowOptions = false;
                     trigger.MoveToEnd();
                 }
                 else if (currentKeyboardState.IsKeyDown(Keys.N) && !previousKeyboardState.IsKeyDown(Keys.N))
                 {
                     // Handle NO option
-                    showOptions = false;
+                    ShowOptions = false;
                     trigger.MoveToEnd();
                 }
             }

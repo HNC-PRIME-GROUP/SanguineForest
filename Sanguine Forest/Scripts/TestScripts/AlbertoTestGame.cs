@@ -284,7 +284,7 @@ namespace Sanguine_Forest
             // Update all game logic here when in Playing state
             _environmentManager.UpdateMe();
             _camera.UpdateMe();
-            if (!isObserverWork)
+            if (!isObserverWork && !_environmentManager.ShowOptions)
             {
                 _character.UpdateMe(prevState, currState);
             }

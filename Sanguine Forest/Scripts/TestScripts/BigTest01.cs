@@ -79,7 +79,7 @@ namespace Sanguine_Forest
             DebugManager.SpriteBatch = _spriteBatch;
             DebugManager.DebugTexture = Content.Load<Texture2D>("Extentions/DebugBounds");
             DebugManager.DebugFont = Content.Load<SpriteFont>("Extentions/debugFont");
-            DebugManager.isWorking = true;
+            DebugManager.isWorking = false;
 
 
 

@@ -84,19 +84,19 @@ namespace Sanguine_Forest
             // Initialize dialogue sounds
             dialogueSounds = new List<SoundEffectInstance>
         {
-            content.Load<SoundEffect>("Sounds/Dialogue_1").CreateInstance(),
+            content.Load<SoundEffect>("Sounds/Dialogue_2").CreateInstance(),
             content.Load<SoundEffect>("Sounds/Dialogue_3").CreateInstance(),
             content.Load<SoundEffect>("Sounds/Dialogue_4").CreateInstance(),
-            content.Load<SoundEffect>("Sounds/Dialogue_5").CreateInstance(),
+            //content.Load<SoundEffect>("Sounds/Dialogue_5").CreateInstance(),
             content.Load<SoundEffect>("Sounds/Dialogue_6").CreateInstance(),
-            content.Load<SoundEffect>("Sounds/Dialogue_7").CreateInstance(),
+            //content.Load<SoundEffect>("Sounds/Dialogue_7").CreateInstance(),
             content.Load<SoundEffect>("Sounds/Dialogue_8").CreateInstance(),
-            content.Load<SoundEffect>("Sounds/Dialogue_9").CreateInstance(),
+            //content.Load<SoundEffect>("Sounds/Dialogue_9").CreateInstance(),
             content.Load<SoundEffect>("Sounds/Dialogue_10").CreateInstance(),
-            content.Load<SoundEffect>("Sounds/Dialogue_11").CreateInstance(),
+            //content.Load<SoundEffect>("Sounds/Dialogue_11").CreateInstance(),
             content.Load<SoundEffect>("Sounds/Dialogue_12").CreateInstance(),
             content.Load<SoundEffect>("Sounds/Dialogue_13").CreateInstance(),
-            content.Load<SoundEffect>("Sounds/Dialogue_14").CreateInstance()
+            //content.Load<SoundEffect>("Sounds/Dialogue_14").CreateInstance()
 
         };
 

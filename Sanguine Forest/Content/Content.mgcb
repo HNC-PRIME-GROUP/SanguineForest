@@ -183,6 +183,12 @@
 /processorParam:Quality=Best
 /build:Sounds/Dialogue_14.wav
 
+#begin Sounds/Dialogue_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Dialogue_2.wav
+
 #begin Sounds/Dialogue_3.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

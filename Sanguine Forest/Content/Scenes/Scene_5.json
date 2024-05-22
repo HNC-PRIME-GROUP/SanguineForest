@@ -6,6 +6,13 @@
 
   "comment": "Simple platforms",
   "simplePlatforms": [
+
+    {
+      "comment": "First Edge",
+      "position": "-280,-1000",
+      "rotation": "0",
+      "platformSize": "200,1310"
+    },
     {
       "comment": "First floor",
       "position": "-100,100",
@@ -546,6 +553,13 @@
       "position": "19000,-2000",
       "rotation": "0",
       "platformSize": "200,2500"
+    },
+
+    {
+      "comment": "22nd Wall",
+      "position": "20520,-2000",
+      "rotation": "0",
+      "platformSize": "200,3500"
     }
 
   ],
@@ -1073,7 +1087,7 @@
 
   "levelTrigger": {
     "startPosition": "500, -100",
-    "endPosition": "600,-100",
+    "endPosition": "19000, 600",
     "SpriteEffect": "1"
   },
   "comment 06 ": "Data about level dialogue",
@@ -1082,28 +1096,34 @@
 
 
     {
-      "Text": "Right hole will kill you!",
-      "Position": "-100, 180"
+      "Text": "Hey! It's 'you again!",
+      "Position": "470, -80"
     },
     {
-      "Text": "Left hole will kill you more!",
-      "Position": "-100, 180"
+      "Text": "How did it go?!",
+      "Position": "470, -80"
     },
     {
-      "Text": "What should I do then?",
-      "Position": "-400, 160"
+      "Text": "You look like a strong lad",
+      "Position": "470, -80"
     },
     {
-      "Text": "Jump head first!",
-      "Position": "-100, 160"
+      "Text": "Do you want another try of the bottle?",
+      "Position": "470, -80"
     },
     {
-      "Text": "Fuck yeah!",
-      "Position": "-400, 180"
+      "Text": "You will need it if you are going to face what lays ahead",
+      "Position": "470, -80"
     },
+
     {
-      "Text": "I WANT MORE! \nMOOOOREEEEE!!!!",
-      "Position": "-400, 180"
+      "Text": "HAHAHAHA",
+      "Position": "470, -80"
+    },
+
+    {
+      "Text": "Should I accept this non suspictions offer?",
+      "Position": "220, 20"
     }
 
 

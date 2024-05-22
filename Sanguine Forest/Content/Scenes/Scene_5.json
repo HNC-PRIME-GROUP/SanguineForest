@@ -1,5 +1,5 @@
 {
-  "characterPosition": "15700,-600",
+  "characterPosition": "0,-0",
 
   "LeftUpperBound": "-100000,-10000",
   "RightBottomBound": "22000,100000",
@@ -1072,8 +1072,42 @@
   ],
 
   "levelTrigger": {
-    "position": "200,-100",
+    "startPosition": "500, -100",
+    "endPosition": "600,-100",
     "SpriteEffect": "1"
-  }
+  },
+  "comment 06 ": "Data about level dialogue",
+  "LevelDialogueData": [
+
+
+
+    {
+      "Text": "Right hole will kill you!",
+      "Position": "-100, 180"
+    },
+    {
+      "Text": "Left hole will kill you more!",
+      "Position": "-100, 180"
+    },
+    {
+      "Text": "What should I do then?",
+      "Position": "-400, 160"
+    },
+    {
+      "Text": "Jump head first!",
+      "Position": "-100, 160"
+    },
+    {
+      "Text": "Fuck yeah!",
+      "Position": "-400, 180"
+    },
+    {
+      "Text": "I WANT MORE! \nMOOOOREEEEE!!!!",
+      "Position": "-400, 180"
+    }
+
+
+  ]
+
 
 }

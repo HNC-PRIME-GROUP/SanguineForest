@@ -50,12 +50,14 @@ namespace Sanguine_Forest
         private Texture2D semiTransparentTexture;
         public bool isCutScene;
 
+
+        //Dialogue
         private int currentDialogueIndex = 0;
         private bool isDialogueActive = false;
-
         private float proximityRange = 300f; // Adjust this value as needed
-
         public bool IsDialogueActive => isDialogueActive;
+        public event EventHandler DialogueEnd;
+
 
         private bool isMovingToNPC = false;
         private Vector2 targetPosition;
@@ -107,6 +109,8 @@ namespace Sanguine_Forest
         {
             currentScene = scene;
             isYesOption = false;
+
+            //showOptions = false;
 
             if (platforms != null)
             {
@@ -653,11 +657,13 @@ namespace Sanguine_Forest
                     else if (isDialogueActive && !isMovingToTrigger)
                     {
                         currentDialogueIndex++;
+                        character._currentState = Character2.CharState.dialogue;
                         if (currentDialogueIndex >= levelDialogues.Count)
                         {
                             isDialogueActive = false;
                             showOptions = true;
                             currentDialogueIndex = 0;
+                            DialogueEnd?.Invoke(this, EventArgs.Empty);
                             trigger.ShowOptions();
                         }
                     }
@@ -727,6 +733,7 @@ namespace Sanguine_Forest
                     trigger.MoveToEnd();
                 }
             }
+
         }
 
         //Level end triggers

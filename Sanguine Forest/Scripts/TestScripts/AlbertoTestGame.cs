@@ -333,8 +333,9 @@ namespace Sanguine_Forest
                 _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update for environment to death of character
                 _environmentManager.LevelEndTrigger += NextLevel;
                 _environmentManager.YesOptionSelected += _environmentManager.OnYesOptionSelected; // Subscribe to the new event
-
             }
+            _environmentManager.DialogueEnd += _character.CharacterEndDialogue;
+            
             _environmentManager.Initialise(_currentScene);
 
 
@@ -371,9 +372,9 @@ namespace Sanguine_Forest
                 _environmentManager.LevelEndTrigger += NextLevel;
                 _uiManager.LoadGameEvent += LoadGame;
                 _environmentManager.YesOptionSelected += 
-                _environmentManager.OnYesOptionSelected; 
-
+                _environmentManager.OnYesOptionSelected;                
             }
+            _environmentManager.DialogueEnd += _character.CharacterEndDialogue;
             _environmentManager.Initialise(_currentScene);
             _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update for environment to death of character
 

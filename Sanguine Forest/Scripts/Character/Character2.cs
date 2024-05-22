@@ -41,7 +41,8 @@ namespace Sanguine_Forest
             wallJump,
             falling,
             Death,
-            walkToTarget
+            walkToTarget,
+            dialogue
 
         }
         public CharState _currentState;
@@ -172,6 +173,9 @@ namespace Sanguine_Forest
                 case CharState.walkToTarget:
                     WalkToTargetUpdate();
                     break;
+                case CharState.dialogue:
+                    DialogueUpdate();
+                    break;
             }
 
 
@@ -205,7 +209,7 @@ namespace Sanguine_Forest
                 // If the character is close enough to the target, set position directly
                 position = _targetPosition;
                 isWalkingToTarget = false;
-                _currentState = CharState.idle;
+                _currentState = CharState.dialogue;
                 AudioSourceModule.StopSound("Run");
                 _velocity = Vector2.Zero;
 
@@ -213,7 +217,7 @@ namespace Sanguine_Forest
                 Vector2 directionToNPC = Vector2.Normalize(_targetPosition - GetPosition());
                 _SpriteModule.SetSpriteEffects(directionToNPC.X > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
                 // Debug log for reaching the target
-                Debug.WriteLine($"Reached target position: {_targetPosition}");
+                // Debug.WriteLine($"Reached target position: {_targetPosition}");
 
 
             }
@@ -441,6 +445,13 @@ namespace Sanguine_Forest
 
         }
 
+        public void DialogueUpdate()
+        {
+            _animationModule.SetAnimationSpeed(0.5f);
+            _animationModule.Play("Idle");
+        }
+
+
         public void CharacterRestore(object obj, EventArgs e)
         {
             _currentState = CharState.jump;
@@ -453,6 +464,12 @@ namespace Sanguine_Forest
             _currentState = CharState.jump;
             position = startPos;
         }
+
+        public void CharacterEndDialogue(object sender, EventArgs e)
+        {
+            _currentState = CharState.idle;
+        }
+
 
 
 
@@ -479,7 +496,7 @@ namespace Sanguine_Forest
                     _gravityEffect = 0;
                     return;
                 }
-                if ((_currentState == CharState.idle || _currentState == CharState.walk || _currentState == CharState.walkToTarget) && collision.GetThisPhysicModule() == _feetCollision)
+                if ((_currentState == CharState.idle || _currentState == CharState.walk || _currentState == CharState.walkToTarget || _currentState==CharState.dialogue) && collision.GetThisPhysicModule() == _feetCollision)
                 {
                     _gravityEffect = 0f;
                     _velocity.Y = 0f;
@@ -637,6 +654,9 @@ namespace Sanguine_Forest
             Debug.WriteLine($"Set target position: {targetPosition}");
         }
 
+
+
+
     }
 
     public class SaveCharacterDataArgs : EventArgs
@@ -647,4 +667,6 @@ namespace Sanguine_Forest
         }
         public Vector2 savePoint;
     }
+
+
 }

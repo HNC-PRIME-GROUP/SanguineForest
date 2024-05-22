@@ -37,6 +37,10 @@ namespace Sanguine_Forest
 
         //Level end trigger
         public event EventHandler LevelEndTrigger;
+        public event EventHandler YesOptionSelected; // New event
+        private List<LevelDialogueData> levelDialogues; // New list for level dialogues
+        private bool showOptions = false;
+        private bool isMovingToTrigger = false;
 
 
         // Cutscene option
@@ -49,7 +53,7 @@ namespace Sanguine_Forest
         private int currentDialogueIndex = 0;
         private bool isDialogueActive = false;
 
-        private float proximityRange = 200f; // Adjust this value as needed
+        private float proximityRange = 300f; // Adjust this value as needed
 
         public bool IsDialogueActive => isDialogueActive;
 
@@ -90,8 +94,6 @@ namespace Sanguine_Forest
 
         };
 
-
-
         }
 
         // Initialize all platforms and other environment from the scene
@@ -129,7 +131,7 @@ namespace Sanguine_Forest
                 platforms.Add(new Platform(platform.position, platform.rotation, platform.platformSize, content, tileDictionary, tileMap));
             }
 
-            if(movebles!=null)
+            if (movebles != null)
             {
                 if (platforms.Count > 0)
                 {
@@ -148,9 +150,9 @@ namespace Sanguine_Forest
 
             if (thorns != null)
             {
-                if (thorns.Count>0)
+                if (thorns.Count > 0)
                 {
-                    for(int i =0;i<thorns.Count;i++)
+                    for (int i = 0; i < thorns.Count; i++)
                     {
                         thorns[i].DeleteMe();
                     }
@@ -163,11 +165,11 @@ namespace Sanguine_Forest
                 thorns.Add(new Thorns(thorn.Position, thorn.Rotation, content, thorn.ThornsSize));
             }
 
-            if(fallingPlatforms != null)
+            if (fallingPlatforms != null)
             {
-                if(fallingPlatforms.Count>0)
+                if (fallingPlatforms.Count > 0)
                 {
-                    for(int i =0; i<fallingPlatforms.Count;i++)
+                    for (int i = 0; i < fallingPlatforms.Count; i++)
                     {
                         fallingPlatforms[i].DeleteMe();
                     }
@@ -180,11 +182,11 @@ namespace Sanguine_Forest
                 fallingPlatforms.Add(new FallingPlatform(platform.Position, platform.Rotation, platform.PlatformSize, content, tileDictionary, tileMap, platform.TimeToFall));
             }
 
-            if(obstacles1 != null)
+            if (obstacles1 != null)
             {
-                if(obstacles1.Count>0)
+                if (obstacles1.Count > 0)
                 {
-                    for(int i = 0; i<obstacles1.Count;i++)
+                    for (int i = 0; i < obstacles1.Count; i++)
                     {
                         obstacles1[i].DeleteMe();
                     }
@@ -295,12 +297,22 @@ namespace Sanguine_Forest
                 }
             }
 
-            //initialise the level end trigger
+            ////initialise the level end trigger
+            //if (!scene.isCutScene)
+            //{
+
+            //    trigger = new LevelTrigger(scene.levelTrigger.position, content, (SpriteEffects)scene.levelTrigger.SpriteEffect);
+            //    trigger.LevelEnd += LevelEnd;
+            //}
+
+            // Initialize the level end trigger
             if (!scene.isCutScene)
             {
-             
-                trigger = new LevelTrigger(scene.levelTrigger.position, content, (SpriteEffects)scene.levelTrigger.SpriteEffect);
+                Vector2 startPosition = scene.levelTrigger.startPosition;
+                Vector2 endPosition = scene.levelTrigger.endPosition;
+                trigger = new LevelTrigger(startPosition, endPosition, content, (SpriteEffects)scene.levelTrigger.SpriteEffect, font, semiTransparentTexture);
                 trigger.LevelEnd += LevelEnd;
+                levelDialogues = scene.LevelDialogueData; // Assign the dialogue to the level dialogue list
             }
         }
 
@@ -342,7 +354,7 @@ namespace Sanguine_Forest
         {
             // Update all platforms
             //foreach (var platform in platforms) { platform.UpdateMe(); }
-            for(int i =0; i<platforms.Count; i++) { platforms[i].UpdateMe(); }
+            for (int i = 0; i < platforms.Count; i++) { platforms[i].UpdateMe(); }
             foreach (var moveble in movebles) { moveble.UpdateMe(); }
             foreach (var thorn in thorns) { thorn.UpdateMe(); }
             foreach (var platform in fallingPlatforms) { platform.UpdateMe(); }
@@ -356,7 +368,7 @@ namespace Sanguine_Forest
             foreach (var decor in grassDecor) { decor.UpdateMe(); }
 
             //Update level triger
-            if (!isCutScene) {trigger.UpdateMe();}
+            if (!isCutScene) { trigger.UpdateMe(); }
 
 
             // Update patch decors
@@ -396,8 +408,14 @@ namespace Sanguine_Forest
 
 
             //Draw trigger
-            if (!isCutScene) {trigger.DrawMe(spriteBatch);}
+            if (!isCutScene)
+            {
+                bool showPressE = !isDialogueActive && !showOptions && trigger.currentState == LevelTrigger.TriggerState.phase1;
+                trigger.DrawMe(spriteBatch, showPressE);
+                DebugManager.DebugString($"Trigger Position: {trigger.GetPosition()}", new Vector2(0, 60));
+                DebugManager.DebugString($"Trigger State: {trigger.currentState}", new Vector2(0, 80)); // Add this line to track the state
 
+            }
 
             if (isCutScene)
             {
@@ -572,10 +590,148 @@ namespace Sanguine_Forest
             }
         }
 
+        public void DrawLevelPressE(SpriteBatch spriteBatch, Matrix cameraTransform, Vector2 characterPosition)
+        {
+            if (!isCutScene && !isDialogueActive)
+            {
+                bool showPressE = !isDialogueActive && !showOptions && trigger.currentState == LevelTrigger.TriggerState.phase1 && Vector2.Distance(characterPosition, trigger.GetPosition()) < proximityRange;
+
+
+                if (showPressE)
+                {
+                    string pressEText = "Press E";
+                    Vector2 pressETextSize = font.MeasureString(pressEText);
+                    var triggerScreenPosition = Vector2.Transform(trigger.GetPosition(), cameraTransform);
+                    Vector2 pressETextPosition = new Vector2(triggerScreenPosition.X + pressETextSize.X / 2, triggerScreenPosition.Y - 30); // Adjust as needed
+
+                    Rectangle backgroundRectangle = new Rectangle((int)pressETextPosition.X - 5, (int)pressETextPosition.Y - 5, (int)pressETextSize.X + 10, (int)pressETextSize.Y + 10);
+                    spriteBatch.Draw(semiTransparentTexture, backgroundRectangle, Color.Black * 0.5f);
+                    spriteBatch.DrawString(font, pressEText, pressETextPosition, Color.White);
+                }
+            }
+            
+
+
+        }
+
+        public void DrawLevelDialogues(SpriteBatch spriteBatch, Matrix cameraTransform)
+        {
+            if (levelDialogues != null && levelDialogues.Count > 0 && isDialogueActive && !isCutScene)
+            {
+                var dialogueData = levelDialogues[currentDialogueIndex];
+                var textPosition = Vector2.Transform(dialogueData.Position, cameraTransform);
+
+                string dialogueText = dialogueData.Text;
+                Vector2 dialogueTextSize = font.MeasureString(dialogueText);
+                Vector2 dialogueTextPosition = new Vector2(textPosition.X - dialogueTextSize.X / 2, textPosition.Y - 50); // Adjust as needed
+
+                Rectangle backgroundRectangle = new Rectangle((int)dialogueTextPosition.X - 5, (int)dialogueTextPosition.Y - 5, (int)dialogueTextSize.X + 10, (int)dialogueTextSize.Y + 10);
+                spriteBatch.Draw(semiTransparentTexture, backgroundRectangle, Color.Black * 0.5f);
+                spriteBatch.DrawString(font, dialogueText, dialogueTextPosition, Color.White);
+            }
+        }
+
+        public void UpdateLevelDialogues(GameTime gameTime, KeyboardState currentKeyboardState, KeyboardState previousKeyboardState, Character2 character)
+        {
+            if (levelDialogues != null && levelDialogues.Count > 0 && !isCutScene)
+            {
+                if (currentKeyboardState.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E))
+                {
+                    if (!isDialogueActive && !showOptions)
+                    {
+                        isDialogueActive = true;
+                        isMovingToTrigger = true;
+                        targetPosition = GetTargetPositionInFrontOfTrigger(trigger.GetPosition());
+                        character.SetTargetPosition(targetPosition);
+                        character._currentState = Character2.CharState.walkToTarget;
+                    }
+                    else if (isDialogueActive && !isMovingToTrigger)
+                    {
+                        currentDialogueIndex++;
+                        if (currentDialogueIndex >= levelDialogues.Count)
+                        {
+                            isDialogueActive = false;
+                            showOptions = true;
+                            currentDialogueIndex = 0;
+                            trigger.ShowOptions();
+                        }
+                    }
+                }
+
+                if (isMovingToTrigger)
+                {
+                    if (character.GetCharacterState() != Character2.CharState.walkToTarget)
+                    {
+                        isMovingToTrigger = false;
+                    }
+                }
+            }
+        }
+
+
+
+        private Vector2 GetTargetPositionInFrontOfTrigger(Vector2 triggerPosition)
+        {
+            return new Vector2(triggerPosition.X - 150, triggerPosition.Y + 130f); // Adjust the offset as needed
+
+        }
+
+        public void DrawOptions(SpriteBatch spriteBatch, Matrix cameraTransform)
+        {
+            if (showOptions)
+            {
+                string yesText = "(Y)YES\n" +
+                    "(N)NO";
+                string noText = "";
+                Vector2 yesTextSize = font.MeasureString(yesText);
+                Vector2 noTextSize = font.MeasureString(noText);
+                var yesScreenPosition = Vector2.Transform(trigger.GetPosition(), cameraTransform);
+                var noScreenPosition = Vector2.Transform(trigger.GetPosition(), cameraTransform);
+
+                Vector2 yesTextPosition = new Vector2(yesScreenPosition.X - 150, yesScreenPosition.Y - 50);
+                Vector2 noTextPosition = new Vector2(noScreenPosition.X - 50, noScreenPosition.Y - 50);
+
+                Rectangle yesBackgroundRectangle = new Rectangle((int)yesTextPosition.X - 5, (int)yesTextPosition.Y - 5, (int)yesTextSize.X + 10, (int)yesTextSize.Y + 10);
+                Rectangle noBackgroundRectangle = new Rectangle((int)noTextPosition.X - 5, (int)noTextPosition.Y - 5, (int)noTextSize.X + 10, (int)noTextSize.Y + 10);
+
+                spriteBatch.Draw(semiTransparentTexture, yesBackgroundRectangle, Color.Black * 0.5f);
+                spriteBatch.DrawString(font, yesText, yesTextPosition, Color.White);
+
+                spriteBatch.Draw(semiTransparentTexture, noBackgroundRectangle, Color.Black * 0.5f);
+                spriteBatch.DrawString(font, noText, noTextPosition, Color.White);
+            }
+        }
+
+
+        public void HandleOptionSelection(GameTime gameTime, KeyboardState currentKeyboardState, KeyboardState previousKeyboardState)
+        {
+            if (showOptions)
+            {
+                if (currentKeyboardState.IsKeyDown(Keys.Y) && !previousKeyboardState.IsKeyDown(Keys.Y))
+                {
+                    YesOptionSelected?.Invoke(this, EventArgs.Empty); // Raise the event
+                    // Handle YES option
+                    showOptions = false;
+                    trigger.MoveToEnd();
+                }
+                else if (currentKeyboardState.IsKeyDown(Keys.N) && !previousKeyboardState.IsKeyDown(Keys.N))
+                {
+                    // Handle NO option
+                    showOptions = false;
+                    trigger.MoveToEnd();
+                }
+            }
+        }
+
         //Level end triggers
         public void LevelEnd(object sender, EventArgs e)
         {
             LevelEndTrigger?.Invoke(sender, e);
+        }
+
+        public void OnYesOptionSelected(object sender, EventArgs e)
+        {
+            Console.WriteLine("Yes option selected!");
         }
 
     }

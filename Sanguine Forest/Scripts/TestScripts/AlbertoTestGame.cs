@@ -71,6 +71,7 @@ namespace Sanguine_Forest
         protected override void LoadContent()
         {
 
+
             //graphic installing
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -88,14 +89,14 @@ namespace Sanguine_Forest
             //AudioSetting
             //AudioManager.GeneralVolume = 1.0f;
 
-            ////_character.SetCharacterScale(0.3f);
-            //_debugObserver = new DebugObserver(Vector2.Zero, 0);
-            //_camera = new Camera(_debugObserver.GetPosition(), new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
-            //_camera.SetCameraTarget(_debugObserver);
+            //_character.SetCharacterScale(0.3f);
+            _debugObserver = new DebugObserver(Vector2.Zero, 0);
+            _camera = new Camera(_debugObserver.GetPosition(), new Vector2(-10000, -10000), new Vector2(10000, 10000), new Vector2(1920, 1080));
+            _camera.SetCameraTarget(_debugObserver);
 
             //_camera.SetZoom(1f);
 
-            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_5.json");
+            _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/SceneStart.json");
             //Set decor and parallaxing
             _parallaxManager = new ParallaxManager(Content, ref _camera);
 
@@ -189,17 +190,9 @@ namespace Sanguine_Forest
                 _spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, cameraTransform);
 
                 _environmentManager.DrawMe(_spriteBatch, _character.GetPosition());
-
                 _character.DrawMe(_spriteBatch);
                 //_parallaxManager.DrawMe(_spriteBatch);
 
-
-
-
-                _spriteBatch.End();
-
-                // Begin a new sprite batch without any camera transformations
-                _spriteBatch.Begin();
 
                 // Debug test
                 DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
@@ -207,14 +200,17 @@ namespace Sanguine_Forest
                 if (isObserverWork)
                     DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
 
-                _uiManager.DrawMe();
+
 
                 _spriteBatch.End();
 
                 // Begin a new sprite batch without camera transformations for UI and Cutscene
                 _spriteBatch.Begin();
+                _environmentManager.DrawLevelDialogues(_spriteBatch, cameraTransform);
                 _environmentManager.DrawCutSceneDialogues(_spriteBatch, cameraTransform);
                 _environmentManager.DrawPressEPrompts(_spriteBatch, cameraTransform, _character.GetPosition());
+                _environmentManager.DrawLevelPressE(_spriteBatch,cameraTransform, _character.GetPosition());
+                _environmentManager.DrawOptions(_spriteBatch,cameraTransform);
                 _spriteBatch.End();
             }
             else if (_uiManager.CurrentGameState == UIManager.GameState.StartScreen)
@@ -255,7 +251,6 @@ namespace Sanguine_Forest
 
                 _spriteBatch.End();
             }
-
             else if (_uiManager.CurrentGameState == UIManager.GameState.InstructionsFromStart)
             {
                 GraphicsDevice.Clear(Color.Black);
@@ -297,6 +292,11 @@ namespace Sanguine_Forest
 
             // Update cutscene
             _environmentManager.UpdateCutscene(gameTime, currState, prevState, _character);
+            // Update level dialogues
+            _environmentManager.UpdateLevelDialogues(gameTime, currState, prevState, _character);
+            // Handle option selection
+            _environmentManager.HandleOptionSelection(gameTime, currState, prevState);
+
 
         }
 
@@ -316,9 +316,10 @@ namespace Sanguine_Forest
             FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
             //should be level 1
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + "0" + ".json");
-
+            _playerState.savePoint = _currentScene.characterPosition;
             //Set character and camera
             _character = new Character2(_currentScene.characterPosition, 0, Content);
+            _character.savePosMoment += _playerState.SavePos;
             //_character.SetCharacterScale(0.3f);
             _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBottomBound, new Vector2(1920, 1080));
             _camera.SetCameraTarget(_character);
@@ -326,12 +327,19 @@ namespace Sanguine_Forest
             //_camera.SetZoom(1f);
 
             //Set the level's objects
-            _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
-            _environmentManager.Initialise(_currentScene);
-            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
-            _environmentManager.LevelEndTrigger += NextLevel;
+            if (_environmentManager is null)
+            {
+                _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+                _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update for environment to death of character
+                _environmentManager.LevelEndTrigger += NextLevel;
+                _environmentManager.YesOptionSelected += _environmentManager.OnYesOptionSelected; // Subscribe to the new event
 
-            //gamestate update
+            }
+            _environmentManager.Initialise(_currentScene);
+
+
+
+            //game state update
             _uiManager.SetGameState(UIManager.GameState.Playing);
             //_uiManager.CurrentGameState = UIManager.GameState.Playing;
 
@@ -346,9 +354,10 @@ namespace Sanguine_Forest
             //Load player state and scene
             _playerState = FileLoader.LoadFromJson<PlayerState>(FileLoader.RootFolder + "/PlayerState/SavedState.json");
             _currentScene = FileLoader.LoadFromJson<Scene>(FileLoader.RootFolder + "/Scenes/Scene_" + _playerState.lvlCounter + ".json");
-
+            _playerState.savePoint = _currentScene.characterPosition;
             //Set character and camera
-            _character = new Character2(_currentScene.characterPosition, 0, Content);
+            _character = new Character2(_playerState.savePoint, 0, Content);
+            _character.savePosMoment += _playerState.SavePos;
             //_character.SetCharacterScale(0.3f);
             _camera = new Camera(_currentScene.characterPosition, _currentScene.LeftUpperBound, _currentScene.RightBottomBound, new Vector2(1920, 1080));
             _debugObserver = new DebugObserver(_character.GetPosition(), 0);
@@ -359,10 +368,17 @@ namespace Sanguine_Forest
             if (_environmentManager is null)
             {
                 _environmentManager = new EnvironmentManager(Content, _playerState, semiTransparentTexture);
+                _environmentManager.LevelEndTrigger += NextLevel;
+                _uiManager.LoadGameEvent += LoadGame;
+                _environmentManager.YesOptionSelected += 
+                _environmentManager.OnYesOptionSelected; 
+
             }
             _environmentManager.Initialise(_currentScene);
-            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update fo environment to death of character
-            _environmentManager.LevelEndTrigger += NextLevel;
+            _character.DeathEvent += _environmentManager.DeathUpdate; //attach the update for environment to death of character
+
+
+
 
             //Update the game state
             _uiManager.SetGameState(UIManager.GameState.Playing);
@@ -377,7 +393,8 @@ namespace Sanguine_Forest
         public void NextLevel(object sender, EventArgs e)
         {
             _playerState.lvlCounter++;
-            _environmentManager.LevelEndTrigger -= NextLevel;
+            //_environmentManager.LevelEndTrigger -= NextLevel;
+            //_uiManager.LoadGameEvent -= LoadGame;
             FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState.json");
             FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
             LoadGame(sender, e);

@@ -1,6 +1,6 @@
 {
 
-  "characterPosition": "17000, -500",
+  "characterPosition": "-650, 550",
 
   "LeftUpperBound": "-18000,-100000",
   "RightBottomBound": "17000,100000",
@@ -12,12 +12,12 @@
     //  "rotation": "0",
     //  "platformSize": "200000, 400"
     //},
-    //{
-    //  "comment": "1",
-    //  "position": "-1300, -1200",
-    //  "rotation": "0",
-    //  "platformSize": "300, 3700"
-    //},
+    {
+      "comment": "1",
+      "position": "-1300, -1200",
+      "rotation": "0",
+      "platformSize": "300, 3700"
+    },
 
     {
       "comment": "2",
@@ -652,33 +652,6 @@
   "cutSceneDialogues": [
 
 
-
-    //{
-    //  "Text": "Right hole will kill you!",
-    //  "Position": "-100, 180"
-    //},
-    //{
-    //  "Text": "Left hole will kill you more!",
-    //  "Position": "-100, 180"
-    //},
-    //{
-    //  "Text": "What should I do then?",
-    //  "Position": "-400, 160"
-    //},
-    //{
-    //  "Text": "Jump head first!",
-    //  "Position": "-100, 160"
-    //},
-    //{
-    //  "Text": "Fuck yeah!",
-    //  "Position": "-400, 180"
-    //},
-    //{
-    //  "Text": "I WANT MORE! \nMOOOOREEEEE!!!!",
-    //  "Position": "-400, 180"
-    //}
-
-
   ],
 
   "isCutScene": "false",
@@ -705,13 +678,54 @@
     //  "NPCType": "Blue"
     //}
   ],
+
+
   "levelTrigger": {
-    "position": "300,100",
+    "startPosition": "-200, 400",
+    "endPosition": "600,-100",
     "SpriteEffect": "1"
   },
 
+  "comment 06 ": "Data about level dialogue",
+  "LevelDialogueData": [
 
 
+
+    {
+      "Text": "Hi little one!",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "I saw your friends running ahead!",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "Would you like to get spiced?",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "It will help you to catch up with them faster",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "And it will make your journey more...",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "Interesting!",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "HAHAHA",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "Should I accept this non suspictions offer?",
+      "Position": "-450, 520"
+    }
+
+
+  ],
 
 
   "parallaxLayerPositions": {

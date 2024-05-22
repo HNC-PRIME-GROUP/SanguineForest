@@ -270,6 +270,15 @@ namespace Sanguine_Forest
 
                 _spriteBatch.End();
             }
+            else if (_uiManager.CurrentGameState == UIManager.GameState.Credits)
+            {
+                GraphicsDevice.Clear(Color.Black);
+                _spriteBatch.Begin();
+
+                _uiManager.DrawMe();
+
+                _spriteBatch.End();
+            }
 
             base.Draw(gameTime);
             //debug sprite batch

@@ -21,6 +21,7 @@ namespace Sanguine_Forest
             Paused,
             InstructionsFromStart,
             InstructionsFromPause,
+            Credits,
         }
 
         private KeyboardState keyboard;
@@ -38,13 +39,15 @@ namespace Sanguine_Forest
         private float inputDelay = 0.5f; // 200 milliseconds delay
         private float timeSinceLastInput = 0f;
 
-        List<UIButton> startButtons, pauseButtons, instructionButtons;
+        List<UIButton> startButtons, pauseButtons, instructionButtons, creditsButtons;
 
         int activeButtonIndex = 0;
 
         private List<string> instructionTexts;
         private List<Vector2> instructionTextPositions;
 
+        private List<string> creditsTexts;
+        private List<Vector2> creditsTextPositions;
 
         private ContentManager content;
 
@@ -137,12 +140,30 @@ namespace Sanguine_Forest
                 new UIButton("BACK", gameFontSmll, instructionBackPosition)
             };
 
+
+            // Instruction Screen Buttons
+            string criditBackText = "BACK";
+
+            // Measure text size to position it at the center-bottom of the screen
+            Vector2 creditBackSize = gameFontSmll.MeasureString(criditBackText);
+
+            // Calculate position
+            Vector2 creditBackPosition = new Vector2((graphicsDevice.Viewport.Width - creditBackSize.X) / 2, (graphicsDevice.Viewport.Height - 100));
+
+            creditsButtons = new List<UIButton>
+            {
+                new UIButton("BACK", gameFontSmll, creditBackPosition)
+            };
+
             pauseButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
             instructionButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
             startButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
+            creditsButtons[activeButtonIndex].IsActive = true;  // Set the first button as active
+
 
 
             SetupInstructionScreen();
+            SetupCreditText();
 
 
         }
@@ -176,11 +197,12 @@ namespace Sanguine_Forest
                 case GameState.InstructionsFromPause:
                     HandleInstructionScreenInputFromPause(gameTime, prev, curr);
                     break;
+                case GameState.Credits:
+                    HandleCreditsScreenInput(gameTime, prev, curr);
+                    break;
 
             }
         }
-
-
 
 
         public void DrawMe()
@@ -198,6 +220,9 @@ namespace Sanguine_Forest
                     break;
                 case GameState.InstructionsFromPause:
                     DrawInstructionScreenFromPause(spriteBatch);
+                    break;
+                case GameState.Credits:
+                    DrawCreditsScreen(spriteBatch);
                     break;
 
             }
@@ -350,6 +375,26 @@ namespace Sanguine_Forest
             }
         }
 
+        private void HandleCreditsScreenInput(GameTime gameTime, KeyboardState prev, KeyboardState curr)
+        {
+            timeSinceLastInput += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeSinceLastInput > inputDelay)
+            {
+                if (curr.IsKeyDown(Keys.Enter) && prev.IsKeyUp(Keys.Enter))
+                {
+                    if (instructionButtons[0].Txt == "BACK")
+                    {
+                        ResetButtons(creditsButtons);
+                        CurrentGameState = GameState.StartScreen;
+                    }
+                }
+            }
+            foreach (var button in creditsButtons)
+            {
+                button.Update();
+            }
+        }
+
 
         private void HandlePlayingInput(KeyboardState prev, KeyboardState curr)
         {
@@ -433,6 +478,23 @@ namespace Sanguine_Forest
 
         }
 
+        private void DrawCreditsScreen(SpriteBatch sb)
+        {
+
+            DrawInstructionsScreen("THE END");
+
+            for (int i = 0; i < creditsTexts.Count; i++)
+            {
+                sb.DrawString(gameFontLrg, creditsTexts[i], creditsTextPositions[i], Color.White);
+            }
+
+            foreach (var button in instructionButtons)
+            {
+                button.Draw(sb);
+            }
+
+        }
+
         private void ResetButtons(List<UIButton> btns)
         {
             if (btns == null || btns.Count == 0) return;
@@ -484,6 +546,45 @@ namespace Sanguine_Forest
             {
                 instructionTextPositions.Add(new Vector2(300, yOffset));
                 yOffset += 35; // Line spacing
+            }
+        }
+
+        private void SetupCreditText()
+        {
+            creditsTexts = new List<string>
+    {
+        "                             DEVELOPERS",
+        "",
+        "           - Lead Game Programmer: Iurii Kupreev",
+        "",
+        "           - Lead Game Designer: Ryan Brisbane",
+        "",
+        "           - Lead Game Artist: Alberto Rodriguez Franco",
+        "",
+        "This game uses free assets except for the characters. ",
+        "Special thanks to the artists and platforms providing ",
+        "these assets free of charge:",
+        "",
+        "       - Platforms and slimes enemies: Maaot (maaout.itch.io)",
+        "       - Background, grass decoration, and disappearing platforms: ",
+        "         Szadi art (szadiart.itch.io)",
+        "       - Characters and NPCs: Lead Artist",
+        "       - Character Sound Effects: Pixabay (pixabay.com)",
+        "       - Background Music: Surreal Forest by Meydan - (linktr.ee/meydan)",
+        "                                      O X L2 X -> O R1 - (chosic.com)",
+        "",
+        "Thank you for playing our game. We hope you enjoy it!",
+        "",
+
+    };
+
+            // Calculate positions for the instruction text
+            creditsTextPositions = new List<Vector2>();
+            float yOffset = 150; // Start position for the first line of text
+            foreach (var text in creditsTexts)
+            {
+                creditsTextPositions.Add(new Vector2(550, yOffset));
+                yOffset += 38; // Line spacing
             }
         }
         private void OnStateChanged(GameState oldState, GameState newState)

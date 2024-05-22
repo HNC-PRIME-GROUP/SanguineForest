@@ -1,8 +1,9 @@
 {
+  //"characterPosition": "-650, 530",
 
-  "characterPosition": "-650, 550",
+  "characterPosition": "-650, 530",
 
-  "LeftUpperBound": "-18000,-100000",
+  "LeftUpperBound": "-17300,-100000",
   "RightBottomBound": "17000,100000",
   "comment": "Simple platforms",
   "simplePlatforms": [
@@ -19,6 +20,12 @@
       "platformSize": "300, 3700"
     },
 
+    {
+      "comment": "1",
+      "position": "19000, -1200",
+      "rotation": "0",
+      "platformSize": "300, 3700"
+    },
     {
       "comment": "2",
       "position": "-995, 600", // Middle gap between Top and Bottom backgrounds
@@ -47,12 +54,12 @@
       "platformSize": "1400, 200"
     },
 
-    {
-      "comment": "6",
-      "position": "-600, -1200",
-      "rotation": "0",
-      "platformSize": "200, 600"
-    },
+    //{
+    //  "comment": "6",
+    //  "position": "-600, -1200",
+    //  "rotation": "0",
+    //  "platformSize": "200, 600"
+    //},
 
     {
       "comment": "7",
@@ -690,7 +697,7 @@
 
   "levelTrigger": {
     "startPosition": "-200, 400",
-    "endPosition": "600,-100",
+    "endPosition": "17900, -500",
     "SpriteEffect": "1"
   },
 
@@ -731,7 +738,6 @@
       "Text": "Should I accept this non suspictions offer?",
       "Position": "-450, 520"
     }
-
 
   ],
 

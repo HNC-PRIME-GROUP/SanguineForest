@@ -1,9 +1,9 @@
 {
 
-  "characterPosition": "-200, -150",
-  "LeftUpperBound": "-100000,-100000",
-  "RightBottomBound": "210000,100000",
+  "characterPosition": "-100, -150",
   "comment": "Simple platforms",
+  "LeftUpperBound": "300,-4500",
+  "RightBottomBound": "1920,4500",
   "simplePlatforms": [
     {
       "comment": "First platform - Middle edge ",

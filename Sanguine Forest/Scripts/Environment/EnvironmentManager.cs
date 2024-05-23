@@ -40,6 +40,9 @@ namespace Sanguine_Forest
         public event EventHandler YesOptionSelected; // New event
         public event EventHandler NoOptionSelected; // New event
 
+        //Checkpoints
+        public List<CheckPoint> checkPoints;
+
         private List<LevelDialogueData> levelDialogues; // New list for level dialogues
         public bool ShowOptions = false;
         private bool isMovingToTrigger = false;
@@ -318,6 +321,30 @@ namespace Sanguine_Forest
                 trigger.LevelEnd += LevelEnd;
                 levelDialogues = scene.LevelDialogueData; // Assign the dialogue to the level dialogue list
             }
+
+            //Initialise checkpoints
+            if(checkPoints!=null)
+            {
+                if (checkPoints.Count > 0)
+                {
+                    for (int i = 0; i < checkPoints.Count; i++)
+                    {
+                        checkPoints[i].DeleteMe();
+                    }
+                }
+            }
+            checkPoints = new List<CheckPoint>();
+            if (scene.checkPoints != null)
+            {
+                if (scene.checkPoints.Count > 0)
+                {
+                    for (int i = 0; i<scene.checkPoints.Count ; i++)
+                    {
+                        this.checkPoints.Add(new CheckPoint(scene.checkPoints[i].position, 0, scene.checkPoints[i].size));
+                    }
+                }
+            }
+            
         }
 
         private string[,] CreateTileMap(Vector2 platformSize)
@@ -390,6 +417,16 @@ namespace Sanguine_Forest
                 }
 
             }
+
+
+            //Check points update
+            if(checkPoints!=null)
+            {
+                for (int i =0;i<checkPoints.Count;i++)
+                {
+                    checkPoints[i].UpdateMe();
+                }
+            }
         }
 
         public void DrawMe(SpriteBatch spriteBatch, Vector2 characterPosition)
@@ -434,6 +471,16 @@ namespace Sanguine_Forest
                     cutSceneObject.DrawMe(spriteBatch, false);
                 }
             }
+
+            //checkpoints draw (for debug purposes)
+            if (checkPoints != null)
+            {
+                for (int i = 0; i < checkPoints.Count; i++)
+                {
+                    checkPoints[i].DrawMe(spriteBatch);
+                }
+            }
+
         }
 
         public void DrawCutSceneDialogues(SpriteBatch spriteBatch, Matrix cameraTransform)

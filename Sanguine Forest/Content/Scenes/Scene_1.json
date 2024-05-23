@@ -3,6 +3,27 @@
 
   "characterPosition": "-650, 530",
 
+
+  "checkPoints": [
+    {
+      "position": "3420,-800",
+      "size": "100,600"
+    },
+    {
+      "position": "6500,-970",
+      "size": "100,600"
+    },
+    {
+      "position": "11900,-170",
+      "size": "100,600"
+    },
+    {
+      "position": "14380,-920",
+      "size": "50,600"
+    }
+
+  ],
+
   "LeftUpperBound": "-17300,-100000",
   "RightBottomBound": "17000,100000",
   "comment": "Simple platforms",
@@ -748,5 +769,8 @@
     "underground_Fore": { "initialPosition": "-200,1300" }
 
   }
+
+
+
 
 }

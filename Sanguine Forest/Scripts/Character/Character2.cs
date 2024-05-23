@@ -258,7 +258,7 @@ namespace Sanguine_Forest
 
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Run");
-            if (curr.IsKeyDown(Keys.W) && prev.IsKeyUp(Keys.W))
+            if (curr.IsKeyDown(Keys.W) && prev.IsKeyUp(Keys.W))                
             {
                 isJumping = true; // Set jumping state
                 _velocity.Y = -_jumpHigh;               
@@ -468,9 +468,19 @@ namespace Sanguine_Forest
         {
             base.Collided(collision);
 
+            if(collision.GetCollidedPhysicModule().GetParent() is CheckPoint)
+            {
+                CheckPoint checkPoint = (CheckPoint)collision.GetCollidedPhysicModule().GetParent();
+                if (checkPoint.currState == CheckPoint.CheckPointStates.wait)
+                {
+                    SavePoint = new Vector2(position.X, position.Y);
+                    savePosMoment?.Invoke(this, new SaveCharacterDataArgs(SavePoint));
+                }
+            }
+
             if (collision.GetCollidedPhysicModule().GetParent() is Platform)
             {
-                Platform prevPlatform = null;
+                //Platform prevPlatform = null;
 
                 
 
@@ -483,18 +493,13 @@ namespace Sanguine_Forest
                     _gravityEffect = 0;
                     return;
                 }
+                
+
                 if ((_currentState == CharState.idle || _currentState == CharState.walk || _currentState == CharState.walkToTarget || _currentState==CharState.dialogue) && collision.GetThisPhysicModule() == _feetCollision)
                 {
                     _gravityEffect = 0f;
                     _velocity.Y = 0f;
                     position.Y = collision.GetCollidedPhysicModule().GetPhysicRectangle().Top - _feetCollision.GetShiftPosition().Y;
-                    if(platform is not FallingPlatform&& platform is not MoveblePlatform )
-                    {
-                        SavePoint = new Vector2(position.X, position.Y);
-                        savePosMoment?.Invoke(this, new SaveCharacterDataArgs(SavePoint));
-                        
-
-                    }
                     return;
                 }
 

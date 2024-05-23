@@ -1,5 +1,30 @@
 {
+
+  //"characterPosition":"0,-0",
   "characterPosition": "0,-0",
+
+  "checkPoints": [
+    {
+      "position": "9180,-800",
+      "size": "100,600"
+    },
+    {
+      "position": "12975,-670",
+      "size": "100,400"
+    },
+    {
+      "position": "11995,1430",
+      "size": "300,400"
+    },
+    {
+      "position": "14200,1050",
+      "size": "100,600"
+    },
+    {
+      "position": "16580,630",
+      "size": "250,300"
+    }
+  ],
 
   "LeftUpperBound": "-100000,-10000",
   "RightBottomBound": "22000,100000",

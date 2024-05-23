@@ -57,7 +57,7 @@ namespace Sanguine_Forest
             _graphics.PreferredBackBufferHeight = Extentions.ScreenHeight;
             _graphics.PreferredBackBufferWidth = Extentions.ScreenWidth;
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
@@ -192,8 +192,8 @@ namespace Sanguine_Forest
 
 
                 // Debug test
-                DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0));
-                DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20));
+                DebugManager.DebugString("Camera pos:" + _camera.position, new Vector2(0, 0), _camera);
+                DebugManager.DebugString("Character pos: " + _character.GetPosition(), new Vector2(0, 20),_camera);
                 if (isObserverWork)
                     DebugManager.DebugString("Observer pos: " + _debugObserver.GetPosition(), new Vector2(0, 40));
 

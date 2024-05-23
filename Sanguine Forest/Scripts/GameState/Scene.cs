@@ -57,6 +57,9 @@ namespace Sanguine_Forest
         public Vector2 LeftUpperBound;
         public Vector2 RightBottomBound;
 
+        //Checkpoints
+        public List<CheckPointData> checkPoints;
+
         public List<LevelDialogueData> LevelDialogueData { get; set; } // Add LevelDialogueData field
 
 

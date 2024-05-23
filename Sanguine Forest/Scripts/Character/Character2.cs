@@ -113,7 +113,6 @@ namespace Sanguine_Forest
             AudioSourceModule = new AudioSourceModule(this, Vector2.Zero, sounds);
 
             //Collisions
-            // _characterCollision = new PhysicModule(this, new Vector2(100, 100), new Vector2(140, 160));
             _feetCollision = new PhysicModule(this, new Vector2(50, 95), new Vector2(35, 10));
             _headCollision = new PhysicModule(this, new Vector2(50, 0), new Vector2(35, 10));
 
@@ -182,8 +181,6 @@ namespace Sanguine_Forest
             _velocity.Y += _gravityEffect;
             position += _velocity;
 
-            //Debug.WriteLine($"Character Position: {position}, Velocity: {_velocity}, State: {_currentState}");
-
         }
 
         #region State updates
@@ -201,8 +198,7 @@ namespace Sanguine_Forest
                 // Set the character's sprite effect based on the direction
                 _SpriteModule.SetSpriteEffects(direction.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
 
-                // Debug log for walking to target
-                //Debug.WriteLine($"Walking to target. Direction: {direction}, Velocity: {_velocity}, Target Position: {_targetPosition}");
+
             }
             else
             {
@@ -216,9 +212,6 @@ namespace Sanguine_Forest
                 // Face towards the NPC after reaching the target
                 Vector2 directionToNPC = Vector2.Normalize(_targetPosition - GetPosition());
                 _SpriteModule.SetSpriteEffects(directionToNPC.X > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
-                // Debug log for reaching the target
-                // Debug.WriteLine($"Reached target position: {_targetPosition}");
-
 
             }
         }
@@ -256,8 +249,7 @@ namespace Sanguine_Forest
             {
                 _velocity.X = 0;
             }
-            //_gravityEffect = 0f;
-            //_velocity.Y = 0f;
+
         }
 
         public void WalkUpdate(KeyboardState prev, KeyboardState curr)
@@ -294,7 +286,6 @@ namespace Sanguine_Forest
             }
 
             //transition to fall or jump
-            //transition to fall or jump
             if (_velocity.Y < 0)
             {
                 _currentState = CharState.jump;
@@ -304,10 +295,6 @@ namespace Sanguine_Forest
             {
                 _currentState = CharState.wallJump;
             }
-            // _gravityEffect = 0f;
-            //_velocity.Y = 0f;
-
-            //Debug.WriteLine($"Walk Update. Position: {position}, Velocity: {_velocity}");
         }
 
         public void JumpUpdate(KeyboardState prev, KeyboardState curr)
@@ -619,16 +606,6 @@ namespace Sanguine_Forest
             DebugManager.DebugRectangle(_headCollision.GetPhysicRectangle());
         }
 
-
-        //try to change scale of cahracter - failed
-        //public void SetCharacterScale(float scale)
-        //{
-        //    _spriteModule.SetScale(scale);
-        //    _leftCollision.SetScale(scale);
-        //    _rightCollision.SetScale(scale);
-        //    _feetCollision.SetScale(scale);
-        //}
-
         public float GetVelocityX()
         {
             return _velocity.X;
@@ -651,7 +628,6 @@ namespace Sanguine_Forest
             this.isWalkingToTarget = true;
             this._currentState = CharState.walkToTarget;
 
-            //Debug.WriteLine($"Set target position: {targetPosition}");
         }
 
 

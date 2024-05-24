@@ -119,6 +119,8 @@ namespace Sanguine_Forest
             currentScene = scene;
             isYesOption = false;
             isNoOption = false;
+            isDialogueActive = false;
+
 
             //showOptions = false;
 

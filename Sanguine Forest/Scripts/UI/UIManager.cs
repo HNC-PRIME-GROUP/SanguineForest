@@ -576,8 +576,10 @@ namespace Sanguine_Forest
         "",
 
         "Challenges and Consequences:",
-        " - Accepting challenges during levels (involving alcohol or drugs) will affect gameplay.",
-        " - Higher risk levels introduce more obstacles.",
+        " - At the beginning of each level, you'll face a critical choice: Yes or No.",
+        " - Choose wisely, as your decision will have significant consequences.",
+        " - Opting for \"Yes\" might introduce unexpected challenges, including the appearance of adversaries. ",
+        " - Remember, every choice shapes your journey.",
         "",
 
         "Obstacles:",
@@ -585,9 +587,9 @@ namespace Sanguine_Forest
         " - Disappearing platforms: these appear and disappear periodically.",
         " - Thorns: kill you on hit.",
         "",
-   
+        
         "Enemies:",
-        " - Slimes: enemies that appear if accepting suspicions offers and kill you on hit,",
+        " - Slimes: kill you on hit.",
     };
 
             // Calculate positions for the instruction text

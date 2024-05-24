@@ -91,18 +91,24 @@ namespace Sanguine_Forest
             string loadgameText = "CONTINUE";
             string instructionsText = "INSTRUCTIONS";
             string backText = "EXIT";
+            string creditsText = "CREDITS";
+
 
             // Measure text size to position it at the center-bottom of the screen
             Vector2 newgameSize = gameFontSmll.MeasureString(newgameText);
             Vector2 loadgameSize = gameFontSmll.MeasureString(loadgameText);
             Vector2 instructionsSize = gameFontSmll.MeasureString(instructionsText);
             Vector2 backSize = gameFontSmll.MeasureString(backText);
+            Vector2 creditsSize = gameFontSmll.MeasureString(creditsText);
+
 
             // Calculate positions
             Vector2 newgamePosition = new Vector2((graphicsDevice.Viewport.Width - newgameSize.X) / 2, (graphicsDevice.Viewport.Height - newgameSize.Y) / 2 - 0);
             Vector2 loadgamePosition = new Vector2((graphicsDevice.Viewport.Width - loadgameSize.X) / 2, (graphicsDevice.Viewport.Height - loadgameSize.Y) / 2 + 100);
             Vector2 instructionsPosition = new Vector2((graphicsDevice.Viewport.Width - instructionsSize.X) / 2, (graphicsDevice.Viewport.Height - instructionsSize.Y) / 2 + 200);
-            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, (graphicsDevice.Viewport.Height - backSize.Y) / 2 + 300);
+            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, (graphicsDevice.Viewport.Height - backSize.Y) / 2 + 400);
+            Vector2 creditsPosition = new Vector2((graphicsDevice.Viewport.Width - creditsSize.X) / 2, (graphicsDevice.Viewport.Height - creditsSize.Y) / 2 + 300);
+
 
 
             startButtons = new List<UIButton>
@@ -110,7 +116,9 @@ namespace Sanguine_Forest
                  new UIButton("NEW GAME", gameFontSmll, newgamePosition),
                  new UIButton("CONTINUE", gameFontSmll, loadgamePosition),
                  new UIButton("INSTRUCTIONS", gameFontSmll, instructionsPosition),
-                 new UIButton("EXIT", gameFontSmll, backPosition)
+                 new UIButton("CREDITS", gameFontSmll, creditsPosition),
+                 new UIButton("EXIT", gameFontSmll, backPosition),
+
 
             };
 
@@ -297,6 +305,11 @@ namespace Sanguine_Forest
                     {
                         RequestExit?.Invoke();
                     });
+                }
+                else if (startButtons[activeButtonIndex].Txt == "CREDITS")
+                {
+                    ResetButtons(startButtons);
+                    CurrentGameState = GameState.Credits;
                 }
             }
 
@@ -555,8 +568,7 @@ namespace Sanguine_Forest
         "",
    
         "Enemies:",
-        " - Green slimes: basic enemies that kill you on hit.",
-        " - Brown slimes: appear if alcohol consumption is high, they are faster and more challenging."
+        " - Slimes: enemies that appear if accepting suspicions offers and kill you on hit,",
     };
 
             // Calculate positions for the instruction text

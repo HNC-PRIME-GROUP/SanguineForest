@@ -134,14 +134,14 @@ namespace Sanguine_Forest
 
             // Calculate positions
             Vector2 continuePosition = new Vector2((graphicsDevice.Viewport.Width - continueSize.X) / 2, (graphicsDevice.Viewport.Height - continueSize.Y) / 2 - 0);
-            Vector2 saveQuitPosition = new Vector2((graphicsDevice.Viewport.Width - saveQuitSize.X) / 2, (graphicsDevice.Viewport.Height - saveQuitSize.Y) / 2 + 100);
-            Vector2 pauseInstructionsPosition = new Vector2((graphicsDevice.Viewport.Width - pauseInstructionsSize.X) / 2, (graphicsDevice.Viewport.Height - pauseInstructionsSize.Y) / 2 + 200);
+            Vector2 saveQuitPosition = new Vector2((graphicsDevice.Viewport.Width - saveQuitSize.X) / 2, (graphicsDevice.Viewport.Height - saveQuitSize.Y) / 2 + 200);
+            Vector2 pauseInstructionsPosition = new Vector2((graphicsDevice.Viewport.Width - pauseInstructionsSize.X) / 2, (graphicsDevice.Viewport.Height - pauseInstructionsSize.Y) / 2 + 100);
 
             pauseButtons = new List<UIButton>
             {
                 new UIButton("CONTINUE", gameFontSmll, continuePosition),
-                new UIButton("SAVE & QUIT", gameFontSmll, saveQuitPosition),
                 new UIButton("INSTRUCTIONS", gameFontSmll, pauseInstructionsPosition),
+                new UIButton("SAVE & QUIT", gameFontSmll, saveQuitPosition),
             };
 
 
@@ -231,26 +231,33 @@ namespace Sanguine_Forest
 
         public void DrawMe()
         {
-            switch (CurrentGameState)
-            {
-                case GameState.StartScreen:
-                    DrawStartScreen(spriteBatch);
-                    break;
-                case GameState.Paused:
-                    DrawPauseScreen(spriteBatch);
-                    break;
-                case GameState.InstructionsFromStart:
-                    DrawInstructionScreenFromStart(spriteBatch);
-                    break;
-                case GameState.InstructionsFromPause:
-                    DrawInstructionScreenFromPause(spriteBatch);
-                    break;
-                case GameState.Credits:
-                    DrawCreditsScreen(spriteBatch);
-                    break;
+            bool shouldDrawStartScreen = CurrentGameState == GameState.StartScreen && (!isFadingOut || isFadingIn);
 
+            if (shouldDrawStartScreen)
+            {
+                DrawStartScreen(spriteBatch);
+            }
+            else
+            {
+                // Handle other states or do nothing if not in the relevant states
+                switch (CurrentGameState)
+                {
+                    case GameState.Paused:
+                        DrawPauseScreen(spriteBatch);
+                        break;
+                    case GameState.InstructionsFromStart:
+                        DrawInstructionScreenFromStart(spriteBatch);
+                        break;
+                    case GameState.InstructionsFromPause:
+                        DrawInstructionScreenFromPause(spriteBatch);
+                        break;
+                    case GameState.Credits:
+                        DrawCreditsScreen(spriteBatch);
+                        break;
+                }
             }
 
+            // Draw the fade overlay
             DrawFade();
         }
 
@@ -296,8 +303,11 @@ namespace Sanguine_Forest
                 }
                 else if (startButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
                 {
-                    ResetButtons(startButtons);
-                    CurrentGameState = GameState.InstructionsFromStart;
+                    StartFadeOut(() =>
+                    {
+                        ResetButtons(startButtons);
+                        CurrentGameState = GameState.InstructionsFromStart;
+                    });
                 }
                 else if (startButtons[activeButtonIndex].Txt == "EXIT")
                 {
@@ -308,8 +318,11 @@ namespace Sanguine_Forest
                 }
                 else if (startButtons[activeButtonIndex].Txt == "CREDITS")
                 {
-                    ResetButtons(startButtons);
-                    CurrentGameState = GameState.Credits;
+                    StartFadeOut(() =>
+                    {
+                        ResetButtons(startButtons);
+                        CurrentGameState = GameState.Credits;
+                    });
                 }
             }
 
@@ -378,8 +391,11 @@ namespace Sanguine_Forest
                 {
                     if (instructionButtons[0].Txt == "BACK")
                     {
-                        ResetButtons(instructionButtons);
-                        CurrentGameState = GameState.StartScreen;
+                        StartFadeOut(() =>
+                        {
+                            ResetButtons(instructionButtons);
+                            CurrentGameState = GameState.StartScreen;
+                        });
                     }
                 }
             }
@@ -417,8 +433,11 @@ namespace Sanguine_Forest
                 {
                     if (instructionButtons[0].Txt == "BACK")
                     {
-                        ResetButtons(creditsButtons);
-                        CurrentGameState = GameState.StartScreen;
+                        StartFadeOut(() =>
+                        {
+                            ResetButtons(creditsButtons);
+                            CurrentGameState = GameState.StartScreen;
+                        });
                     }
                 }
             }
@@ -587,11 +606,11 @@ namespace Sanguine_Forest
     {
         "                             DEVELOPERS",
         "",
-        "           - Lead Game Programmer: Iurii Kupreev",
+        "           - Lead Programmer: Iurii Kupreev",
         "",
-        "           - Lead Game Designer: Ryan Brisbane",
+        "           - Lead Designer: Ryan Brisbane",
         "",
-        "           - Lead Game Artist: Alberto Rodriguez Franco",
+        "           - Lead Artist: Alberto Rodriguez Franco",
         "",
         "This game uses free assets except for the characters. ",
         "Special thanks to the artists and platforms providing ",
@@ -602,8 +621,8 @@ namespace Sanguine_Forest
         "         Szadi art (szadiart.itch.io)",
         "       - Characters and NPCs: Lead Artist",
         "       - Character Sound Effects: Pixabay (pixabay.com)",
-        "       - Background Music: Surreal Forest by Meydan - (linktr.ee/meydan)",
-        "                                      O X L2 X -> O R1 - (chosic.com)",
+        "       - Background Music: - Surreal Forest by Meydan - (linktr.ee/meydan)",
+        "                                     - O X L2 X -> O R1 - (chosic.com)",
         "",
         "Thank you for playing our game. We hope you enjoy it!",
         "",
@@ -647,6 +666,12 @@ namespace Sanguine_Forest
                     break;
                 case GameState.Paused:
                     AudioManager.MusicTrigger(false);
+                    break;
+                case GameState.InstructionsFromStart:
+                    StartFadeIn();
+                    break;
+                case GameState.Credits:
+                    StartFadeIn();
                     break;
             }
         }
@@ -708,7 +733,14 @@ namespace Sanguine_Forest
 
         private bool IsFading => isFadingIn || isFadingOut;
 
+        public bool ShouldDrawScreen()
+        {
+            return CurrentGameState == GameState.StartScreen && (!isFadingOut || isFadingIn);
+        }
+
     }
+
+
 
 
 }

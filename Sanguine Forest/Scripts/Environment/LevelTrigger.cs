@@ -27,6 +27,7 @@ namespace Sanguine_Forest
             dialogue,
             option,
             phase2,
+            phase3,
             triggered
         };
 
@@ -36,6 +37,10 @@ namespace Sanguine_Forest
         public event EventHandler LevelEnd;
         public float EndTimer;
         public float MaxTimer = 4;
+        public float EndTimer2;
+        public float MaxTimer2 = 4;
+
+
 
         private Vector2 startPosition;
         private Vector2 endPosition;
@@ -69,6 +74,8 @@ namespace Sanguine_Forest
             PhysicModule = new PhysicModule(this, new Vector2(100,50), new Vector2(100, 300));
 
             EndTimer = MaxTimer;
+            EndTimer2 = MaxTimer2;
+
         }
 
         public new void UpdateMe()
@@ -88,10 +95,23 @@ namespace Sanguine_Forest
                 case TriggerState.option:
                     AnimationModule.Play("Idle");
                     break;
+
                 case TriggerState.phase2:
-                    AnimationModule.Play("Idle");
-                    position = endPosition;
+                    AnimationModule.Play("FlyBack");
+                    position.Y -= 10;
+                    position.X -= SpriteModule.GetSpriteEffects() == SpriteEffects.None ? 10 : -10;
+                    EndTimer2 -= 1 * Extention.Extentions.globalTime;
+                    if (EndTimer2 <= 0)
+                    {
+                        position = endPosition;
+                        currentState = TriggerState.phase3;
+
+                    }
                     break;
+                case TriggerState.phase3:
+                    AnimationModule.Play("Idle");
+                    break;
+
                 case TriggerState.triggered:
                     AnimationModule.Play("FlyBack");
                     position.Y -= 10;
@@ -116,7 +136,7 @@ namespace Sanguine_Forest
 
         public override void Collided(Collision collision)
         {
-            if (currentState == TriggerState.phase2)
+            if (currentState == TriggerState.phase3)
             {
                 if (collision.GetCollidedPhysicModule().GetParent() is Character2)
                 {

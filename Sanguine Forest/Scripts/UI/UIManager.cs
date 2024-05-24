@@ -59,6 +59,15 @@ namespace Sanguine_Forest
         public event EventHandler SaveGame;
 
 
+        public event Action FadeOutComplete;
+        private Action onFadeOutAction;
+
+        private float fadeAlpha;
+        private float fadeSpeed = 1.0f;
+        private bool isFadingIn;
+        private bool isFadingOut;
+        private Texture2D fadeTexture;
+
 
         public UIManager(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, ContentManager content)
         {
@@ -66,6 +75,8 @@ namespace Sanguine_Forest
             this.graphicsDevice = graphicsDevice;
             this.content = content;
             LoadContent();
+            fadeTexture = new Texture2D(graphicsDevice, 1, 1);
+            fadeTexture.SetData(new[] { Color.Black });
         }
 
         private void LoadContent()
@@ -179,6 +190,11 @@ namespace Sanguine_Forest
                 previousGameState = CurrentGameState;
             }
 
+            UpdateFade(gameTime);
+
+            if (IsFading) return;
+
+
             switch (CurrentGameState)
             {
 
@@ -226,6 +242,8 @@ namespace Sanguine_Forest
                     break;
 
             }
+
+            DrawFade();
         }
 
         private void HandleStartScreenInput(GameTime gameTime, KeyboardState prev, KeyboardState curr)
@@ -255,33 +273,33 @@ namespace Sanguine_Forest
                 if (startButtons[activeButtonIndex].Txt == "NEW GAME")
                 {
                     ResetButtons(startButtons);
-
-                    NewGameEvent?.Invoke(this, EventArgs.Empty);
-                    
-
+                    StartFadeOut(() =>
+                    {
+                        NewGameEvent?.Invoke(this, EventArgs.Empty);
+                    });
                 }
                 else if (startButtons[activeButtonIndex].Txt == "CONTINUE")
                 {
-                    // Restart game logic
-                    //  Restart();
                     ResetButtons(startButtons);
-
-                    LoadGameEvent?.Invoke(this, EventArgs.Empty);
-
+                    StartFadeOut(() =>
+                    {
+                        LoadGameEvent?.Invoke(this, EventArgs.Empty);
+                    });
                 }
                 else if (startButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
                 {
-
                     ResetButtons(startButtons);
                     CurrentGameState = GameState.InstructionsFromStart;
                 }
-
                 else if (startButtons[activeButtonIndex].Txt == "EXIT")
                 {
-                    // Quit game logic
-                    RequestExit?.Invoke();
+                    StartFadeOut(() =>
+                    {
+                        RequestExit?.Invoke();
+                    });
                 }
             }
+
             foreach (var button in startButtons)
             {
                 button.Update();
@@ -317,10 +335,12 @@ namespace Sanguine_Forest
                 }
                 else if (pauseButtons[activeButtonIndex].Txt == "SAVE & QUIT")
                 {
-                    // Save and quit logic
                     ResetButtons(pauseButtons);
-                    SaveGame?.Invoke(this, EventArgs.Empty);
-                    CurrentGameState = GameState.StartScreen;
+                    StartFadeOut(() =>
+                    {
+                        SaveGame?.Invoke(this, EventArgs.Empty);
+                        CurrentGameState = GameState.StartScreen;
+                    });
                 }
                 else if (pauseButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
                 {
@@ -604,15 +624,16 @@ namespace Sanguine_Forest
             switch (newState)
             {
                 case GameState.StartScreen:
+                    StartFadeIn();
                     AudioManager.PlaySong(0);
                     AudioManager.MusicTrigger(true);
                     break;
                 case GameState.Playing:
+                    StartFadeIn();
                     AudioManager.PlaySong(1);
                     AudioManager.MusicTrigger(true);
                     break;
                 case GameState.Paused:
-                    // Paused state might keep the current song playing or stop it, depending on your design
                     AudioManager.MusicTrigger(false);
                     break;
             }
@@ -624,6 +645,56 @@ namespace Sanguine_Forest
             CurrentGameState = newState;
             
         }
+
+        public void StartFadeIn()
+        {
+            isFadingIn = true;
+            isFadingOut = false;
+            fadeAlpha = 1;
+        }
+
+        public void StartFadeOut(Action onComplete)
+        {
+            isFadingOut = true;
+            isFadingIn = false;
+            fadeAlpha = 0; 
+            onFadeOutAction = onComplete;
+        }
+
+        private void UpdateFade(GameTime gameTime)
+        {
+            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (isFadingIn)
+            {
+                fadeAlpha -= fadeSpeed * delta;
+                if (fadeAlpha <= 0)
+                {
+                    fadeAlpha = 0;
+                    isFadingIn = false;
+                }
+            }
+            else if (isFadingOut)
+            {
+                fadeAlpha += fadeSpeed * delta;
+                if (fadeAlpha >= 1)
+                {
+                    fadeAlpha = 1;
+                    isFadingOut = false;
+                    onFadeOutAction?.Invoke();
+                }
+            }
+        }
+
+        private void DrawFade()
+        {
+            if (fadeAlpha > 0)
+            {
+                spriteBatch.Draw(fadeTexture, new Rectangle(0, 0, graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight), Color.Black * fadeAlpha);
+            }
+        }
+
+        private bool IsFading => isFadingIn || isFadingOut;
 
     }
 

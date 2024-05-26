@@ -711,7 +711,7 @@
 
   "levelTrigger": {
     "startPosition": "-200, 400",
-    "endPosition": "17900, -500",
+    "endPosition": "17900, -600",
     "SpriteEffect": "1"
   },
 

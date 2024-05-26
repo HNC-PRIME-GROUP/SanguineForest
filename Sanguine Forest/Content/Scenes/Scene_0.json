@@ -86,7 +86,7 @@
   "cutSceneDialogues": [
     //"\\n",
     {
-      "Text": "Alright!",
+      "Text": "Awright!",
       "Position": "150, 200"
     },
     {
@@ -101,29 +101,29 @@
 
 
     {
-      "Text": "Absolutely!",
+      "Text": "Aye, let's dae this!",
       "Position": "300, 180"
     },
 
     {
-      "Text": "This place is gonna be amazing.",
+      "Text": "This place is gonna be pure dead brilliant.",
       "Position": "300, 180"
     },
     {
-      "Text": "Just remember,",
+      "Text": "pure dead brilliant!",
       "Position": "300, 180"
     },
     {
-      "Text": "Stick together",
+      "Text": "Just mind we stick together.",
       "Position": "300, 180"
     },
     {
-      "Text": "And watch out for each other.",
+      "Text": "Awright?",
       "Position": "300, 180"
     },
 
     {
-      "Text": "For sure!",
+      "Text": "Nae bother!",
       "Position": "450, 160"
     },
     {
@@ -131,17 +131,17 @@
       "Position": "450, 160"
     },
     {
-      "Text": "Let's make this a trip to remember!",
+      "Text": "Let's make this a trip tae remember!",
       "Position": "450, 160"
     },
 
 
     {
-      "Text": "Haha, don't worry, Alex.",
+      "Text": "Haha, dinnae worry, Alex.",
       "Position": "600, 140"
     },
     {
-      "Text": "We'll be fine.",
+      "Text": "We'll be sound.",
       "Position": "620, 140"
     },
     {
@@ -155,11 +155,11 @@
 
 
     {
-      "Text": "Yeah,",
+      "Text": "Aye!",
       "Position": "150, 200"
     },
     {
-      "Text": "let's enjoy ourselves",
+      "Text": "Let's have a blast",
       "Position": "0, 200"
     },
     {
@@ -167,7 +167,7 @@
       "Position": "0, 200"
     },
     {
-      "Text": " Alright, let's go!",
+      "Text": " Awright, let's go!",
       "Position": "0, 200"
     }
 

@@ -4,9 +4,7 @@
   "comment": "Simple platforms",
   "LeftUpperBound": "300,-4500",
   "RightBottomBound": "1920,4500",
-  
   "simplePlatforms": [
-
     {
       "comment": "First platform - Middle edge ",
       "position": "-5000, 355",
@@ -38,14 +36,18 @@
     //}
 
 
+
   ],
   "comment02": "platform that change their position slightly after death if risk level is high",
   "moveablPlatforms": [
 
 
+
   ],
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
   "fallingPlatforms": [
+
+
 
 
   ],
@@ -62,6 +64,7 @@
   "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "patchDecors": [
 
+
   ],
 
   "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
@@ -71,101 +74,105 @@
   "obstaclesData2": [
 
 
+
   ],
   "obstaclesData3": [],
   "comment07": "Thorns - danger polaces",
   "thorns": [
 
 
+
   ],
+
 
   "comment 07 ": "Data about cutscenes",
   "cutSceneDialogues": [
-    //"\\n",
-    {
-      "Text": "Did you guys see that weird guy",
-      "Position": "-150, 200"
-    },
-    {
-      "Text": "offering stuff?",
-      "Position": "20, 200"
-    },
-    {
-      "Text": "He said Jake took something from him.",
-      "Position": "-150, 200"
-    },
 
     {
-      "Text": "Yeah, I saw him too.",
+      "Text": "Sam, hey!",
+      "Position": "-0, 180"
+    },
+    {
+      "Text": "How's it going?",
+      "Position": "-0, 180"
+    },
+    {
+      "Text": "Oh, Alex. I'm... alright, I guess.",
       "Position": "300, 160"
     },
 
     {
-      "Text": "Jake always gets into this kind of trouble. ",
+      "Text": " Just thinking about some stuff.",
       "Position": "300, 160"
     },
     {
-      "Text": "It's like he can't enjoy the moment ",
+      "Text": "Anything you want to talk about?",
+      "Position": "-200, 180"
+    },
+    {
+      "Text": "It's just... this place",
       "Position": "300, 160"
     },
     {
-      "Text": "without going overboard.",
+      "Text": "It's beautiful,",
       "Position": "300, 160"
     },
-
     {
-      "Text": "I worry about him.",
-      "Position": "450, 180"
+      "Text": "but it makes you think.",
+      "Position": "300, 160"
     },
     {
-      "Text": "He misses out on the good parts",
-      "Position": "450, 180"
+      "Text": "You know, about the choices we make.",
+      "Position": "300, 160"
     },
     {
-      "Text": "because he's always chasing a high.",
-      "Position": "450, 180"
-    },
-
-    {
-      "Text": "We need to find him",
-      "Position": "20, 200"
+      "Text": "Like, I've had a few drinks already.",
+      "Position": "300, 160"
     },
     {
-      "Text": "and make sure he's alright.",
-      "Position": "-200, 200"
+      "Text": "Feels great in the moment, but...",
+      "Position": "300, 160"
     },
     {
-      "Text": "Let's go.",
-      "Position": "20, 200"
+      "Text": "Is it worth it?",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "I get it. We all want to have fun,",
+      "Position": "-200, 180"
+    },
+    {
+      "Text": "but we also need to take care of ourselves.",
+      "Position": "-220, 180"
+    },
+    {
+      "Text": "It's a fine line.",
+      "Position": "-50, 180"
+    },
+    {
+      "Text": "Yeah. Thanks, Alex.",
+      "Position": "300, 180"
+    },
+    {
+      "Text": "I'll keep that in mind.",
+      "Position": "300, 180"
+    },
+    {
+      "Text": "Let's keep moving.",
+      "Position": "300, 180"
     }
-    
+
 
   ],
 
   "isCutScene": "true",
   "cutSceneObjects": [
-
     {
       "Position": "300,240",
       "Rotation": 0.0,
       "Scale": 1.0,
       "NPCType": "Pink"
     }
-    ,
-
-    {
-      "Position": "450,240",
-      "Rotation": 0.0,
-      "Scale": 1.0,
-      "NPCType": "Green"
-    }
-
-    //{
-    //  "Position": "500,-240",
-    //  "Rotation": 0.0,
-    //  "Scale": 1.0,
-    //  "NPCType": "Blue"
-    //}
 
   ]
 }

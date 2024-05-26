@@ -86,79 +86,101 @@
   "cutSceneDialogues": [
     //"\\n",
     {
-      "Text": "Jake!",
-      "Position": "80, 200"
+      "Text": "Jake! There ye are.",
+      "Position": "-50, 200"
     },
     {
-      "Text": "There you are.",
-      "Position": "-0, 200"
+      "Text": "We've been looking for ye everywhere.",
+      "Position": "-150, 200"
     },
     {
-      "Text": "Everything good?",
-      "Position": "-0, 200"
+      "Text": "Are ye awright?",
+      "Position": "-50, 200"
     },
 
 
     {
-      "Text": "Oh, hey, Alex.",
+      "Text": "Alex... I'm... I'm fine.",
       "Position": "300, 160"
     },
     {
-      "Text": "Yeah, just... thinking about some things.",
+      "Text": "Just... had a bit too much",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "of whatever that guy gave me.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "Ended up spewing after jumping off",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "the second platform.",
+      "Position": "300, 160"
+    },
+
+    {
+      "Text": "Jake, ye cannae keep doing this tae yourself.",
+      "Position": "-250, 200"
+    },
+    {
+      "Text": " Ye're seeing life through a dirty lens",
+      "Position": "-250, 200"
+    },
+    {
+      "Text": "when ye're always avoiding reality",
+      "Position": "-150, 200"
+    },
+    {
+      "Text": "with booze and drugs.",
+      "Position": "-50, 200"
+    },
+
+
+
+    {
+      "Text": "I know, I know. It's just...",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "it's hard tae stop.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "But after today, I see how much I've missed out on.",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "I need tae change",
       "Position": "300, 160"
     },
 
 
     {
-      "Text": "Like what?",
+      "Text": "We're here for ye, Jake.",
       "Position": "50, 200"
     },
     {
-      "Text": "Last night...",
-      "Position": "300, 160"
-    },
-
-
-    {
-      "Text": "I had way too much to drink.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "I thought it would make everything more fun, ",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "but... I barely remember what happened.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "What's the point of all this if I can't even enjoy it?",
-      "Position": "300, 160"
+      "Text": " Let's get through this together.",
+      "Position": "50, 200"
     },
 
     {
-      "Text": "I get it, Jake.",
-      "Position": "20, 200"
+      "Text": "Aye, ye're right.",
+      "Position": "300, 160"
     },
     {
-      "Text": " Sometimes, we think those things will make everything better,",
-      "Position": "-270, 180"
-    },
-    {
-      "Text": "but they can take away more than they give.",
-      "Position": "-270, 180"
-    },
-    {
-      "Text": "Yeah.",
-      "Position": "300, 180"
-    },
-    {
-      "Text": "Maybe it's time I start thinking differently.",
-      "Position": "300, 180"
+      "Text": "I needed to hear that.",
+      "Position": "300, 160"
     },
     {
       "Text": "Thanks, Alex.",
-      "Position": "300, 180"
+      "Position": "300, 160"
+    },
+    {
+      "Text": "I needed tae hear that.",
+      "Position": "300, 160"
     }
 
 

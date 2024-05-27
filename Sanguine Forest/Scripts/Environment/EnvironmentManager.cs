@@ -108,8 +108,6 @@ namespace Sanguine_Forest
         };
 
             YesOptionSelected += OnYesOptionSelected;
-            NoOptionSelected += OnNoOptionSelected;
-
 
         }
 
@@ -243,21 +241,7 @@ namespace Sanguine_Forest
             }
             obstacles3 = new List<Obstacle>();
 
-
-            //grassDecor = new List<Decor>();
-            //foreach (var platform in platforms)
-            //{
-            //    Vector2 currGrassPos = platform.GetPosition() - new Vector2(0, 25);
-            //    while (currGrassPos.X < platform.GetPosition().X + platform.GetPlatformRectangle().Width)
-            //    {
-            //        int randomTypeId = _rng.Next(0, 5);
-            //        grassDecor.Add(new Decor(currGrassPos, 0, content, GetGrassType(randomTypeId)));
-            //        grassDecor[^1]._spriteModule.SetScale(0.5f);
-            //        grassDecor[^1]._spriteModule.SetSpriteEffects((SpriteEffects)_rng.Next(0, 2));
-            //        currGrassPos.X += 128;
-            //    }
-            //}
-
+            // Grass Decor, Random Postion on platforms
             grassDecor = new List<Decor>();
             foreach (var platform in platforms)
             {
@@ -846,46 +830,6 @@ namespace Sanguine_Forest
 
         }
 
-        public void OnNoOptionSelected(object sender, EventArgs e)
-        {
-            if (obstacles1 != null)
-            {
-                if (obstacles1.Count > 0)
-                {
-                    for (int i = 0; i < obstacles1.Count; i++)
-                    {
-                        obstacles1[i].DeleteMe();
-                    }
-                }
-            }
-            obstacles1 = new List<Obstacle>();
-
-            if (obstacles3 != null)
-            {
-                if (obstacles3.Count > 0)
-                {
-                    for (int i = 0; i < obstacles3.Count; i++)
-                    {
-                        obstacles3[i].DeleteMe();
-                    }
-                }
-            }
-            obstacles3 = new List<Obstacle>();
-    
-
-            if (obstacles2 != null)
-            {
-                if (obstacles2.Count > 0)
-                {
-                    for (int i = 0; i < obstacles2.Count; i++)
-                    {
-                        obstacles2[i].DeleteMe();
-                    }
-                }
-            }
-            obstacles2 = new List<Obstacle>();
-
-
-        }
+        
     }
 }

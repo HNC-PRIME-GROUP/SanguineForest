@@ -59,6 +59,15 @@ namespace Sanguine_Forest
         public event EventHandler SaveGame;
 
 
+        public event Action FadeOutComplete;
+        private Action onFadeOutAction;
+
+        private float fadeAlpha;
+        private float fadeSpeed = 1.0f;
+        private bool isFadingIn;
+        private bool isFadingOut;
+        private Texture2D fadeTexture;
+
 
         public UIManager(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, ContentManager content)
         {
@@ -66,6 +75,8 @@ namespace Sanguine_Forest
             this.graphicsDevice = graphicsDevice;
             this.content = content;
             LoadContent();
+            fadeTexture = new Texture2D(graphicsDevice, 1, 1);
+            fadeTexture.SetData(new[] { Color.Black });
         }
 
         private void LoadContent()
@@ -80,18 +91,24 @@ namespace Sanguine_Forest
             string loadgameText = "CONTINUE";
             string instructionsText = "INSTRUCTIONS";
             string backText = "EXIT";
+            string creditsText = "CREDITS";
+
 
             // Measure text size to position it at the center-bottom of the screen
             Vector2 newgameSize = gameFontSmll.MeasureString(newgameText);
             Vector2 loadgameSize = gameFontSmll.MeasureString(loadgameText);
             Vector2 instructionsSize = gameFontSmll.MeasureString(instructionsText);
             Vector2 backSize = gameFontSmll.MeasureString(backText);
+            Vector2 creditsSize = gameFontSmll.MeasureString(creditsText);
+
 
             // Calculate positions
             Vector2 newgamePosition = new Vector2((graphicsDevice.Viewport.Width - newgameSize.X) / 2, (graphicsDevice.Viewport.Height - newgameSize.Y) / 2 - 0);
             Vector2 loadgamePosition = new Vector2((graphicsDevice.Viewport.Width - loadgameSize.X) / 2, (graphicsDevice.Viewport.Height - loadgameSize.Y) / 2 + 100);
             Vector2 instructionsPosition = new Vector2((graphicsDevice.Viewport.Width - instructionsSize.X) / 2, (graphicsDevice.Viewport.Height - instructionsSize.Y) / 2 + 200);
-            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, (graphicsDevice.Viewport.Height - backSize.Y) / 2 + 300);
+            Vector2 backPosition = new Vector2((graphicsDevice.Viewport.Width - backSize.X) / 2, (graphicsDevice.Viewport.Height - backSize.Y) / 2 + 400);
+            Vector2 creditsPosition = new Vector2((graphicsDevice.Viewport.Width - creditsSize.X) / 2, (graphicsDevice.Viewport.Height - creditsSize.Y) / 2 + 300);
+
 
 
             startButtons = new List<UIButton>
@@ -99,7 +116,9 @@ namespace Sanguine_Forest
                  new UIButton("NEW GAME", gameFontSmll, newgamePosition),
                  new UIButton("CONTINUE", gameFontSmll, loadgamePosition),
                  new UIButton("INSTRUCTIONS", gameFontSmll, instructionsPosition),
-                 new UIButton("EXIT", gameFontSmll, backPosition)
+                 new UIButton("CREDITS", gameFontSmll, creditsPosition),
+                 new UIButton("EXIT", gameFontSmll, backPosition),
+
 
             };
 
@@ -115,14 +134,14 @@ namespace Sanguine_Forest
 
             // Calculate positions
             Vector2 continuePosition = new Vector2((graphicsDevice.Viewport.Width - continueSize.X) / 2, (graphicsDevice.Viewport.Height - continueSize.Y) / 2 - 0);
-            Vector2 saveQuitPosition = new Vector2((graphicsDevice.Viewport.Width - saveQuitSize.X) / 2, (graphicsDevice.Viewport.Height - saveQuitSize.Y) / 2 + 100);
-            Vector2 pauseInstructionsPosition = new Vector2((graphicsDevice.Viewport.Width - pauseInstructionsSize.X) / 2, (graphicsDevice.Viewport.Height - pauseInstructionsSize.Y) / 2 + 200);
+            Vector2 saveQuitPosition = new Vector2((graphicsDevice.Viewport.Width - saveQuitSize.X) / 2, (graphicsDevice.Viewport.Height - saveQuitSize.Y) / 2 + 200);
+            Vector2 pauseInstructionsPosition = new Vector2((graphicsDevice.Viewport.Width - pauseInstructionsSize.X) / 2, (graphicsDevice.Viewport.Height - pauseInstructionsSize.Y) / 2 + 100);
 
             pauseButtons = new List<UIButton>
             {
                 new UIButton("CONTINUE", gameFontSmll, continuePosition),
-                new UIButton("SAVE & QUIT", gameFontSmll, saveQuitPosition),
                 new UIButton("INSTRUCTIONS", gameFontSmll, pauseInstructionsPosition),
+                new UIButton("SAVE & QUIT", gameFontSmll, saveQuitPosition),
             };
 
 
@@ -179,6 +198,11 @@ namespace Sanguine_Forest
                 previousGameState = CurrentGameState;
             }
 
+            UpdateFade(gameTime);
+
+            if (IsFading) return;
+
+
             switch (CurrentGameState)
             {
 
@@ -207,25 +231,34 @@ namespace Sanguine_Forest
 
         public void DrawMe()
         {
-            switch (CurrentGameState)
-            {
-                case GameState.StartScreen:
-                    DrawStartScreen(spriteBatch);
-                    break;
-                case GameState.Paused:
-                    DrawPauseScreen(spriteBatch);
-                    break;
-                case GameState.InstructionsFromStart:
-                    DrawInstructionScreenFromStart(spriteBatch);
-                    break;
-                case GameState.InstructionsFromPause:
-                    DrawInstructionScreenFromPause(spriteBatch);
-                    break;
-                case GameState.Credits:
-                    DrawCreditsScreen(spriteBatch);
-                    break;
+            bool shouldDrawStartScreen = CurrentGameState == GameState.StartScreen && (!isFadingOut || isFadingIn);
 
+            if (shouldDrawStartScreen)
+            {
+                DrawStartScreen(spriteBatch);
             }
+            else
+            {
+                // Handle other states or do nothing if not in the relevant states
+                switch (CurrentGameState)
+                {
+                    case GameState.Paused:
+                        DrawPauseScreen(spriteBatch);
+                        break;
+                    case GameState.InstructionsFromStart:
+                        DrawInstructionScreenFromStart(spriteBatch);
+                        break;
+                    case GameState.InstructionsFromPause:
+                        DrawInstructionScreenFromPause(spriteBatch);
+                        break;
+                    case GameState.Credits:
+                        DrawCreditsScreen(spriteBatch);
+                        break;
+                }
+            }
+
+            // Draw the fade overlay
+            DrawFade();
         }
 
         private void HandleStartScreenInput(GameTime gameTime, KeyboardState prev, KeyboardState curr)
@@ -255,33 +288,44 @@ namespace Sanguine_Forest
                 if (startButtons[activeButtonIndex].Txt == "NEW GAME")
                 {
                     ResetButtons(startButtons);
-
-                    NewGameEvent?.Invoke(this, EventArgs.Empty);
-                    
-
+                    StartFadeOut(() =>
+                    {
+                        NewGameEvent?.Invoke(this, EventArgs.Empty);
+                    });
                 }
                 else if (startButtons[activeButtonIndex].Txt == "CONTINUE")
                 {
-                    // Restart game logic
-                    //  Restart();
                     ResetButtons(startButtons);
-
-                    LoadGameEvent?.Invoke(this, EventArgs.Empty);
-
+                    StartFadeOut(() =>
+                    {
+                        LoadGameEvent?.Invoke(this, EventArgs.Empty);
+                    });
                 }
                 else if (startButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
                 {
-
-                    ResetButtons(startButtons);
-                    CurrentGameState = GameState.InstructionsFromStart;
+                    StartFadeOut(() =>
+                    {
+                        ResetButtons(startButtons);
+                        CurrentGameState = GameState.InstructionsFromStart;
+                    });
                 }
-
                 else if (startButtons[activeButtonIndex].Txt == "EXIT")
                 {
-                    // Quit game logic
-                    RequestExit?.Invoke();
+                    StartFadeOut(() =>
+                    {
+                        RequestExit?.Invoke();
+                    });
+                }
+                else if (startButtons[activeButtonIndex].Txt == "CREDITS")
+                {
+                    StartFadeOut(() =>
+                    {
+                        ResetButtons(startButtons);
+                        CurrentGameState = GameState.Credits;
+                    });
                 }
             }
+
             foreach (var button in startButtons)
             {
                 button.Update();
@@ -317,10 +361,12 @@ namespace Sanguine_Forest
                 }
                 else if (pauseButtons[activeButtonIndex].Txt == "SAVE & QUIT")
                 {
-                    // Save and quit logic
                     ResetButtons(pauseButtons);
-                    SaveGame?.Invoke(this, EventArgs.Empty);
-                    CurrentGameState = GameState.StartScreen;
+                    StartFadeOut(() =>
+                    {
+                        SaveGame?.Invoke(this, EventArgs.Empty);
+                        CurrentGameState = GameState.StartScreen;
+                    });
                 }
                 else if (pauseButtons[activeButtonIndex].Txt == "INSTRUCTIONS")
                 {
@@ -345,8 +391,11 @@ namespace Sanguine_Forest
                 {
                     if (instructionButtons[0].Txt == "BACK")
                     {
-                        ResetButtons(instructionButtons);
-                        CurrentGameState = GameState.StartScreen;
+                        StartFadeOut(() =>
+                        {
+                            ResetButtons(instructionButtons);
+                            CurrentGameState = GameState.StartScreen;
+                        });
                     }
                 }
             }
@@ -384,8 +433,11 @@ namespace Sanguine_Forest
                 {
                     if (instructionButtons[0].Txt == "BACK")
                     {
-                        ResetButtons(creditsButtons);
-                        CurrentGameState = GameState.StartScreen;
+                        StartFadeOut(() =>
+                        {
+                            ResetButtons(creditsButtons);
+                            CurrentGameState = GameState.StartScreen;
+                        });
                     }
                 }
             }
@@ -524,8 +576,10 @@ namespace Sanguine_Forest
         "",
 
         "Challenges and Consequences:",
-        " - Accepting challenges during levels (involving alcohol or drugs) will affect gameplay.",
-        " - Higher risk levels introduce more obstacles.",
+        " - At the beginning of each level, you'll face a critical choice: Yes or No.",
+        " - Choose wisely, as your decision will have significant consequences.",
+        " - Opting for \"Yes\" might introduce unexpected challenges, including the appearance of adversaries. ",
+        " - Remember, every choice shapes your journey.",
         "",
 
         "Obstacles:",
@@ -533,10 +587,9 @@ namespace Sanguine_Forest
         " - Disappearing platforms: these appear and disappear periodically.",
         " - Thorns: kill you on hit.",
         "",
-   
+        
         "Enemies:",
-        " - Green slimes: basic enemies that kill you on hit.",
-        " - Brown slimes: appear if alcohol consumption is high, they are faster and more challenging."
+        " - Slimes: kill you on hit.",
     };
 
             // Calculate positions for the instruction text
@@ -555,11 +608,11 @@ namespace Sanguine_Forest
     {
         "                             DEVELOPERS",
         "",
-        "           - Lead Game Programmer: Iurii Kupreev",
+        "           - Lead Programmer: Iurii Kupreev",
         "",
-        "           - Lead Game Designer: Ryan Brisbane",
+        "           - Lead Designer: Ryan Brisbane",
         "",
-        "           - Lead Game Artist: Alberto Rodriguez Franco",
+        "           - Lead Artist: Alberto Rodriguez Franco",
         "",
         "This game uses free assets except for the characters. ",
         "Special thanks to the artists and platforms providing ",
@@ -570,8 +623,8 @@ namespace Sanguine_Forest
         "         Szadi art (szadiart.itch.io)",
         "       - Characters and NPCs: Lead Artist",
         "       - Character Sound Effects: Pixabay (pixabay.com)",
-        "       - Background Music: Surreal Forest by Meydan - (linktr.ee/meydan)",
-        "                                      O X L2 X -> O R1 - (chosic.com)",
+        "       - Background Music: - Surreal Forest by Meydan - (linktr.ee/meydan)",
+        "                                     - O X L2 X -> O R1 - (chosic.com)",
         "",
         "Thank you for playing our game. We hope you enjoy it!",
         "",
@@ -604,16 +657,23 @@ namespace Sanguine_Forest
             switch (newState)
             {
                 case GameState.StartScreen:
+                    StartFadeIn();
                     AudioManager.PlaySong(0);
                     AudioManager.MusicTrigger(true);
                     break;
                 case GameState.Playing:
+                    StartFadeIn();
                     AudioManager.PlaySong(1);
                     AudioManager.MusicTrigger(true);
                     break;
                 case GameState.Paused:
-                    // Paused state might keep the current song playing or stop it, depending on your design
                     AudioManager.MusicTrigger(false);
+                    break;
+                case GameState.InstructionsFromStart:
+                    StartFadeIn();
+                    break;
+                case GameState.Credits:
+                    StartFadeIn();
                     break;
             }
         }
@@ -625,7 +685,64 @@ namespace Sanguine_Forest
             
         }
 
+        public void StartFadeIn()
+        {
+            isFadingIn = true;
+            isFadingOut = false;
+            fadeAlpha = 1;
+        }
+
+        public void StartFadeOut(Action onComplete)
+        {
+            isFadingOut = true;
+            isFadingIn = false;
+            fadeAlpha = 0; 
+            onFadeOutAction = onComplete;
+        }
+
+        private void UpdateFade(GameTime gameTime)
+        {
+            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (isFadingIn)
+            {
+                fadeAlpha -= fadeSpeed * delta;
+                if (fadeAlpha <= 0)
+                {
+                    fadeAlpha = 0;
+                    isFadingIn = false;
+                }
+            }
+            else if (isFadingOut)
+            {
+                fadeAlpha += fadeSpeed * delta;
+                if (fadeAlpha >= 1)
+                {
+                    fadeAlpha = 1;
+                    isFadingOut = false;
+                    onFadeOutAction?.Invoke();
+                }
+            }
+        }
+
+        private void DrawFade()
+        {
+            if (fadeAlpha > 0)
+            {
+                spriteBatch.Draw(fadeTexture, new Rectangle(0, 0, graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight), Color.Black * fadeAlpha);
+            }
+        }
+
+        private bool IsFading => isFadingIn || isFadingOut;
+
+        public bool ShouldDrawScreen()
+        {
+            return CurrentGameState == GameState.StartScreen && (!isFadingOut || isFadingIn);
+        }
+
     }
+
+
 
 
 }

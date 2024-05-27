@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using Extention;
 
 namespace Sanguine_Forest
 {
@@ -9,6 +11,104 @@ namespace Sanguine_Forest
     /// </summary>
     internal class Particle : GameObject
     {
-        public Particle(Vector2 position, float rotation) : base(position, rotation) { }
+
+        private Texture2D _texture;
+        private Vector2 origin;
+
+        //speed of movement and speed of fading
+        private float speed;
+        private float opacitySpeed;
+
+        //direction
+        private Vector2 direction;
+
+
+        private bool isFlying; //is it triggered particle?
+
+        private Color color;
+
+        //layer
+        float layer;
+
+        //scale
+        float particleScale;
+
+
+
+        public Particle(Texture2D tex, Vector2 pos, float speed, float rot, float opacitySpeed, float layer, float particleScale) : base(pos, rot)
+        {
+            _texture = tex;
+            position = pos;
+            origin = new Vector2(tex.Width / 2, tex.Height / 2);
+            direction = Vector2.Zero;
+            this.speed = speed;
+            this.opacitySpeed = opacitySpeed;
+            color = Color.Transparent;
+
+            isFlying = false;
+            this.layer = layer;
+            this.particleScale = particleScale;
+        }
+
+
+        public void UpdateMe(Vector2 startPos)
+        {
+            if (isFlying) //if it's triggered
+            {
+                // movement update
+                position.X += direction.X * speed;
+                position.Y += direction.Y * speed;
+
+                //Rotation update (maybe change it to avoid rotation after triggering, add a startDirection variable maybe?)
+                SetRotation( (float)Math.Atan2(direction.Y, direction.X));
+
+                //color fading
+                color.A = (byte)Math.Clamp(color.A - opacitySpeed, 0, byte.MaxValue);
+                color.B = (byte)Math.Clamp(color.B - opacitySpeed, 0, byte.MaxValue);
+                color.R = (byte)Math.Clamp(color.R - opacitySpeed, 0, byte.MaxValue);
+                color.G = (byte)Math.Clamp(color.G - opacitySpeed, 0, byte.MaxValue);
+
+                //if it's faded to transparent - it's back in untriggered particles pool
+                if (color == Color.Transparent)
+                {
+                    TriggerMe(startPos, Vector2.Zero);
+                }
+            }
+            //untriggered particles are faded and always on a particle system position
+            else
+            {
+                position = startPos;
+            }
+
+        }
+
+        public void DrawMe(SpriteBatch sp)
+        {
+            sp.Draw(_texture, position, null, color, GetRotation(), origin, particleScale, SpriteEffects.None, (float)layer / (float)Extentions.SpriteLayer.Length);
+        }
+
+        public void TriggerMe(Vector2 startPos, Vector2 dir)
+        {
+            isFlying = isFlying ? false : true;
+
+            position = startPos;
+            direction = dir;
+            if (isFlying) { color = Color.White; }
+        }
+
+        public bool GetState()
+        {
+            return isFlying;
+        }
+
+        public void SetScale(float scale)
+        {
+            particleScale = scale;
+        }
+
+        public void SetSpeed(float speed)
+        {
+            this.speed = speed;
+        }
     }
 }

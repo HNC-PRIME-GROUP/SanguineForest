@@ -17,6 +17,9 @@ namespace Sanguine_Forest
         public SpriteModule SpriteModule;
         public AnimationModule AnimationModule;
 
+        //particles
+        private ParticleSystem bossParticles;
+
         // Trigger zone
         public PhysicModule PhysicModule;
 
@@ -27,6 +30,7 @@ namespace Sanguine_Forest
             dialogue,
             option,
             phase2,
+            phase3,
             triggered
         };
 
@@ -36,6 +40,10 @@ namespace Sanguine_Forest
         public event EventHandler LevelEnd;
         public float EndTimer;
         public float MaxTimer = 4;
+        public float EndTimer2;
+        public float MaxTimer2 = 4;
+
+
 
         private Vector2 startPosition;
         private Vector2 endPosition;
@@ -69,6 +77,11 @@ namespace Sanguine_Forest
             PhysicModule = new PhysicModule(this, new Vector2(100,50), new Vector2(100, 300));
 
             EndTimer = MaxTimer;
+            EndTimer2 = MaxTimer2;
+
+            //particles
+            bossParticles = new ParticleSystem(position, 0, content.Load<Texture2D>("Sprites/BossParticle"), 0f, 10, 0.2f, 0.05f,
+                (float)Extention.Extentions.SpriteLayer.obstacles, 0.25f);
         }
 
         public new void UpdateMe()
@@ -76,6 +89,8 @@ namespace Sanguine_Forest
             SpriteModule.UpdateMe();
             AnimationModule.UpdateMe();
             PhysicModule.UpdateMe();
+            bossParticles.UpdateMe(new Vector2(position.X+100, position.Y+100),(float)Math.PI/2);
+         
 
             switch (currentState)
             {
@@ -88,17 +103,35 @@ namespace Sanguine_Forest
                 case TriggerState.option:
                     AnimationModule.Play("Idle");
                     break;
+
                 case TriggerState.phase2:
-                    AnimationModule.Play("Idle");
-                    position = endPosition;
+                    AnimationModule.Play("FlyBack");
+                    position.Y -= 10;
+                    position.X -= SpriteModule.GetSpriteEffects() == SpriteEffects.None ? 10 : -10;
+                    EndTimer2 -= 1 * Extention.Extentions.globalTime;
+                    bossParticles.Play();
+
+                    if (EndTimer2 <= 0)
+                    {
+                        position = endPosition;                        
+                        currentState = TriggerState.phase3;
+                        bossParticles.Stop();
+                    }
                     break;
+                case TriggerState.phase3:
+                    AnimationModule.Play("Idle");
+                    break;
+
                 case TriggerState.triggered:
                     AnimationModule.Play("FlyBack");
                     position.Y -= 10;
                     position.X -= SpriteModule.GetSpriteEffects() == SpriteEffects.None ? 10 : -10;
                     EndTimer -= 1 * Extention.Extentions.globalTime;
+                    bossParticles.Play();
+
                     if (EndTimer <= 0)
                     {
+                        bossParticles.Stop();
                         LevelEnd?.Invoke(this, EventArgs.Empty);
                         return;
                     }
@@ -109,6 +142,7 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch sp, bool showPressE)
         {
             SpriteModule.DrawMe(sp);
+            bossParticles.DrawMe(sp);
             DebugManager.DebugRectangle(PhysicModule.GetPhysicRectangle());
 
         }
@@ -116,7 +150,7 @@ namespace Sanguine_Forest
 
         public override void Collided(Collision collision)
         {
-            if (currentState == TriggerState.phase2)
+            if (currentState == TriggerState.phase3)
             {
                 if (collision.GetCollidedPhysicModule().GetParent() is Character2)
                 {

@@ -680,7 +680,7 @@ namespace Sanguine_Forest
             {
                 if (currentKeyboardState.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E))
                 {
-                    if (!isDialogueActive && !ShowOptions)
+                    if (!isDialogueActive && !ShowOptions && (trigger.currentState == LevelTrigger.TriggerState.dialogue || trigger.currentState == LevelTrigger.TriggerState.phase1))
                     {
                         isDialogueActive = true;
                         isMovingToTrigger = true;

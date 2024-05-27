@@ -17,6 +17,9 @@ namespace Sanguine_Forest
         public SpriteModule SpriteModule;
         public AnimationModule AnimationModule;
 
+        //particles
+        private ParticleSystem bossParticles;
+
         // Trigger zone
         public PhysicModule PhysicModule;
 
@@ -76,6 +79,9 @@ namespace Sanguine_Forest
             EndTimer = MaxTimer;
             EndTimer2 = MaxTimer2;
 
+            //particles
+            bossParticles = new ParticleSystem(position, 0, content.Load<Texture2D>("Sprites/BossParticle"), 0f, 10, 0.2f, 0.05f,
+                (float)Extention.Extentions.SpriteLayer.obstacles, 0.25f);
         }
 
         public new void UpdateMe()
@@ -83,6 +89,8 @@ namespace Sanguine_Forest
             SpriteModule.UpdateMe();
             AnimationModule.UpdateMe();
             PhysicModule.UpdateMe();
+            bossParticles.UpdateMe(new Vector2(position.X+100, position.Y+100),(float)Math.PI/2);
+         
 
             switch (currentState)
             {
@@ -101,11 +109,13 @@ namespace Sanguine_Forest
                     position.Y -= 10;
                     position.X -= SpriteModule.GetSpriteEffects() == SpriteEffects.None ? 10 : -10;
                     EndTimer2 -= 1 * Extention.Extentions.globalTime;
+                    bossParticles.Play();
+
                     if (EndTimer2 <= 0)
                     {
-                        position = endPosition;
+                        position = endPosition;                        
                         currentState = TriggerState.phase3;
-
+                        bossParticles.Stop();
                     }
                     break;
                 case TriggerState.phase3:
@@ -117,8 +127,11 @@ namespace Sanguine_Forest
                     position.Y -= 10;
                     position.X -= SpriteModule.GetSpriteEffects() == SpriteEffects.None ? 10 : -10;
                     EndTimer -= 1 * Extention.Extentions.globalTime;
+                    bossParticles.Play();
+
                     if (EndTimer <= 0)
                     {
+                        bossParticles.Stop();
                         LevelEnd?.Invoke(this, EventArgs.Empty);
                         return;
                     }
@@ -129,6 +142,7 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch sp, bool showPressE)
         {
             SpriteModule.DrawMe(sp);
+            bossParticles.DrawMe(sp);
             DebugManager.DebugRectangle(PhysicModule.GetPhysicRectangle());
 
         }

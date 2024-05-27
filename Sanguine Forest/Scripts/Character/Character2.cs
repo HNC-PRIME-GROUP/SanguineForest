@@ -23,6 +23,13 @@ namespace Sanguine_Forest
         private Dictionary<string, AnimationSequence> _animations;
         private SpriteSheetData _spriteSheetData;
 
+        //particles
+        private ParticleSystem footParticles;
+        private ParticleSystem clingLeftParticles;
+        private ParticleSystem clingRightParticles;
+        private ParticleSystem lightParticles;
+
+
         //Collisions
         private PhysicModule _characterCollision;
         private PhysicModule _feetCollision;
@@ -120,10 +127,23 @@ namespace Sanguine_Forest
             _rightCollision = new PhysicModule(this, new Vector2(85, 50), new Vector2(10, 60));
 
 
+            //Default state
             _currentState = CharState.jump;
 
             this.isWalkingToTarget = false;
             this._currentState = CharState.idle;
+
+
+            //Particles
+            footParticles = new ParticleSystem(_feetCollision.GetPosition(), 0, content.Load<Texture2D>("Sprites/Dust"), 0.6f, 10, 1f, 0.3f,
+                (float)Extention.Extentions.SpriteLayer.character2, 0.25f);
+
+            clingLeftParticles = new ParticleSystem(_leftCollision.GetPosition(), 0, content.Load<Texture2D>("Sprites/SmallRock"), 0.6f, 5, 3f, 1f,
+                (float)Extention.Extentions.SpriteLayer.character2, 0.15f);
+            clingRightParticles = new ParticleSystem(_rightCollision.GetPosition(), 0, content.Load<Texture2D>("Sprites/SmallRock"), 0.6f, 5, 3f, 1f,
+                (float)Extention.Extentions.SpriteLayer.character2, 0.15f);
+            lightParticles = new ParticleSystem(position, 0, content.Load<Texture2D>("Sprites/LightCharacterParticle"), 0f, 25, 0.1f, 0,
+                (float)Extention.Extentions.SpriteLayer.character2, 0.08f);
 
 
         }
@@ -181,6 +201,12 @@ namespace Sanguine_Forest
             _velocity.Y += _gravityEffect;
             position += _velocity;
 
+            //Particles update
+           
+            footParticles.UpdateMe(new Vector2(_feetCollision.GetPosition().X, _feetCollision.GetPosition().Y-20),(float)Math.PI);
+            clingLeftParticles.UpdateMe(_leftCollision.GetPosition(), (float)Math.PI/2);
+            clingRightParticles.UpdateMe(_rightCollision.GetPosition(), (float)Math.PI/2);
+            lightParticles.UpdateMe(new Vector2(position.X+55, position.Y+45), (float)Math.PI/2);
         }
 
         #region State updates
@@ -214,12 +240,19 @@ namespace Sanguine_Forest
                 _SpriteModule.SetSpriteEffects(directionToNPC.X > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 
             }
+
+            //particles
+            footParticles.Play();
+            lightParticles.Stop();
+            clingLeftParticles.Stop();
+            clingRightParticles.Stop();
         }
 
         public void IdleUpdate(KeyboardState prev, KeyboardState curr)
         {
             _animationModule.SetAnimationSpeed(0.5f);
             _animationModule.Play("Idle");
+           
 
             //transition to jump
             if (curr.IsKeyDown(Keys.W))
@@ -250,6 +283,12 @@ namespace Sanguine_Forest
                 _velocity.X = 0;
             }
 
+            //particles
+            footParticles.Stop();
+            lightParticles.Stop();
+            clingLeftParticles.Stop();
+            clingRightParticles.Stop();
+
         }
 
         public void WalkUpdate(KeyboardState prev, KeyboardState curr)
@@ -258,6 +297,9 @@ namespace Sanguine_Forest
 
             _animationModule.SetAnimationSpeed(0.1f);
             _animationModule.Play("Run");
+
+            
+
             if (curr.IsKeyDown(Keys.W) && prev.IsKeyUp(Keys.W))                
             {
                 isJumping = true; // Set jumping state
@@ -295,6 +337,12 @@ namespace Sanguine_Forest
             {
                 _currentState = CharState.wallJump;
             }
+
+            //particles
+            footParticles.Play();
+            lightParticles.Stop();
+            clingLeftParticles.Stop();
+            clingRightParticles.Stop();
         }
 
         public void JumpUpdate(KeyboardState prev, KeyboardState curr)
@@ -327,6 +375,18 @@ namespace Sanguine_Forest
                 return;
             }
 
+            //particles
+            footParticles.Stop();
+            if(_velocity.Y<0)
+            {
+                lightParticles.Play();
+            }
+            else
+            {
+                lightParticles.Stop();
+            }
+            clingLeftParticles.Stop();
+            clingRightParticles.Stop();
 
 
         }
@@ -342,6 +402,8 @@ namespace Sanguine_Forest
             if (prev.IsKeyDown(Keys.S))
             {
                 _velocity.X = 0;
+                clingLeftParticles.Stop();
+                clingRightParticles.Stop();
                 _currentState = CharState.idle;
             }
 
@@ -353,6 +415,8 @@ namespace Sanguine_Forest
                     _velocity.X = -_speed;
                     _velocity.Y = -_jumpHigh;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
+                    clingLeftParticles.Stop();
+                    clingRightParticles.Stop();
                     _currentState = CharState.wallJump;
                     return;
                 }
@@ -361,14 +425,22 @@ namespace Sanguine_Forest
                     _velocity.X = _speed;
                     _velocity.Y = -_jumpHigh;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.None);
+                    clingLeftParticles.Stop();
+                    clingRightParticles.Stop();
                     _currentState = CharState.wallJump;
                     return;
                 }
             }
             if (_rightCollision.physicRec.Y > currClingRectangle.GetPhysicRectangle().Y + currClingRectangle.GetPhysicRectangle().Height || !currClingRectangle.isPhysicActive)
             {
+                clingLeftParticles.Stop();
+                clingRightParticles.Stop();
                 _currentState = CharState.falling;
             }
+
+            //particles
+            footParticles.Stop();
+            lightParticles.Stop();
         }
 
         public void WallJumpUpdate(KeyboardState prev, KeyboardState curr)
@@ -401,6 +473,19 @@ namespace Sanguine_Forest
                 AudioSourceModule.StopSound("Jump");
                 return;
             }
+
+            //particles
+            footParticles.Stop();
+            if(_velocity.Y<0)
+            {
+                lightParticles.Play();
+            }
+            else
+            {
+                lightParticles.Stop();
+            }
+            clingLeftParticles.Stop();
+            clingRightParticles.Stop();
         }
 
         public void FallingUpdate(KeyboardState prev, KeyboardState curr)
@@ -417,6 +502,11 @@ namespace Sanguine_Forest
                 _SpriteModule.SetSpriteEffects(SpriteEffects.None);
                 _velocity.X = (_speed * 1 / 5);
             }
+            //particles
+            footParticles.Stop();
+            lightParticles.Stop();
+            clingLeftParticles.Stop();
+            clingRightParticles.Stop();
         }
 
         public void DeathUpdate()
@@ -429,6 +519,14 @@ namespace Sanguine_Forest
             _gravityEffect = 0;
             _animationModule.AnimationEnd += CharacterRestore;
 
+            //particles
+            footParticles.Stop();
+            clingLeftParticles.Stop();
+            clingRightParticles.Stop();
+            lightParticles.Play();
+            lightParticles.SetConeRandom(0.3f);
+            lightParticles.SetScale(0.25f);
+
 
         }
 
@@ -436,6 +534,9 @@ namespace Sanguine_Forest
         {
             _animationModule.SetAnimationSpeed(0.5f);
             _animationModule.Play("Idle");
+
+            //particles
+            footParticles.Stop();
         }
 
 
@@ -444,6 +545,12 @@ namespace Sanguine_Forest
             _currentState = CharState.jump;
             position = SavePoint ;
             _animationModule.AnimationEnd -= CharacterRestore;
+
+            //particles
+            footParticles.Stop();
+            lightParticles.SetConeRandom(0);
+            lightParticles.SetScale(0.08f);
+
         }
 
         public void CharacterRestore()
@@ -532,6 +639,7 @@ namespace Sanguine_Forest
                     position.X = platform.GetPlatformRectangle().Right - collision.GetThisPhysicModule().GetShiftPosition().X + collision.GetThisPhysicModule().GetPhysicRectangle().Width;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.FlipHorizontally);
                     currClingRectangle = platform.GetPhysicModule();
+                    clingLeftParticles.Play();
                     _gravityEffect = 0f;
                     _currentState = CharState.cling;
 
@@ -545,6 +653,7 @@ namespace Sanguine_Forest
                     _gravityEffect = 0f;
                     _SpriteModule.SetSpriteEffects(SpriteEffects.None);
                     currClingRectangle = platform.GetPhysicModule();
+                    clingRightParticles.Play();
                     _currentState = CharState.cling;
                     return;
                 }
@@ -605,6 +714,12 @@ namespace Sanguine_Forest
         public void DrawMe(SpriteBatch sp)
         {
             _SpriteModule.DrawMe(sp);
+
+            //particles
+            footParticles.DrawMe(sp);
+            clingLeftParticles.DrawMe(sp);
+            clingRightParticles.DrawMe(sp);
+            lightParticles.DrawMe(sp);
             DebugManager.DebugRectangle(_feetCollision.GetPhysicRectangle());
             DebugManager.DebugRectangle(_rightCollision.GetPhysicRectangle());
             DebugManager.DebugRectangle(_leftCollision.GetPhysicRectangle());

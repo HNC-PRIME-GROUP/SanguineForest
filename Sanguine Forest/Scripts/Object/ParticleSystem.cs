@@ -40,7 +40,7 @@ namespace Sanguine_Forest
         /// <param name="opacitySpeed">Particles shading speed</param>
         /// <param name="emissionTime">Pause between emission</param>
         /// /// <param name="emissionCone">Random direction</param>
-        public ParticleSystem(Vector2 pos, float rot, Texture2D tex, float speed, float opacitySpeed, float emissionTime, float emissionCone) : base(pos, rot)
+        public ParticleSystem(Vector2 pos, float rot, Texture2D tex, float speed, float opacitySpeed, float emissionTime, float emissionCone, float layer, float scale ) : base(pos, rot)
         {
             partTex = tex;
             //emission
@@ -53,7 +53,7 @@ namespace Sanguine_Forest
             _particles = new List<Particle>();
             for (int i = 0; i < 10; i++)
             {
-                _particles.Add(new Particle(partTex, position, speed, GetRotation(), opacitySpeed));
+                _particles.Add(new Particle(partTex, position, speed, GetRotation(), opacitySpeed, layer, scale));
             }
         }
 
@@ -126,5 +126,25 @@ namespace Sanguine_Forest
             isPlaying = false;
         }
 
+        public void SetSpeed(float speed)
+        {
+            for (int i = 0; i < _particles.Count; i++)
+            {
+                _particles[i].SetSpeed(speed);
+            }
+        }
+
+        public void SetConeRandom(float cone)
+        {
+            this.emissionCone = cone;
+        }
+
+        public void SetScale(float scale)
+        {
+            for(int i = 0; i < _particles.Count;i++)
+            {
+                _particles[i].SetScale(scale);
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using Extention;
 
 namespace Sanguine_Forest
 {
@@ -26,8 +27,15 @@ namespace Sanguine_Forest
 
         private Color color;
 
+        //layer
+        float layer;
 
-        public Particle(Texture2D tex, Vector2 pos, float speed, float rot, float opacitySpeed) : base(pos, rot)
+        //scale
+        float particleScale;
+
+
+
+        public Particle(Texture2D tex, Vector2 pos, float speed, float rot, float opacitySpeed, float layer, float particleScale) : base(pos, rot)
         {
             _texture = tex;
             position = pos;
@@ -38,6 +46,8 @@ namespace Sanguine_Forest
             color = Color.Transparent;
 
             isFlying = false;
+            this.layer = layer;
+            this.particleScale = particleScale;
         }
 
 
@@ -74,7 +84,7 @@ namespace Sanguine_Forest
 
         public void DrawMe(SpriteBatch sp)
         {
-            sp.Draw(_texture, position, null, color, GetRotation(), origin, 1f, SpriteEffects.None, 1f);
+            sp.Draw(_texture, position, null, color, GetRotation(), origin, particleScale, SpriteEffects.None, (float)layer / (float)Extentions.SpriteLayer.Length);
         }
 
         public void TriggerMe(Vector2 startPos, Vector2 dir)
@@ -89,6 +99,16 @@ namespace Sanguine_Forest
         public bool GetState()
         {
             return isFlying;
+        }
+
+        public void SetScale(float scale)
+        {
+            particleScale = scale;
+        }
+
+        public void SetSpeed(float speed)
+        {
+            this.speed = speed;
         }
     }
 }

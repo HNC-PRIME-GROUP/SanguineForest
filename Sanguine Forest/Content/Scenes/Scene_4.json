@@ -1,210 +1,767 @@
 {
+  //"characterPosition": "-650, 530",
 
-  "characterPosition": "-100, -150",
-  "comment": "Simple platforms",
-  "LeftUpperBound": "300,-4500",
-  "RightBottomBound": "1920,4500",
-  
-  "simplePlatforms": [
+  "characterPosition": "-650, 530",
 
+
+  "checkPoints": [
     {
-      "comment": "First platform - Middle edge ",
-      "position": "-5000, 355",
-      "rotation": "0",
-      "platformSize": "10000,220"
+      "position": "3420,-800",
+      "size": "100,600"
     },
-
     {
-      "comment": "First platform - Middle edge ",
-      "position": "-5000, -1000",
-      "rotation": "0",
-      "platformSize": "200, 2000"
+      "position": "6500,-970",
+      "size": "100,600"
     },
-
     {
-      "comment": "First platform - Middle edge ",
-      "position": "4780, -1000",
-      "rotation": "0",
-      "platformSize": "200, 2000"
+      "position": "11900,-170",
+      "size": "100,600"
+    },
+    {
+      "position": "14380,-920",
+      "size": "50,600"
     }
 
+  ],
+
+  "LeftUpperBound": "-17300,-100000",
+  "RightBottomBound": "17000,100000",
+  "comment": "Simple platforms",
+  "simplePlatforms": [
+    //{
+    //  "comment": "Sky Edge", // Top Edge
+    //  "position": "-6000, -1400",
+    //  "rotation": "0",
+    //  "platformSize": "200000, 400"
+    //},
+    {
+      "comment": "1",
+      "position": "-1300, -1200",
+      "rotation": "0",
+      "platformSize": "300, 3700"
+    },
+
+    {
+      "comment": "1",
+      "position": "19000, -1200",
+      "rotation": "0",
+      "platformSize": "300, 3700"
+    },
+    {
+      "comment": "2",
+      "position": "-995, 600", // Middle gap between Top and Bottom backgrounds
+      "rotation": "0",
+      "platformSize": "1900, 280"
+    },
+
+    {
+      "comment": "3",
+      "position": "-995, 100",
+      "rotation": "0",
+      "platformSize": "1700, 200"
+    },
+
+    {
+      "comment": "4",
+      "position": "1000, -500",
+      "rotation": "0",
+      "platformSize": "200, 1600"
+    },
+
+    {
+      "comment": "5",
+      "position": "-600, -400",
+      "rotation": "0",
+      "platformSize": "1400, 280"
+    },
 
     //{
-    //  "comment": "3 platform",
-    //  "position": "0, 1880",
+    //  "comment": "6",
+    //  "position": "-600, -1200",
     //  "rotation": "0",
-    //  "platformSize": "19000, 400"
-    //}
+    //  "platformSize": "200, 600"
+    //},
 
+    {
+      "comment": "7",
+      "position": "1500, 600",
+      "rotation": "0",
+      "platformSize": "700, 280"
+    },
+
+    {
+      "comment": "8",
+      "position": "2400, 600",
+      "rotation": "0",
+      "platformSize": "700, 280"
+    },
+
+    {
+      "comment": "9",
+      "position": "3095, 200",
+      "rotation": "0",
+      "platformSize": "900, 670"
+    },
+
+    {
+      "comment": "10",
+      "position": "2100, -1200",
+      "rotation": "0",
+      "platformSize": "400, 1500"
+    },
+
+    {
+      "comment": "11",
+      "position": "3100, -600",
+      "rotation": "0",
+      "platformSize": "700, 280"
+    },
+
+    {
+      "comment": "12",
+      "position": "3795, -600",
+      "rotation": "0",
+      "platformSize": "200, 810"
+    },
+
+    {
+      "comment": "20",
+      "position": "5000, -1200",
+      "rotation": "0",
+      "platformSize": "400, 1500"
+    },
+
+    {
+      "comment": "21",
+      "position": "4200, 600",
+      "rotation": "0",
+      "platformSize": "2000, 280"
+    },
+
+    {
+      "comment": "22",
+      "position": "6400, 550",
+      "rotation": "0",
+      "platformSize": "500, 330"
+    },
+
+    {
+      "comment": "23",
+      "position": "7000, 0",
+      "rotation": "0",
+      "platformSize": "500, 300"
+    },
+
+    {
+      "comment": "24",
+      "position": "7700, -800",
+      "rotation": "0",
+      "platformSize": "300, 1200"
+    },
+
+    {
+      "comment": "25",
+      "position": "6400, -300",
+      "rotation": "0",
+      "platformSize": "300, 100"
+    },
+
+    {
+      "comment": "26",
+      "position": "5600, -300",
+      "rotation": "0",
+      "platformSize": "300, 100"
+    },
+
+    {
+      "comment": "26",
+      "position": "6000, -800",
+      "rotation": "0",
+      "platformSize": "1500, 100"
+    },
+
+    {
+      "comment": "27",
+      "position": "9900, -800",
+      "rotation": "0",
+      "platformSize": "400, 1200"
+    },
+
+    {
+      "comment": "28",
+      "position": "11200, -1200",
+      "rotation": "0",
+      "platformSize": "1000, 900"
+    },
+
+    {
+      "comment": "29",
+      "position": "11200, 0",
+      "rotation": "0",
+      "platformSize": "1000, 900"
+    },
+
+    {
+      "comment": "30",
+      "position": "12210, 300",
+      "rotation": "0",
+      "platformSize": "700, 150"
+    },
+    {
+      "comment": "31",
+      "position": "12900, 200",
+      "rotation": "0",
+      "platformSize": "300, 230"
+    },
+
+    {
+      "comment": "32",
+      "position": "13500, -0",
+      "rotation": "0",
+      "platformSize": "600, 200"
+    },
+
+    {
+      "comment": "33",
+      "position": "14300, -350",
+      "rotation": "0",
+      "platformSize": "100, 300"
+    },
+    {
+      "comment": "34",
+      "position": "13900, -600",
+      "rotation": "0",
+      "platformSize": "100, 300"
+    },
+
+    {
+      "comment": "35",
+      "position": "14300, -750",
+      "rotation": "0",
+      "platformSize": "100, 300"
+    },
+
+    {
+      "comment": "36",
+      "position": "14700, -450",
+      "rotation": "0",
+      "platformSize": "400, 200"
+    },
+
+    {
+      "comment": "37",
+      "position": "15600, -450",
+      "rotation": "0",
+      "platformSize": "400, 200"
+    },
+
+    {
+      "comment": "38",
+      "position": "15600, -450",
+      "rotation": "0",
+      "platformSize": "400, 200"
+    },
+
+    {
+      "comment": "39",
+      "position": "16300, -1200",
+      "rotation": "0",
+      "platformSize": "4000, 350"
+    },
+
+    {
+      "comment": "40",
+      "position": "16700, -350",
+      "rotation": "0",
+      "platformSize": "4000, 1400"
+    },
+
+    // THORN COVER
+    {
+      "comment": "1",
+      "position": "900, 730",
+      "rotation": "0",
+      "platformSize": "630, 100"
+    },
+    {
+      "comment": "2",
+      "position": "775, -280",
+      "rotation": "0",
+      "platformSize": "250, 100"
+    },
+    {
+      "comment": "3",
+      "position": "2120, 730",
+      "rotation": "0",
+      "platformSize": "300, 100"
+    },
+    {
+      "comment": "4",
+      "position": "3970, 730",
+      "rotation": "0",
+      "platformSize": "250, 100"
+    },
+    {
+      "comment": "5",
+      "position": "6160, 720",
+      "rotation": "0",
+      "platformSize": "250, 160"
+    },
+    {
+      "comment": "8",
+      "position": "8040, 600",
+      "rotation": "0",
+      "platformSize": "3300, 280"
+    },
+    {
+      "comment": "7",
+      "position": "6850, 670",
+      "rotation": "0",
+      "platformSize": "1190, 200"
+    },
+    {
+      "comment": "11",
+      "position": "13200, 300",
+      "rotation": "0",
+      "platformSize": "10000,100"
+    },
+
+
+
+    {
+      "comment": "bottom edge platform", //Bottom Edge platform HELL
+      "position": "-10000, 2250",
+      "rotation": "0",
+      "platformSize": "20000, 400"
+    }
 
   ],
   "comment02": "platform that change their position slightly after death if risk level is high",
   "moveablPlatforms": [
 
+    //{
+    //    "position": "0, -300",
+    //    "rotation": "0",
+    //    "platformSize": "100,100",
+    //    "maxShift": "50,50"
+    //}
 
   ],
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
   "fallingPlatforms": [
 
 
+    {
+      "comment": "1",
+      "position": "2750, 200",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "2",
+      "position": "2750, -200",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "3",
+      "position": "2750, -600",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "4",
+      "position": "6600, 200",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "5",
+      "position": "7090, -300",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "6",
+      "position": "6100, -300",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "7",
+      "position": "5700, -600",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "8",
+      "position": "7520, -750",
+      "rotation": "0",
+      "platformSize": "150, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "9",
+      "position": "8300, 400",
+      "rotation": "0",
+      "platformSize": "600, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "10",
+      "position": "9100, 400",
+      "rotation": "0",
+      "platformSize": "600, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "11",
+      "position": "9550, -250",
+      "rotation": "0",
+      "platformSize": "100, 250",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "12",
+      "position": "9550, -700",
+      "rotation": "0",
+      "platformSize": "100, 250",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "12",
+      "position": "10450, 0",
+      "rotation": "0",
+      "platformSize": "200, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "13",
+      "position": "10850, 0",
+      "rotation": "0",
+      "platformSize": "200, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "14",
+      "position": "13000, -100",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "15",
+      "position": "15300, -450",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "16",
+      "position": "16300, -775",
+      "rotation": "0",
+      "platformSize": "100, 500",
+      "TimeToFall": "2"
+    },
+
+    {
+      "comment": "17",
+      "position": "16100, 0",
+      "rotation": "0",
+      "platformSize": "500, 100",
+      "TimeToFall": "2"
+    }
+
+
+    //{
+    //  "comment": "10",
+    //  "position": "8100, 600",
+    //  "rotation": "0",
+    //  "platformSize": "6000, 100",
+    //  "TimeToFall": "5"
+    //}
+
+    //{
+    //  "Position": "800,-600",
+    //  "Rotation": "0",
+    //  "PlatformSize": "200,200",
+    //  "TimeToFall": "1"
+    //}
 
   ],
-  "comment04": "dangerous place in any case (pites, water, thorns)",
-  "dangerPlaces": [],
+
 
 
   "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "decors": [
 
 
+
   ],
 
-  "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
+  "comment05.0": "Patches when going to cave",
   "patchDecors": [
 
 
+
   ],
+
+
 
   "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
   "obstaclesData1": [
 
+
+    {
+      "Position": "11850, 150",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "13050,140",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "13500, -150",
+      "Rotation": "0",
+      "slimeType": "Green",
+      "finPosition": "13900,-140",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "14790, -525",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "14810, -1000",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "15255, -1000",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "15275, -525",
+      "Speed": "2",
+      "Size": "200,200"
+    },
+    {
+      "Position": "15690, -525",
+      "Rotation": "0",
+      "slimeType": "Brown",
+      "finPosition": "15710, -1000",
+      "Speed": "2",
+      "Size": "200,200"
+    }
   ],
   "obstaclesData2": [
 
+    //{
+    //  "Position": "-300,100",
+    //  "Rotation": "0",
+    //  "slimeType": "Brown",
+    //  "finPosition": "-600,-200",
+    //  "Speed": "5",
+    //  "Size": "200,200"
+    //}
 
   ],
+
   "obstaclesData3": [],
   "comment07": "Thorns - danger polaces",
   "thorns": [
 
+    {
+      "comment": "1",
+      "Position": "900, 630",
+      "Rotation": "0",
+      "ThornsSize": "100,100"
+    },
 
+    {
+      "comment": "2",
+      "Position": "775,-370",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
 
+    {
+      "comment": "3",
+      "Position": "1150, 640",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "comment": "4",
+      "Position": "2175, 645",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "comment": "5",
+      "Position": "3970, 645",
+      "Rotation": "0",
+      "ThornsSize": "200,100"
+    },
+
+    {
+      "comment": "6",
+      "Position": "6170, 640",
+      "Rotation": "0",
+      "ThornsSize": "400,100"
+    },
+
+    {
+      "comment": "7",
+      "Position": "6900, 570",
+      "Rotation": "0",
+      "ThornsSize": "1200, 100"
+    },
+
+    {
+      "comment": "8",
+      "Position": "8000, 500",
+      "Rotation": "0",
+      "ThornsSize": "3500, 100"
+    },
+
+    //{
+    //  "comment": "9",
+    //  "Position": "9500, 500",
+    //  "Rotation": "0",
+    //  "ThornsSize": "800,200"
+    //},
+
+    //{
+    //  "comment": "10",
+    //  "Position": "10250, 150",
+    //  "Rotation": "0",
+    //  "ThornsSize": "1000,600"
+    //},
+
+    {
+      "comment": "11",
+      "Position": "13200, 250",
+      "Rotation": "0",
+      "ThornsSize": "10000,100"
+    }
   ],
 
 
   "comment 07 ": "Data about cutscenes",
   "cutSceneDialogues": [
-    //"\\n",
-    {
-      "Text": "Jake! There ye are.",
-      "Position": "-50, 200"
-    },
-    {
-      "Text": "We've been looking for ye everywhere.",
-      "Position": "-150, 200"
-    },
-    {
-      "Text": "Are ye awright?",
-      "Position": "-50, 200"
-    },
-
-
-    {
-      "Text": "Alex... I'm... I'm fine.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "Just... had a bit too much",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "of whatever that guy gave me.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "Ended up spewing after jumping off",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "the second platform.",
-      "Position": "300, 160"
-    },
-
-    {
-      "Text": "Jake, ye cannae keep doing this tae yourself.",
-      "Position": "-250, 200"
-    },
-    {
-      "Text": " Ye're seeing life through a dirty lens",
-      "Position": "-250, 200"
-    },
-    {
-      "Text": "when ye're always avoiding reality",
-      "Position": "-150, 200"
-    },
-    {
-      "Text": "with booze and drugs.",
-      "Position": "-50, 200"
-    },
-
-
-
-    {
-      "Text": "I know, I know. It's just...",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "it's hard tae stop.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "But after today, I see how much I've missed out on.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "I need tae change",
-      "Position": "300, 160"
-    },
-
-
-    {
-      "Text": "We're here for ye, Jake.",
-      "Position": "50, 200"
-    },
-    {
-      "Text": " Let's get through this together.",
-      "Position": "50, 200"
-    },
-
-    {
-      "Text": "Aye, ye're right.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "I needed to hear that.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "Thanks, Alex.",
-      "Position": "300, 160"
-    }
 
 
   ],
 
-  "isCutScene": "true",
+  "isCutScene": "false",
   "cutSceneObjects": [
 
+
     //{
-    //  "Position": "300,240",
+    //  "Position": "-100, 240",
     //  "Rotation": 0.0,
     //  "Scale": 1.0,
     //  "NPCType": "Pink"
     //}
-
     //,
     //{
-    //  "Position": "400,-240",
+    //  "Position": "400,-20",
     //  "Rotation": 0.0,
     //  "Scale": 1.0,
     //  "NPCType": "Green"
     //},
+    //{
+    //  "Position": "500,-20",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Blue"
+    //}
+  ],
+
+
+  "levelTrigger": {
+    "startPosition": "-200, 400",
+    "endPosition": "17900, -600",
+    "SpriteEffect": "1"
+  },
+
+  "comment 06 ": "Data about level dialogue",
+  "LevelDialogueData": [
+
+
 
     {
-      "Position": "300,240",
-      "Rotation": 0.0,
-      "Scale": 1.0,
-      "NPCType": "Blue"
+      "Text": "Hey lad!",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "Getting tired? ",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "I have seen your blue friend again.",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "He looks like he was having a lot of fun",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "What about you?",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "Do you want to spice things up?",
+      "Position": "-230, 420"
+    },
+    {
+      "Text": "Should I accept this offer?",
+      "Position": "-450, 520"
     }
-  ]
+
+  ],
+
+
+  "parallaxLayerPositions": {
+
+    "background_Fore": { "initialPosition": "-200, -205" },
+    "background_Fore_Mid": { "initialPosition": "-200, -425" },
+    "background_Mid": { "initialPosition": "-200, -600" },
+    "background_Mid_Back": { "initialPosition": "-200, -800" },
+    "background_Back": { "initialPosition": "-200, -1200" },
+
+    "underground_Back": { "initialPosition": "-200, 1100" },
+    "underground_Mid": { "initialPosition": "-200, 1200" },
+    "underground_Fore": { "initialPosition": "-200,1300" }
+
+  }
+
+
+
+
 }

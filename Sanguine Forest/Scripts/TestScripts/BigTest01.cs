@@ -399,7 +399,7 @@ namespace Sanguine_Forest
         public void NextLevel(object sender, EventArgs e)
         {
             _playerState.lvlCounter++;
-            if (_playerState.lvlCounter <= 6)
+            if (_playerState.lvlCounter <= 7)
             {
                 
                 //_environmentManager.LevelEndTrigger -= NextLevel;
@@ -408,7 +408,7 @@ namespace Sanguine_Forest
                 FileLoader.SaveToJson(_playerState, FileLoader.RootFolder + "/PlayerState/SavedState.json");
                 LoadGame(sender, e);
             }
-            if(_playerState.lvlCounter == 7)
+            if(_playerState.lvlCounter == 8)
             {
                 _uiManager.SetGameState(UIManager.GameState.Credits);
                 FileLoader.DeleteFile(FileLoader.RootFolder + "/PlayerState/SavedState.json");

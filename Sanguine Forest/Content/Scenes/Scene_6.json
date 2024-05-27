@@ -102,7 +102,7 @@
 
 
     {
-      "Text": "Yeah!",
+      "Text": "Aye!",
       "Position": "300, 180"
     },
 
@@ -131,7 +131,7 @@
     },
 
     {
-      "Text": "in drinks or anything else.",
+      "Text": "in booze or anything else.",
       "Position": "400, 160"
     },
 
@@ -150,6 +150,14 @@
     },
     {
       "Text": "shape our experiences.",
+      "Position": "650, 140"
+    },
+    {
+      "Text": " I'm done with letting booze and drugs",
+      "Position": "600, 140"
+    },
+    {
+      "Text": "ruin the good moments.",
       "Position": "650, 140"
     },
 

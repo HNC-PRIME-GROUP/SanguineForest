@@ -1121,33 +1121,47 @@
 
 
     {
-      "Text": "Hey! It's 'you again!",
+      "Text": "Back again, huh?",
       "Position": "470, -80"
     },
     {
-      "Text": "How did it go?!",
+      "Text": "Your mate had quite the trip last time.",
       "Position": "470, -80"
     },
     {
-      "Text": "You look like a strong lad",
+      "Text": "Ready for a little something...",
       "Position": "470, -80"
     },
     {
-      "Text": "Do you want another try of the bottle?",
+      "Text": "to take the edge off?",
       "Position": "470, -80"
     },
     {
-      "Text": "You will need it if you are going to face what lays ahead",
+      "Text": "Nah, I'm not interested.",
+      "Position": "220, 20"
+    },
+    {
+      "Text": " I saw what it did tae my friend.",
+      "Position": "220, 20"
+    },
+
+
+    {
+      "Text": "Oh, come on.",
       "Position": "470, -80"
     },
 
     {
-      "Text": "HAHAHAHA",
+      "Text": "Just a wee bit won't hurt.",
+      "Position": "470, -80"
+    },
+    {
+      "Text": "It'll make the journey so much more enjoyable.",
       "Position": "470, -80"
     },
 
     {
-      "Text": "Should I accept this non suspictions offer?",
+      "Text": "Should I accept this offer?",
       "Position": "220, 20"
     }
 

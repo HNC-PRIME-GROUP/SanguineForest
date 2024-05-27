@@ -1,776 +1,162 @@
 {
-  //"characterPosition": "-650, 530",
 
-  "characterPosition": "-650, 530",
-
-
-  "checkPoints": [
-    {
-      "position": "3420,-800",
-      "size": "100,600"
-    },
-    {
-      "position": "6500,-970",
-      "size": "100,600"
-    },
-    {
-      "position": "11900,-170",
-      "size": "100,600"
-    },
-    {
-      "position": "14380,-920",
-      "size": "50,600"
-    }
-
-  ],
-
-  "LeftUpperBound": "-17300,-100000",
-  "RightBottomBound": "17000,100000",
+  "characterPosition": "-100, -150",
   "comment": "Simple platforms",
+  "LeftUpperBound": "300,-4500",
+  "RightBottomBound": "1920,4500",
   "simplePlatforms": [
-    //{
-    //  "comment": "Sky Edge", // Top Edge
-    //  "position": "-6000, -1400",
-    //  "rotation": "0",
-    //  "platformSize": "200000, 400"
-    //},
+
     {
-      "comment": "1",
-      "position": "-1300, -1200",
+      "comment": "First platform - Middle edge ",
+      "position": "-5000, 355",
       "rotation": "0",
-      "platformSize": "300, 3700"
+      "platformSize": "10000,220"
     },
 
     {
-      "comment": "1",
-      "position": "19000, -1200",
+      "comment": "First platform - Middle edge ",
+      "position": "-5000, -1000",
       "rotation": "0",
-      "platformSize": "300, 3700"
-    },
-    {
-      "comment": "2",
-      "position": "-995, 600", // Middle gap between Top and Bottom backgrounds
-      "rotation": "0",
-      "platformSize": "1900, 420"
+      "platformSize": "200, 2000"
     },
 
     {
-      "comment": "3",
-      "position": "-995, 100",
+      "comment": "First platform - Middle edge ",
+      "position": "4780, -1000",
       "rotation": "0",
-      "platformSize": "1700, 200"
-    },
-
-    {
-      "comment": "4",
-      "position": "1000, -500",
-      "rotation": "0",
-      "platformSize": "200, 1600"
-    },
-
-    {
-      "comment": "5",
-      "position": "-600, -400",
-      "rotation": "0",
-      "platformSize": "1400, 200"
-    },
-
-    //{
-    //  "comment": "6",
-    //  "position": "-600, -1200",
-    //  "rotation": "0",
-    //  "platformSize": "200, 600"
-    //},
-
-    {
-      "comment": "7",
-      "position": "1500, 600",
-      "rotation": "0",
-      "platformSize": "700, 420"
-    },
-
-    {
-      "comment": "8",
-      "position": "2400, 600",
-      "rotation": "0",
-      "platformSize": "700, 420"
-    },
-
-    {
-      "comment": "9",
-      "position": "3095, 200",
-      "rotation": "0",
-      "platformSize": "900, 620"
-    },
-
-    {
-      "comment": "10",
-      "position": "2100, -1200",
-      "rotation": "0",
-      "platformSize": "400, 1500"
-    },
-
-    {
-      "comment": "11",
-      "position": "3100, -600",
-      "rotation": "0",
-      "platformSize": "700, 200"
-    },
-
-    {
-      "comment": "12",
-      "position": "3795, -600",
-      "rotation": "0",
-      "platformSize": "200, 810"
-    },
-
-    {
-      "comment": "20",
-      "position": "5000, -1200",
-      "rotation": "0",
-      "platformSize": "400, 1500"
-    },
-
-    {
-      "comment": "21",
-      "position": "4200, 600",
-      "rotation": "0",
-      "platformSize": "2000, 420"
-    },
-
-    {
-      "comment": "22",
-      "position": "6400, 550",
-      "rotation": "0",
-      "platformSize": "500, 570"
-    },
-
-    {
-      "comment": "23",
-      "position": "7000, 0",
-      "rotation": "0",
-      "platformSize": "500, 300"
-    },
-
-    {
-      "comment": "24",
-      "position": "7700, -800",
-      "rotation": "0",
-      "platformSize": "300, 1200"
-    },
-
-    {
-      "comment": "25",
-      "position": "6400, -300",
-      "rotation": "0",
-      "platformSize": "300, 100"
-    },
-
-    {
-      "comment": "26",
-      "position": "5600, -300",
-      "rotation": "0",
-      "platformSize": "300, 100"
-    },
-
-    {
-      "comment": "26",
-      "position": "6000, -800",
-      "rotation": "0",
-      "platformSize": "1500, 100"
-    },
-
-    {
-      "comment": "27",
-      "position": "9900, -800",
-      "rotation": "0",
-      "platformSize": "400, 1200"
-    },
-
-    {
-      "comment": "28",
-      "position": "11200, -1200",
-      "rotation": "0",
-      "platformSize": "1000, 900"
-    },
-
-    {
-      "comment": "29",
-      "position": "11200, 0",
-      "rotation": "0",
-      "platformSize": "1000, 900"
-    },
-
-    {
-      "comment": "30",
-      "position": "12210, 300",
-      "rotation": "0",
-      "platformSize": "700, 970"
-    },
-    {
-      "comment": "31",
-      "position": "12900, 200",
-      "rotation": "0",
-      "platformSize": "300, 900"
-    },
-
-    {
-      "comment": "32",
-      "position": "13500, -0",
-      "rotation": "0",
-      "platformSize": "600, 200"
-    },
-
-    {
-      "comment": "33",
-      "position": "14300, -350",
-      "rotation": "0",
-      "platformSize": "100, 300"
-    },
-    {
-      "comment": "34",
-      "position": "13900, -600",
-      "rotation": "0",
-      "platformSize": "100, 300"
-    },
-
-    {
-      "comment": "35",
-      "position": "14300, -750",
-      "rotation": "0",
-      "platformSize": "100, 300"
-    },
-
-    {
-      "comment": "36",
-      "position": "14700, -450",
-      "rotation": "0",
-      "platformSize": "400, 200"
-    },
-
-    {
-      "comment": "37",
-      "position": "15600, -450",
-      "rotation": "0",
-      "platformSize": "400, 200"
-    },
-
-    {
-      "comment": "38",
-      "position": "15600, -450",
-      "rotation": "0",
-      "platformSize": "400, 200"
-    },
-
-    {
-      "comment": "39",
-      "position": "16300, -1200",
-      "rotation": "0",
-      "platformSize": "4000, 350"
-    },
-
-    {
-      "comment": "40",
-      "position": "16700, -350",
-      "rotation": "0",
-      "platformSize": "4000, 1400"
-    },
-
-
-
-
-
-
-
-
-
-    //{
-    //  "comment": "26",
-    //  "position": "8100, 600",
-    //  "rotation": "0",
-    //  "platformSize": "6000, 100"
-    //},
-
-
-
-
-
-
-    {
-      "comment": "bottom edge platform", //Bottom Edge platform HELL
-      "position": "-10000, 2250",
-      "rotation": "0",
-      "platformSize": "20000, 400"
+      "platformSize": "200, 2000"
     }
+
+
+    //{
+    //  "comment": "3 platform",
+    //  "position": "0, 1880",
+    //  "rotation": "0",
+    //  "platformSize": "19000, 400"
+    //}
+
 
   ],
   "comment02": "platform that change their position slightly after death if risk level is high",
   "moveablPlatforms": [
 
-    //{
-    //    "position": "0, -300",
-    //    "rotation": "0",
-    //    "platformSize": "100,100",
-    //    "maxShift": "50,50"
-    //}
+
 
   ],
   "comment03": "platform that can be fall, the time before falling reduced if risk level increased",
   "fallingPlatforms": [
 
 
-    {
-      "comment": "1",
-      "position": "2750, 200",
-      "rotation": "0",
-      "platformSize": "100, 100",
-      "TimeToFall": "2"
-    },
-
-    {
-      "comment": "2",
-      "position": "2750, -200",
-      "rotation": "0",
-      "platformSize": "100, 100",
-      "TimeToFall": "3"
-    },
-
-    {
-      "comment": "3",
-      "position": "2750, -600",
-      "rotation": "0",
-      "platformSize": "100, 100",
-      "TimeToFall": "3"
-    },
-
-    {
-      "comment": "4",
-      "position": "6600, 200",
-      "rotation": "0",
-      "platformSize": "100, 100",
-      "TimeToFall": "3"
-    },
-
-    {
-      "comment": "5",
-      "position": "7090, -300",
-      "rotation": "0",
-      "platformSize": "100, 100",
-      "TimeToFall": "3"
-    },
-
-    {
-      "comment": "6",
-      "position": "6100, -300",
-      "rotation": "0",
-      "platformSize": "100, 100",
-      "TimeToFall": "3"
-    },
-
-    {
-      "comment": "7",
-      "position": "5700, -600",
-      "rotation": "0",
-      "platformSize": "100, 100",
-      "TimeToFall": "3"
-    },
-
-    {
-      "comment": "8",
-      "position": "7520, -750",
-      "rotation": "0",
-      "platformSize": "150, 100",
-      "TimeToFall": "3"
-    },
-
-    {
-      "comment": "9",
-      "position": "8300, 400",
-      "rotation": "0",
-      "platformSize": "600, 100",
-      "TimeToFall": "5"
-    },
-
-    {
-      "comment": "10",
-      "position": "9100, 400",
-      "rotation": "0",
-      "platformSize": "600, 100",
-      "TimeToFall": "5"
-    },
-
-    {
-      "comment": "11",
-      "position": "9550, -300",
-      "rotation": "0",
-      "platformSize": "100, 300",
-      "TimeToFall": "5"
-    },
-
-    {
-      "comment": "12",
-      "position": "9550, -750",
-      "rotation": "0",
-      "platformSize": "100, 300",
-      "TimeToFall": "5"
-    },
-
-    {
-      "comment": "12",
-      "position": "10450, 0",
-      "rotation": "0",
-      "platformSize": "200, 100",
-      "TimeToFall": "5"
-    },
-
-    {
-      "comment": "13",
-      "position": "10850, 0",
-      "rotation": "0",
-      "platformSize": "200, 100",
-      "TimeToFall": "5"
-    },
-
-    {
-      "comment": "14",
-      "position": "13000, -100",
-      "rotation": "0",
-      "platformSize": "100, 100",
-      "TimeToFall": "5"
-    },
-
-    {
-      "comment": "15",
-      "position": "15300, -450",
-      "rotation": "0",
-      "platformSize": "100, 100",
-      "TimeToFall": "5"
-    },
-
-    {
-      "comment": "16",
-      "position": "16300, -775",
-      "rotation": "0",
-      "platformSize": "100, 500",
-      "TimeToFall": "5"
-    },
-
-    {
-      "comment": "17",
-      "position": "16100, 0",
-      "rotation": "0",
-      "platformSize": "500, 100",
-      "TimeToFall": "5"
-    }
-
-
-    //{
-    //  "comment": "10",
-    //  "position": "8100, 600",
-    //  "rotation": "0",
-    //  "platformSize": "6000, 100",
-    //  "TimeToFall": "5"
-    //}
-
-    //{
-    //  "Position": "800,-600",
-    //  "Rotation": "0",
-    //  "PlatformSize": "200,200",
-    //  "TimeToFall": "1"
-    //}
 
   ],
-
+  "comment04": "dangerous place in any case (pites, water, thorns)",
+  "dangerPlaces": [],
 
 
   "comment05": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "decors": [
 
-    //{
-    //  "Position": "0,40",
-    //  "Rotation": "0.5",
-    //  "GrassType": "Flower"
-    //},
-    //{
-    //  "Position": "200,40",
-    //  "Rotation": "0",
-    //  "GrassType": "Grass4"
-    //},
-    //{
-    //  "Position": "100,40",
-    //  "Rotation": "0",
-    //  "GrassType": "Grass2"
-    //},
-    //{
-    //  "Position": "-140,80",
-    //  "Rotation": "0",
-    //  "GrassType": "Flower"
-    //},
-    //{
-    //  "position": "-50, -300",
-    //  "rotation": "-0.5",
-    //  "GrassType": "Grass3"
-    //},
-    //{
-    //  "position": "-50, -320",
-    //  "rotation": "0.5",
-    //  "GrassType": "Grass2"
-    //}
 
   ],
 
-  "comment05.0": "Patches when going to cave",
+  "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "patchDecors": [
 
 
-    //{
-    //  "Position": "250, 400",
-    //  "PatchType": "Sprites/Patch"
-    //},
-    //{
-    //  "Position": "-800, 400",
-    //  "PatchType": "Sprites/Patch"
-    //}
-
   ],
-
-
 
   "comment06": "Obstacles that can be reduced with risk level (or opposite - added). There are two types - Brown and Green slimes",
   "obstaclesData1": [
 
-
-    {
-      "Position": "11850, 150",
-      "Rotation": "0",
-      "slimeType": "Green",
-      "finPosition": "13050,140",
-      "Speed": "2",
-      "Size": "200,200"
-    },
-    {
-      "Position": "13500, -150",
-      "Rotation": "0",
-      "slimeType": "Green",
-      "finPosition": "13900,-140",
-      "Speed": "2",
-      "Size": "200,200"
-    },
-    {
-      "Position": "14790, -525",
-      "Rotation": "0",
-      "slimeType": "Brown",
-      "finPosition": "14810, -1000",
-      "Speed": "2",
-      "Size": "200,200"
-    },
-    {
-      "Position": "15255, -1000",
-      "Rotation": "0",
-      "slimeType": "Brown",
-      "finPosition": "15275, -525",
-      "Speed": "2",
-      "Size": "200,200"
-    },
-    {
-      "Position": "15690, -525",
-      "Rotation": "0",
-      "slimeType": "Brown",
-      "finPosition": "15710, -1000",
-      "Speed": "2",
-      "Size": "200,200"
-    }
   ],
   "obstaclesData2": [
 
-    //{
-    //  "Position": "-300,100",
-    //  "Rotation": "0",
-    //  "slimeType": "Brown",
-    //  "finPosition": "-600,-200",
-    //  "Speed": "5",
-    //  "Size": "200,200"
-    //}
+
 
   ],
-
   "obstaclesData3": [],
   "comment07": "Thorns - danger polaces",
   "thorns": [
 
-    {
-      "comment": "1",
-      "Position": "900, 630",
-      "Rotation": "0",
-      "ThornsSize": "100,200"
-    },
 
-    {
-      "comment": "2",
-      "Position": "775,-370",
-      "Rotation": "0",
-      "ThornsSize": "200,100"
-    },
 
-    {
-      "comment": "3",
-      "Position": "1150, 640",
-      "Rotation": "0",
-      "ThornsSize": "400,200"
-    },
-
-    {
-      "comment": "4",
-      "Position": "2175, 645",
-      "Rotation": "0",
-      "ThornsSize": "200,200"
-    },
-
-    {
-      "comment": "5",
-      "Position": "3970, 645",
-      "Rotation": "0",
-      "ThornsSize": "200,200"
-    },
-
-    {
-      "comment": "6",
-      "Position": "6170, 640",
-      "Rotation": "0",
-      "ThornsSize": "400,200"
-    },
-
-    {
-      "comment": "7",
-      "Position": "6900, 570",
-      "Rotation": "0",
-      "ThornsSize": "1000,200"
-    },
-
-    {
-      "comment": "8",
-      "Position": "7500, 500",
-      "Rotation": "0",
-      "ThornsSize": "2000,200"
-    },
-
-    {
-      "comment": "9",
-      "Position": "9500, 500",
-      "Rotation": "0",
-      "ThornsSize": "800,200"
-    },
-
-    {
-      "comment": "10",
-      "Position": "10250, 150",
-      "Rotation": "0",
-      "ThornsSize": "1000,600"
-    },
-
-    {
-      "comment": "11",
-      "Position": "13200, 250",
-      "Rotation": "0",
-      "ThornsSize": "10000,600"
-    }
   ],
-
 
   "comment 07 ": "Data about cutscenes",
   "cutSceneDialogues": [
+    //"\\n",
+    {
+      "Text": "Where's Jake?",
+      "Position": "150, 200"
+    },
+    {
+      "Text": "He was just here.",
+      "Position": "0, 200"
+    },
+
+
+
+    {
+      "Text": "Ye ken how he is...",
+      "Position": "300, 180"
+    },
+    {
+      "Text": "always legging it.",
+      "Position": "300, 180"
+    },
+    {
+      "Text": "Probably went ahead without us.",
+      "Position": "300, 180"
+    },
+
+    {
+      "Text": "I hope he's awright.",
+      "Position": "450, 160"
+    },
+    {
+      "Text": "Ye know how he gets wi'... stuff.",
+      "Position": "450, 160"
+    },
+    {
+      "Text": "We should catch up wi' him.",
+      "Position": "450, 160"
+    },
+
+
+
+    {
+      "Text": "Aye, let's keep moving.",
+      "Position": "150, 200"
+    },
+    {
+      "Text": "We'll find him.",
+      "Position": "0, 200"
+    }
 
 
   ],
 
-  "isCutScene": "false",
+
+  "isCutScene": "true",
   "cutSceneObjects": [
+    {
+      "Position": "300,240",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Pink"
+    },
+    {
+      "Position": "450,240",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Green"
+    },
 
-
     //{
-    //  "Position": "-100, 240",
-    //  "Rotation": 0.0,
-    //  "Scale": 1.0,
-    //  "NPCType": "Pink"
-    //}
-    //,
-    //{
-    //  "Position": "400,-20",
-    //  "Rotation": 0.0,
-    //  "Scale": 1.0,
-    //  "NPCType": "Green"
-    //},
-    //{
-    //  "Position": "500,-20",
+    //  "Position": "600,240",
     //  "Rotation": 0.0,
     //  "Scale": 1.0,
     //  "NPCType": "Blue"
     //}
-  ],
-
-
-  "levelTrigger": {
-    "startPosition": "-200, 400",
-    "endPosition": "17900, -500",
-    "SpriteEffect": "1"
-  },
-
-  "comment 06 ": "Data about level dialogue",
-  "LevelDialogueData": [
-
-
-
-    {
-      "Text": "Hi little one!",
-      "Position": "-230, 420"
-    },
-    {
-      "Text": "I saw your friends running ahead!",
-      "Position": "-230, 420"
-    },
-    {
-      "Text": "Would you like to get spiced?",
-      "Position": "-230, 420"
-    },
-    {
-      "Text": "It will help you to catch up with them faster",
-      "Position": "-230, 420"
-    },
-    {
-      "Text": "And it will make your journey more...",
-      "Position": "-230, 420"
-    },
-    {
-      "Text": "Interesting!",
-      "Position": "-230, 420"
-    },
-    {
-      "Text": "HAHAHA",
-      "Position": "-230, 420"
-    },
-    {
-      "Text": "Should I accept this non suspictions offer?",
-      "Position": "-450, 520"
-    }
-
-  ],
-
-
-  "parallaxLayerPositions": {
-
-    "background_Fore": { "initialPosition": "-200, -205" },
-    "background_Fore_Mid": { "initialPosition": "-200, -425" },
-    "background_Mid": { "initialPosition": "-200, -600" },
-    "background_Mid_Back": { "initialPosition": "-200, -800" },
-    "background_Back": { "initialPosition": "-200, -1200" },
-
-    "underground_Back": { "initialPosition": "-200, 1100" },
-    "underground_Mid": { "initialPosition": "-200, 1200" },
-    "underground_Fore": { "initialPosition": "-200,1300" }
-
-  }
-
-
-
-
+  ]
 }

@@ -1,7 +1,7 @@
 {
   //"characterPosition": "-650, 530",
 
-  "characterPosition": "-750, 530",
+  "characterPosition": "-1450, 530",
 
 
   "checkPoints": [
@@ -23,7 +23,7 @@
 
     {
       "comment": "1",
-      "position": "-1800, -1020",
+      "position": "-1800, -1050",
       "rotation": "0",
       "platformSize": "300, 1650"
     },
@@ -91,7 +91,7 @@
       "comment": "5",
       "position": "-50, 1430",
       "rotation": "0",
-      "platformSize": "1450, 100"
+      "platformSize": "1400, 100"
     },
 
     {
@@ -104,7 +104,13 @@
       "comment": "4",
       "position": "1900, 1150",
       "rotation": "0",
-      "platformSize": "1200, 280"
+      "platformSize": "2200, 280"
+    },
+    {
+      "comment": "4",
+      "position": "4050, -1150",
+      "rotation": "0",
+      "platformSize": "200, 2550"
     }
 
 
@@ -147,7 +153,13 @@
       "platformSize": "100, 100",
       "TimeToFall": "2"
     },
-
+    {
+      "comment": "1",
+      "position": "-100, 900",
+      "rotation": "0",
+      "platformSize": "100, 100",
+      "TimeToFall": "2"
+    },
 
     {
       "comment": "2",
@@ -172,6 +184,8 @@
       "platformSize": "100, 100",
       "TimeToFall": "2"
     }
+
+
 
 
 
@@ -209,10 +223,10 @@
       "Size": "200,200"
     },
     {
-      "Position": "1200, 1145",
+      "Position": "1200, 1165",
       "Rotation": "0",
       "slimeType": "Brown",
-      "finPosition": "1890, 1155",
+      "finPosition": "1890, 1175",
       "Speed": "2",
       "Size": "200,200"
 
@@ -279,8 +293,8 @@
 
 
   "levelTrigger": {
-    "startPosition": "-500, 400",
-    "endPosition": "17900, -600",
+    "startPosition": "-600, 400",
+    "endPosition": "3000, 800",
     "SpriteEffect": "1"
   },
 
@@ -291,35 +305,35 @@
 
     {
       "Text": "Hey there, kid.",
-      "Position": "-230, 420"
+      "Position": "-530, 420"
     },
     {
       "Text": "Heading into the forest, huh? ",
-      "Position": "-230, 420"
+      "Position": "-530, 420"
     },
     {
       "Text": "I just saw your blue friend.",
-      "Position": "-230, 420"
+      "Position": "-530, 420"
     },
     {
       "Text": "He took something special from me",
-      "Position": "-230, 420"
+      "Position": "-530, 420"
     },
     {
       "Text": "What about you?",
-      "Position": "-230, 420"
+      "Position": "-530, 420"
     },
     {
       "Text": "Want to make this journey a bit more...",
-      "Position": "-230, 420"
+      "Position": "-530, 420"
     },
     {
       "Text": "Interesting?",
-      "Position": "-230, 420"
+      "Position": "-530, 420"
     },
     {
       "Text": "Should I accept this offer?",
-      "Position": "-450, 520"
+      "Position": "-800, 520"
     }
 
   ],

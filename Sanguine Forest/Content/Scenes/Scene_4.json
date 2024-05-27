@@ -29,6 +29,7 @@
     }
 
 
+
     //{
     //  "comment": "3 platform",
     //  "position": "0, 1880",
@@ -47,7 +48,6 @@
   "fallingPlatforms": [
 
 
-
   ],
   "comment04": "dangerous place in any case (pites, water, thorns)",
   "dangerPlaces": [],
@@ -61,7 +61,6 @@
 
   "comment05.0": "decor (allowed types: Flower , Grass1 , Grass2 , Grass3 , Grass4 ",
   "patchDecors": [
-
 
   ],
 
@@ -78,133 +77,95 @@
   "thorns": [
 
 
-
   ],
-
 
   "comment 07 ": "Data about cutscenes",
   "cutSceneDialogues": [
     //"\\n",
     {
-      "Text": "Jake! There ye are.",
-      "Position": "-50, 200"
-    },
-    {
-      "Text": "We've been looking for ye everywhere.",
+      "Text": "Did you guys see that weird guy",
       "Position": "-150, 200"
     },
     {
-      "Text": "Are ye awright?",
-      "Position": "-50, 200"
-    },
-
-
-    {
-      "Text": "Alex... I'm... I'm fine.",
-      "Position": "300, 160"
+      "Text": "offering stuff?",
+      "Position": "20, 200"
     },
     {
-      "Text": "Just... had a bit too much",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "of whatever that guy gave me.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "Ended up spewing after jumping off",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "the second platform.",
-      "Position": "300, 160"
-    },
-
-    {
-      "Text": "Jake, ye cannae keep doing this tae yourself.",
-      "Position": "-250, 200"
-    },
-    {
-      "Text": " Ye're seeing life through a dirty lens",
-      "Position": "-250, 200"
-    },
-    {
-      "Text": "when ye're always avoiding reality",
+      "Text": "He said Jake took something from him.",
       "Position": "-150, 200"
     },
-    {
-      "Text": "with booze and drugs.",
-      "Position": "-50, 200"
-    },
-
-
 
     {
-      "Text": "I know, I know. It's just...",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "it's hard tae stop.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "But after today, I see how much I've missed out on.",
-      "Position": "300, 160"
-    },
-    {
-      "Text": "I need tae change",
+      "Text": "Yeah, I saw him too.",
       "Position": "300, 160"
     },
 
+    {
+      "Text": "Jake always gets into this kind of trouble. ",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "It's like he can't enjoy the moment ",
+      "Position": "300, 160"
+    },
+    {
+      "Text": "without going overboard.",
+      "Position": "300, 160"
+    },
 
     {
-      "Text": "We're here for ye, Jake.",
-      "Position": "50, 200"
+      "Text": "I worry about him.",
+      "Position": "450, 180"
     },
     {
-      "Text": " Let's get through this together.",
-      "Position": "50, 200"
+      "Text": "He misses out on the good parts",
+      "Position": "450, 180"
+    },
+    {
+      "Text": "because he's always chasing a high.",
+      "Position": "450, 180"
     },
 
     {
-      "Text": "Aye, ye're right.",
-      "Position": "300, 160"
+      "Text": "We need to find him",
+      "Position": "20, 200"
     },
     {
-      "Text": "I needed to hear that.",
-      "Position": "300, 160"
+      "Text": "and make sure he's alright.",
+      "Position": "-200, 200"
     },
     {
-      "Text": "Thanks, Alex.",
-      "Position": "300, 160"
+      "Text": "Let's go.",
+      "Position": "20, 200"
     }
-
+    
 
   ],
 
   "isCutScene": "true",
   "cutSceneObjects": [
 
-    //{
-    //  "Position": "300,240",
-    //  "Rotation": 0.0,
-    //  "Scale": 1.0,
-    //  "NPCType": "Pink"
-    //}
-
-    //,
-    //{
-    //  "Position": "400,-240",
-    //  "Rotation": 0.0,
-    //  "Scale": 1.0,
-    //  "NPCType": "Green"
-    //},
-
     {
       "Position": "300,240",
       "Rotation": 0.0,
       "Scale": 1.0,
-      "NPCType": "Blue"
+      "NPCType": "Pink"
     }
+    ,
+
+    {
+      "Position": "450,240",
+      "Rotation": 0.0,
+      "Scale": 1.0,
+      "NPCType": "Green"
+    }
+
+    //{
+    //  "Position": "500,-240",
+    //  "Rotation": 0.0,
+    //  "Scale": 1.0,
+    //  "NPCType": "Blue"
+    //}
+
   ]
 }

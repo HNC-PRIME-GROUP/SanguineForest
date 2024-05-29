@@ -132,6 +132,7 @@ namespace Sanguine_Forest
                     if (EndTimer <= 0)
                     {
                         bossParticles.Stop();
+                        currentState = TriggerState.phase1;
                         LevelEnd?.Invoke(this, EventArgs.Empty);
                         return;
                     }

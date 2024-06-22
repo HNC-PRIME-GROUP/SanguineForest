@@ -23,8 +23,42 @@
     <None Remove="Content\bin\Windows\Sounds\Dialogue_1.xnb" />
     <None Remove="Content\Fonts\Trajan Pro Regular.spritefont" />
     <None Remove="Content\obj\Windows\Sounds\Dialogue_1.mgcontent" />
+    <None Remove="Content\Scenes\SceneStart.json" />
+    <None Remove="Content\Scenes\Scene_0.json" />
+    <None Remove="Content\Scenes\Scene_1.json" />
+    <None Remove="Content\Scenes\Scene_2.json" />
+    <None Remove="Content\Scenes\Scene_3.json" />
+    <None Remove="Content\Scenes\Scene_4.json" />
+    <None Remove="Content\Scenes\Scene_5.json" />
+    <None Remove="Content\Scenes\Scene_6.json" />
     <None Remove="Content\Sounds\Char_Run.wav" />
     <None Remove="Content\Sounds\Dialogue_1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Scenes\SceneStart.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Scenes\Scene_0.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Scenes\Scene_1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Scenes\Scene_2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Scenes\Scene_3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Scenes\Scene_4.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Scenes\Scene_5.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Scenes\Scene_6.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />

@@ -64,8 +64,6 @@ namespace Sanguine_Forest
 
         protected override void Initialize()
         {
-            //FileLoader.RootFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Content"));
-
             FileLoader.RootFolder = Path.Combine(baseDirectory, "Content");
             base.Initialize();
         }
